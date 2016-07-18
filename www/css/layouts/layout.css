@@ -1,0 +1,40 @@
+.layoutCustom {
+    width: 500px;
+    height: 450px;
+
+    background-color:#E4E4E4;
+    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+}
+
+.layout-header {    
+    width: 450px;
+    height: 80px;
+    // margin: 15px;
+    padding: 25px;
+
+    background-color:#E4E4E4;
+    background-image:-webkit-linear-gradient(top, #cbe3ea  0%, #E4E4E4 51%);
+}
+
+.layout-body-left {    
+    width: 65%;
+    height: 300px;
+    margin: 5px;
+    padding: 5px;
+
+    background-color:#E4E4E4;
+    background-image:-webkit-linear-gradient(top, #cbe3ea  0%, #bba1a1 51%);
+    float:left;
+}
+
+.layout-body-right {    
+    width: 25%;
+    height: 300px;
+    margin: 5px;
+    padding: 5px;
+    float:left;
+    background-color:#E4E4E4;
+    background-image:-webkit-linear-gradient(top, #cbe3ea  0%, #E4E4E4 51%);
+}
+
+

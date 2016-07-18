@@ -1,0 +1,76 @@
+.work-section {
+
+}
+
+.work-section .section-header {
+    width: 20%;
+    float:left;
+    margin-top: 100px;
+    overflow: auto;
+    height:500px;
+}
+
+.work-section .tabs-nav {
+    vertical-align: middle;
+    width: 20 px;
+
+}
+.work-section .section-body .tabs-panel {
+    margin-top: 100px;
+    height: 100%;
+    width: 100%;
+    float:left;
+}
+
+.work-section .tabs-nav li {
+    vertical-align: middle;
+text-align: center;
+    // float: left;
+    // border-right: 1px solid rgb(218, 218, 218);
+    // position: relative;
+    // -webkit-box-shadow: 1px 0 rgb(255, 255, 255);
+    //         box-shadow: 1px 0 rgb(255, 255, 255);
+}
+
+
+.work-section .tabs-nav a {
+    // display:table-cell;
+    display: block;
+    // padding: 0.5 0.5em;
+    position: relative;
+    color: black;
+    margin: 6px;
+    height: 32px;
+    width: 100%;
+
+}
+
+
+.work-section .tabs-nav a.link {
+    color: rgb(0, 255, 0);
+}
+
+.work-section .tabs-nav a.hover,
+.work-section .tabs-nav a.active {
+    background-color: rgb(188, 217, 226);
+    color: rgb(255, 255, 255);
+}
+// .work-section .tabs-nav a.active:after {
+//     background-color: rgb(124, 153, 208);
+//     content: "";
+//     position: absolute;
+//     top:100%;
+//     left: 20%;
+//     width: 90%;
+//     height: 19%;
+//     margin-left: -1em;
+//     backgroud: url(../images/icons-png/alert-black.png) no-repeat 0 0;
+// }
+
+.work-section .section-body {
+    height: 35em;
+    width: 70%;
+    position: relative;
+    float:right;
+}
+

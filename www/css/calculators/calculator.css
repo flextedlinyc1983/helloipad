@@ -1,0 +1,21 @@
+#calculator {
+
+}
+
+.calculatorCustom {
+    width:280px; 
+    margin:auto;  
+}
+
+#calculator input {
+    margin: 5px;
+
+
+}
+
+.ans-calc {
+    width:98%; 
+    height:55px;
+    font-size: 2em;
+}
+

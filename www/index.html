@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+        <!-- <link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" /> -->
+        <link rel="stylesheet" href="css/jquery.mobile.min.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+
+        <link rel="stylesheet" type="text/css" href="css/tabs/tab.css">
+
+        <link rel="stylesheet" type="text/css" href="css/btns/circleBtn.css">
+
+        <link rel="stylesheet" type="text/css" href="css/layouts/layout.css">
+        
+        <link rel="stylesheet" type="text/css" href="css/calculators/calculator.css">
+
+        <link rel="stylesheet" type="text/css" href="css/layouts/homeLayout.css">
+
+
+        <title>Hello World</title>
+
+
+        <script type="text/template" id="firstPage">
+            <div id="first">
+              <div data-role="header" data-position="fixed">
+                <h1>First Page</h1>
+                <a href="/" data-icon="home">Home</a>
+              </div>
+            <div data-role="main" class="ui-content">
+                <ul data-role="listview" data-inset="true">
+                    <li><a href="#second">Got to second page</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+
+              <div data-role="footer" data-position="fixed">
+                <h1>A template project</h1>
+              </div>
+            </div>
+        </script>
+
+<script type="text/template" id="calculator-template">
+<div style="" class="calculatorCustom">
+    <form action="" id="calculator">
+
+
+        
+            <input type="hidden" id="operation" value=""/>
+        
+            
+            <input type="button" value="7" id="7" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="8" id="8" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="9" id="9" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="+" id="plus" style="width:50px; height:50px; float:left;"/>
+
+            <br>
+            <input type="button" value="4" id="4" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="5" id="5" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="6" id="6" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="-" id="subtract" style="width:50px; height:50px; float:left;"/>
+            <br>
+            <input type="button" value="1" id="1" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="2" id="2" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="3" id="3" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="*" id="product" style="width:50px; height:50px; float:left;"/>
+            <br>
+            <input type="button" value="0" id="0" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="C" id="C" style="width:50px; height:50px; float:left; color:red;"/>
+            <input type="button" value="=" id="equals" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="/" id="divide" style="width:50px; height:50px; float:left;"/>
+            <br>
+            <input type="button" value="." id="dot" style="width:50px; height:50px; float:left;"/>
+            <input type="button" value="back" id="backspace" style="width:50px; height:50px; float:left;"/>
+    </form>
+<div style="clear:both;"></div>
+</script>
+
+        <script id="user-template" type="text/template">
+
+
+            <div id="first">
+              <div data-role="header" data-position="fixed">
+                <h1>User Page</h1>
+                <a href="/" data-icon="home">Home</a>
+              </div>
+            <div data-role="main" class="ui-content">
+                 <div>
+                    <b><%= Id %></b>
+                    <u><%= Name %></u>
+                </div>
+            </div>
+
+            <div data-role="footer" data-position="fixed">
+                <h1>A template project</h1>
+              </div>
+            </div>
+        </script>
+
+
+        <script type="text/template" id="todo-template">
+            <li>
+                <%= item.name %>
+                <%= item.description %>
+                <%= item.priority %>
+            </li>
+        </script>
+
+        <script type="text/template" id="list-menu-item">
+            <a href="#" class="list-title" data-list-id="<%= id %>"><%= title %></a> 
+        </script>
+
+        <script type="text/template" id="circle-btn-item">
+            <span>
+                <img src="<%= img_1 %>"><br> 
+                <!-- <img src="<%= img_2 %>"> -->
+                <%= name %>
+            </span>
+        </script>
+
+        <script type="text/template" id="tab-item">
+            <a class="" href="#<%= href %>" data-list-id=""><%= title %></a> 
+        </script>
+
+
+        <script type="text/template" id="tab-template">
+            <header class="section-header"></header>
+            <div class="section-body" ></div>
+        </script>
+
+
+        <script type="text/template" id="layout-template">            
+            <div class="layout-header"></div>
+            <div class="layout-body">
+                <div class="layout-body-left"></div>
+                <div class="layout-body-right"></div>
+            </div>
+        </script>
+
+        <script type="text/template" id="homeLayout-template">            
+            <div class="home-header"></div>
+            <div class="home-body">
+                <div class="home-body-left"></div>
+                <dir class="home-body-right"></dir>
+<!--                 <ul>
+                  <li><a href="#">London</a></li>
+                  <li><a href="#">Paris</a></li>
+                  <li><a href="#">Tokyo</a></li>
+                </ul> -->
+            </div>
+        </script>
+
+        <!-- <script type="text/javascript" src="cordova.js"></script> -->
+
+<!--         <script src="https://code.jquery.com/jquery-1.12.4.js"   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="   crossorigin="anonymous"></script> -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>     
+        <script type="text/javascript" src="js/index.js"></script>   
+        <script type="text/javascript" src="js/jqmConfig.js"></script>   
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+        
+        <!-- <script type="text/javascript" src="js/lodash.min.js"></script> -->
+        <script type="text/javascript" src="js/underscore.js"></script>
+        <script type="text/javascript" src="js/backbone.js"></script>
+
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script> -->
+        <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script> -->
+        <!-- <script type="text/javascript" src="js/backbone.js"></script> -->
+
+
+        <script type="text/javascript" src="js/appConfig.js"></script>
+        <script type="text/javascript" src="js/appModels.js"></script>
+        <script type="text/javascript" src="js/appCollections.js"></script>
+        <script type="text/javascript" src="js/appViews.js"></script>
+
+
+        <script type="text/javascript" src="js/views/lists/listMenuView.js"></script>
+        <script type="text/javascript" src="js/views/lists/listMenuItemView.js"></script>
+
+        <script type="text/javascript" src="js/views/lists/circleBtnMenuView.js"></script>
+        <script type="text/javascript" src="js/views/lists/circleBtnItemView.js"></script>
+
+        <script type="text/javascript" src="js/appRouter.js"></script>
+        <script type="text/javascript" src="js/tab.js"></script>
+
+
+
+
+
+
+
+
+    </head>
+    <body>
+        <div class="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+        
+        
+
+
+
+    </body>
+</html>
