@@ -1,0 +1,70 @@
+.customGrid {
+    // color: #337ab7;
+    overflow: scroll;
+    float: right;
+}
+
+
+.backgrid tr.red {
+	background: red;
+}
+
+
+
+
+
+// .my-awesome-css-animated-grid tbody {
+//     height: 100%;
+//     overflow: auto;
+// }
+    
+
+// .my-awesome-css-animated-grid thead {
+//     	overflow: hidden;
+//     height: 30px;
+//     position: absolute;
+//     margin-top: 0px;
+//     width: auto;
+// }
+
+
+// .my-awesome-css-animated-grid tbody {
+//     height: 100%;        Just for the demo          
+//     overflow-y: auto;    /* Trigger vertical scroll    */
+//     overflow-x: hidden;  /* Hide the horizontal scroll */
+// }
+
+
+// .my-awesome-css-animated-grid td, th {
+//   border-bottom:1px solid #eee;
+//   background: #ddd;
+//   color: #000;
+//   padding: 10px 25px;
+// }
+// .my-awesome-css-animated-grid th {
+//   height: 0;
+//   line-height: 0;
+//   padding-top: 0;
+//   padding-bottom: 0;
+//   color: transparent;
+//   border: none;
+//   white-space: nowrap;
+// }
+// .my-awesome-css-animated-grid th div{
+//   position: absolute;
+//   background: transparent;
+//   color: #fff;
+//   padding: 9px 25px;
+//   top: 0;
+//   margin-left: -25px;
+//   line-height: normal;
+//   border-left: 1px solid #800;
+// }
+// .my-awesome-css-animated-gridth:first-child div{
+//   border: none;
+// }
+
+.customGrid td {
+    // color: #337ab7;
+    padding: 5px 25px 5px 25px;
+}

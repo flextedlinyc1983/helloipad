@@ -4,6 +4,7 @@ ava.views.CircleBtnMenuView = Backbone.View.extend({
     className: 'inner circleBtn',
 
     events: {
+      
     },
 
     initialize: function() {

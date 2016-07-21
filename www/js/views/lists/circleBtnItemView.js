@@ -1,4 +1,6 @@
-ava.views.CircleBtnItemView = Backbone.View.extend({
+ava.views.CircleBtnItemView = ava.views.UtilityView.extend({
+
+// ava.views.CircleBtnItemView = Backbone.View.extend({
     tagName: 'button',
     className: '',
 
@@ -26,10 +28,25 @@ ava.views.CircleBtnItemView = Backbone.View.extend({
     },
 
     clickEvent: function () {
-      alert("yea");
+      
+
+      this.addItemInTodos();
+
+    },
+
+    addItemInTodos: function () {
+      // alert("yea");
 
 
-    }
+      todos.create({title: this.model.get("name"), priceFormat: this.numFormat(this.model.get("price")), price: this.model.get("price")});
+    },
+
+    // numFormat: function (number) {
+    //   return number.toFixed(2).replace(/./g, function(c, i, a) {
+    //       return i && c !== "." && ((a.length - i) % 3 === 0) ? ',' + c : c;
+    //   });
+    // }
+
 });
 
 

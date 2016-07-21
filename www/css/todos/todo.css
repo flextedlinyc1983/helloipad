@@ -1,0 +1,139 @@
+.todoapp {
+    float: right;
+    background: #fff;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding: 20px;
+    overflow: scroll;
+    max-height: 80%;
+    width: 50%;
+}
+
+
+.todoapp #main {
+    display: none;
+}
+
+
+.todoapp #todo-list {
+    margin: 10px 0;
+    padding: 0;
+    list-style: none;
+}
+
+.todoapp label {
+    display: inline-block;
+    font-size: 22px;
+}
+
+.todoapp #new-todo {
+    height: 30px;
+    width: 100%;
+}
+
+
+.todoapp #toggle-all {
+    // height: 20px;
+    // width: 10%;
+}
+
+
+.todoapp #todo-list li {
+    padding: 5px 5px 5px 0;
+    position: relative;
+    // font-size: 24px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.todoapp #todo-list li:last-child {
+    border-bottom: none;
+}
+
+.todoapp #todo-list li.done label {
+    color: #ce4685;
+    text-decoration: line-through;
+}
+
+
+.todoapp #todo-list li .edit {
+    display: none;
+}
+
+
+.todoapp footer {
+    display: none;
+    margin: 0 -20px -20px -20px;
+    overflow: hidden;
+    color: #555555;
+    background: #f4fce8;
+    border-top: 1px solid #ededed;
+    padding: 0 20px;
+    line-height: 37px;
+    // margin-top: 200px;
+    // margin-top: 100%;
+    font-size: 14px;
+
+}
+
+
+
+// .todoapp .footer-wrap {
+//     position: fixed;
+//     height: 200px;
+//     top: 0;
+//     width: 100%;
+//     z-index: 100;
+// }
+
+
+.todoapp .clear-completed {
+    float: right;
+    line-height: 20px;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.1);
+    color: #555555;
+    font-size: 11px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 0 10px 1px;
+    cursor: pointer;
+}
+
+.todoapp .todo-count {
+ display: inline-block;
+}
+
+
+
+.todoapp input[type="checkbox"]{
+  width: 18px; /*Desired width*/
+  height: 18px; /*Desired height*/
+
+}
+
+
+.home-header .clear-completed {
+    float: right;
+    line-height: 20px;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.1);
+    color: #555555;
+    // font-size: 11px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding: 0 10px 1px;
+    cursor: pointer;
+
+
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    background-color: #538fbe;
+    // padding: 0px 7px;
+    border: 1px solid #2d6898;
+    -webkit-box-shadow: 0px 6px 0px #2b638f;
+    -moz-box-shadow: 0px 6px 0px #2b638f;
+    box-shadow: 0px 6px 0px #2b638f;
+
+
+}

@@ -153,20 +153,29 @@ ava.views.InputView = Backbone.View.extend({
 
 
 ava.views.LayoutView = Backbone.View.extend({
+    el:"",
     tagName: 'div',
     className: '',
-
     template: _.template($("#layout-template").html()),
-
+    // template: _.template($(this.layoutTemplate).html()),
     events: {
       'click': 'clickEvent'
+    },
+
+    attributes : function () {
+        // Return model data
+        return {
+          id : this.model.tagId
+        };
     },
 
     initialize: function() {
       if(this.model.template){
         this.template =  _.template( $(this.model.template).html());  
+
       }
-      
+
+
       this.render();
       // this.model.on('change', this.render, this);
       // this.model.on('destroy', this.remove, this);

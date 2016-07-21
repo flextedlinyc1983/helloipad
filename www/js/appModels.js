@@ -46,5 +46,26 @@ ava.models.CircleBtnItem = ava.models.MenuItem.extend({
 
 
 
+ava.models.Territory = Backbone.Model.extend({});
 
 
+
+ava.models.Todo = ava.models.UtilityForModel.extend({
+// ava.models.Todo = Backbone.Model.extend({
+  	defaults: function() {
+      return {
+        title: "no title...",
+        // order: Todos.nextOrder(),
+        done: false,
+        price: 0,
+        priceFormat: "0.00",
+        test123:"",
+      };
+    },
+    toggle: function() {
+	  this.save({done: !this.get("done")});
+	},
+	setPriceFormat: function () {
+		this.save({priceFormat: this.numFormat(this.get("price"))});
+	}
+});

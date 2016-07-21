@@ -1,9 +1,12 @@
 .circleBtn {
 // display: block;
     // position: absolute;
-    width: 400px;
-    height: 400px;
+    // width: 400px;
+    width: 30%;
+    // height: 400px;
+    height: 100%;
     overflow: scroll;
+    float:left;
 
 }
 
@@ -36,6 +39,17 @@
 
 .circleBtn button img:nth-child(2) {
     opacity: 0;
+}
+
+
+
+.home-body-left .testRight {
+    top: 0%; 
+    right: 0%;
+    width: 30%;    
+    height: 100%;
+    margin-right: 0.5em;
+    position: absolute;
 }
 
 

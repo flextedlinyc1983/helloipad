@@ -24,9 +24,41 @@ ava.router = Backbone.Router.extend({
 
         this.clearPage();
 
-        this.getBasePage(new ava.views.LayoutView({model: {template: "#homeLayout-template"}, className: "home-container"}));
+        this.getBasePage(new ava.views.LayoutView({model: {template: "#homeLayout-template", layoutTemplate:"#homeLayout-template"}, className: "home-container"}));
         
-        
+        this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn}), ".home-body-left-top");
+        // this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn, className: "inner circleBtn testRight"}), ".home-body-left");
+
+
+        // this.putElement(gridTerritory.render(), ".home-body-left-down");
+        // this.addCustomClass(".home-body-left-down", "customGrid");
+        // territories.fetch({reset: true});
+        // this.addCustomClass(".home-body-left", "customGrid");
+
+// $.backgridFixedHeader({
+ //   grid: gridTerritory, //this is the grid variable
+ //   container: $('.home-body-left-down') //this is the container where you want to put backgrid
+ // });
+
+
+
+
+
+        // this.putElement(gridTerritoryTest.render(), ".home-body-right");
+        // territoriesTest.fetch({reset: true});
+        // this.addCustomClass(".home-body-right", "customGrid");
+
+
+
+
+
+
+        this.putElement(new ava.views.LayoutView({model: {template:"#todoapp-template", tagId:"todoapp"}, className: "todoapp"}),'.home-body-left-top');
+        var todoAppView = new ava.views.TodoAppView({collection: todos,el:$("#todoapp")});
+
+        //clock
+        this.putElement(new ava.views.LayoutView({model: {template:"#clock-template", tagId:"clock"}, className: "clock"}),'.home-header');
+
 
         this.getBasePage(new ava.views.TabView({className: "work-section", model: {id: "work"}}));
 
@@ -36,11 +68,27 @@ ava.router = Backbone.Router.extend({
 
         this.getSectionPage(new ava.views.CircleBtnMenuView({collection: circleBtn}),'#circleBtn');
 
-        this.getSectionPage(new ava.views.LayoutView({model: "", className: "layoutCustom"}),'#layout');
+        this.getSectionPage(new ava.views.LayoutView({model: {layoutTemplate:"#layout-template"}, className: "layoutCustom"}),'#layout');
+        // this.getSectionPage(new ava.views.LayoutView({model: "", className: "layoutCustom"}),'#layout');
 
         this.putElement(new ava.views.CalculatorView({}),'.layout-body-left');
         this.putElement(new ava.views.InputView ({className:"ans-calc", model: {id:"answer", type: "text", disabled: "disabled"}}),'.layout-header');
+
+
+
+
+
+        
+
+
     },
+
+
+    // getGridPage: function () {
+    //     this.putElement(todoGrid.render(), ".home-body-right");
+    //     todoGrid.fetch({reset: true});
+    //     this.addCustomClass(".home-body-right", "customGrid");
+    // },
 
     changePage: function (page) {
         $(page.el).attr('data-role', 'page');
@@ -71,6 +119,10 @@ ava.router = Backbone.Router.extend({
     putElement: function (page,className) {
         
         $(className).append(page.el);
+    },
+    addCustomClass: function (pos,className) {
+        // alert('addCustomClass');
+        $(document).find(pos).addClass(className);
     }
     
 });

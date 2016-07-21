@@ -29,7 +29,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -48,6 +48,11 @@
 
         <link rel="stylesheet" type="text/css" href="css/layouts/homeLayout.css">
 
+        <link rel="stylesheet" type="text/css" href="js/backgrid/lib/backgrid.css">
+        <link rel="stylesheet" type="text/css" href="css/grids/customGrid.css">
+        <link rel="stylesheet" type="text/css" href="js/backgrid/lib/backgrid.fixedheader.css">
+
+        <link rel="stylesheet" type="text/css" href="css/todos/todo.css">
 
         <title>Hello World</title>
 
@@ -160,7 +165,7 @@
         </script>
 
 
-        <script type="text/template" id="layout-template">            
+        <script type="text/template" id="layout-template">                 
             <div class="layout-header"></div>
             <div class="layout-body">
                 <div class="layout-body-left"></div>
@@ -168,10 +173,15 @@
             </div>
         </script>
 
-        <script type="text/template" id="homeLayout-template">            
-            <div class="home-header"></div>
+        <script type="text/template" id="homeLayout-template">      
+            <div class="fake">        
+                <div class="home-header">header</div>
+            </div> 
             <div class="home-body">
-                <div class="home-body-left"></div>
+                <div class="home-body-left">
+                    <div class="home-body-left-top"></div>
+                    <dir class="home-body-left-down"></dir>
+                </div>
                 <dir class="home-body-right"></dir>
 <!--                 <ul>
                   <li><a href="#">London</a></li>
@@ -181,6 +191,85 @@
             </div>
         </script>
 
+
+
+        <script type="text/template" id="stats-todo-template">
+
+            <div class="todo-totalPrice" style="float: right; margin: 0px 0px 0px 9px;">小計: $<b><%= totalPrice %></b></div>
+
+            <% if (done) { %>
+              <!-- <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a> -->
+              <a class="clear-completed">清除刪去 <%= done %> 項</a>
+            <% } %>
+            <!-- <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div> -->
+            <div class="todo-count"> <b> 買 <%= remaining %> 項</b> </div>
+        </script>
+
+
+        <script type="text/template" id="todo-item-template">
+            <div class="view">
+              <input class="toggle" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
+              <label><%- title %></label>
+              <label style="float:right"> $ <%- priceFormat %></label>
+              <a class="destroy"></a>
+            </div>
+            <input class="edit" type="text" value="<%- title %>" />
+        </script>
+
+
+        <script type="text/template" id="todoapp-template">
+
+            <header>
+              <!-- <h1>Todos</h1> -->
+              <h1>交易單</h1>
+              <!-- <input id="new-todo" type="text" placeholder="What needs to be done?"/> -->
+              <input id="new-todo" type="text" placeholder="手動輸入"/>
+            </header>
+
+            <section id="main" style="display: block;">
+              <input id="toggle-all" type="checkbox"/>
+              <!-- <label for="toggle-all">Mark all as complete</label>     -->
+              <label for="toggle-all" style="color:blue">全選</label>      
+              <ul id="todo-list"></ul>
+            </section>
+            
+            <div class="footer-wrap">   
+                <footer style="display: block;">
+                  <!-- <div class="todo-count"><b>2</b> items left</div> -->
+                  <div class="todo-count"><b>2</b> 交易筆數</div>
+                </footer>
+            </div>
+        </script>
+
+
+        <script type="text/template" id="clock-template">
+            <div class="display"> 
+                <div class="date"></div> 
+                <div class="digits"></div> 
+            </div> 
+        </script>
+
+<!-- 
+        <div id="todoapp">
+    <header>
+      <h1>Todos by Backbone.js</h1>
+      <input id="new-todo" type="text" placeholder="What needs to be done?"/>
+    </header>
+
+    <section id="main" style="display: block;">
+      <input id="toggle-all" type="checkbox"/>
+      <label for="toggle-all">Mark all as complete</label>      
+      <ul id="todo-list"></ul>
+    </section>
+    
+    <footer style="display: block;">
+      <div class="todo-count"><b>2</b> items left</div>
+    </footer>
+</div> -->
+
+
+
+
         <!-- <script type="text/javascript" src="cordova.js"></script> -->
 
 <!--         <script src="https://code.jquery.com/jquery-1.12.4.js"   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="   crossorigin="anonymous"></script> -->
@@ -188,10 +277,19 @@
         <script type="text/javascript" src="js/index.js"></script>   
         <script type="text/javascript" src="js/jqmConfig.js"></script>   
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+
+        <script type="text/javascript" src="js/moment.min.js"></script>
         
         <!-- <script type="text/javascript" src="js/lodash.min.js"></script> -->
         <script type="text/javascript" src="js/underscore.js"></script>
         <script type="text/javascript" src="js/backbone.js"></script>
+        <script type="text/javascript" src="js/backbone.localStorage.js"></script>
+
+        <script type="text/javascript" src="js/backgrid/lib/backgrid.js"></script>
+        <script type="text/javascript" src="js/backgrid/lib/backgrid.fixedheader.js"></script>
+        <!-- <script type="text/javascript" src="js/backgrid/lib/backgridCustomRow.js"></script> -->
+
+
 
         <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script> -->
         <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script> -->
@@ -199,9 +297,18 @@
 
 
         <script type="text/javascript" src="js/appConfig.js"></script>
+
+
+        <script type="text/javascript" src="js/UtilityForModel.js"></script>
         <script type="text/javascript" src="js/appModels.js"></script>
+
+
+        <script type="text/javascript" src="js/UtilityForCollection.js"></script>
         <script type="text/javascript" src="js/appCollections.js"></script>
         <script type="text/javascript" src="js/appViews.js"></script>
+
+        <script type="text/javascript" src="js/views/lists/UtilityView.js"></script>
+        <script type="text/javascript" src="js/views/lists/CollectionView.js"></script>
 
 
         <script type="text/javascript" src="js/views/lists/listMenuView.js"></script>
@@ -210,9 +317,19 @@
         <script type="text/javascript" src="js/views/lists/circleBtnMenuView.js"></script>
         <script type="text/javascript" src="js/views/lists/circleBtnItemView.js"></script>
 
+
+
+        <script type="text/javascript" src="js/grid.js"></script>
+
+
+
+
         <script type="text/javascript" src="js/appRouter.js"></script>
         <script type="text/javascript" src="js/tab.js"></script>
 
+        
+        <script type="text/javascript" src="js/views/lists/TodoView.js"></script>
+        <script type="text/javascript" src="js/views/lists/TodoAppView.js"></script>
 
 
 
