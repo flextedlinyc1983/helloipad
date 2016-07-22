@@ -54,6 +54,8 @@
 
         <link rel="stylesheet" type="text/css" href="css/todos/todo.css">
 
+        <link rel="stylesheet" type="text/css" href="css/comboxs/combox.css">
+
         <title>Hello World</title>
 
 
@@ -249,6 +251,40 @@
             </div> 
         </script>
 
+
+
+
+        <script type="text/template" id="comboxName-item-template">
+            <option value="<%- name %>"><%- name %></option>          
+        </script>
+
+        <script type="text/template" id="form-combox-template">
+            <form>
+              Name:<br>
+                <div id="comboxName"></div>
+              Url:<br>
+                <div id="comboxUrl"></div>
+              Date:<br>
+                <div id="comboxDate"></div>
+              Percentage:<br>
+                <div id="comboxPercentage"></div>
+            </form>
+        </script>
+
+        <script type="text/template" id="comboxUrl-item-template">
+            <option value="<%- url %>"><%- url %></option>          
+        </script>
+        <script type="text/template" id="comboxDate-item-template">
+            <option value="<%- date %>"><%- date %></option>          
+        </script>
+        <script type="text/template" id="comboxPercentage-item-template">
+            <option value="<%- percentage %>"><%- percentage %></option>          
+        </script>
+
+
+
+
+
 <!-- 
         <div id="todoapp">
     <header>
@@ -305,10 +341,12 @@
 
         <script type="text/javascript" src="js/UtilityForCollection.js"></script>
         <script type="text/javascript" src="js/appCollections.js"></script>
-        <script type="text/javascript" src="js/appViews.js"></script>
 
         <script type="text/javascript" src="js/views/lists/UtilityView.js"></script>
         <script type="text/javascript" src="js/views/lists/CollectionView.js"></script>
+        <script type="text/javascript" src="js/appViews.js"></script>
+
+
 
 
         <script type="text/javascript" src="js/views/lists/listMenuView.js"></script>

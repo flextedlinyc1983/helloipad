@@ -69,3 +69,7 @@ ava.models.Todo = ava.models.UtilityForModel.extend({
 		this.save({priceFormat: this.numFormat(this.get("price"))});
 	}
 });
+
+
+ava.models.BaseModel = ava.models.UtilityForModel.extend({
+});

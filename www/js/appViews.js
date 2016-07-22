@@ -283,3 +283,148 @@ ava.views.CalculatorView = Backbone.View.extend({
 
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ava.views.ComboxItemView = ava.views.CollectionView.extend({
+
+    // template: _.template($("#todo-item-template").html()),
+    initialize: function(options) {
+
+      this.options = options.subOptions;
+
+      this.rmOutsideTag = this.options.rmOutsideTag;
+
+      this.className = this.options.className;
+
+      this.template = _.template($(this.options.templateName).html());
+      this.tagName = this.options.tagName;
+
+      this.model.on('change', this.render, this);
+      this.model.on('destroy', this.remove, this);
+      // this.listenTo(this.model, "change", this.render);
+    },
+
+    render: function() {
+      
+
+      // this.el = this.el.childNodes;
+      var $el = $(this.el);
+      $el.html(this.template(this.model.toJSON()));
+      if(this.rmOutsideTag){
+        this.el = this.el.children;  
+      }      
+      return this;
+    },
+});
+
+
+
+
+
+ava.views.ComboxView = ava.views.CollectionView.extend({
+
+// ava.views.TodoAppView = Backbone.View.extend({
+    // el: $("#todoapp"),
+    // statsTemplate: _.template($("#stats-todo-template").html()),
+    // tagName: 'div',
+    // className: 'inner circleBtn',
+
+    events: {
+      // "keypress #new-todo": "createOnEnter",
+      // "click #new-todo":  "showAlert",
+      // "click .clear-completed": "clearCompleted",
+      // "click #toggle-all": "toggleAllComplete"
+    },
+
+    showAlert: function(){
+      alert('showAlert')
+    },
+
+    initialize: function(options,subOptions) {
+
+
+      this.subOptions = subOptions;
+
+      this.options=options;
+
+      this.rmOutsideTag = options.rmOutsideTag;
+
+
+      this.collection = options.collection;
+
+      // this.className = this.options.className;
+      this.tagName = this.options.tagName;
+
+      // this.template = _.template($(this.options.templateName).html());
+
+
+      this.listenTo(this.collection, "add", this.addOne);
+      this.listenTo(this.collection, "reset", this.addAll);
+
+
+
+
+      if (this.collection.fetch) {
+        this.collection.fetch();
+      }
+
+    },
+
+    addOne: function (model) {
+      
+      var item = new this.options.subView({model: model,subOptions: this.subOptions});
+      $(this.el).append(item.render().el);            
+
+      // return this;
+    },
+
+    addAll: function () {
+      this.collection.each(this.addOne, this);
+    },
+
+    render: function() {
+ 
+      return this;
+
+    },
+
+    createOnEnter: function(e) {
+      // alert(e.keyCode);
+      if (e.keyCode != 13) return;
+      if (!this.$input.val()) return;
+
+      this.collection.create({title: this.$input.val()});
+      this.$input.val("");
+    },
+
+    clearCompleted: function() {
+      if(this.collection){
+        _.invoke(this.collection.done(), "destroy");
+      } else {
+        _.invoke(todos.done(), "destroy");
+      }
+      return false;
+    },
+
+    toggleAllComplete: function () {
+      var done = this.$allCheckbox.checked;
+      this.collection.each(function (todo) { todo.save({"done": done}); });
+    }
+});

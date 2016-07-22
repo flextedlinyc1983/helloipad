@@ -146,4 +146,25 @@ var todos = new ava.collections.TodoList();
 
 
 
+ava.collections.BaseCollection = ava.collections.UtilityForCollection.extend({
+	model: ava.models.BaseModel,
+	url: function(){
+		return this.options.url;
+	},
+	initialize: function(models, options){
+		this.options=options;
+	}
+});
+
+
+
+var comboxs = new ava.collections.BaseCollection([], {url: "https://backgridjs.com/examples/territories.json"});
+
+// comboxs.fetch({
+// 	success: function(comboxs){
+// 		comboxs.getColumns();
+// 	}
+// });
+// comboxs.getColumns();
+
 
