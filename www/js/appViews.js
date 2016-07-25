@@ -467,3 +467,32 @@ ava.views.ClockView = ava.views.CollectionView.extend({
   },
 
 });
+
+
+
+
+
+ava.views.ComboxDataFromSysParmsView = ava.views.ComboxView.extend({
+  initialize: function(options,subOptions) {
+
+
+    this.subOptions = subOptions;
+
+    this.options=options;
+
+    this.rmOutsideTag = options.rmOutsideTag;
+
+
+    this.collection = options.collection;
+
+    // this.className = this.options.className;
+    this.tagName = this.options.tagName;
+
+    // this.template = _.template($(this.options.templateName).html());
+
+
+    this.listenTo(this.collection, "add", this.addOne);
+    this.listenTo(this.collection, "reset", this.addAll);
+
+  },
+});

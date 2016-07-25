@@ -80,33 +80,33 @@ ava.router = Backbone.Router.extend({
 
         this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-template", tagId:"form-combox-template"}, className: "form-combox-template"}),'.home-body-right');
 
-        var comboxName = new ava.views.ComboxView(
-            {collection: comboxs, tagName: "select",
-                subView: ava.views.ComboxItemView, className:"combox"}
-            ,{tagName: "div", templateName: "#comboxName-item-template",rmOutsideTag:true,
-                className:""});
-        this.putElement(comboxName,'#comboxName');
+        // var comboxName = new ava.views.ComboxView(
+        //     {collection: comboxs, tagName: "select",
+        //         subView: ava.views.ComboxItemView, className:"combox"}
+        //     ,{tagName: "div", templateName: "#comboxName-item-template",rmOutsideTag:true,
+        //         className:""});
+        // this.putElement(comboxName,'#comboxName');
 
-        var comboxUrl = new ava.views.ComboxView(
-            {collection: comboxs, tagName: "select",
-                subView: ava.views.ComboxItemView, className:"combox"}
-            ,{tagName: "div", templateName: "#comboxUrl-item-template",rmOutsideTag:true,
-                className:""});
-        this.putElement(comboxUrl,'#comboxUrl');
+        // var comboxUrl = new ava.views.ComboxView(
+        //     {collection: comboxs, tagName: "select",
+        //         subView: ava.views.ComboxItemView, className:"combox"}
+        //     ,{tagName: "div", templateName: "#comboxUrl-item-template",rmOutsideTag:true,
+        //         className:""});
+        // this.putElement(comboxUrl,'#comboxUrl');
 
-        var comboxDate = new ava.views.ComboxView(
-            {collection: comboxs, tagName: "select",
-                subView: ava.views.ComboxItemView, className:"combox"}
-            ,{tagName: "div", templateName: "#comboxDate-item-template",rmOutsideTag:true,
-                className:""});
-        this.putElement(comboxDate,'#comboxDate');
+        // var comboxDate = new ava.views.ComboxView(
+        //     {collection: comboxs, tagName: "select",
+        //         subView: ava.views.ComboxItemView, className:"combox"}
+        //     ,{tagName: "div", templateName: "#comboxDate-item-template",rmOutsideTag:true,
+        //         className:""});
+        // this.putElement(comboxDate,'#comboxDate');
 
-        var comboxPercentage = new ava.views.ComboxView(
-            {collection: comboxs, tagName: "select",
-                subView: ava.views.ComboxItemView, className:"combox"}
-            ,{tagName: "div", templateName: "#comboxPercentage-item-template",rmOutsideTag:true,
-                className:""});
-        this.putElement(comboxPercentage,'#comboxPercentage');
+        // var comboxPercentage = new ava.views.ComboxView(
+        //     {collection: comboxs, tagName: "select",
+        //         subView: ava.views.ComboxItemView, className:"combox"}
+        //     ,{tagName: "div", templateName: "#comboxPercentage-item-template",rmOutsideTag:true,
+        //         className:""});
+        // this.putElement(comboxPercentage,'#comboxPercentage');
 
 
 
@@ -114,6 +114,23 @@ ava.router = Backbone.Router.extend({
         var clock = new ava.views.ClockView(
             {tagName: "div", className:"clock", templateName: "#clock-template"});
         this.putElement(clock,'.home-clock-header');
+
+
+
+
+        var comboxPercentageDataFromSysParms = new ava.views.ComboxDataFromSysParmsView(
+            {collection: comboxsDataFromSysParms, tagName: "select",
+                subView: ava.views.ComboxItemView, className:"combox"}
+            ,{tagName: "div", templateName: "#comboxPercentage-item-template",rmOutsideTag:true,
+                className:""});
+        this.putElement(comboxPercentageDataFromSysParms,'#comboxPercentageDataFromSysParms');
+
+        var comboxDateDataFromSysParms = new ava.views.ComboxDataFromSysParmsView(
+            {collection: comboxsDataFromSysParms, tagName: "select",
+                subView: ava.views.ComboxItemView, className:"combox"}
+            ,{tagName: "div", templateName: "#comboxDate-item-template",rmOutsideTag:true,
+                className:""});
+        this.putElement(comboxDateDataFromSysParms,'#comboxDateDataFromSysParms');
 
     },
 
