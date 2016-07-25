@@ -169,4 +169,4 @@ var comboxs = new ava.collections.BaseCollection([], {url: "https://backgridjs.c
 
 
 var comboxsDataFromSysParms = new ava.collections.BaseCollection([], {url: "dataForJson/dataTestSysParms.json"});
-comboxsDataFromSysParms.fetch();
+// comboxsDataFromSysParms.fetch();
