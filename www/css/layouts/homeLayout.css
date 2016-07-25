@@ -79,6 +79,6 @@
 .fake {
     display: block;
      margin: 0em auto 1em;
-    height: 10%;
+    // height: 10%;
     text-align: center;
 }

@@ -57,7 +57,7 @@ ava.router = Backbone.Router.extend({
         var todoAppView = new ava.views.TodoAppView({collection: todos,el:$("#todoapp")});
 
         //clock
-        this.putElement(new ava.views.LayoutView({model: {template:"#clock-template", tagId:"clock"}, className: "clock"}),'.home-header');
+        // this.putElement(new ava.views.LayoutView({model: {template:"#clock-template", tagId:"clock"}, className: "clock"}),'.home-header');
 
 
         this.getBasePage(new ava.views.TabView({className: "work-section", model: {id: "work"}}));
@@ -107,6 +107,13 @@ ava.router = Backbone.Router.extend({
             ,{tagName: "div", templateName: "#comboxPercentage-item-template",rmOutsideTag:true,
                 className:""});
         this.putElement(comboxPercentage,'#comboxPercentage');
+
+
+
+
+        var clock = new ava.views.ClockView(
+            {tagName: "div", className:"clock", templateName: "#clock-template"});
+        this.putElement(clock,'.home-clock-header');
 
     },
 

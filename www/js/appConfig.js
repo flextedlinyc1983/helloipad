@@ -18,3 +18,5 @@ ava.config = {
 
 ava.collections = {};
 ava.controllers = {};
+
+ava.paras = {};

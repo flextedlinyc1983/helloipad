@@ -428,3 +428,42 @@ ava.views.ComboxView = ava.views.CollectionView.extend({
       this.collection.each(function (todo) { todo.save({"done": done}); });
     }
 });
+
+
+
+
+
+
+ava.views.ClockView = ava.views.CollectionView.extend({
+
+
+  initialize: function(options) {
+
+    this.options=options;
+    this.tagName = this.options.tagName;
+    this.template = _.template($(this.options.templateName).html());
+    this.rmOutsideTag = this.options.rmOutsideTag;
+
+    
+
+    this.updateTimeAndDate();
+    
+  },
+
+  updateTimeAndDate: function () {    
+    this.model = this.getTimeAndDate();
+    this.render();    
+    setTimeout(this.updateTimeAndDate.bind(this),  1000 );
+  },
+
+
+  render: function() {
+
+    var $el = $(this.el);
+    $el.html(this.template(this.model));    
+
+    return this;
+
+  },
+
+});

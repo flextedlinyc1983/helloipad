@@ -85,11 +85,11 @@ ava.views.TodoAppView = ava.views.CollectionView.extend({
         this.$footer.show();
 
         var $statsTemplate = this.statsTemplate({done: done, remaining: remaining, totalPrice: totalPrice});
-                $(".home-header").html("<div class='todo-stats-header' style='color:#daa14c; width: 35%; display: block;line-height: 37px; background: #f4fce8'>" + $statsTemplate + "</div>");
+                $(".home-todos-header").html("<div class='todo-stats-header' style='float:left; color:#daa14c; width: 35%; display: block;line-height: 37px; background: #f4fce8'>" + $statsTemplate + "</div>");
         
 
         this.$footer.html($statsTemplate);
-        this.$el.parent().parent().parent().parent().find(".home-header .todo-stats-header").click(this.clearCompleted)
+        this.$el.parent().parent().parent().parent().find(".home-todos-header .todo-stats-header").click(this.clearCompleted)
 
       }else{
         this.$main.hide();
