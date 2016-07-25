@@ -168,5 +168,5 @@ var comboxs = new ava.collections.BaseCollection([], {url: "https://backgridjs.c
 // comboxs.getColumns();
 
 
-var comboxsDataFromSysParms = new ava.collections.BaseCollection([], {url: "https://backgridjs.com/examples/territories.json"});
+var comboxsDataFromSysParms = new ava.collections.BaseCollection([], {url: "dataForJson/dataTestSysParms.json"});
 comboxsDataFromSysParms.fetch();
