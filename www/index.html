@@ -181,6 +181,15 @@
             </div>
         </script>
 
+        <script type="text/template" id="tabOneLayout-template">      
+            <div class="home-body-left">
+                <div class="home-body-left-top"></div>
+                <dir class="home-body-left-down"></dir>
+            </div>
+            <dir class="home-body-right"></dir>
+        </script>
+
+
         <script type="text/template" id="homeLayout-template">      
             <div class="fake">        
                 <div class="home-header">
@@ -190,23 +199,31 @@
 
             </div> 
             <div class="home-body">
-                <div class="home-body-left">
+
+
+                <div id="tabs" style="height: 100%">
+                    <ul class='nav nav-tabs'></ul>
+                    <div style="height: 90%; width: 100%"></div>
+                </div>
+
+
+<!--                 <div class="home-body-left">
                     <div class="home-body-left-top"></div>
                     <dir class="home-body-left-down"></dir>
                 </div>
-                <dir class="home-body-right"></dir>
+                <dir class="home-body-right"></dir> -->
 <!--                 <ul>
                   <li><a href="#">London</a></li>
                   <li><a href="#">Paris</a></li>
                   <li><a href="#">Tokyo</a></li>
                 </ul> -->
 
-                <dir class="home-body-right-test">
+<!--                 <dir class="home-body-right-test">
                     <section id="tabs">
                         <ul class='nav nav-tabs'></ul>
                         <div></div>
                     </section>
-                </dir>
+                </dir> -->
             </div>
         </script>
 
@@ -277,14 +294,7 @@
 
         <script type="text/template" id="form-combox-template">
             <form>
-<!--               Name:<br>
-                <div id="comboxName"></div>
-              Url:<br>
-                <div id="comboxUrl"></div>
-              Date:<br>
-                <div id="comboxDate"></div>
-              Percentage:<br>
-                <div id="comboxPercentage"></div> -->
+
 
               Percentage:<br>
                 <div id="comboxPercentageDataFromSysParms"></div>
@@ -309,19 +319,21 @@
     <li<% if(active){%><%= ' class="active"' %><%}%> data-label='<%= label %>'><a href="#"><%= label %></a></li>
 </script>
 <script type="text/template" id="content-tmpl">
-    <span<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'><%= content %>
+    <div<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>' style="height: 100%">
+    <!-- <%= content %> -->
  <!--        <div id='content-<%= label %>-btns'>
         </div> -->
-    </span>
+    </div>
 
 </script>
 
 <script type="text/template" id="content-tmpl-second">
-    <span<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'><%= content %>
-        <h1>
+    <div<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'>
+    <!-- <%= content %> -->
+        <!-- <h1>
             交易單2
-        </h1>
-    </span>
+        </h1> -->
+    </div>
     
 
 </script>

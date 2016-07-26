@@ -89,7 +89,7 @@ ava.views.TodoAppView = ava.views.CollectionView.extend({
         
 
         this.$footer.html($statsTemplate);
-        this.$el.parent().parent().parent().parent().find(".home-todos-header .todo-stats-header").click(this.clearCompleted)
+        this.$el.parent().parent().parent().parent().parent().parent().parent().parent().find(".home-todos-header .todo-stats-header").click(this.clearCompleted)
 
       }else{
         this.$main.hide();

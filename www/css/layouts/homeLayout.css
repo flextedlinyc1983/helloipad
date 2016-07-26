@@ -27,7 +27,7 @@
 }
 
 .home-body {
-    margin: 0px auto 3px;
+    margin: 10px auto 3px;
     width: 97.5%;
     height: 87%;
     background-color:#e8e5e5;
@@ -49,7 +49,7 @@
     margin: 0.5em 0.5em 0.5em 0em;
     padding: 0em 0em 0em 0em;
     width: 25%;
-    height: 50%;
+    height: 97%;
     background-color:#FFFFFF;
 }
 
@@ -93,4 +93,33 @@
      margin: 0px auto 5px;
     // height: 10%;
     text-align: center;
+}
+
+
+.tabOneLayout {
+    margin: 10px auto 3px;
+    width: 97.5%;
+    height: 100%;
+    background-color: #e8e5e5;    
+}
+
+
+
+
+.home-body-right .circleBtn {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    float: left;
+}
+
+
+#form-combox-template {
+    float: left;
+    background: #fff;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    padding: 20px;
+    overflow: scroll;
+    max-height: 80%;
+    width: 30%;
 }

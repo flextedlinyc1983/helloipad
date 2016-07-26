@@ -23,10 +23,19 @@ ava.router = Backbone.Router.extend({
 
 
         this.clearPage();
-
-        this.getBasePage(new ava.views.LayoutView({model: {template: "#homeLayout-template", layoutTemplate:"#homeLayout-template"}, className: "home-container"}));
         
-        this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn}), ".home-body-left-top");
+        this.getBasePage(new ava.views.LayoutView({model: {template: "#homeLayout-template", layoutTemplate:"#homeLayout-template"}, className: "home-container"}));
+        new MyView();
+        this.putElement(new ava.views.LayoutView({model: {template:"#tabOneLayout-template", tagId:"tabOneLayout"}, className: "tabOneLayout"}),'#content-first');
+
+
+        //btns
+        this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn}), ".home-body-right");
+
+
+
+
+
         // this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn, className: "inner circleBtn testRight"}), ".home-body-left");
 
 
@@ -52,33 +61,38 @@ ava.router = Backbone.Router.extend({
 
 
 
-
+        //交易單
         this.putElement(new ava.views.LayoutView({model: {template:"#todoapp-template", tagId:"todoapp"}, className: "todoapp"}),'.home-body-left-top');
         var todoAppView = new ava.views.TodoAppView({collection: todos,el:$("#todoapp")});
+
+
+
+
+
 
         //clock
         // this.putElement(new ava.views.LayoutView({model: {template:"#clock-template", tagId:"clock"}, className: "clock"}),'.home-header');
 
 
-        this.getBasePage(new ava.views.TabView({className: "work-section", model: {id: "work"}}));
+        // this.getBasePage(new ava.views.TabView({className: "work-section", model: {id: "work"}}));
 
-        this.getTabPage(new ava.views.ListTabView({className: "tabs-nav", collection: tab})
-            , new ava.views.TabSectionView({tagName: "div", className: "", collection: tab}));
+        // this.getTabPage(new ava.views.ListTabView({className: "tabs-nav", collection: tab})
+        //     , new ava.views.TabSectionView({tagName: "div", className: "", collection: tab}));
 
+        // //btns
+        // // this.getSectionPage(new ava.views.CircleBtnMenuView({collection: circleBtn}),'#circleBtn');
 
-        this.getSectionPage(new ava.views.CircleBtnMenuView({collection: circleBtn}),'#circleBtn');
+        // this.getSectionPage(new ava.views.LayoutView({model: {layoutTemplate:"#layout-template"}, className: "layoutCustom"}),'#layout');
+        // // this.getSectionPage(new ava.views.LayoutView({model: "", className: "layoutCustom"}),'#layout');
 
-        this.getSectionPage(new ava.views.LayoutView({model: {layoutTemplate:"#layout-template"}, className: "layoutCustom"}),'#layout');
-        // this.getSectionPage(new ava.views.LayoutView({model: "", className: "layoutCustom"}),'#layout');
-
-        this.putElement(new ava.views.CalculatorView({}),'.layout-body-left');
-        this.putElement(new ava.views.InputView ({className:"ans-calc", model: {id:"answer", type: "text", disabled: "disabled"}}),'.layout-header');
-
-
+        // this.putElement(new ava.views.CalculatorView({}),'.layout-body-left');
+        // this.putElement(new ava.views.InputView ({className:"ans-calc", model: {id:"answer", type: "text", disabled: "disabled"}}),'.layout-header');
 
 
 
-        this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-template", tagId:"form-combox-template"}, className: "form-combox-template"}),'.home-body-right');
+
+
+        // this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-template", tagId:"form-combox-template"}, className: "form-combox-template"}),'.home-body-right');
 
         // var comboxName = new ava.views.ComboxView(
         //     {collection: comboxs, tagName: "select",
@@ -117,7 +131,7 @@ ava.router = Backbone.Router.extend({
 
 
 
-
+this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-template", tagId:"form-combox-template"}, className: "form-combox-template"}),'.home-body-left-top');
         var comboxPercentageDataFromSysParms = new ava.views.ComboxDataFromSysParmsView(
             {collection: comboxsDataFromSysParms, tagName: "select",
                 subView: ava.views.ComboxItemView, className:"combox"}
@@ -133,7 +147,7 @@ ava.router = Backbone.Router.extend({
         this.putElement(comboxDateDataFromSysParms,'#comboxDateDataFromSysParms');
 
 
-        new MyView();
+        // new MyView();
         // this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn}),'#content-tab4-div');
     },
 
