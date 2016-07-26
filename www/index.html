@@ -29,7 +29,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json"> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -57,6 +57,10 @@
         <link rel="stylesheet" type="text/css" href="css/comboxs/combox.css">
 
         <link rel="stylesheet" type="text/css" href="css/clocks/clock.css">
+
+
+<!-- <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"> -->
+<link rel="stylesheet" type="text/css" href="css/2.3.1-bootstrap-combined.min.css">
 
         <title>Hello World</title>
 
@@ -196,6 +200,13 @@
                   <li><a href="#">Paris</a></li>
                   <li><a href="#">Tokyo</a></li>
                 </ul> -->
+
+                <dir class="home-body-right-test">
+                    <section id="tabs">
+                        <ul class='nav nav-tabs'></ul>
+                        <div></div>
+                    </section>
+                </dir>
             </div>
         </script>
 
@@ -294,6 +305,48 @@
 
 
 
+<script type="text/template" id="label-tmpl">
+    <li<% if(active){%><%= ' class="active"' %><%}%> data-label='<%= label %>'><a href="#"><%= label %></a></li>
+</script>
+<script type="text/template" id="content-tmpl">
+    <span<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'><%= content %>
+ <!--        <div id='content-<%= label %>-btns'>
+        </div> -->
+    </span>
+
+</script>
+
+<script type="text/template" id="content-tmpl-second">
+    <span<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'><%= content %>
+        <h1>
+            交易單2
+        </h1>
+    </span>
+    
+
+</script>
+
+<script type="text/template" id="content-tmpl-third">
+    <span<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'><%= content %>
+        <h1>
+            交易單3
+        </h1>
+    </span>
+    
+
+</script>
+
+<script type="text/template" id="content-tmpl-fourth">
+    <span<% if(!active){%><%= ' class="deactive"' %><%}%> id='content-<%= label %>'><%= content %>
+        <h1>
+            交易單4
+        </h1>
+        <div id="content-tab4-div"></div>
+    </span>
+    
+
+</script>
+
 
 
 <!-- 
@@ -324,6 +377,12 @@
         <script type="text/javascript" src="js/index.js"></script>   
         <script type="text/javascript" src="js/jqmConfig.js"></script>   
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+
+
+<!-- <script type="text/javascript" src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="js/2.3.1-bootstrap.min.js"></script>
+
+
 
         <script type="text/javascript" src="js/moment.min.js"></script>
         

@@ -496,3 +496,112 @@ ava.views.ComboxDataFromSysParmsView = ava.views.ComboxView.extend({
 
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var MyView = Backbone.View.extend({
+    el         : "#tabs",
+    $label     : $("#tabs").find("ul"),
+    $content   : $("#tabs").find("div"),
+    tabs       : [
+      {label : "first", content : "Hello world!", active : true, template: "#content-tmpl"},
+      {label : "second", content : "", active : false, template: "#content-tmpl-second"},
+      {label : "third", content : "", active : false, template: "#content-tmpl-third"},
+      {label : "tab4", content : "", active : false, template: "#content-tmpl-fourth"}
+    ],
+    labelTmpl       : _.template($("#label-tmpl").html()),
+    contentTmpl       : _.template($("#content-tmpl").html()),
+    initialize : function () {
+
+    this.$label = $("#tabs").find("ul");
+    this.$content = $("#tabs").find("div");
+
+      this.render();
+      this.setState();
+    },
+    render     : function () {
+      var labelHtml = "";
+      var contentHtml = "";
+      _.each(this.tabs, function (tab) {
+
+        var template =  _.template($(tab.template).html());
+
+          labelHtml += this.labelTmpl(tab).trim();
+        // contentHtml += this.contentTmpl(tab).trim();
+        contentHtml += template(tab).trim();
+      }, this);
+      this.$label.html(labelHtml);
+      this.$content.html(contentHtml);
+    },
+    setState   : function () {
+      var Events = {
+        bind    : function () {
+          if (!this.o) this.o = $({});
+          this.o.on.apply(this.o, arguments);
+        },
+        trigger : function () {
+          if (!this.o) this.o = $({});
+          this.o.trigger.apply(this.o, arguments);
+        }
+      };
+      //StateMachine
+      var SM = function () {
+      };
+      SM.fn = SM.prototype;
+      $.extend(SM.fn, Events);
+      SM.fn.add = function (tab) {
+        this.bind("change", function (e, current) {
+          if (tab === current) {
+            tab.activate();
+          }else {
+            tab.deactivate();
+          }
+        });
+        tab.changeState = $.proxy(function () {
+          this.trigger("change", tab);
+        }, this);
+      };
+      var sm = new SM;
+      this.$label.find("li").each(function () {
+        $(this).click(function(){
+          if(!$(this).hasClass("active")){
+            this.changeState();
+          }
+        });
+        this.activate = function(){
+          var self = this;
+          $(self).addClass("active");
+          $("#content-" + $(self).data("label")).removeClass("deactive");
+        };
+        this.deactivate = function(){
+          var self = this;
+          $(self).removeClass("active");
+          $("#content-" + $(self).data("label")).addClass("deactive");
+        };
+
+        sm.add(this);
+      });
+    }
+  });

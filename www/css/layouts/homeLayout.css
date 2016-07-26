@@ -49,9 +49,20 @@
     margin: 0.5em 0.5em 0.5em 0em;
     padding: 0em 0em 0em 0em;
     width: 25%;
-    height: 97%;
+    height: 50%;
     background-color:#FFFFFF;
 }
+
+
+.home-body-right-test {
+    float:right;
+    margin: 0.5em 0.5em 0.5em 0em;
+    padding: 0em 0em 0em 0em;
+    width: 25%;
+    height: 40%;
+    background-color: transparent;
+}
+.deactive{display: none;}
 
 
 

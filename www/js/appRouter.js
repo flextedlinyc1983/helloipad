@@ -132,6 +132,9 @@ ava.router = Backbone.Router.extend({
                 className:""});
         this.putElement(comboxDateDataFromSysParms,'#comboxDateDataFromSysParms');
 
+
+        new MyView();
+        // this.putElement(new ava.views.CircleBtnMenuView({collection: circleBtn}),'#content-tab4-div');
     },
 
 
