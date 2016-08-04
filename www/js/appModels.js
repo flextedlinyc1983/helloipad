@@ -73,3 +73,13 @@ ava.models.Todo = ava.models.UtilityForModel.extend({
 
 ava.models.BaseModel = ava.models.UtilityForModel.extend({
 });
+
+
+ava.models.LoginModel = Backbone.Model.extend(
+{
+	validation:
+	{
+		account: {required:true, msg: "請輸入帳號"},
+		password: {required:true, msg: "請輸入密碼"},		
+	}
+});

@@ -4,11 +4,24 @@ ava.router = Backbone.Router.extend({
 	routes: {
 		"": "home",
 		"home": "home",
+        "login" : "login"
 	},
 
     initialize: function () {
 
         Backbone.history.start();
+    },
+
+    login: function () {
+        alert("test");
+        
+        var loginModel = new ava.models.LoginModel();
+        var loginView = new ava.views.LoginView( {model:loginModel});
+        loginView.render().showModal({
+            x: event.pageX,
+            y: event.pageY
+        });
+
     },
 
     home: function () {
@@ -202,7 +215,7 @@ $(document).ready(function () {
     // document.addEventListener("touchstart", function() {},false);
 
 
-    app = new ava.router();
+    var app = new ava.router();
 
     tabOperation.init();
 

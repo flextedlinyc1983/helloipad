@@ -29,7 +29,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json"> -->
+<!--         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json http://192.168.0.58:8080/flaps2/checkLogin.jsp"> -->
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -57,6 +57,8 @@
         <link rel="stylesheet" type="text/css" href="css/comboxs/combox.css">
 
         <link rel="stylesheet" type="text/css" href="css/clocks/clock.css">
+
+        <link rel="stylesheet" type="text/css" href="css/logins/login.css">
 
 
 <!-- <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"> -->
@@ -195,6 +197,12 @@
                 <div class="home-header">
                     <div class="home-todos-header"></div>
                     <div class="home-clock-header"></div>
+                    <div class="">
+                        <a href="#" data-rel="dialog" id="loginIcon" class="home-login-header" >登入</a>
+                    </div>
+                    <div id="login">
+                        test
+                    </div>
                 </div>
 
             </div> 
@@ -382,7 +390,7 @@
 
 
 
-        <!-- <script type="text/javascript" src="cordova.js"></script> -->
+        <script type="text/javascript" src="cordova.js"></script>
 
 <!--         <script src="https://code.jquery.com/jquery-1.12.4.js"   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="   crossorigin="anonymous"></script> -->
         <script type="text/javascript" src="js/jquery.min.js"></script>     
@@ -451,7 +459,11 @@
         <script type="text/javascript" src="js/views/lists/TodoView.js"></script>
         <script type="text/javascript" src="js/views/lists/TodoAppView.js"></script>
 
+        <script type="text/javascript" src="js/Backbone.ModalDialog.js"></script>
+        <script type="text/javascript" src="js/views/login.js"></script>
+        <script type="text/javascript" src="js/clickFunctions.js"></script>
 
+        <script type="text/javascript" src="js/Functions.js"></script>
 
 
 <script type="text/javascript" src="js/appParas.js"></script>
