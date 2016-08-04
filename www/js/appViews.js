@@ -605,3 +605,27 @@ var MyView = Backbone.View.extend({
       });
     }
   });
+
+
+ava.views.PortalView = ava.views.UtilityView.extend({
+
+  template:_.template($('#portal').html()),
+
+  render:function (eventName) {
+    $(this.el).html(this.template());
+    return this;
+  }
+
+});
+
+
+
+ava.views.Page1View = ava.views.UtilityView.extend({
+
+    template:_.template($('#page1').html()),
+
+    render:function (eventName) {
+        $(this.el).html(this.template());
+        return this;
+    }
+});

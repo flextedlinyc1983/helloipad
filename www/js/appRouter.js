@@ -2,14 +2,25 @@
 ava.router = Backbone.Router.extend({
 
 	routes: {
-		"": "home",
+		"": "portal",
 		"home": "home",
-        "login" : "login"
+        "login" : "login",
+        "page1" : "page1"
 	},
 
-    initialize: function () {
+    // initialize: function () {
 
-        Backbone.history.start();
+    //     Backbone.history.start();
+    // },
+
+    initialize:function () {
+        // Handle back button throughout the application
+        // $('.back').live('click', function(event) {
+        $('body').on('click', '.back', function(event) {
+            window.history.back();
+            return false;
+        });
+        this.firstPage = true;
     },
 
     login: function () {
@@ -22,6 +33,30 @@ ava.router = Backbone.Router.extend({
             y: event.pageY
         });
 
+    },
+
+    portal:function () {
+        console.log('#portal');
+        this.changePageForMobile(new ava.views.PortalView());
+    },
+
+    page1:function () {
+        console.log('#page1');
+        this.changePageForMobile(new ava.views.Page1View());
+    },
+
+    changePageForMobile:function (page) {
+        $(page.el).attr('data-role', 'page');
+        page.render();
+        $('body').append($(page.el));
+        var transition = $.mobile.defaultPageTransition;
+        // We don't want to slide the first page
+        if (this.firstPage) {
+            transition = 'none';
+            this.firstPage = false;
+        }
+        // $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
+        $(":mobile-pagecontainer").pagecontainer( "change", $(page.el), { changeHash: false, transition: transition});
     },
 
     home: function () {
@@ -216,6 +251,7 @@ $(document).ready(function () {
 
 
     var app = new ava.router();
+    Backbone.history.start();
 
     tabOperation.init();
 

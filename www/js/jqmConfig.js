@@ -7,8 +7,32 @@ $(document).on('mobileinit', function() {
     $.mobile.hashListeningEnabled = false;
     $.mobile.pushStateEnabled = false;
     $.mobile.defaultPageTransition = "fade";
+    // $.mobile.defaultPageTransition = "slide";
     // $.mobile.autoInitializePage = false;
 
-    
+	
+	// Remove page from DOM when it's being replaced
+    // $('div[data-role="page"]').on('pagehide', null, function (event, ui) {
+
+
+	// $('div[data-role="page"]').on('pagecontainerhide', null, function (event, ui) {
+ //        $(event.currentTarget).remove();
+ //    });
+
+
+	$(document).on('pagehide', ":jqmData(role='page')", function (event, ui) {
+        $(event.currentTarget).remove();
+    });
+
+
+// $(document).bind('pagebeforeshow', function (event, data) {
+// 	var url = $.mobile.path.parseUrl(data.toPage).hash;
+// });
+
+// $(":mobile-pagecontainer").bind('pagebeforechange', function (event, data) {
+// 	var url = $.mobile.path.parseUrl(data.toPage).hash;
+// });
+	
+
 });
 
