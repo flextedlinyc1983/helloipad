@@ -79,7 +79,15 @@ ava.models.LoginModel = Backbone.Model.extend(
 {
 	validation:
 	{
-		account: {required:true, msg: "請輸入帳號"},
-		password: {required:true, msg: "請輸入密碼"},		
+		// account: {required:true, msg: "請輸入帳號"},
+		// password: {required:true, msg: "請輸入密碼"},		
+		    code: {
+	      		required: true,
+	      		msg: '請輸入帳號'
+	   		},
+	   		pwd: {
+	      		required: true,
+	      		msg: '請輸入密碼'
+	   		},
 	}
 });

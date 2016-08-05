@@ -19,7 +19,7 @@
 -->
 <html>
     <head>
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--
         Customize this policy to fit your own app's needs. For more guidance, see:
@@ -372,8 +372,11 @@
 
 <script type="text/template" id="portal">
 
-    <div data-role="header">
+    <div data-role="header" data-position='fixed' background="img/title-2.png">
         <h1>Backbone.js + jQuery Mobile</h1>
+        <a href="#" data-rel="dialog" id="loginIcon" class="ui-btn-right" >登入</a>
+        <a href="#myModal" class="ui-btn-right" id="myModal">登入</a>
+        <!-- <a href="login.html" data-rel="dialog"  class="ui-btn-right" >登入</a> -->
     </div>
 
     <div data-role="content">
@@ -408,6 +411,41 @@
 
 </script>
 
+<script type="text/template" id="myModal">
+<!--     <div data-role="header">
+        <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+        <h1>Page 1</h1>
+    </div> -->
+    
+        <!-- Modal -->
+    <div class="modal fade in" role="dialog">
+        <div class="modal-dialog">
+            <div data-role="header">
+                <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+                <h1>登入</h1>
+            </div>
+            <div data-role="content">
+                <form id="loginForm" >
+                    <div data-role="fieldcontainer" class="form-group">
+                        <label for="code">帳號:</label>
+                        <input type="text" id="code" name="code"></input>
+                        <span class="help-block hidden"></span>
+                    </div>
+                    <div data-role="fieldcontainer" class="form-group">
+                        <label for="pwd">密碼:</label>
+                        <input type="password" id="pwd" name="pwd"></input>
+                        <span class="help-block hidden"></span>
+                    </div>
+                    <div data-role="fieldcontainer">
+                    <input type='submit' value= '送出' id='loginButton' />
+                    <!-- <input type='submit' value= '取得資料' id='loginButtonGetData' /> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+
 <!-- 
         <div id="todoapp">
     <header>
@@ -433,6 +471,7 @@
 
 <!--         <script src="https://code.jquery.com/jquery-1.12.4.js"   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="   crossorigin="anonymous"></script> -->
         <script type="text/javascript" src="js/jquery.min.js"></script>     
+        <script type="text/javascript" src="js/jQuery.serializeObject.js"></script>
         <script type="text/javascript" src="js/index.js"></script>   
         <script type="text/javascript" src="js/jqmConfig.js"></script>   
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
@@ -448,6 +487,10 @@
         <!-- <script type="text/javascript" src="js/lodash.min.js"></script> -->
         <script type="text/javascript" src="js/underscore.js"></script>
         <script type="text/javascript" src="js/backbone.js"></script>
+        <script type="text/javascript" src="js/backbone-validation.js"></script>
+        <script type="text/javascript" src="js/Backbone.Validation.callbacks.js"></script>
+        
+        
         <script type="text/javascript" src="js/backbone.localStorage.js"></script>
 
         <script type="text/javascript" src="js/backgrid/lib/backgrid.js"></script>
@@ -519,7 +562,6 @@
         </div>
         
         
-
 
 
     </body>

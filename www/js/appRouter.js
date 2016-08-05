@@ -5,7 +5,8 @@ ava.router = Backbone.Router.extend({
 		"": "portal",
 		"home": "home",
         "login" : "login",
-        "page1" : "page1"
+        "page1" : "page1",
+        "myModal" : "myModal"
 	},
 
     // initialize: function () {
@@ -43,6 +44,14 @@ ava.router = Backbone.Router.extend({
     page1:function () {
         console.log('#page1');
         this.changePageForMobile(new ava.views.Page1View());
+    },
+    //login here
+    myModal:function () {
+        console.log('#myModal');
+        var loginView = new ava.views.ModalView({model: new ava.models.LoginModel()});
+        // Backbone.Validation.bind(loginView);
+        this.changePageForMobile(loginView);
+        
     },
 
     changePageForMobile:function (page) {

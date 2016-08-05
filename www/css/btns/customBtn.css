@@ -1,3 +1,42 @@
-.ui-header a.back {
+.ui-header a.back, .ui-header #loginIcon, .ui-header #myModal {
     margin: .7em 0;
+}
+
+.modal-header {
+    padding: 0px 0px;
+    height: 40px;
+    width:  40px;
+    // border-bottom: 0px solid #eee; 
+    border-bottom: none;
+}
+
+.modal-header a.back {
+    font-size: 40px;    
+}
+
+.modal {
+    border: none;
+    border-radius: 0px;
+}
+
+input[type="text"], input[type="password"] {
+    border: none;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+#loginButton {
+    margin: .7em 0;
+    border-radius: 6px;   
+    width:  50px;
+    height: 40px;
+}
+
+
+
+.has-error .help-block{
+    color: #a94442;
+}
+    
+.hidden {
+    display: none !important;
 }

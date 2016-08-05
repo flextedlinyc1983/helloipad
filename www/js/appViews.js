@@ -629,3 +629,106 @@ ava.views.Page1View = ava.views.UtilityView.extend({
         return this;
     }
 });
+
+
+ava.views.ModalView = ava.views.UtilityView.extend({
+
+    template:_.template($('#myModal').html()),
+
+    initialize: function(){
+      Backbone.Validation.bind(this);
+    },
+
+    render:function (eventName) {    
+      // Backbone.Validation.bind(this);
+
+        $(this.el).html(this.template());
+        return this;
+    },
+
+    events: {
+        "click #loginButton": "login",
+        "click #loginButtonGetData": "loginGetData"
+    },
+
+    remove: function() {
+        // Remove the validation binding
+        // See: http://thedersen.com/projects/backbone-validation/#using-form-model-validation/unbinding
+        Backbone.Validation.unbind(this);
+        return Backbone.View.prototype.remove.apply(this, arguments);
+    },
+
+    loginTest:function (event) {
+        alert("login test");
+    },
+
+    login:function (event) {
+        event.preventDefault(); // Don't let this button submit the form
+
+
+        // var data = this.$el.serializeObject();
+        var data = $("form[id='loginForm']").serializeObject();
+        this.model.set(data);
+        if(this.model.isValid(true)){
+            // this.model.save();
+            // alert('Great Success!');
+        }else{
+          return false;
+        }
+
+        $('.alert-error').hide(); // Hide any errors on a new submit
+        // var url = '../api/login';
+        var url = 'http://192.168.0.58:8080/flaps2/checkLogin.jsp';
+        // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
+        console.log('Loggin in... ');
+        var formValues = {
+            code: $('#code').val(),
+            pwd: $('#pwd').val()
+            // code: 'flextier99',
+            // pwd: '0827203'
+        };
+
+        $.ajax({
+            timeout: 3000,
+            url:url,
+            // type:'GET',
+            type:'POST',
+            // crossDomain: true,
+            // headers: { 'Access-Control-Allow-Origin': '*',
+            // 'Content-Type':'application/x-www-form-urlencoded' },
+            // dataType:"json",
+            data: formValues,
+            beforeSend: function (){
+              // alert('beforesend');
+               // $.mobile.showPageLoadingMsg();
+               $.mobile.loading('show');
+            },
+            success:function (data, textStatus, jqXHR) {
+
+                
+                if (jqXHR.getResponseHeader('Content-Length') != "4319") {
+                    window.localStorage.setItem('loginSuccess', true);
+                }else{
+                    window.localStorage.setItem('loginSuccess', false);
+                }
+                
+
+
+                console.log(["Login request details: ", data]);
+               
+                if(data.error) {  // If there is an error, show the error messages
+                    $('.alert-error').text(data.error.text).show();
+                }
+                else { // If not, send them back to the home page
+                    window.location.replace('#');
+                }
+            },
+            error: function(xhr, textStatus, errorThrown){
+               alert('request failed');
+            },
+            complete: function ( jqXHR, textStatus) {
+              $.mobile.loading('hide');
+            }
+        });
+    },
+});
