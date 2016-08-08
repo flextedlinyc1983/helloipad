@@ -170,3 +170,30 @@ var comboxs = new ava.collections.BaseCollection([], {url: "https://backgridjs.c
 
 var comboxsDataFromSysParms = new ava.collections.BaseCollection([], {url: "https://backgridjs.com/examples/territories.json"});
 // comboxsDataFromSysParms.fetch();
+
+
+
+
+var	RealtimeInfo = [
+		// {'name': '項目', 'value': "總計"},//volumeToday
+		{'name': '本日業績', 'value': ""},//volumeToday
+		{'name': '去年本日業績', 'value': ""},//volumeLastYearToday
+		{'name': '本月業績', 'value': ""},//volumeThisMonth
+		{'name': '去年本月業績', 'value': ""},//volumeLastYearThisMonth
+		{'name': '現有庫存 ', 'value': ""},//deposit
+		{'name': '可售金額', 'value': ""},//volumeAvailable
+		
+	];
+
+var	RealtimeInfoTest = [
+	// {'name': '項目', 'value': "總計"},//volumeToday
+	{'name': '本日業績', 'value': "-10"},//volumeToday
+	{'name': '去年本日業績', 'value': "-10"},//volumeLastYearToday
+	{'name': '本月業績', 'value': "-10"},//volumeThisMonth
+	{'name': '去年本月業績', 'value': "-10"},//volumeLastYearThisMonth
+	{'name': '現有庫存 ', 'value': "-10"},//deposit
+	{'name': '可售金額', 'value': "-10"},//volumeAvailable
+	
+];
+
+var RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);

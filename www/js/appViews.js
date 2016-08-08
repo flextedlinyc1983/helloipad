@@ -611,10 +611,32 @@ ava.views.PortalView = ava.views.UtilityView.extend({
 
   template:_.template($('#portal').html()),
 
+  loginStatus: {
+    status: "登入",
+    href: "#myModal",
+    storeName: "你好"
+  },
+
   render:function (eventName) {
-    $(this.el).html(this.template());
+
+    this.setLoginStatus();
+
+
+    $(this.el).html(this.template(this.loginStatus));
     return this;
+  },
+
+  setLoginStatus: function () {
+    if(window.localStorage.getItem('loginSuccess') == "true") {
+      this.loginStatus.status = "登出";
+      this.loginStatus.href = "#";    
+      this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
+    }else{
+      this.loginStatus.status = "登入";
+      this.loginStatus.storeName = "你好";
+    }
   }
+
 
 });
 
@@ -689,6 +711,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         };
 
         $.ajax({
+            context: this,
             timeout: 3000,
             url:url,
             // type:'GET',
@@ -708,16 +731,31 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                 
                 if (jqXHR.getResponseHeader('Content-Length') != "4319") {
                     window.localStorage.setItem('loginSuccess', true);
+
+                    window.localStorage.setItem('code', formValues.code);
+                    window.localStorage.setItem('pwd', formValues.pwd);
+
+                    var wrapper= document.createElement('div');
+                    wrapper.innerHTML= data;
+                    window.localStorage.setItem('storeName', $(wrapper).find('div')[1].innerHTML);
+
+                    this.loginGetData();
                 }else{
                     window.localStorage.setItem('loginSuccess', false);
+
+                    window.localStorage.setItem('code', "");
+                    window.localStorage.setItem('pwd', "");
+
+                    window.localStorage.setItem('storeName', "");
                 }
                 
 
 
                 console.log(["Login request details: ", data]);
                
-                if(data.error) {  // If there is an error, show the error messages
-                    $('.alert-error').text(data.error.text).show();
+                if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
+                    // $('.alert-error').text(data.error.text).show();
+                    alert("登入錯誤");
                 }
                 else { // If not, send them back to the home page
                     window.location.replace('#');
@@ -732,3 +770,79 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         });
     },
 });
+
+ava.views.TableView = ava.views.UtilityView.extend({
+// var TableView = Backbone.View.extend({
+    tagName: 'table',
+
+    initialize : function() {
+        _.bindAll(this,'render','renderOne');
+        this.listenTo(this.collection, "change", this.render);
+    },
+    render: function() {
+        this.renderHead({'name': '項目', 'value': "總計"});
+
+        this.collection.each(this.renderOne);
+        return this;
+    },
+    renderOne : function(model) {
+        var row=new ava.views.TableRowView({model:model});
+        this.$el.append(row.render().$el);
+        return this;
+    },
+    renderHead : function(model) {
+        var row=new ava.views.TableHeadView({model:model});
+        this.$el.append(row.render().$el);
+        return this;
+    },
+
+});
+
+ava.views.TableHeadView = ava.views.UtilityView.extend({
+// var RowView = Backbone.View.extend({  
+    // events: {
+    //     "click .age": function() {console.log(this.model.get("name"));}
+    // },
+
+    render: function() {
+        var html=tableHeadTemplate(this.model);
+        this.setElement( $(html) );
+        return this;
+    },
+    // template:_.template($('#myModal').html()),
+});
+
+/** View representing a row of that table */
+ava.views.TableRowView = ava.views.UtilityView.extend({
+// var RowView = Backbone.View.extend({  
+    events: {
+        "click .age": function() {console.log(this.model.get("name"));}
+    },
+
+    render: function() {
+        var html=rowTemplate(this.model.toJSON());
+        this.setElement( $(html) );
+        return this;
+    },
+    // template:_.template($('#myModal').html()),
+
+    initialize: function() {
+      // this.model.on('change', this.render, this);
+      // this.listenTo(this.model, "change", this.render);
+      this.listenTo(this.model, 'change:value', this.render);
+    },
+});
+
+var tableHeadTemplate=_.template("<thead>"+"<tr>"+
+     "<th class='nameHead'><%= name %></th>"+
+     "<th class='valueHead'><%= value %></th>"+
+     "</tr>"+"</thead>");
+
+var rowTemplate=_.template("<tr>"+
+     "<td class='name'><%= name %></td>"+
+     "<td class='value'><%= value %></td>"+
+     "</tr>");
+
+
+
+

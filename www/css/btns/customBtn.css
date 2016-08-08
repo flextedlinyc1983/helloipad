@@ -29,6 +29,8 @@ input[type="text"], input[type="password"] {
     border-radius: 6px;   
     width:  50px;
     height: 40px;
+    padding: 0px 0px;
+    background: #ddd;
 }
 
 

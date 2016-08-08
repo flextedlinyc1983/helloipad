@@ -38,7 +38,107 @@ ava.router = Backbone.Router.extend({
 
     portal:function () {
         console.log('#portal');
-        this.changePageForMobile(new ava.views.PortalView());
+        var portal = new ava.views.PortalView();
+        this.changePageForMobile(portal);
+        portal.loginGetData();
+        console.log(RealtimeInfo);
+        
+
+
+        if(window.localStorage.getItem('loginSuccess') == "true") {
+            this.loginGetData();
+            RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
+            this.putElementOnPageContent(tableView.render().$el);  
+
+            this.timeout();
+
+        }else{
+            this.putElementOnPageContent("尚未登入");  
+        }
+      
+
+
+    },
+
+    timeout: function () {
+        var self = this;
+        setTimeout(function () {
+            // Do Something Here
+            // Then recall the parent function to
+            // create a recursive loop.
+
+            self.loginGetData();
+            RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
+            self.putElementOnPageContent(tableView.render().$el);  
+            self.timeout();
+        }, 3000);
+    },
+
+    setRealtimeInfoData: function (oJson) {
+
+        RealtimeInfo = [
+            {'name': '本日業績', 'value': oJson.Info.Pos.volumeToday},
+            {'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday},
+            {'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth},
+            {'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth},
+            {'name': '現有庫存', 'value': oJson.Info.Pos.deposit},
+            {'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable}
+            
+        ];
+        
+    },
+
+    loginGetData:function () {
+    // loginGetData:function (event) {
+        // event.preventDefault(); // Don't let this button submit the form
+        // $('.alert-error').hide(); // Hide any errors on a new submit
+        // var url = '../api/login';
+        var url = 'http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1&FMieQ4fK=1';
+        // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
+        // console.log('Loggin in... ');
+        var formValues = {
+            // code: $('#code').val(),
+            // pwd: $('#pwd').val()
+            // code: 'flextier99',
+            // pwd: '0827203'
+            code: window.localStorage.getItem('code') + "111",
+            pwd: window.localStorage.getItem('pwd')
+        };
+
+        $.ajax({
+            context: this,
+            url:url,
+            // type:'GET',
+            type:'POST',
+            // crossDomain: true,
+            // headers: { 'Access-Control-Allow-Origin': '*',
+            // 'Content-Type':'application/x-www-form-urlencoded' },
+            // dataType:"json",
+            // data: formValues,
+            success:function (data, textStatus, jqXHR) {
+                console.log(["Login request details: ", data]);
+
+                var oJson = xml2json(data);
+
+                // alert(JSON.stringify(oJson));
+
+                this.setRealtimeInfoData(oJson);
+               
+                // if(data.error) {  // If there is an error, show the error messages
+                //     $('.alert-error').text(data.error.text).show();
+                // }
+                // else { // If not, send them back to the home page
+                //     window.location.replace('#');
+                // }
+            },
+            error: function(xhr, textStatus, errorThrown){
+               alert('request failed');
+            }
+        });
+
+
     },
 
     page1:function () {
@@ -248,7 +348,11 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
     addCustomClass: function (pos,className) {
         // alert('addCustomClass');
         $(document).find(pos).addClass(className);
-    }
+    },
+    putElementOnPageContent: function (view) {
+        
+        $('div[data-role=page]').find('div[data-role=content]').html(view);
+    },
     
 });
 

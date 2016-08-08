@@ -60,6 +60,7 @@
         <link rel="stylesheet" type="text/css" href="css/clocks/clock.css">
 
         <link rel="stylesheet" type="text/css" href="css/logins/login.css">
+        <link rel="stylesheet" type="text/css" href="css/tables/table.css">
 
 
 <!-- <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css"> -->
@@ -373,9 +374,9 @@
 <script type="text/template" id="portal">
 
     <div data-role="header" data-position='fixed' background="img/title-2.png">
-        <h1>Backbone.js + jQuery Mobile</h1>
-        <a href="#" data-rel="dialog" id="loginIcon" class="ui-btn-right" >登入</a>
-        <a href="#myModal" class="ui-btn-right" id="myModal">登入</a>
+        <h1><%= storeName %></h1>
+        <!-- <a href="#" data-rel="dialog" id="loginIcon" class="ui-btn-right" >登入</a> -->
+        <a href=<%= href %> class="ui-btn-right" id="myModal"><%= status %></a>
         <!-- <a href="login.html" data-rel="dialog"  class="ui-btn-right" >登入</a> -->
     </div>
 
@@ -428,12 +429,12 @@
                 <form id="loginForm" >
                     <div data-role="fieldcontainer" class="form-group">
                         <label for="code">帳號:</label>
-                        <input type="text" id="code" name="code"></input>
+                        <input type="text" id="code" name="code" value="flextier99"></input>
                         <span class="help-block hidden"></span>
                     </div>
                     <div data-role="fieldcontainer" class="form-group">
                         <label for="pwd">密碼:</label>
-                        <input type="password" id="pwd" name="pwd"></input>
+                        <input type="password" id="pwd" name="pwd" value="0827203"></input>
                         <span class="help-block hidden"></span>
                     </div>
                     <div data-role="fieldcontainer">
