@@ -6,7 +6,8 @@ ava.router = Backbone.Router.extend({
 		"home": "home",
         "login" : "login",
         "page1" : "page1",
-        "myModal" : "myModal"
+        "myModal" : "myModal",
+        "RealtimeInfo_Today" : "RealtimeInfo_Today"
 	},
 
     // initialize: function () {
@@ -36,6 +37,38 @@ ava.router = Backbone.Router.extend({
 
     },
 
+    
+    RealtimeInfo_Today:function () {
+
+
+
+
+        console.log('#RealtimeInfo_Today');
+        var page = new ava.views.RealtimeInfo_Today();
+        this.changePageForMobile(page);
+        // portal.loginGetData();
+        // console.log(RealtimeInfo);
+        
+
+
+
+
+        if(window.localStorage.getItem('loginSuccess') == "true") {
+            this.loginGetData(urls.RealtimeInfo_Today,"RealtimeInfo_Today");
+            // this.loginGetData();
+            // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});            
+            this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content");  
+
+            // this.timeout();
+
+        }else{
+            this.putElementOnPageContent("尚未登入");  
+        }
+      
+
+
+    },
     portal:function () {
 
 
@@ -56,12 +89,12 @@ ava.router = Backbone.Router.extend({
             this.loginGetData();
             // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
             var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});            
-            this.putElementOnPageContent(tableView.render().$el);  
+            this.putElementOnPageContent(tableView.render().$el, "portal-content");  
 
             this.timeout();
 
         }else{
-            this.putElementOnPageContent("尚未登入");  
+            this.putElementOnPageContent("尚未登入", "portal-content");  
         }
       
 
@@ -81,7 +114,7 @@ ava.router = Backbone.Router.extend({
             period = 3000;
         }
         var self = this;
-        setTimeout(function () {
+        RealtimeInfoTimeout = setTimeout(function () {
             // Do Something Here
             // Then recall the parent function to
             // create a recursive loop.
@@ -94,7 +127,7 @@ ava.router = Backbone.Router.extend({
         }, period);
     },
 
-    setRealtimeInfoData: function (oJson) {
+    setRealtimeInfoData: function (oJson,page) {
 
         // RealtimeInfo = [
         //     {'name': '本日業績', 'value': oJson.Info.Pos.volumeToday},
@@ -107,13 +140,39 @@ ava.router = Backbone.Router.extend({
         // ];
 
         try {
-            RealtimeInfoCollection.reset();
-            RealtimeInfoCollection.push({'name': '本日業績', 'value': oJson.Info.Pos.volumeToday});
-            RealtimeInfoCollection.push({'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday});
-            RealtimeInfoCollection.push({'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth});
-            RealtimeInfoCollection.push({'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth});
-            RealtimeInfoCollection.push({'name': '現有庫存', 'value': oJson.Info.Pos.deposit});
-            RealtimeInfoCollection.push({'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable});
+
+            switch (page) {
+                          case "RealtimeInfo_Today":
+                              RealtimeInfoCollection_today.reset(oJson.Info.Pos);                              
+                              break;
+                          case 1:
+                              day = "Monday";
+                              break;
+                          case 2:
+                              day = "Tuesday";
+                              break;
+                          case 3:
+                              day = "Wednesday";
+                              break;
+                          case 4:
+                              day = "Thursday";
+                              break;
+                          case 5:
+                              day = "Friday";
+                              break;
+                          case 6:
+                              day = "Saturday";
+                          default:
+                                RealtimeInfoCollection.reset();
+                                RealtimeInfoCollection.push({'name': '本日業績', 'value': oJson.Info.Pos.volumeToday});
+                                RealtimeInfoCollection.push({'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday});
+                                RealtimeInfoCollection.push({'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth});
+                                RealtimeInfoCollection.push({'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth});
+                                RealtimeInfoCollection.push({'name': '現有庫存', 'value': oJson.Info.Pos.deposit});
+                                RealtimeInfoCollection.push({'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable});
+            }
+
+
         }
         catch(err) {
             console.log("setRealtimeInfoData" + err);
@@ -122,12 +181,18 @@ ava.router = Backbone.Router.extend({
         
     },
 
-    loginGetData:function () {
+    loginGetData:function (address,page) {
+        
     // loginGetData:function (event) {
         // event.preventDefault(); // Don't let this button submit the form
         // $('.alert-error').hide(); // Hide any errors on a new submit
         // var url = '../api/login';
-        var url = 'http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1&FMieQ4fK=1';
+        var url;
+        if(!address){
+            url = 'http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1&FMieQ4fK=1';
+        }else{
+            url = address;
+        }
         // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
         // console.log('Loggin in... ');
         var formValues = {
@@ -156,7 +221,7 @@ ava.router = Backbone.Router.extend({
 
                 // alert(JSON.stringify(oJson));
 
-                this.setRealtimeInfoData(oJson);
+                this.setRealtimeInfoData(oJson,page);
                
                 // if(data.error) {  // If there is an error, show the error messages
                 //     $('.alert-error').text(data.error.text).show();
@@ -381,9 +446,13 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         // alert('addCustomClass');
         $(document).find(pos).addClass(className);
     },
-    putElementOnPageContent: function (view) {
-        
-        $('div[data-role=page]').find('div[data-role=content]').html(view);
+    putElementOnPageContent: function (view, pageName) {
+        var length = $('div[data-role=page]').find('div[data-role=content]').length;
+        var content = $('div[data-role=page]').find('div[data-role=content]').eq(length-1);
+         var strId = content.attr("id");
+        if(strId == pageName){
+            $('div[data-role=page]').find('div[data-role=content]').html(view);
+        }
     },
     
 });

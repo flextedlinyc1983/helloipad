@@ -380,7 +380,7 @@
         <!-- <a href="login.html" data-rel="dialog"  class="ui-btn-right" >登入</a> -->
     </div>
 
-    <div data-role="content">
+    <div data-role="content" id="portal-content">
         <h3>Application Template for using Backbone.js and jQuery Mobile.</h3>
         <p>Backbone.js is used for code organization (Models, Views) and "routing".</p>
         <p>jQuery Mobile is used for its mobile styles and widgets. The routing and navigation capabilities of jQuery Mobile are disbled to let Backbone.js handle these requirements.</p>
@@ -390,6 +390,18 @@
             <li><a href="#page1">Page 1</a></li>
             <li><a href="#page2">Page 2</a></li>
         </ul>
+    </div>
+
+</script>
+
+<script type="text/template" id="RealtimeInfo_Today">
+
+    <div data-role="header">
+        <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+        <h1>Page 1</h1>
+    </div>
+
+    <div data-role="content" id="RealtimeInfo_Today-content">
     </div>
 
 </script>
@@ -488,6 +500,8 @@
         <!-- <script type="text/javascript" src="js/lodash.min.js"></script> -->
         <script type="text/javascript" src="js/underscore.js"></script>
         <script type="text/javascript" src="js/backbone.js"></script>
+        <script type="text/javascript" src="js/hammer-1.0.3.js"></script>
+        <script type="text/javascript" src="js/jquery.hammer.js"></script>
         <script type="text/javascript" src="js/backbone-validation.js"></script>
         <script type="text/javascript" src="js/Backbone.Validation.callbacks.js"></script>
         

@@ -255,9 +255,23 @@ ava.collections.RealtimeInfoList = ava.collections.UtilityForCollection.extend({
 });
 
 RealtimeInfoCollection = new ava.collections.RealtimeInfoList();
+
+
+ava.collections.RealtimeInfoList_today = ava.collections.UtilityForCollection.extend({
+	model: ava.models.RealtimeInfo_today,
+	// localStorage: new Backbone.LocalStorage("RealtimeInfos-backbone"),	
+
+});
+
+RealtimeInfoCollection_today = new ava.collections.RealtimeInfoList();
         // RealtimeInfoCollection.push({'name': '本日業績', 'value': ""});
         // RealtimeInfoCollection.push({'name': '去年本日業績', 'value': ""});
         // RealtimeInfoCollection.push({'name': '本月業績', 'value': ""});
         // RealtimeInfoCollection.push({'name': '去年本月業績', 'value': ""});
         // RealtimeInfoCollection.push({'name': '現有庫存', 'value': ""});
         // RealtimeInfoCollection.push({'name': '可售金額', 'value': ""});
+
+
+var urls= {
+	RealtimeInfo_Today:"http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1"
+}

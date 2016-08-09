@@ -830,7 +830,37 @@ ava.views.TableHeadView = ava.views.UtilityView.extend({
 ava.views.TableRowView = ava.views.UtilityView.extend({
 // var RowView = Backbone.View.extend({  
     events: {
-        "click .age": function() {console.log(this.model.get("name"));}
+        "click": function(event) {
+          var name = this.model.get("name");
+          console.log(name);
+
+          switch (name) {
+              case "本日業績":
+                  clearTimeout(RealtimeInfoTimeout);
+                  Backbone.history.navigate('RealtimeInfo_Today', true);
+                  break;
+              case 1:
+                  day = "Monday";
+                  break;
+              case 2:
+                  day = "Tuesday";
+                  break;
+              case 3:
+                  day = "Wednesday";
+                  break;
+              case 4:
+                  day = "Thursday";
+                  break;
+              case 5:
+                  day = "Friday";
+                  break;
+              case 6:
+                  day = "Saturday";
+              default:
+                  alert('no match');
+          }
+
+        }
     },
 
     render: function() {
@@ -852,7 +882,7 @@ var tableHeadTemplate=_.template("<thead>"+"<tr>"+
      "<th class='valueHead'><%= value %></th>"+
      "</tr>"+"</thead>");
 
-var rowTemplate=_.template("<tr>"+
+var rowTemplate=_.template("<tr class='item'>"+
      "<td class='name'><%= name %></td>"+
      "<td class='value'><%= value %></td>"+
      "</tr>");
@@ -860,3 +890,60 @@ var rowTemplate=_.template("<tr>"+
 
 
 
+ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
+
+  template:_.template($('#RealtimeInfo_Today').html()),
+
+  // loginStatus: {
+  //   status: "登入",
+  //   href: "#myModal",
+  //   storeName: "你好"
+  // },
+
+  events: {
+      "swipe" : "swipeIt"
+  },
+
+  swipeIt: function(e){
+    try{
+      if (e.gesture.direction == '4') {//left to right
+           // Backbone.history.navigate('RealtimeInfo_Today', true);
+           window.history.back();
+      }
+      else if (e.gesture.direction == '2') {// right to left 
+          console.log("You swiped left");
+      }
+    }
+    catch(err) {
+        console.log("swipeIt" + err);
+    }
+  },
+
+  render:function (eventName) {
+
+    // this.$el.hammer();
+    $(this.el).hammer();
+
+    // this.setLoginStatus();
+
+
+    // $(this.el).html(this.template(this.loginStatus));
+
+    $(this.el).html(this.template());
+    return this;
+  },
+
+
+  // setLoginStatus: function () {
+  //   if(window.localStorage.getItem('loginSuccess') == "true") {
+  //     this.loginStatus.status = "登出";
+  //     this.loginStatus.href = "#";    
+  //     this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
+  //   }else{
+  //     this.loginStatus.status = "登入";
+  //     this.loginStatus.storeName = "你好";
+  //   }
+  // }
+
+
+});

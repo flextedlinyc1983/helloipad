@@ -143,3 +143,35 @@ ava.models.RealtimeInfo = ava.models.UtilityForModel.extend({
 	// 	this.save({priceFormat: this.numFormat(this.get("price"))});
 	// }
 });
+
+ava.models.RealtimeInfo_today = ava.models.UtilityForModel.extend({
+// ava.models.Todo = Backbone.Model.extend({
+  	defaults: function() {
+      return {        
+        code: "",
+        name: "",
+        volumeToday: "",
+        volumeThisMonth: "",
+        volumeLastYearToday: "",
+		volumeLastYearThisMonth:"",
+		deposit: "",
+		volumeAvailable: "",
+		target: "",
+		targetRate: "",
+		preSaleTotal:"",
+		saleTotal: "",
+		customer: "",
+		customerUPrice:"",
+		saleAmount: "",
+		customerAVAmount: "",
+		memberCount: "",
+		isWithdraw: ""
+      };
+    },
+ //    toggle: function() {
+	//   this.save({done: !this.get("done")});
+	// },
+	// setPriceFormat: function () {
+	// 	this.save({priceFormat: this.numFormat(this.get("price"))});
+	// }
+});
