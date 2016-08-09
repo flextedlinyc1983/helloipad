@@ -71,11 +71,14 @@ ava.router = Backbone.Router.extend({
     timeout: function () {
         var period = 0;
         if (typeof(firstTime) == "undefined"){
-            firstTime = 0;
-
-        }else{
             firstTime = 1;
-            period = 5000;
+            period = 800;
+
+        }else if(firstTime == 1){
+            firstTime = 2;
+            period = 1500;
+        }else{
+            period = 3000;
         }
         var self = this;
         setTimeout(function () {
