@@ -37,18 +37,25 @@ ava.router = Backbone.Router.extend({
     },
 
     portal:function () {
+
+
+
+
         console.log('#portal');
         var portal = new ava.views.PortalView();
         this.changePageForMobile(portal);
-        portal.loginGetData();
-        console.log(RealtimeInfo);
+        // portal.loginGetData();
+        // console.log(RealtimeInfo);
         
+
+
 
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
             this.loginGetData();
-            RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
-            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
+            this.loginGetData();
+            // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});            
             this.putElementOnPageContent(tableView.render().$el);  
 
             this.timeout();
@@ -69,24 +76,38 @@ ava.router = Backbone.Router.extend({
             // create a recursive loop.
 
             self.loginGetData();
-            RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
-            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
-            self.putElementOnPageContent(tableView.render().$el);  
+            // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+            // var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
+            // self.putElementOnPageContent(tableView.render().$el);  
             self.timeout();
         }, 3000);
     },
 
     setRealtimeInfoData: function (oJson) {
 
-        RealtimeInfo = [
-            {'name': '本日業績', 'value': oJson.Info.Pos.volumeToday},
-            {'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday},
-            {'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth},
-            {'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth},
-            {'name': '現有庫存', 'value': oJson.Info.Pos.deposit},
-            {'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable}
+        // RealtimeInfo = [
+        //     {'name': '本日業績', 'value': oJson.Info.Pos.volumeToday},
+        //     {'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday},
+        //     {'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth},
+        //     {'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth},
+        //     {'name': '現有庫存', 'value': oJson.Info.Pos.deposit},
+        //     {'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable}
             
-        ];
+        // ];
+
+        try {
+            RealtimeInfoCollection.reset();
+            RealtimeInfoCollection.push({'name': '本日業績', 'value': oJson.Info.Pos.volumeToday});
+            RealtimeInfoCollection.push({'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday});
+            RealtimeInfoCollection.push({'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth});
+            RealtimeInfoCollection.push({'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth});
+            RealtimeInfoCollection.push({'name': '現有庫存', 'value': oJson.Info.Pos.deposit});
+            RealtimeInfoCollection.push({'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable});
+        }
+        catch(err) {
+            console.log("setRealtimeInfoData" + err);
+        }
+
         
     },
 

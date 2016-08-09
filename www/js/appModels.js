@@ -120,3 +120,26 @@ ava.models.LoginStatus = Backbone.Model.extend({
     
 
 });
+
+
+ava.models.RealtimeInfo = ava.models.UtilityForModel.extend({
+// ava.models.Todo = Backbone.Model.extend({
+  	defaults: function() {
+      return {
+        // title: "no title...",
+        // // order: Todos.nextOrder(),
+        // done: false,
+        // price: 0,
+        // priceFormat: "0.00",
+        // test123:"",
+        name: "",
+        value: ""
+      };
+    },
+ //    toggle: function() {
+	//   this.save({done: !this.get("done")});
+	// },
+	// setPriceFormat: function () {
+	// 	this.save({priceFormat: this.numFormat(this.get("price"))});
+	// }
+});

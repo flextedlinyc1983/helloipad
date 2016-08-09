@@ -777,12 +777,21 @@ ava.views.TableView = ava.views.UtilityView.extend({
 
     initialize : function() {
         _.bindAll(this,'render','renderOne');
-        this.listenTo(this.collection, "change", this.render);
+        // this.listenTo(this.collection, "change", this.render);
+        this.listenTo(this.collection, "add", this.addOne);
+        this.listenTo(this.collection, "reset", this.reset);
+        // this.collection.fetch();
     },
+    reset: function () {
+      $('div[data-role=page]').find('div[data-role=content]').find('tbody').html("");
+      // this.renderHead({'name': '項目', 'value': "總計"});
+      return this;
+    },
+
     render: function() {
         this.renderHead({'name': '項目', 'value': "總計"});
 
-        this.collection.each(this.renderOne);
+        // this.collection.each(this.renderOne);
         return this;
     },
     renderOne : function(model) {
@@ -792,6 +801,11 @@ ava.views.TableView = ava.views.UtilityView.extend({
     },
     renderHead : function(model) {
         var row=new ava.views.TableHeadView({model:model});
+        this.$el.append(row.render().$el);
+        return this;
+    },
+    addOne: function (realtimeInfo) {
+        var row=new ava.views.TableRowView({model:realtimeInfo});
         this.$el.append(row.render().$el);
         return this;
     },
