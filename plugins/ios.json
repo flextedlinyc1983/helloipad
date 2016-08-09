@@ -12,6 +12,9 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.flaps.helloipad"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.flaps.helloipad"
         }
     },
     "dependent_plugins": {}
