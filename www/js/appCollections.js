@@ -196,7 +196,7 @@ var	RealtimeInfoTest = [
 	
 ];
 
-var RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+// var RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
 
 
 ava.collections.RealtimeInfoList = ava.collections.UtilityForCollection.extend({
@@ -257,13 +257,82 @@ ava.collections.RealtimeInfoList = ava.collections.UtilityForCollection.extend({
 RealtimeInfoCollection = new ava.collections.RealtimeInfoList();
 
 
-ava.collections.RealtimeInfoList_today = ava.collections.UtilityForCollection.extend({
+ava.collections.RealtimeInfoListToday = ava.collections.RealtimeInfoList.extend({
 	model: ava.models.RealtimeInfo_today,
-	// localStorage: new Backbone.LocalStorage("RealtimeInfos-backbone"),	
+	localStorage: new Backbone.LocalStorage("RealtimeInfos_today-backbone"),
+	
+	// done: function() {
+	// 	return this.where({done: true});
+	// },
+	// remaining: function() {
+	// 	return this.without.apply(this, this.done());
+	// },
+	// nextOrder: function() {
+	// 	if (!this.length) return 1;
+	// 	return this.last().get("order") + 1;
+	// },
+	// comparator: 'order'
+	
+	// url: "https://backgridjs.com/examples/territories.json"
+
+	// calcuTotalPrice: function () {
+	// 	var totalPrice = 0;
+	// 	this.reduce(function(memo, value) {
+	// 		if(!value.get("done")){
+	// 			totalPrice += value.get("price");				
+	// 		} 			
+	// 	}, 0);
+	// 	return totalPrice;
+	// },
+	getColumns: function () {
+		ava.collections.RealtimeInfoListToday.__super__.getColumns.call(this);
+		
+
+		if(this.columns){
+			this.columns = $.grep(this.columns , function(value) {
+			  
+			  var name = value.name;
+
+			  // if(name == "title"){
+			  // 	value.editable = false;
+			  // 	value.label = "商品名稱"
+			  // }
+
+			  // if(name == "price"){
+			  // 	// value.editable = false;
+			  // 	value.label = "價格"
+			  // }
+
+			  // if (name != "id" && name != "test123" && name != "priceFormat" && name != "done") {
+			  // 	return value;	
+			  // }
+			});
+		}
+	}
 
 });
 
-RealtimeInfoCollection_today = new ava.collections.RealtimeInfoList();
+RealtimeInfoCollection_Today = new ava.collections.RealtimeInfoList({model: ava.models.RealtimeInfo_today});
+// RealtimeInfoCollection_today.push({        
+//         code: "",
+//         name: "",
+//         volumeToday: "",
+//         volumeThisMonth: "",
+//         volumeLastYearToday: "",
+// 		volumeLastYearThisMonth:"",
+// 		deposit: "",
+// 		volumeAvailable: "",
+// 		target: "",
+// 		targetRate: "",
+// 		preSaleTotal:"",
+// 		saleTotal: "",
+// 		customer: "",
+// 		customerUPrice:"",
+// 		saleAmount: "",
+// 		customerAVAmount: "",
+// 		memberCount: "",
+// 		isWithdraw: ""
+//       });
         // RealtimeInfoCollection.push({'name': '本日業績', 'value': ""});
         // RealtimeInfoCollection.push({'name': '去年本日業績', 'value': ""});
         // RealtimeInfoCollection.push({'name': '本月業績', 'value': ""});

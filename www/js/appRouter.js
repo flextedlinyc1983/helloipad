@@ -57,7 +57,8 @@ ava.router = Backbone.Router.extend({
             this.loginGetData(urls.RealtimeInfo_Today,"RealtimeInfo_Today");
             // this.loginGetData();
             // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
-            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});            
+            //RealtimeInfoCollection_today
+            var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "RealtimeInfo"});            
             this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content");  
 
             // this.timeout();
@@ -143,7 +144,7 @@ ava.router = Backbone.Router.extend({
 
             switch (page) {
                           case "RealtimeInfo_Today":
-                              RealtimeInfoCollection_today.reset(oJson.Info.Pos);                              
+                              RealtimeInfoCollection_Today.reset((oJson.Info.Pos));                              
                               break;
                           case 1:
                               day = "Monday";
@@ -214,6 +215,13 @@ ava.router = Backbone.Router.extend({
             // 'Content-Type':'application/x-www-form-urlencoded' },
             // dataType:"json",
             // data: formValues,
+            beforeSend: function (){
+            // alert('beforesend');
+             // $.mobile.showPageLoadingMsg();
+             if(page){
+                $.mobile.loading('show');
+              }
+            },
             success:function (data, textStatus, jqXHR) {
                 console.log(["Login request details: ", data]);
 
@@ -232,6 +240,11 @@ ava.router = Backbone.Router.extend({
             },
             error: function(xhr, textStatus, errorThrown){
                alert('request failed');
+            },
+            complete: function(xhr,status){
+             if(page){
+                $.mobile.loading('hide');
+              }
             }
         });
 

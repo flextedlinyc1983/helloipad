@@ -812,6 +812,65 @@ ava.views.TableView = ava.views.UtilityView.extend({
 
 });
 
+ava.views.Table_TodayView = ava.views.TableView.extend({
+
+    reset: function () {
+      $('div[data-role=page]').find('div[data-role=content]').find('tbody').html("");
+      // this.renderHead({'name': '項目', 'value': "總計"});
+      return this;
+    },
+
+    addOne: function (realtimeInfo) {
+        var row=new ava.views.TableRow_TodayView({model:realtimeInfo});
+        this.$el.append(row.render().$el);
+        return this;
+    },
+
+    initialize : function() {
+        _.bindAll(this,'render','renderOne');
+        // this.listenTo(this.collection, "change", this.render);
+        this.listenTo(this.collection, "add", this.addOne);
+        // this.listenTo(this.collection, "reset", this.reset);
+        this.listenTo(this.collection, "reset", this.addAll);
+        // this.collection.fetch();
+    },
+
+    addAll: function () {
+      this.reset();
+      this.collection.each(this.addOne, this);
+    },
+    render: function() {
+        this.renderHead({
+          'item_1': '店櫃名稱', 
+          'item_2': "本日", 
+          'item_3': "去年本日", 
+          'item_4': "本月", 
+          'item_5': "去年本月",
+          'item_6': '商品件數', 
+          'item_7': "平均客件數", 
+          'item_8': "新增會員數", 
+          'item_9': "客數", 
+          'item_10': "客單價",
+          'item_11': '銷售金額', 
+          'item_12': "訂金金額", 
+          'item_13': "本月目標", 
+          'item_14': "達成率", 
+          'item_15': "庫存",
+          'item_16': '可售金額', 
+
+
+      });
+
+        // this.collection.each(this.renderOne);
+        return this;
+    },
+    renderHead : function(model) {
+        var row=new ava.views.TableHead_TodayView({model:model});
+        this.$el.append(row.render().$el);
+        return this;
+    },
+});  
+
 ava.views.TableHeadView = ava.views.UtilityView.extend({
 // var RowView = Backbone.View.extend({  
     // events: {
@@ -820,6 +879,20 @@ ava.views.TableHeadView = ava.views.UtilityView.extend({
 
     render: function() {
         var html=tableHeadTemplate(this.model);
+        this.setElement( $(html) );
+        return this;
+    },
+    // template:_.template($('#myModal').html()),
+});
+
+ava.views.TableHead_TodayView = ava.views.UtilityView.extend({
+// var RowView = Backbone.View.extend({  
+    // events: {
+    //     "click .age": function() {console.log(this.model.get("name"));}
+    // },
+
+    render: function() {
+        var html=tableHead_TodayTemplate(this.model);
         this.setElement( $(html) );
         return this;
     },
@@ -877,6 +950,58 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
     },
 });
 
+
+ava.views.TableRow_TodayView = ava.views.UtilityView.extend({
+// var RowView = Backbone.View.extend({  
+    events: {
+        "click": function(event) {
+          var name = this.model.get("name");
+          console.log(name);
+
+          switch (name) {
+              case "本日業績":
+                  clearTimeout(RealtimeInfoTimeout);
+                  Backbone.history.navigate('RealtimeInfo_Today', true);
+                  break;
+              case 1:
+                  day = "Monday";
+                  break;
+              case 2:
+                  day = "Tuesday";
+                  break;
+              case 3:
+                  day = "Wednesday";
+                  break;
+              case 4:
+                  day = "Thursday";
+                  break;
+              case 5:
+                  day = "Friday";
+                  break;
+              case 6:
+                  day = "Saturday";
+              default:
+                  alert('no match');
+          }
+
+        }
+    },
+
+    render: function() {
+        var html=row_TodayTemplate(this.model.toJSON());
+        this.setElement( $(html) );
+        return this;
+    },
+    // template:_.template($('#myModal').html()),
+
+    initialize: function() {
+      // this.model.on('change', this.render, this);
+      // this.listenTo(this.model, "change", this.render);
+      this.listenTo(this.model, 'change:value', this.render);
+    },
+});
+
+
 var tableHeadTemplate=_.template("<thead>"+"<tr>"+
      "<th class='nameHead'><%= name %></th>"+
      "<th class='valueHead'><%= value %></th>"+
@@ -888,6 +1013,65 @@ var rowTemplate=_.template("<tr class='item'>"+
      "</tr>");
 
 
+var tableHead_TodayTemplate=_.template("<thead>"+"<tr>"+
+     "<th class='item_1'><%= item_1 %></th>"+
+     "<th class='item_2'><%= item_2 %></th>"+
+     "<th class='item_3'><%= item_3 %></th>"+
+     "<th class='item_4'><%= item_4 %></th>"+
+     "<th class='item_5'><%= item_5 %></th>"+
+     "<th class='item_6'><%= item_6 %></th>"+
+     "<th class='item_7'><%= item_7 %></th>"+
+     "<th class='item_8'><%= item_8 %></th>"+
+     "<th class='item_9'><%= item_9 %></th>"+
+     "<th class='item_10'><%= item_10 %></th>"+
+     "<th class='item_11'><%= item_11 %></th>"+
+     "<th class='item_12'><%= item_12 %></th>"+
+     "<th class='item_13'><%= item_13 %></th>"+
+     "<th class='item_14'><%= item_14 %></th>"+
+     "<th class='item_15'><%= item_15 %></th>"+
+     "<th class='item_16'><%= item_16 %></th>"+
+     "</tr>"+"</thead>");
+
+var row_TodayTemplate=_.template("<tr class='item'>"+
+     "<td class='name'><%= name %></td>"+                                          //1
+     
+     "<td class='volumeToday'><%= volumeToday %></td>"+                            //2
+     "<td class='volumeLastYearToday'><%= volumeLastYearToday %></td>"+            //3
+      "<td class='volumeThisMonth'><%= volumeThisMonth %></td>"+                   //4
+
+      "<td class='volumeLastYearThisMonth'><%= volumeLastYearThisMonth %></td>"+   //5 
+      "<td class='saleAmount'><%= saleAmount %></td>"+   //6
+      "<td class='customerAVAmount'><%= customerAVAmount %></td>"+   //7
+      "<td class='memberCount'><%= memberCount %></td>"+   //8
+          
+      "<td class='customer'><%= customer %></td>"+   //9
+      "<td class='customerUPrice'><%= customerUPrice %></td>"+   //10      
+      "<td class='saleTotal'><%= saleTotal %></td>"+   //11
+      "<td class='preSaleTotal'><%= preSaleTotal %></td>"+   //12
+
+      "<td class='target'><%= target %></td>"+   //13
+      "<td class='targetRate'><%= targetRate %></td>"+   //14      
+      "<td class='deposit'><%= deposit %></td>"+   //15
+      "<td class='volumeAvailable'><%= volumeAvailable %></td>"+   //16
+
+     "</tr>");
+
+// 'item_1': '店櫃名稱',    name
+// 'item_2': "本日",        volumeToday
+// 'item_3': "去年本日",    volumeLastYearToday
+// 'item_4': "本月",        volumeThisMonth
+// 'item_5': "去年本月",    volumeLastYearThisMonth
+// 'item_6': '商品件數', 
+// 'item_7': "平均客件數", 
+// 'item_8': "新增會員數", 
+// 'item_9': "客數", 
+// 'item_10': "客單價",
+// 'item_11': '銷售金額', 
+// 'item_12': "訂金金額", 
+// 'item_13': "本月目標", 
+// 'item_14': "達成率", 
+// 'item_15': "庫存",
+// 'item_16': '可售金額', 
 
 
 ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
