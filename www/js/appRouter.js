@@ -58,7 +58,15 @@ ava.router = Backbone.Router.extend({
             // this.loginGetData();
             // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
             //RealtimeInfoCollection_today
-            var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "RealtimeInfo"});            
+            
+            // var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "ui-responsive",
+            //     attributes : {"data-mode":"columntoggle", "data-role": "table", "data-column-btn-text": "欄位選項", "id":"RealtimeInfo_Today-table"}
+            // });
+            
+            var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "",
+                attributes : {"id":"RealtimeInfo_Today-table"}
+            });
+
             this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content");  
 
             // this.timeout();

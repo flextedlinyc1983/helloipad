@@ -111,7 +111,7 @@
 }
 
 .RealtimeInfo tbody .value{
-    float: right;
+    // float: right;
 }
 
 th {
@@ -129,4 +129,9 @@ padding: 5px 0px;
 
 .RealtimeInfo tbody td {
 padding: 15px 15px;
+}
+
+
+tbody td {
+	text-align: center;
 }

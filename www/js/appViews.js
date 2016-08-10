@@ -838,6 +838,12 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
     addAll: function () {
       this.reset();
       this.collection.each(this.addOne, this);
+
+      this.stackTabke();
+    },
+
+    stackTabke: function () {
+        this.$el.stacktable({});
     },
     render: function() {
         this.renderHead({
@@ -1014,22 +1020,22 @@ var rowTemplate=_.template("<tr class='item'>"+
 
 
 var tableHead_TodayTemplate=_.template("<thead>"+"<tr>"+
-     "<th class='item_1'><%= item_1 %></th>"+
-     "<th class='item_2'><%= item_2 %></th>"+
-     "<th class='item_3'><%= item_3 %></th>"+
-     "<th class='item_4'><%= item_4 %></th>"+
-     "<th class='item_5'><%= item_5 %></th>"+
-     "<th class='item_6'><%= item_6 %></th>"+
-     "<th class='item_7'><%= item_7 %></th>"+
-     "<th class='item_8'><%= item_8 %></th>"+
-     "<th class='item_9'><%= item_9 %></th>"+
-     "<th class='item_10'><%= item_10 %></th>"+
-     "<th class='item_11'><%= item_11 %></th>"+
-     "<th class='item_12'><%= item_12 %></th>"+
-     "<th class='item_13'><%= item_13 %></th>"+
-     "<th class='item_14'><%= item_14 %></th>"+
-     "<th class='item_15'><%= item_15 %></th>"+
-     "<th class='item_16'><%= item_16 %></th>"+
+     "<th class='item_1' data-priority='1' ><%= item_1 %></th>"+
+     "<th class='item_2' data-priority='2' ><%= item_2 %></th>"+
+     "<th class='item_3' data-priority='3' ><%= item_3 %></th>"+
+     "<th class='item_4' data-priority='4' ><%= item_4 %></th>"+
+     "<th class='item_5' data-priority='5' ><%= item_5 %></th>"+
+     "<th class='item_6' data-priority='6' ><%= item_6 %></th>"+
+     "<th class='item_7' data-priority='7' ><%= item_7 %></th>"+
+     "<th class='item_8' data-priority='8' ><%= item_8 %></th>"+
+     "<th class='item_9' data-priority='9' ><%= item_9 %></th>"+
+     "<th class='item_10' data-priority='10' ><%= item_10 %></th>"+
+     "<th class='item_11' data-priority='11' ><%= item_11 %></th>"+
+     "<th class='item_12' data-priority='12' ><%= item_12 %></th>"+
+     "<th class='item_13' data-priority='13' ><%= item_13 %></th>"+
+     "<th class='item_14' data-priority='14' ><%= item_14 %></th>"+
+     "<th class='item_15' data-priority='15' ><%= item_15 %></th>"+
+     "<th class='item_16' data-priority='16' ><%= item_16 %></th>"+
      "</tr>"+"</thead>");
 
 var row_TodayTemplate=_.template("<tr class='item'>"+
