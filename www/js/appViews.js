@@ -839,7 +839,14 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
       this.reset();
       this.collection.each(this.addOne, this);
 
-      this.stackTabke();
+      // this.stackTabke();
+      this.getTable();
+    },
+
+    getTable: function () {
+        // console.log('test');
+         this.$el.addClass("showG1");
+        // this.$el
     },
 
     stackTabke: function () {
@@ -917,6 +924,7 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
               case "本日業績":
                   clearTimeout(RealtimeInfoTimeout);
                   Backbone.history.navigate('RealtimeInfo_Today', true);
+                  // Backbone.history.navigate('RealtimeInfo_Today_G1', true);
                   break;
               case 1:
                   day = "Monday";
@@ -1039,26 +1047,26 @@ var tableHead_TodayTemplate=_.template("<thead>"+"<tr>"+
      "</tr>"+"</thead>");
 
 var row_TodayTemplate=_.template("<tr class='item'>"+
-     "<td class='name'><%= name %></td>"+                                          //1
+     "<td class='item_1 name'><%= name %></td>"+                                          //1
      
-     "<td class='volumeToday'><%= volumeToday %></td>"+                            //2
-     "<td class='volumeLastYearToday'><%= volumeLastYearToday %></td>"+            //3
-      "<td class='volumeThisMonth'><%= volumeThisMonth %></td>"+                   //4
+     "<td class='item_2 volumeToday'><%= volumeToday %></td>"+                            //2
+     "<td class='item_3 volumeLastYearToday'><%= volumeLastYearToday %></td>"+            //3
+      "<td class='item_4 volumeThisMonth'><%= volumeThisMonth %></td>"+                   //4
 
-      "<td class='volumeLastYearThisMonth'><%= volumeLastYearThisMonth %></td>"+   //5 
-      "<td class='saleAmount'><%= saleAmount %></td>"+   //6
-      "<td class='customerAVAmount'><%= customerAVAmount %></td>"+   //7
-      "<td class='memberCount'><%= memberCount %></td>"+   //8
+      "<td class='item_5 volumeLastYearThisMonth'><%= volumeLastYearThisMonth %></td>"+   //5 
+      "<td class='item_6 saleAmount'><%= saleAmount %></td>"+   //6
+      "<td class='item_7 customerAVAmount'><%= customerAVAmount %></td>"+   //7
+      "<td class='item_8 memberCount'><%= memberCount %></td>"+   //8
           
-      "<td class='customer'><%= customer %></td>"+   //9
-      "<td class='customerUPrice'><%= customerUPrice %></td>"+   //10      
-      "<td class='saleTotal'><%= saleTotal %></td>"+   //11
-      "<td class='preSaleTotal'><%= preSaleTotal %></td>"+   //12
+      "<td class='item_9 customer'><%= customer %></td>"+   //9
+      "<td class='item_10 customerUPrice'><%= customerUPrice %></td>"+   //10      
+      "<td class='item_11 saleTotal'><%= saleTotal %></td>"+   //11
+      "<td class='item_12 preSaleTotal'><%= preSaleTotal %></td>"+   //12
 
-      "<td class='target'><%= target %></td>"+   //13
-      "<td class='targetRate'><%= targetRate %></td>"+   //14      
-      "<td class='deposit'><%= deposit %></td>"+   //15
-      "<td class='volumeAvailable'><%= volumeAvailable %></td>"+   //16
+      "<td class='item_13 target'><%= target %></td>"+   //13
+      "<td class='item_14 targetRate'><%= targetRate %></td>"+   //14      
+      "<td class='item_15 deposit'><%= deposit %></td>"+   //15
+      "<td class='item_16 volumeAvailable'><%= volumeAvailable %></td>"+   //16
 
      "</tr>");
 
@@ -1094,19 +1102,43 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
       "swipe" : "swipeIt"
   },
 
+  nowPage: 1,
+
   swipeIt: function(e){
     try{
       if (e.gesture.direction == '4') {//left to right
            // Backbone.history.navigate('RealtimeInfo_Today', true);
-           window.history.back();
+           // window.history.back();
+            if(this.nowPage != 1){
+                 this.nowPage -= 1;           
+                this.toggleColumn(this.nowPage);
+            }
+
       }
       else if (e.gesture.direction == '2') {// right to left 
-          console.log("You swiped left");
+            if(this.nowPage != 7){
+                 this.nowPage += 1;           
+                this.toggleColumn(this.nowPage);
+            }
       }
     }
     catch(err) {
         console.log("swipeIt" + err);
     }
+  },
+
+  toggleColumn: function(n) {
+      // var currentClass = document.getElementById("mytable").className;
+      var currentClass = $('#RealtimeInfo_Today-table').attr('class');
+      if (currentClass.indexOf("showG"+n) == -1) {
+          // document.getElementById("mytable").className = currentClass.replace("show"+n, "");
+          $('#RealtimeInfo_Today-table').removeClass(currentClass)
+          $('#RealtimeInfo_Today-table').addClass("showG"+n)
+      }
+      else {
+          // document.getElementById("mytable").className += " " + "show"+n;
+          // $('#RealtimeInfo_Today-table').addClass("showG"+n)
+      }
   },
 
   render:function (eventName) {

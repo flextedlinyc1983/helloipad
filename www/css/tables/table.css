@@ -135,3 +135,85 @@ padding: 15px 15px;
 tbody td {
 	text-align: center;
 }
+
+.item_1 {display: none; }
+.item_2 {display: none; }
+.item_3 {display: none; }
+.item_4 {display: none; }
+
+.item_5 {display: none; }
+.item_6 {display: none; }
+.item_7 {display: none; }
+.item_8 {display: none; }
+
+.item_9 {display: none; }
+.item_10 {display: none; }
+.item_11 {display: none; }
+.item_12 {display: none; }
+
+.item_13 {display: none; }
+.item_14 {display: none; }
+.item_15 {display: none; }
+.item_16 {display: none; }
+
+table.showG1 .item_1 { display: table-cell; }
+table.showG1 .item_2 { display: table-cell; }
+table.showG1 .item_3 { display: table-cell; }
+
+table.showG2 .item_1 { display: table-cell; }
+table.showG2 .item_4 { display: table-cell; }
+table.showG2 .item_5 { display: table-cell; }
+
+table.showG3 .item_1 { display: table-cell; }
+table.showG3 .item_6 { display: table-cell; }
+table.showG3 .item_7 { display: table-cell; }
+
+table.showG4 .item_1 { display: table-cell; }
+table.showG4 .item_8 { display: table-cell; }
+table.showG4 .item_9 { display: table-cell; }
+
+table.showG5 .item_1 { display: table-cell; }
+table.showG5 .item_10 { display: table-cell; }
+table.showG5 .item_11 { display: table-cell; }
+
+table.showG6 .item_1 { display: table-cell; }
+table.showG6 .item_12 { display: table-cell; }
+table.showG6 .item_13 { display: table-cell; }
+
+table.showG7 .item_1 { display: table-cell; }
+table.showG7 .item_14 { display: table-cell; }
+table.showG7 .item_15 { display: table-cell; }
+table.showG7 .item_16 { display: table-cell; }
+
+#RealtimeInfo_Today-table {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
+
+
+#RealtimeInfo_Today-table tbody td {
+padding: 15px 15px;
+}
+
+ @media ( max-width: 400px ) {
+
+	#RealtimeInfo_Today-table {
+	    font-size: 13px;
+	}
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 10px 10px;
+	}
+ }
+
+  @media ( max-width: 320px ) {
+
+	#RealtimeInfo_Today-table {
+	    font-size: 12px;
+	}
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 7px 7px;
+	}
+ }

@@ -7,7 +7,8 @@ ava.router = Backbone.Router.extend({
         "login" : "login",
         "page1" : "page1",
         "myModal" : "myModal",
-        "RealtimeInfo_Today" : "RealtimeInfo_Today"
+        "RealtimeInfo_Today" : "RealtimeInfo_Today",
+        "RealtimeInfo_Today_G1": "RealtimeInfo_Today_G1"
 	},
 
     // initialize: function () {
