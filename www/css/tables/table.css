@@ -247,6 +247,45 @@ padding-top: 10px;
  }
 
 
+ @media ( max-width: 800px ) {
+
+	#RealtimeInfo_Today-table {
+	    font-size: 13px;
+	}
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 13px 13px;
+	}
+
+	.fixedHeader {
+	    font-size: 13px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 13px 13px;
+	}
+ }
+
+ @media ( max-width: 1600px ) {
+
+	#RealtimeInfo_Today-table {
+	    font-size: 13px;
+	}
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 13px 13px;
+	}
+
+	.fixedHeader {
+	    font-size: 13px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 13px 13px;
+	}
+ }
+
+
  table thead {
   // white-space: nowrap;
 }
