@@ -18,6 +18,7 @@ ava.views.UtilityView = Backbone.View.extend({
 	    };
 
 	},
+	
 
 	loginGetData:function () {
 	// loginGetData:function (event) {

@@ -189,11 +189,22 @@ table.showG7 .item_16 { display: table-cell; }
     width: 100%;
     height: 100%;
     font-size: 16px;
-}
+    
 
+
+
+}
+#RealtimeInfo_Today-content {
+	padding-top: 0px;
+}
 
 #RealtimeInfo_Today-table tbody td {
 padding: 15px 15px;
+}
+
+#RealtimeInfo_Today-table thead th{
+padding-top: 10px;
+// padding-buttom: 10px;
 }
 
  @media ( max-width: 400px ) {
@@ -203,6 +214,14 @@ padding: 15px 15px;
 	}
 
 	#RealtimeInfo_Today-table tbody td {
+		padding: 10px 10px;
+	}
+
+	.fixedHeader {
+	    font-size: 13px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
 		padding: 10px 10px;
 	}
  }
@@ -216,4 +235,23 @@ padding: 15px 15px;
 	#RealtimeInfo_Today-table tbody td {
 		padding: 7px 7px;
 	}
+
+	.fixedHeader {
+	    font-size: 12px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 7px 7px;
+
+	}
  }
+
+
+ table thead {
+  // white-space: nowrap;
+}
+
+
+th {
+    background-color: #f9f9f9;
+}

@@ -1,3 +1,14 @@
+.ui-header-fixed.ui-fixed-hidden {
+     top: -1px;
+     padding-top: 1px;  
+}
+
+
+
+.ui-header-fixed.ui-fixed-hidden .ui-btn-left {
+    margin: .7em 0;
+}
+
 .ui-header a.back, .ui-header #loginIcon, .ui-header #myModal {
     margin: .7em 0;
 }

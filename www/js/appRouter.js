@@ -64,11 +64,14 @@ ava.router = Backbone.Router.extend({
             //     attributes : {"data-mode":"columntoggle", "data-role": "table", "data-column-btn-text": "欄位選項", "id":"RealtimeInfo_Today-table"}
             // });
             
-            var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "",
-                attributes : {"id":"RealtimeInfo_Today-table"}
+            var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "fixedHeader",
+                attributes : {"id":"RealtimeInfo_Today-table", "data-role": "table"}
             });
 
-            this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content");  
+            this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content", true);  
+
+
+
 
             // this.timeout();
 
@@ -468,12 +471,24 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         // alert('addCustomClass');
         $(document).find(pos).addClass(className);
     },
-    putElementOnPageContent: function (view, pageName) {
+    putElementOnPageContent: function (view, pageName, fixedHeader) {
         var length = $('div[data-role=page]').find('div[data-role=content]').length;
         var content = $('div[data-role=page]').find('div[data-role=content]').eq(length-1);
          var strId = content.attr("id");
         if(strId == pageName){
-            $('div[data-role=page]').find('div[data-role=content]').html(view);
+
+            if(pageName == "RealtimeInfo_Today-content"){
+                $('div[data-role=page]').find('div[data-role=content] .table-container').html(view); 
+                
+            }else{
+                $('div[data-role=page]').find('div[data-role=content]').html(view);    
+            }
+
+            
+
+            // if(fixedHeader){
+            //     $('div[data-role=page]').find('div[data-role=content]').prepend('<div id="bottom_anchor"></div>');
+            // }
         }
     },
     

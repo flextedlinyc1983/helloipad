@@ -841,6 +841,37 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
 
       // this.stackTabke();
       this.getTable();
+
+      this.fixedHeader();
+    },
+
+    fixedHeader: function () {
+      // this.TableThing = new TableThing();
+      // this.TableThing.fixThead(); 
+
+      // this.$el.DataTable( {
+      //     fixedHeader: true,
+      //     "bFilter": false,
+      //     // "paging": false
+      // } );
+
+      // this.$el.scroll(moveScroll);
+      // $(':jqmData(role=page)').scroll(moveScroll);
+      // $(".fixedHeader").children('thead').css({visibility:'hidden'});
+
+      this.$el.floatThead(
+          {
+              // position: 'fixed'
+              // scrollContainer: function($table){
+              //     return $table.closest('.table-container');
+              // },
+              // responsiveContainer: function($table){
+              //     return $table.closest('.table-container');
+              // }
+              scrollTop: 0
+          }
+        );
+
     },
 
     getTable: function () {
@@ -856,20 +887,27 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
         this.renderHead({
           'item_1': '店櫃名稱', 
           'item_2': "本日", 
-          'item_3': "去年本日", 
+          'item_3': "去年本日 >", 
+
           'item_4': "本月", 
-          'item_5': "去年本月",
-          'item_6': '商品件數', 
-          'item_7': "平均客件數", 
-          'item_8': "新增會員數", 
-          'item_9': "客數", 
-          'item_10': "客單價",
-          'item_11': '銷售金額', 
-          'item_12': "訂金金額", 
-          'item_13': "本月目標", 
-          'item_14': "達成率", 
-          'item_15': "庫存",
-          'item_16': '可售金額', 
+          'item_5': "去年本月 <>",
+
+          'item_6': "庫存",
+          'item_7': '可售金額 <>', 
+
+          'item_8': "本月目標", 
+          'item_9': "達成率 <>", 
+
+          'item_10': '銷售金額', 
+          'item_11': "訂金金額 <>",
+
+          'item_12': "客數", 
+          'item_13': "客單價 <>",
+
+          'item_14': '商品件數', 
+          'item_15': "平均客件數", 
+          'item_16': "新增會員數 <", 
+
 
 
       });
@@ -1054,19 +1092,26 @@ var row_TodayTemplate=_.template("<tr class='item'>"+
       "<td class='item_4 volumeThisMonth'><%= volumeThisMonth %></td>"+                   //4
 
       "<td class='item_5 volumeLastYearThisMonth'><%= volumeLastYearThisMonth %></td>"+   //5 
-      "<td class='item_6 saleAmount'><%= saleAmount %></td>"+   //6
-      "<td class='item_7 customerAVAmount'><%= customerAVAmount %></td>"+   //7
-      "<td class='item_8 memberCount'><%= memberCount %></td>"+   //8
-          
-      "<td class='item_9 customer'><%= customer %></td>"+   //9
-      "<td class='item_10 customerUPrice'><%= customerUPrice %></td>"+   //10      
-      "<td class='item_11 saleTotal'><%= saleTotal %></td>"+   //11
-      "<td class='item_12 preSaleTotal'><%= preSaleTotal %></td>"+   //12
+      
 
-      "<td class='item_13 target'><%= target %></td>"+   //13
-      "<td class='item_14 targetRate'><%= targetRate %></td>"+   //14      
-      "<td class='item_15 deposit'><%= deposit %></td>"+   //15
-      "<td class='item_16 volumeAvailable'><%= volumeAvailable %></td>"+   //16
+      "<td class='item_6 deposit'><%= deposit %></td>"+   //6
+      "<td class='item_7 volumeAvailable'><%= volumeAvailable %></td>"+   //7
+
+      "<td class='item_8 target'><%= target %></td>"+   //8
+      "<td class='item_9 targetRate'><%= targetRate %></td>"+   //9
+
+
+      "<td class='item_10 saleTotal'><%= saleTotal %></td>"+   //10
+      "<td class='item_11 preSaleTotal'><%= preSaleTotal %></td>"+   //11
+
+
+      "<td class='item_12 customer'><%= customer %></td>"+   //12
+      "<td class='item_13 customerUPrice'><%= customerUPrice %></td>"+   //13
+      
+      "<td class='item_14 saleAmount'><%= saleAmount %></td>"+   //14
+      "<td class='item_15 customerAVAmount'><%= customerAVAmount %></td>"+   //15
+      "<td class='item_16 memberCount'><%= memberCount %></td>"+   //16
+
 
      "</tr>");
 
@@ -1104,21 +1149,43 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
   nowPage: 1,
 
+  // fixedHeader: function () {
+  //     $('.fixedHeader tbody tr:eq(1) td').each(
+  //     function(){
+  //         $(this).css('width', $(this).width());
+  //     });
+  // },
+
+    // fixedHeader: function () {
+    
+    //   this.$el.find('table#RealtimeInfo_Today-table').floatThead(
+    //       {
+    //           scrollTop: 0
+    //       }
+    //     );
+
+    // },
+
   swipeIt: function(e){
     try{
       if (e.gesture.direction == '4') {//left to right
            // Backbone.history.navigate('RealtimeInfo_Today', true);
            // window.history.back();
-            if(this.nowPage != 1){
-                 this.nowPage -= 1;           
+
+            if(this.nowPage != 7){
+                 this.nowPage += 1;           
                 this.toggleColumn(this.nowPage);
+
+                // this.fixedHeader();
             }
 
       }
       else if (e.gesture.direction == '2') {// right to left 
-            if(this.nowPage != 7){
-                 this.nowPage += 1;           
+            if(this.nowPage != 1){
+                 this.nowPage -= 1;           
                 this.toggleColumn(this.nowPage);
+
+                // this.fixedHeader();
             }
       }
     }
@@ -1132,8 +1199,25 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
       var currentClass = $('#RealtimeInfo_Today-table').attr('class');
       if (currentClass.indexOf("showG"+n) == -1) {
           // document.getElementById("mytable").className = currentClass.replace("show"+n, "");
-          $('#RealtimeInfo_Today-table').removeClass(currentClass)
-          $('#RealtimeInfo_Today-table').addClass("showG"+n)
+
+
+          // $('#RealtimeInfo_Today-table').removeClass(currentClass)
+          // var keepClass = currentClass.replace(/showG./g, "");
+          // $('#RealtimeInfo_Today-table').addClass("showG"+n);
+          // $('#RealtimeInfo_Today-table').addClass(keepClass);
+
+          this.$el.find('table').each(function(){
+            $(this).removeClass(currentClass);
+            var keepClass = currentClass.replace(/showG./g, "");
+            $(this).addClass("showG"+n);
+            $(this).addClass(keepClass);
+
+
+            $(this).floatThead();
+            $(this).floatThead('reflow');
+
+            
+          });
       }
       else {
           // document.getElementById("mytable").className += " " + "show"+n;
@@ -1169,3 +1253,4 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
 
 });
+

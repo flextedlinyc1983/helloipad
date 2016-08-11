@@ -70,6 +70,8 @@
 
         <link rel="stylesheet" href="css/stacktable.css">
 
+        <link rel="stylesheet" href="css/jquery.dataTables.min.css">
+
         <title>Hello World</title>
 
 
@@ -398,15 +400,22 @@
 
 <script type="text/template" id="RealtimeInfo_Today">
 
-    <div data-role="header">
+<!--     <div data-role="header" data-position="fixed">
+        <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+        <h1>本日業績明細</h1>
+    </div> -->
+
+    <div data-role="content" id="RealtimeInfo_Today-content">
+<div  class='table-container'>
+    </div>
+
+    </div>
+
+    <div data-role="footer"  data-position="fixed">
         <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
         <h1>本日業績明細</h1>
     </div>
-
-    <div data-role="content" id="RealtimeInfo_Today-content">
-
-
-    </div>
+    </body>
 
 </script>
 
@@ -570,10 +579,11 @@
 
         <script type="text/javascript" src="js/demo_test_collection_data.js"></script>
         
+        <script type="text/javascript" src="js/demo_test_collection_data.js"></script>
 
 
-<script type="text/javascript" src="js/appParas.js"></script>
-
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/jquery.floatThead.js"></script>
 
     </head>
     <body>
