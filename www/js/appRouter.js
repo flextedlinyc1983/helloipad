@@ -65,7 +65,7 @@ ava.router = Backbone.Router.extend({
             // });
             
             var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "fixedHeader",
-                attributes : {"id":"RealtimeInfo_Today-table", "data-role": "table"}
+                attributes : {"id":"RealtimeInfo_Today-table", "data-role": "table","style":"table-layout: auto"}
             });
 
             this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content", true);  

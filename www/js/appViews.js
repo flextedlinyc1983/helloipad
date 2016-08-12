@@ -871,7 +871,12 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
               scrollTop: 0
           }
         );
+      this.$el.css('table-layout', 'auto');
 
+      this.$el.find('tbody td:eq(0)').css('width','33.3%');
+      this.$el.find('tbody td:eq(1)').css('width','33.3%');
+      this.$el.find('tbody td:eq(2)').css('width','33.3%');
+      this.$el.floatThead('reflow');
     },
 
     getTable: function () {
@@ -1206,10 +1211,56 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
           // $('#RealtimeInfo_Today-table').addClass("showG"+n);
           // $('#RealtimeInfo_Today-table').addClass(keepClass);
 
-          this.$el.find('table').each(function(){
+          $(this.$el.find('table').get().reverse()).each(function(){
             
+
+
+
+
+            $(this).css('table-layout', 'auto');
+            if(n == 7){
+              
+              $(this).find('thead').css('display', 'block');
+
+              $($(this).find('thead th')[0]).css('width','25%')
+              $($(this).find('thead th')[13]).css('width','25%')
+              $($(this).find('thead th')[14]).css('width','25%')
+              $($(this).find('thead th')[15]).css('width','25%')              
+
+ 
+                // 
+
+            }else if ((n == 6)){
+
+              $(this).find('tbody td:eq(0)').css('width','33.3%')
+              $(this).find('tbody td:eq(11)').css('width','33.3%')
+              $(this).find('tbody td:eq(12)').css('width','33.3%')
+            } else if ((n == 5)){
+              $(this).find('tbody td:eq(0)').css('width','33.3%')
+              $(this).find('tbody td:eq(9)').css('width','33.3%')
+              $(this).find('tbody td:eq(10)').css('width','33.3%')
+            } else if ((n == 4)){
+              $(this).find('tbody td:eq(0)').css('width','33.3%')
+              $(this).find('tbody td:eq(7)').css('width','33.3%')
+              $(this).find('tbody td:eq(8)').css('width','33.3%')
+            } else if ((n == 3)){
+              $(this).find('tbody td:eq(0)').css('width','33.3%')
+              $(this).find('tbody td:eq(5)').css('width','33.3%')
+              $(this).find('tbody td:eq(6)').css('width','33.3%')
+            } else if ((n == 2)){
+              $(this).find('tbody td:eq(0)').css('width','33.3%')
+              $(this).find('tbody td:eq(3)').css('width','33.3%')
+              $(this).find('tbody td:eq(4)').css('width','33.3%')
+            } else if ((n == 1)){
+              $(this).find('tbody td:eq(0)').css('width','33.3%')
+              $(this).find('tbody td:eq(1)').css('width','33.3%')
+              $(this).find('tbody td:eq(2)').css('width','33.3%')
+            }
+
+ 
+             // $(this).   display: block;
             // $(this).floatThead();
-            $(this).floatThead('reflow');
+            
 
             $(this).removeClass(currentClass);
             var keepClass = currentClass.replace(/showG./g, "");
@@ -1217,7 +1268,10 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
             $(this).addClass(keepClass);
 
 
-            // 
+            $(this).find('thead').css('display', '');
+
+           $(this).floatThead('reflow');
+
             
 
             
