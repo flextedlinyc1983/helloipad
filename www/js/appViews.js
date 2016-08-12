@@ -1239,9 +1239,15 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
             }
 
 
+            if ((n == 7)){
 
 
-            if ((n == 6)){
+              $(this).find('tbody td:eq(0)').css('width','29%')
+              $(this).find('tbody td:eq(13)').css('width','22%')
+              $(this).find('tbody td:eq(14)').css('width','24%')
+              $(this).find('tbody td:eq(15)').css('width','25%')
+
+            } else if ((n == 6)){
 
               $(this).find('tbody td:eq(0)').css('width','33.3%')
               $(this).find('tbody td:eq(11)').css('width','33.3%')
