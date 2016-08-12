@@ -1220,7 +1220,7 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
             $(this).css('table-layout', 'auto');
             if(n == 7){
               
-              $(this).find('thead').css('display', 'block');
+              // $(this).find('thead').css('display', 'block');
 
               $($(this).find('thead th')[0]).css('width','25%')
               $($(this).find('thead th')[13]).css('width','25%')
@@ -1242,10 +1242,10 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
             if ((n == 7)){
 
 
-              $(this).find('tbody td:eq(0)').css('width','29%')
-              $(this).find('tbody td:eq(13)').css('width','22%')
-              $(this).find('tbody td:eq(14)').css('width','24%')
-              $(this).find('tbody td:eq(15)').css('width','25%')
+              $(this).find('tbody td:eq(0)').css('width','33%')
+              $(this).find('tbody td:eq(13)').css('width','21%')
+              $(this).find('tbody td:eq(14)').css('width','22%')
+              $(this).find('tbody td:eq(15)').css('width','24%')
 
             } else if ((n == 6)){
 
@@ -1285,7 +1285,7 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
             $(this).addClass(keepClass);
 
 
-            $(this).find('thead').css('display', '');
+            // $(this).find('thead').css('display', '');
 
            $(this).floatThead('reflow');
 
