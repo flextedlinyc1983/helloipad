@@ -1211,7 +1211,7 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
           // $('#RealtimeInfo_Today-table').addClass("showG"+n);
           // $('#RealtimeInfo_Today-table').addClass(keepClass);
 
-          $(this.$el.find('table').get().reverse()).each(function(){
+          $(this.$el.find('table').get().reverse()).each(function(index){
             
 
 
@@ -1222,20 +1222,42 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
               
               // $(this).find('thead').css('display', 'block');
 
-              $($(this).find('thead th')[0]).css('width','25%')
-              $($(this).find('thead th')[13]).css('width','25%')
-              $($(this).find('thead th')[14]).css('width','25%')
-              $($(this).find('thead th')[15]).css('width','25%')              
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[13]).css('width','21%')
+              $($(this).find('thead th')[14]).css('width','22%')
+              $($(this).find('thead th')[15]).css('width','24%')              
 
  
                 // 
 
-            }else {
+            } else if ((n == 6)){
 
-              $($(this).find('thead th')[0]).css('width','')
-              $($(this).find('thead th')[13]).css('width','')
-              $($(this).find('thead th')[14]).css('width','')
-              $($(this).find('thead th')[15]).css('width','') 
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[11]).css('width','33%')
+              $($(this).find('thead th')[12]).css('width','33%')
+
+            }else if ((n == 5)){
+
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[9]).css('width','33%')
+              $($(this).find('thead th')[10]).css('width','33%')
+            }else if ((n == 4)){
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[7]).css('width','33%')
+              $($(this).find('thead th')[8]).css('width','33%')
+            }else if ((n == 3)){
+
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[5]).css('width','33%')
+              $($(this).find('thead th')[6]).css('width','33%')
+            }else if ((n == 2)){
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[3]).css('width','33%')
+              $($(this).find('thead th')[4]).css('width','33%')
+            }else if ((n == 1)){
+              $($(this).find('thead th')[0]).css('width','33%')
+              $($(this).find('thead th')[1]).css('width','33%')
+              $($(this).find('thead th')[2]).css('width','33%')
             }
 
 
@@ -1278,21 +1300,33 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
              // $(this).   display: block;
             // $(this).floatThead();
             
-$(this).find('thead').hide();
+// $(this).find('thead').hide();
+// $(this).find('tbody').hide();
             $(this).removeClass(currentClass);
             var keepClass = currentClass.replace(/showG./g, "");
             $(this).addClass("showG"+n);
             $(this).addClass(keepClass);
-$(this).find('thead').show();
+
 
             // $(this).find('thead').css('display', '');
 
-           $(this).floatThead('reflow');
-
+            // if(index == 0){
+            //   $(this).floatThead('reflow');
+            // }
             
 
             
           });
+
+
+
+  // $(this.$el.find('table').get().reverse()).each(function(){
+  //     $(this).find('thead').show();
+  //     $(this).find('tbody').show();
+  // });
+
+
+
       }
       else {
           // document.getElementById("mytable").className += " " + "show"+n;
