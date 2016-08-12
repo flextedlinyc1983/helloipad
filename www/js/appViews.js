@@ -1230,7 +1230,18 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
  
                 // 
 
-            }else if ((n == 6)){
+            }else {
+
+              $($(this).find('thead th')[0]).css('width','')
+              $($(this).find('thead th')[13]).css('width','')
+              $($(this).find('thead th')[14]).css('width','')
+              $($(this).find('thead th')[15]).css('width','') 
+            }
+
+
+
+
+            if ((n == 6)){
 
               $(this).find('tbody td:eq(0)').css('width','33.3%')
               $(this).find('tbody td:eq(11)').css('width','33.3%')
