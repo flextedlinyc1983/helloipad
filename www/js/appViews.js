@@ -1207,14 +1207,18 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
           // $('#RealtimeInfo_Today-table').addClass(keepClass);
 
           this.$el.find('table').each(function(){
+            
+            // $(this).floatThead();
+            $(this).floatThead('reflow');
+
             $(this).removeClass(currentClass);
             var keepClass = currentClass.replace(/showG./g, "");
             $(this).addClass("showG"+n);
             $(this).addClass(keepClass);
 
 
-            $(this).floatThead();
-            $(this).floatThead('reflow');
+            // 
+            
 
             
           });
