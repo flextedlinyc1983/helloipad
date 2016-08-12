@@ -1278,12 +1278,12 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
              // $(this).   display: block;
             // $(this).floatThead();
             
-
+$(this).find('thead').hide();
             $(this).removeClass(currentClass);
             var keepClass = currentClass.replace(/showG./g, "");
             $(this).addClass("showG"+n);
             $(this).addClass(keepClass);
-
+$(this).find('thead').show();
 
             // $(this).find('thead').css('display', '');
 
