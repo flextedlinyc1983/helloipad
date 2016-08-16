@@ -877,6 +877,22 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
       this.$el.find('tbody td:eq(1)').css('width','33.3%');
       this.$el.find('tbody td:eq(2)').css('width','33.3%');
       this.$el.floatThead('reflow');
+
+
+
+      $($('table').get().reverse()).each(function(index){
+          this.$el.css('table-layout', 'auto');
+          
+          $($(this).find('thead th')[0]).css('width','33%')
+          $($(this).find('thead th')[1]).css('width','33%')
+          $($(this).find('thead th')[2]).css('width','33%')
+          
+          $(this).find('tbody td:eq(0)').css('width','33.3%')
+          $(this).find('tbody td:eq(1)').css('width','33.3%')
+          $(this).find('tbody td:eq(2)').css('width','33.3%')
+          
+      });
+
     },
 
     getTable: function () {
@@ -1310,9 +1326,9 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
             // $(this).find('thead').css('display', '');
 
-            // if(index == 0){
-            //   $(this).floatThead('reflow');
-            // }
+            if(index == 0){
+              $(this).floatThead('reflow');
+            }
             
 
             
