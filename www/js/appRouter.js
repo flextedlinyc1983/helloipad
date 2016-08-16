@@ -185,6 +185,11 @@ ava.router = Backbone.Router.extend({
 
                 switch (page) {
                               case "RealtimeInfo_Today":
+                                    // var testoJson = [];
+                                    // for (var i = 0; i < 20; i++) {
+                                    //     testoJson.push(oJson.Info.Pos[i]);
+                                    // }
+                                    // RealtimeInfoCollection_Today.reset(testoJson);   
                                   RealtimeInfoCollection_Today.reset((oJson.Info.Pos));                              
                                   break;
                               case 1:
@@ -267,6 +272,7 @@ ava.router = Backbone.Router.extend({
                 console.log(["Login request details: ", data]);
 
                 var oJson = xml2json(data);
+
 
                 // alert(JSON.stringify(oJson));
 

@@ -1230,6 +1230,8 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
                 // this.fixedHeader();
             }
+
+
       }
     }
     catch(err) {
@@ -1239,7 +1241,9 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
   hideOneColumn: function () {
     // $(this.$el.find('thead th.item_16')).css('display', 'none')
+    
     $(this.$el.find('thead th.floatThead-col')[3]).css('display', 'none')
+    $('table').css('table-layout', 'auto');
   },
 
   toggleColumn: function(n) {
