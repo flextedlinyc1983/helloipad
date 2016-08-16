@@ -88,7 +88,7 @@ ava.router = Backbone.Router.extend({
 
 
         console.log('#portal');
-        var portal = new ava.views.PortalView();
+        var portal = new ava.views.PortalView({className: "isSum1"});
         this.changePageForMobile(portal);
         // portal.loginGetData();
         // console.log(RealtimeInfo);
@@ -101,10 +101,12 @@ ava.router = Backbone.Router.extend({
             this.loginGetData();
             this.loginGetData();
             // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
-            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});            
+            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"
+            , attributes: {"style": 'table-layout: fixed;'}
+            });            
             this.putElementOnPageContent(tableView.render().$el, "portal-content");  
 
-            this.timeout();
+            this.timeout("isSum1");
 
         }else{
             this.putElementOnPageContent("尚未登入", "portal-content");  
@@ -114,7 +116,7 @@ ava.router = Backbone.Router.extend({
 
     },
 
-    timeout: function () {
+    timeout: function (className) {
         var period = 0;
         if (typeof(firstTime) == "undefined"){
             firstTime = 1;
@@ -127,17 +129,39 @@ ava.router = Backbone.Router.extend({
             period = 3000;
         }
         var self = this;
-        RealtimeInfoTimeout = setTimeout(function () {
-            // Do Something Here
-            // Then recall the parent function to
-            // create a recursive loop.
 
-            self.loginGetData();
-            // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
-            // var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
-            // self.putElementOnPageContent(tableView.render().$el);  
-            self.timeout();
-        }, period);
+        var isNowPageClassname = false;
+        
+        if( $(':jqmData(role=page)').length == 1 ){
+            var nowPageClassname = $(':jqmData(role=page)').attr('class');   
+            if(nowPageClassname.indexOf(className) != -1)
+            {
+                isNowPageClassname = true;
+            } 
+        }else{
+            $(':jqmData(role=page)').each(function (argument) {
+                var classes = $(this).attr('class');
+                if(classes.indexOf(className) != -1){
+                    isNowPageClassname = true
+                }
+            });
+        }
+        
+        if(isNowPageClassname) {
+            RealtimeInfoTimeout = setTimeout(function () {
+                // Do Something Here
+                // Then recall the parent function to
+                // create a recursive loop.
+
+                self.loginGetData();
+                // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+                // var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
+                // self.putElementOnPageContent(tableView.render().$el);  
+                self.timeout(className);
+            }, period);
+        }else{
+            alert('stop timeout: ' + className);
+        }
     },
 
     setRealtimeInfoData: function (oJson,page) {
@@ -153,39 +177,44 @@ ava.router = Backbone.Router.extend({
         // ];
 
         try {
+            var pageContentId = $(':jqmData(role=content)').attr('id');
+            if(!page && pageContentId != "portal-content"){
 
-            switch (page) {
-                          case "RealtimeInfo_Today":
-                              RealtimeInfoCollection_Today.reset((oJson.Info.Pos));                              
-                              break;
-                          case 1:
-                              day = "Monday";
-                              break;
-                          case 2:
-                              day = "Tuesday";
-                              break;
-                          case 3:
-                              day = "Wednesday";
-                              break;
-                          case 4:
-                              day = "Thursday";
-                              break;
-                          case 5:
-                              day = "Friday";
-                              break;
-                          case 6:
-                              day = "Saturday";
-                          default:
-                                RealtimeInfoCollection.reset();
-                                RealtimeInfoCollection.push({'name': '本日業績', 'value': oJson.Info.Pos.volumeToday});
-                                RealtimeInfoCollection.push({'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday});
-                                RealtimeInfoCollection.push({'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth});
-                                RealtimeInfoCollection.push({'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth});
-                                RealtimeInfoCollection.push({'name': '現有庫存', 'value': oJson.Info.Pos.deposit});
-                                RealtimeInfoCollection.push({'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable});
             }
+            else{
 
+                switch (page) {
+                              case "RealtimeInfo_Today":
+                                  RealtimeInfoCollection_Today.reset((oJson.Info.Pos));                              
+                                  break;
+                              case 1:
+                                  day = "Monday";
+                                  break;
+                              case 2:
+                                  day = "Tuesday";
+                                  break;
+                              case 3:
+                                  day = "Wednesday";
+                                  break;
+                              case 4:
+                                  day = "Thursday";
+                                  break;
+                              case 5:
+                                  day = "Friday";
+                                  break;
+                              case 6:
+                                  day = "Saturday";
+                              default:
+                                    RealtimeInfoCollection.reset();
+                                    RealtimeInfoCollection.push({'name': '本日業績', 'value': oJson.Info.Pos.volumeToday});
+                                    RealtimeInfoCollection.push({'name': '去年本日業績', 'value': oJson.Info.Pos.volumeLastYearToday});
+                                    RealtimeInfoCollection.push({'name': '本月業績', 'value': oJson.Info.Pos.volumeThisMonth});
+                                    RealtimeInfoCollection.push({'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth});
+                                    RealtimeInfoCollection.push({'name': '現有庫存', 'value': oJson.Info.Pos.deposit});
+                                    RealtimeInfoCollection.push({'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable});
+                }
 
+            }
         }
         catch(err) {
             console.log("setRealtimeInfoData" + err);

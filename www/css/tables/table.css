@@ -364,7 +364,10 @@ padding-top: 10px;
  table thead {
   white-space: nowrap;
 }
-
+ table td {
+  // white-space: nowrap;
+  word-wrap: break-word;
+}
 
 th {
     background-color: #f9f9f9;
@@ -390,6 +393,7 @@ table tbody td + td{
 }
 
 table {
+	width: 	100%;
 	border-collapse: collapse;
 }
 
