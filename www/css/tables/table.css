@@ -395,8 +395,22 @@ table tbody td + td{
 table {
 	width: 	100%;
 	border-collapse: collapse;
+
 }
 
 table, td, th {
 	border: 1px solid black;
 }
+
+// th, td {
+//     border-bottom: 1px solid black;
+//     border-right: 1px solid black;
+// }
+
+// tr th:nth-child(1), tr td:nth-child(1){
+//     color:red;
+// }
+
+// tr th:nth-child(2), tr td:nth-child(2){
+//     color:red;
+// }

@@ -872,16 +872,18 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
       // $(':jqmData(role=page)').scroll(moveScroll);
       // $(".fixedHeader").children('thead').css({visibility:'hidden'});
 
+      
+
       this.$el.floatThead(
           {
-              // position: 'fixed'
+              position: 'fixed',
               // scrollContainer: function($table){
               //     return $table.closest('.table-container');
               // },
               // responsiveContainer: function($table){
               //     return $table.closest('.table-container');
               // }
-              scrollTop: 0
+              // scrollTop: 0
           }
         );
       // this.$el.css('table-layout', 'auto');
@@ -890,23 +892,23 @@ ava.views.Table_TodayView = ava.views.TableView.extend({
       // this.$el.find('tbody td:eq(1)').css('width','33.33%');
       // this.$el.find('tbody td:eq(2)').css('width','33.33%');
       
-
-        
+        $('table').css('width','100%');
+        // $('table').css('table-layout', 'fixed');
 
       $($('table').get().reverse()).each(function(index){
       
       // this.$el.floatThead('reflow');    
-          $($(this).find('thead th')[0]).css('width','33.33%')
-          $($(this).find('thead th')[1]).css('width','33.33%')
-          $($(this).find('thead th')[2]).css('width','33.33%')
+          $($(this).find('thead th')[0]).css('width','34%')
+          $($(this).find('thead th')[1]).css('width','33%')
+          $($(this).find('thead th')[2]).css('width','33%')
           
-          $(this).find('tbody td:eq(0)').css('width','33.33%')
-          $(this).find('tbody td:eq(1)').css('width','33.33%')
-          $(this).find('tbody td:eq(2)').css('width','33.33%')
+          $(this).find('tbody td:eq(0)').css('width','34%')
+          $(this).find('tbody td:eq(1)').css('width','33%')
+          $(this).find('tbody td:eq(2)').css('width','33%')
         
           
           $(this).floatThead('reflow');
-          // $(this).css('table-layout', 'auto');
+          // $(this).css('table-layout', 'fixed');
       });
 
     },
@@ -1208,6 +1210,11 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
       if (e.gesture.direction == '4') {//left to right
            // Backbone.history.navigate('RealtimeInfo_Today', true);
            // window.history.back();
+          
+            if(this.nowPage == 6){
+             $('table').css('table-layout', '');
+            }
+
 
             if(this.nowPage != 7){
                  this.nowPage += 1;           
@@ -1244,6 +1251,7 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
     
     $(this.$el.find('thead th.floatThead-col')[3]).css('display', 'none')
     $('table').css('table-layout', 'auto');
+    $('table tbody tr td.item_13').css('border-right','0px solid black')
   },
 
   toggleColumn: function(n) {
@@ -1260,7 +1268,7 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
           $(this.$el.find('table').get().reverse()).each(function(index){
             
-
+            $('table').css('width','100%');
 
 
 
@@ -1279,32 +1287,32 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
             } else if ((n == 6)){
 
-              $($(this).find('thead th')[0]).css('width','33.33%')
-              $($(this).find('thead th')[11]).css('width','33.33%')
-              $($(this).find('thead th')[12]).css('width','33.33%')
+              $($(this).find('thead th')[0]).css('width','34%')
+              $($(this).find('thead th')[11]).css('width','33%')
+              $($(this).find('thead th')[12]).css('width','33%')
 
             }else if ((n == 5)){
 
-              $($(this).find('thead th')[0]).css('width','33.33%')
-              $($(this).find('thead th')[9]).css('width','33.33%')
-              $($(this).find('thead th')[10]).css('width','33.33%')
+              $($(this).find('thead th')[0]).css('width','34%')
+              $($(this).find('thead th')[9]).css('width','33%')
+              $($(this).find('thead th')[10]).css('width','33%')
             }else if ((n == 4)){
-              $($(this).find('thead th')[0]).css('width','33.33%')
-              $($(this).find('thead th')[7]).css('width','33.33%')
-              $($(this).find('thead th')[8]).css('width','33.33%')
+              $($(this).find('thead th')[0]).css('width','34%')
+              $($(this).find('thead th')[7]).css('width','33%')
+              $($(this).find('thead th')[8]).css('width','33%')
             }else if ((n == 3)){
 
-              $($(this).find('thead th')[0]).css('width','33.33%')
-              $($(this).find('thead th')[5]).css('width','33.33%')
-              $($(this).find('thead th')[6]).css('width','33.33%')
+              $($(this).find('thead th')[0]).css('width','34%')
+              $($(this).find('thead th')[5]).css('width','33%')
+              $($(this).find('thead th')[6]).css('width','33%')
             }else if ((n == 2)){
-              $($(this).find('thead th')[0]).css('width','33.33%')
-              $($(this).find('thead th')[3]).css('width','33.33%')
-              $($(this).find('thead th')[4]).css('width','33.33%')
+              $($(this).find('thead th')[0]).css('width','34%')
+              $($(this).find('thead th')[3]).css('width','33%')
+              $($(this).find('thead th')[4]).css('width','33%')
             }else if ((n == 1)){
-              $($(this).find('thead th')[0]).css('width','33.33%')
-              $($(this).find('thead th')[1]).css('width','33.33%')
-              $($(this).find('thead th')[2]).css('width','33.33%')
+              $($(this).find('thead th')[0]).css('width','34%')
+              $($(this).find('thead th')[1]).css('width','33%')
+              $($(this).find('thead th')[2]).css('width','33%')
             }
 
 
@@ -1318,29 +1326,29 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
             } else if ((n == 6)){
 
-              $(this).find('tbody td:eq(0)').css('width','33.33%')
-              $(this).find('tbody td:eq(11)').css('width','33.33%')
-              $(this).find('tbody td:eq(12)').css('width','33.33%')
+              $(this).find('tbody td:eq(0)').css('width','34%')
+              $(this).find('tbody td:eq(11)').css('width','33%')
+              $(this).find('tbody td:eq(12)').css('width','33%')
             } else if ((n == 5)){
-              $(this).find('tbody td:eq(0)').css('width','33.33%')
-              $(this).find('tbody td:eq(9)').css('width','33.33%')
-              $(this).find('tbody td:eq(10)').css('width','33.33%')
+              $(this).find('tbody td:eq(0)').css('width','34%')
+              $(this).find('tbody td:eq(9)').css('width','33%')
+              $(this).find('tbody td:eq(10)').css('width','33%')
             } else if ((n == 4)){
-              $(this).find('tbody td:eq(0)').css('width','33.33%')
-              $(this).find('tbody td:eq(7)').css('width','33.33%')
-              $(this).find('tbody td:eq(8)').css('width','33.33%')
+              $(this).find('tbody td:eq(0)').css('width','34%')
+              $(this).find('tbody td:eq(7)').css('width','33%')
+              $(this).find('tbody td:eq(8)').css('width','33%')
             } else if ((n == 3)){
-              $(this).find('tbody td:eq(0)').css('width','33.33%')
-              $(this).find('tbody td:eq(5)').css('width','33.33%')
-              $(this).find('tbody td:eq(6)').css('width','33.33%')
+              $(this).find('tbody td:eq(0)').css('width','34%')
+              $(this).find('tbody td:eq(5)').css('width','33%')
+              $(this).find('tbody td:eq(6)').css('width','33%')
             } else if ((n == 2)){
-              $(this).find('tbody td:eq(0)').css('width','33.33%')
-              $(this).find('tbody td:eq(3)').css('width','33.33%')
-              $(this).find('tbody td:eq(4)').css('width','33.33%')
+              $(this).find('tbody td:eq(0)').css('width','34%')
+              $(this).find('tbody td:eq(3)').css('width','33%')
+              $(this).find('tbody td:eq(4)').css('width','33%')
             } else if ((n == 1)){
-              $(this).find('tbody td:eq(0)').css('width','33.33%')
-              $(this).find('tbody td:eq(1)').css('width','33.33%')
-              $(this).find('tbody td:eq(2)').css('width','33.33%')
+              $(this).find('tbody td:eq(0)').css('width','34%')
+              $(this).find('tbody td:eq(1)').css('width','33%')
+              $(this).find('tbody td:eq(2)').css('width','33%')
             }
 
  
