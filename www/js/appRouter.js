@@ -308,7 +308,7 @@ ava.router = Backbone.Router.extend({
         var loginView = new ava.views.ModalView({model: new ava.models.LoginModel()});
         // Backbone.Validation.bind(loginView);
         this.changePageForMobile(loginView);
-        
+        // loginView.delegateEvents();
     },
 
     changePageForMobile:function (page) {

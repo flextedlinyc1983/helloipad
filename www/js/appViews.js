@@ -661,13 +661,15 @@ ava.views.ModalView = ava.views.UtilityView.extend({
     template:_.template($('#myModal').html()),
 
     initialize: function(){
+      // _.bindAll(this, 'login');
       Backbone.Validation.bind(this);
     },
 
     render:function (eventName) {    
       // Backbone.Validation.bind(this);
 
-        $(this.el).html(this.template());
+        // $(this.el).html(this.template());
+        this.$el.html(this.template());
         return this;
     },
 
