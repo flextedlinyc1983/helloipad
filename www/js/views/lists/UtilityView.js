@@ -21,6 +21,7 @@ ava.views.UtilityView = Backbone.View.extend({
 	
 
 	loginGetData:function () {
+        event.preventDefault();
 	// loginGetData:function (event) {
         // event.preventDefault(); // Don't let this button submit the form
         // $('.alert-error').hide(); // Hide any errors on a new submit
@@ -28,14 +29,14 @@ ava.views.UtilityView = Backbone.View.extend({
         var url = 'http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1&FMieQ4fK=1';
         // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
         // console.log('Loggin in... ');
-        var formValues = {
-            // code: $('#code').val(),
-            // pwd: $('#pwd').val()
-            // code: 'flextier99',
-            // pwd: '0827203'
-            code: window.localStorage.getItem('code'),
-            pwd: window.localStorage.getItem('pwd')
-        };
+        // var formValues = {
+        //     // code: $('#code').val(),
+        //     // pwd: $('#pwd').val()
+        //     // code: 'flextier99',
+        //     // pwd: '0827203'
+        //     code: window.localStorage.getItem('code'),
+        //     pwd: window.localStorage.getItem('pwd')
+        // };
 
         $.ajax({
         	context: this,
