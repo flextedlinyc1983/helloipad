@@ -344,3 +344,156 @@ RealtimeInfoCollection_Today = new ava.collections.RealtimeInfoList({model: ava.
 var urls= {
 	RealtimeInfo_Today:"http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1"
 }
+
+
+ava.views.Table_New_Collection = Backbone.Collection.extend({
+
+    getResults: function () {
+
+        var self = this;
+
+        this.fetch({
+            reset: true,
+            success: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('successOnFetch');
+            },
+            error: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('errorOnFetch');
+            }
+        });
+    },
+
+    url: function(){
+		return this.options.domainName + this.options.urlPath;
+	},
+	initialize: function(models, options){
+		this.options = options;
+	},
+	parse: function (data) {
+		// var oJson = xml2json(data);
+		var oJson = xml2json($.parseXML(data));
+		return oJson;
+	},
+
+	getColumnsFromCollection: function (collection) {
+        var columns = []
+        for(var item in collection.models){ 
+
+            // console.log(collection.models[item].attributes);
+            var obj = collection.models[item].attributes;
+            var column;
+            for(column in obj){
+                var columnName = this.getColumnName(column);
+                if (obj.hasOwnProperty(column) && columnName != "")
+                    columns.push({'column': columnName });
+            }
+            // console.log(columns);
+            break;
+
+        }   
+        return columns;     
+    },
+
+
+    getColumnName: function (name) {
+
+            var value = '';
+            switch (name) {
+              case "name":
+                  value = '店櫃名稱';
+                  break;
+              case 'volumeToday':
+                  value = "本日";
+                  break;
+              case 'volumeLastYearToday':
+                  value = "去年本日";
+                  break;
+              case 'volumeThisMonth':
+                  value = "本月";
+                  break;
+              case 'volumeLastYearThisMonth':
+                  value = "去年本月";
+                  break;
+              case 'deposit':
+                  value = "庫存";
+                  break;
+              case 'volumeAvailable':
+                  value = '可售金額';
+                  break;
+              case 'target':
+                  value = "本月目標";
+                  break;
+              case 'targetRate':
+                  value = "達成率";
+                  break;
+              case 'saleTotal':
+                  value = '銷售金額';
+                  break;
+              case 'preSaleTotal':
+                  value = "訂金金額";
+                  break;
+              case 'customer':
+                  value = "客數";
+                  break;
+              case 'customerUPrice':
+                  value = "客單價";
+                  break;
+              case 'saleAmount':
+                  value = '商品件數';
+                  break;
+              case 'customerAVAmount':
+                  value = "平均客件數";
+                  break;
+              case 'memberCount':
+                  value = "新增會員數";
+                  break;
+              default:
+                  value = "";
+            }
+
+            return value;
+
+    },
+ });
+
+ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend({
+	parse: function (data) {
+		// var oJson = xml2json(data);
+		var oJson = xml2json($.parseXML(data));
+		return oJson.Info.Pos;
+	},
+
+	getResults: function () {
+
+        var self = this;
+
+        this.fetch({
+            // data: {api_key: 'secretkey'}, 
+            type: 'POST',
+            dataType : "text",
+            add:true,
+            reset: true,
+            success: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.options.columns.reset(self.getColumnsFromCollection(collection));
+                self.trigger('successOnFetch');
+            },
+            error: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('errorOnFetch');
+            }
+        });
+    }
+
+
+
+ });	
+
+
+
+ava.views.Column_New_Collection = Backbone.Collection.extend({
+	model: ava.models.Column_New_Model,
+
+ });

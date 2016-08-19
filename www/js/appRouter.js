@@ -8,6 +8,7 @@ ava.router = Backbone.Router.extend({
         "page1" : "page1",
         "myModal" : "myModal",
         "RealtimeInfo_Today" : "RealtimeInfo_Today",
+        "RealtimeInfo_Today_Test" : "RealtimeInfo_Today_Test",
         "RealtimeInfo_Today_G1": "RealtimeInfo_Today_G1"
 	},
 
@@ -37,7 +38,151 @@ ava.router = Backbone.Router.extend({
         });
 
     },
+    RealtimeInfo_Today_Test:function () {
 
+        console.log('#RealtimeInfo_Today_Test');
+        var page = new ava.views.PageView({attributes : {"id" : "RealtimeInfo_Today_Test"}});
+        this.changePageForMobile(page);
+
+
+
+
+
+
+        var columns = new ava.views.Column_New_Collection([{'column':'項目1'},{'column':'項目2'},{'column':'項目3'},
+            {'column':'項目4'},{'column':'項目5'},{'column':'項目6'},{'column':'項目7'},{'column':'項目8'},{'column':'項目9'}]);
+        var self = this;
+
+        var test = new ava.views.Table_New_Customize_Collection([],{domainName:"http://192.168.0.58:8080",
+            urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns});
+
+        var tableView = new ava.views.Table_New_View({collection: test, columns: columns,
+            attributes : {"id":"RealtimeInfo_Today_Test-table"}});
+        this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today_Test", true);  
+
+
+        test.getResults();
+        
+
+
+        // test.fetch({
+        //     // data: {api_key: 'secretkey'}, 
+        //     type: 'POST',
+        //     dataType : "text",
+        //     add:true,
+        //     reset: true,
+        //     success: function(collection, response, options){
+        //         console.log(collection);
+        //         console.log(response);
+        //         console.log(options);
+
+        //         columns.reset(self.getColumnsFromCollection(collection,self));
+
+        //     },
+        //     error: function (collection, response, options) {
+        //         console.log(collection);
+        //         console.log(response);
+        //         console.log(options);            }
+        // });
+
+        
+
+
+
+        // this.setTimeoutGetResults(test);
+
+
+    },
+
+    setTimeoutGetResults: function (test) {
+
+        var self = this;
+        timeoutGetResults = setTimeout(function () {
+            test.getResults();
+            self.setTimeoutGetResults(test);
+        }, 30000);
+
+    },
+
+    // getColumnsFromCollection: function (collection,self) {
+    //     var columns = []
+    //     for(var item in collection.models){ 
+
+    //         // console.log(collection.models[item].attributes);
+    //         var obj = collection.models[item].attributes;
+    //         var column;
+    //         for(column in obj){
+    //             var columnName = self.getColumnName(column);
+    //             if (obj.hasOwnProperty(column) && columnName != "")
+    //                 columns.push({'column': columnName });
+    //         }
+    //         // console.log(columns);
+    //         break;
+
+    //     }   
+    //     return columns;     
+    // },
+
+
+    // getColumnName: function (name) {
+
+    //         var value = '';
+    //         switch (name) {
+    //           case "name":
+    //               value = '店櫃名稱';
+    //               break;
+    //           case 'volumeToday':
+    //               value = "本日";
+    //               break;
+    //           case 'volumeLastYearToday':
+    //               value = "去年本日";
+    //               break;
+    //           case 'volumeThisMonth':
+    //               value = "本月";
+    //               break;
+    //           case 'volumeLastYearThisMonth':
+    //               value = "去年本月";
+    //               break;
+    //           case 'deposit':
+    //               value = "庫存";
+    //               break;
+    //           case 'volumeAvailable':
+    //               value = '可售金額';
+    //               break;
+    //           case 'target':
+    //               value = "本月目標";
+    //               break;
+    //           case 'targetRate':
+    //               value = "達成率";
+    //               break;
+    //           case 'saleTotal':
+    //               value = '銷售金額';
+    //               break;
+    //           case 'preSaleTotal':
+    //               value = "訂金金額";
+    //               break;
+    //           case 'customer':
+    //               value = "客數";
+    //               break;
+    //           case 'customerUPrice':
+    //               value = "客單價";
+    //               break;
+    //           case 'saleAmount':
+    //               value = '商品件數';
+    //               break;
+    //           case 'customerAVAmount':
+    //               value = "平均客件數";
+    //               break;
+    //           case 'memberCount':
+    //               value = "新增會員數";
+    //               break;
+    //           default:
+    //               value = "";
+    //         }
+
+    //         return value;
+
+    // },
     
     RealtimeInfo_Today:function () {
 
@@ -524,6 +669,10 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             // if(fixedHeader){
             //     $('div[data-role=page]').find('div[data-role=content]').prepend('<div id="bottom_anchor"></div>');
             // }
+        }else if ( $($('div[data-role=page]')[0]).attr('id') == pageName ){
+            $($('div[data-role=page]')[0]).find('div[data-role=content]').append(view);
+        }else if ( $($('div[data-role=page]')[1]).attr('id') == pageName ){
+            $($('div[data-role=page]')[1]).find('div[data-role=content]').append(view);
         }
     },
     

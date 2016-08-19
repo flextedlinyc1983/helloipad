@@ -175,3 +175,12 @@ ava.models.RealtimeInfo_today = ava.models.UtilityForModel.extend({
 	// 	this.save({priceFormat: this.numFormat(this.get("price"))});
 	// }
 });
+
+
+ava.models.Column_New_Model = ava.models.UtilityForModel.extend({
+	defaults: function() {
+      return {
+    	column: ""
+      };
+    },
+});

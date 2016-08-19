@@ -607,6 +607,197 @@ var MyView = Backbone.View.extend({
   });
 
 
+ava.views.TableRow_New_View = ava.views.UtilityView.extend({
+
+    el: "<tr>",
+    render: function() {
+        // var html=row_TodayTemplate(this.model.toJSON());
+        var html= this.getRow(this.model.toJSON());
+        this.$el.append(html);
+        return this;
+    },
+    // template:_.template($('#myModal').html()),
+
+    initialize: function() {
+      // this.model.on('change', this.render, this);
+      // this.listenTo(this.model, "change", this.render);
+      // this.listenTo(this.model, 'change:value', this.render);
+    },
+
+    getRow: function (data) {
+      var str = "";
+      for(var key in data){
+          if(key != "code" && key != "isWithdraw"){
+              str += "<td>" + data[key] + "</td>";
+          }
+      }
+      return str;
+
+    }
+});
+
+ava.views.Table_New_View = Backbone.View.extend({
+
+    tagName: 'table',
+
+    initialize: function (options) {
+
+        this.options=options;
+
+        this.listenTo(this.collection, 'successOnFetch', this.handleSuccess);
+        this.listenTo(this.collection, 'errorOnFetch', this.handleError);
+
+        this.listenTo(this.options.columns, "reset", this.renderHead);
+
+        // this.listenTo(this.collection, "add", this.addOne);
+        this.listenTo(this.collection, "reset", this.addAll);
+    },
+
+    reset: function () {
+      $('div[data-role=page]').find('div[data-role=content]').find('tbody').html("");
+      // this.renderHead({'name': '項目', 'value': "總計"});
+      return this;
+    },
+
+    addAll: function () {
+      this.reset();
+      this.collection.each(this.addOne, this);
+    },
+
+    addOne: function (row) {
+        // var row=new ava.views.TableRow_TodayView({model:row});
+        var row=new ava.views.TableRow_New_View({model:row});
+        this.$el.append(row.render().$el);
+        return this;
+    },
+
+    // addOne: function (todo) {
+    //   // var allItems = this.$("#todo-list").html();
+      
+    //   var item = new ava.views.TodoView({model: todo});
+
+
+    //   this.$("#todo-list").prepend(item.render().el);
+    //   // this.$("#todo-list").append(allItems);
+    // },
+
+    // addOne: function (row) {
+    //     var row=new ava.views.TableRow_TodayView({model:row});
+    //     this.$el.append(row.render().$el);
+    //     return this;
+    // },
+
+    // addAll: function () {
+    //   // this.collection.each(this.addOne, this);
+    // },
+
+    handleSuccess: function (options) {
+        // options will be any options you passed when triggering the custom event
+    },
+
+    handleError: function (options) {
+        // options will be any options you passed when triggering the custom event
+    },
+
+    render: function() {
+        
+        if(this.options.columns){
+            this.renderHead(this.options.columns);
+        }
+
+        // this.collection.each(this.renderOne);
+
+        // this.setEqualColumnWidth();
+        return this;
+    },
+
+    renderHead : function(columns) {
+        // var row=new ava.views.TableHeadView({model:model});
+        // this.$el.append(row.render().$el);
+        // return this;
+        $(this.$el).find('thead').remove();
+        this.$el.prepend("<thead><tr></tr></thead>");
+        columns.models.forEach(this.renderColumnItem, this);
+        
+
+    },
+
+    renderColumnItem : function (column) {
+        var column = new ava.views.ColumnItemView({model:column.attributes.column});
+        this.$el.find('thead tr').append(column.render().$el);
+    },
+});
+
+// {'name': '項目', 'value': "總計"}
+
+ava.views.ColumnItemView = Backbone.View.extend({
+
+    el : "<th></th>",
+
+    render: function() {
+        // imagine this is going through a template, but for now
+        // lets just return straight html.
+        // this.$el.append(this.model + "<p class='test'>testtest</p>");
+        this.$el.append(this.model);
+        // this.$el.attr("class", 'test');
+        return this;
+
+    },
+    events: {
+        // "click .test": "clickEvent",
+        "click": "clickEvent" 
+    },
+    clickEvent : function () {        
+        console.log(this.model);        
+    }
+});
+
+
+
+// var tableHeadTemplate=_.template("<thead>"+"<tr>"+
+//      "<th class='nameHead'><%= name %></th>"+
+//      "<th class='valueHead'><%= value %></th>"+
+//      "</tr>"+"</thead>");
+
+
+ava.views.PageView = ava.views.UtilityView.extend({
+
+  template:_.template($('#PageView').html()),
+
+  // loginStatus: {
+  //   status: "登入",
+  //   href: "#myModal",
+  //   storeName: "你好"
+  // },
+
+  render:function (eventName) {
+
+    // this.setLoginStatus();
+
+
+    // $(this.el).html(this.template(this.loginStatus));
+    this.$el.html(this.template());
+
+    return this;
+  },
+
+  
+
+  // setLoginStatus: function () {
+  //   if(window.localStorage.getItem('loginSuccess') == "true") {
+  //     this.loginStatus.status = "登出";
+  //     this.loginStatus.href = "#";    
+  //     this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
+  //   }else{
+  //     this.loginStatus.status = "登入";
+  //     this.loginStatus.storeName = "你好";
+  //   }
+  // }
+
+
+});
+
+
 ava.views.PortalView = ava.views.UtilityView.extend({
 
   template:_.template($('#portal').html()),
@@ -1002,7 +1193,8 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
           switch (name) {
               case "本日業績":
                   // clearTimeout(RealtimeInfoTimeout);
-                  Backbone.history.navigate('RealtimeInfo_Today', true);
+                  // Backbone.history.navigate('RealtimeInfo_Today', true);
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   // Backbone.history.navigate('RealtimeInfo_Today_G1', true);
                   break;
               case 1:
