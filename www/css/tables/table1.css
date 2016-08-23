@@ -1,0 +1,416 @@
+// /* These apply across all breakpoints because they are outside of a media query */
+// /* Make the labels light gray all caps across the board */
+// .RealtimeInfo thead th,
+// .RealtimeInfo tbody th .ui-table-cell-label,
+// .RealtimeInfo tbody td .ui-table-cell-label {
+//     text-transform: uppercase;
+//     font-size: .7em;
+//     color: rgba(0,0,0,0.5);
+//     font-weight: normal;
+// }
+// /* White bg, large blue text for rank and title */
+// .RealtimeInfo tbody th {
+//     font-size: 1.2em;
+//     background-color: #fff;
+//     color: #77bbff;
+//     text-align: center;
+// }
+// /*  Add a bit of extra left padding for the title */
+// .RealtimeInfo tbody td.title {
+//     padding-left: .8em;
+// }
+// /* Add strokes */
+// .RealtimeInfo thead th {
+//     border-bottom: 1px solid #d6d6d6; /* non-RGBA fallback */
+//     border-bottom: 1px solid rgba(0,0,0,.1);
+// }
+// .RealtimeInfo tbody th,
+// .RealtimeInfo tbody td {
+//     border-bottom: 1px solid #e6e6e6; /* non-RGBA fallback  */
+//     border-bottom: 1px solid rgba(0,0,0,.05);
+// }
+// /*  Custom stacked styles for mobile sizes */
+// /*  Use a max-width media query so we don't have to undo these styles */
+// @media (max-width: 40em) {
+//     /*  Negate the margin between sections */
+//     .RealtimeInfo tbody th {
+//         margin-top: 0;
+//         text-align: left;
+//     }
+//     /*  White bg, large blue text for rank and title */
+//     .RealtimeInfo tbody th,
+//     .RealtimeInfo tbody td.title {
+//         display: block;
+//         font-size: 1.2em;
+//         line-height: 110%;
+//         padding: .5em .5em;
+//         background-color: #fff;
+//         color: #77bbff;
+//         -moz-box-shadow: 0 1px 6px rgba(0,0,0,.1);
+//         -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.1);
+//         box-shadow: 0 1px 6px rgba(0,0,0,.1);
+//     }
+//     /*  Hide labels for rank and title */
+//     .RealtimeInfo tbody th .ui-table-cell-label,
+//     .RealtimeInfo tbody td.title .ui-table-cell-label {
+//         display: none;
+//     }
+//     /*  Position the title next to the rank, pad to the left */
+//     .RealtimeInfo tbody td.title {
+//         margin-top: -2.1em;
+//         padding-left: 2.2em;
+//         border-bottom: 1px solid rgba(0,0,0,.15);
+//     }
+//     /*  Make the data bold */
+//     .RealtimeInfo th,
+//     .RealtimeInfo td {
+//         font-weight: bold;
+//     }
+//     /* Make the label elements a percentage width */
+//     .RealtimeInfo td .ui-table-cell-label,
+//     .RealtimeInfo th .ui-table-cell-label {
+//         min-width: 20%;
+//     }
+// }
+// /* Media query to show as a standard table at wider widths */
+// @media ( min-width: 40em ) {
+//     /* Show the table header rows */
+//     .RealtimeInfo td,
+//     .RealtimeInfo th,
+//     .RealtimeInfo tbody th,
+//     .RealtimeInfo tbody td,
+//     .RealtimeInfo thead td,
+//     .RealtimeInfo thead th {
+//         display: table-cell;
+//         margin: 0;
+//     }
+//     /* Hide the labels in each cell */
+//     .RealtimeInfo td .ui-table-cell-label,
+//     .RealtimeInfo th .ui-table-cell-label {
+//         display: none;
+//     }
+// }
+// /* Hack to make IE9 and WP7.5 treat cells like block level elements */
+// /* Applied in a max-width media query up to the table layout breakpoint so we don't need to negate this */
+// @media ( max-width: 40em ) {
+//     .RealtimeInfo td,
+//     .RealtimeInfo th {
+//         width: 100%;
+//         -webkit-box-sizing: border-box;
+//         -moz-box-sizing: border-box;
+//         box-sizing: border-box;
+//         float: left;
+//         clear: left;
+//     }
+// }
+
+.RealtimeInfo {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+}
+
+.RealtimeInfo tbody .value{
+    // float: right;
+}
+
+th {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+tr:nth-child(even) {
+    background: #e9e9e9;
+}
+
+
+.RealtimeInfo thead th {
+padding: 15px 0px;
+}
+
+.RealtimeInfo tbody td {
+padding: 15px 15px;
+}
+
+
+tbody td {
+	text-align: center;
+}
+
+.item_1 {display: none; }
+.item_2 {display: none; }
+.item_3 {display: none; }
+.item_4 {display: none; }
+
+.item_5 {display: none; }
+.item_6 {display: none; }
+.item_7 {display: none; }
+.item_8 {display: none; }
+
+.item_9 {display: none; }
+.item_10 {display: none; }
+.item_11 {display: none; }
+.item_12 {display: none; }
+
+.item_13 {display: none; }
+.item_14 {display: none; }
+.item_15 {display: none; }
+.item_16 {display: none; }
+
+table.showG1 .item_1 { display: table-cell; width: 33%;}
+table.showG1 .item_2 { display: table-cell; }
+table.showG1 .item_3 { display: table-cell; }
+
+table.showG2 .item_1 { display: table-cell; width: 33%;}
+table.showG2 .item_4 { display: table-cell; }
+table.showG2 .item_5 { display: table-cell; }
+
+table.showG3 .item_1 { display: table-cell; width: 33%;}
+table.showG3 .item_6 { display: table-cell; }
+table.showG3 .item_7 { display: table-cell; }
+
+table.showG4 .item_1 { display: table-cell; width: 33%;}
+table.showG4 .item_8 { display: table-cell; }
+table.showG4 .item_9 { display: table-cell; }
+
+table.showG5 .item_1 { display: table-cell; width: 33%;}
+table.showG5 .item_10 { display: table-cell; }
+table.showG5 .item_11 { display: table-cell; }
+
+table.showG6 .item_1 { display: table-cell; width: 33%;}
+table.showG6 .item_12 { display: table-cell; }
+table.showG6 .item_13 { display: table-cell; }
+
+table.showG7 .item_1 { display: table-cell; width: 33%;}
+table.showG7 .item_14 { display: table-cell; }
+table.showG7 .item_15 { display: table-cell; }
+table.showG7 .item_16 { display: table-cell; }
+
+#RealtimeInfo_Today-table {
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    
+
+
+
+}
+#RealtimeInfo_Today-content {
+	padding-top: 0px;
+}
+
+#RealtimeInfo_Today-table tbody td {
+padding: 15px 15px;
+}
+
+#RealtimeInfo_Today-table thead th{
+padding-top: 10px;
+// padding-buttom: 10px;
+}
+
+ @media ( max-width: 400px ) {
+
+ 	.RealtimeInfo {
+ 		font-size: 20px;
+ 		padding-top: 15px ;
+ 	}
+
+	#RealtimeInfo_Today-table {
+	    font-size: 13px;
+	}
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 10px 10px;
+	}
+
+	.fixedHeader {
+	    font-size: 13px;
+	    width: 	100%;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 10px 10px;
+	}
+ }
+
+  @media only screen and ( max-device-width: 480px ) {
+
+	 .RealtimeInfo {
+ 		font-size: 17px;
+ 		padding-top: 15px ;
+ 	}
+
+	#RealtimeInfo_Today-table {
+	    font-size: 12px;
+	}
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 13px 1px;
+	}
+
+	.fixedHeader {
+	    font-size: 12px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 20px 1px;
+
+	}
+ }
+
+
+ @media only screen and (device-width:768px){
+
+ 	 .RealtimeInfo {
+ 		font-size: 22px;
+ 		padding-top: 15px ;
+ 	}
+       /* default iPad screens */
+
+ //   	#RealtimeInfo_Today-table {
+	//     font-size: 12px;
+	// }
+
+	#RealtimeInfo_Today-table tbody td {
+		padding: 14px 5px;
+	}
+
+	// .fixedHeader {
+	//     font-size: 12px;
+	// }
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 14px 5px;
+
+	}
+  }
+
+
+
+
+
+/* different techniques for iPad screening */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+
+	 .RealtimeInfo {
+ 		font-size: 20px;
+ 		padding-top: 15px ;
+ 	}
+  /* For portrait layouts only */
+
+  	#RealtimeInfo_Today-table tbody td {
+		padding: 18px 5px;
+	}
+
+	.fixedHeader thead{
+	    font-size: 18px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 16px 5px;
+
+	}
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+
+	.RealtimeInfo {
+ 		font-size: 24px;
+ 		padding-top: 15px ;
+ 	}
+  /* For landscape layouts only */
+    	#RealtimeInfo_Today-table tbody td {
+		padding: 16px 5px;
+	}
+
+	.fixedHeader thead{
+	    font-size: 20px;
+	}
+
+	.fixedHeader tbody{
+	    font-size: 18px;
+	}
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 22px 5px;
+
+	}
+}
+
+
+  /* different techniques for iPad screening */
+@media only screen and (min-device-width: 481px) and (max-device-width: 550px) and (orientation:portrait) {
+
+	 .RealtimeInfo {
+ 		font-size: 24px;
+ 		padding-top: 15px ;
+ 	}
+  /* For portrait layouts only */
+
+  	#RealtimeInfo_Today-table tbody td {
+		padding: 14px 3px;
+	}
+
+	// .fixedHeader {
+	//     font-size: 12px;
+	// }
+
+	.fixedHeader tbody td, .fixedHeader thead th {
+		padding: 14px 3px;
+
+	}
+}
+
+
+ table thead {
+  white-space: nowrap;
+}
+ table td {
+  // white-space: nowrap;
+  word-wrap: break-word;
+}
+
+th {
+    background-color: #f9f9f9;
+}
+
+.ui-content {
+    
+    padding: 0em; 
+}
+
+
+.fixedHeader {
+	    width: 	100%;
+}
+
+
+table tbody td {
+	text-align: left;
+}
+
+table tbody td + td{
+	text-align: right;
+}
+
+table {
+	width: 	100%;
+	border-collapse: collapse;
+
+}
+
+table, td, th {
+	border: 1px solid black;
+}
+
+// th, td {
+//     border-bottom: 1px solid black;
+//     border-right: 1px solid black;
+// }
+
+// tr th:nth-child(1), tr td:nth-child(1){
+//     color:red;
+// }
+
+// tr th:nth-child(2), tr td:nth-child(2){
+//     color:red;
+// }

@@ -47,22 +47,48 @@ ava.router = Backbone.Router.extend({
 
 
 
+        // var columns = new ava.views.Column_New_Collection([{'column':'項目1', "persist": true},{'column':'項目2', "persist": false},{'column':'項目3', "persist": false},
+        //     {'column':'項目4', "persist": false},{'column':'項目5', "persist": false},{'column':'項目6', "persist": false},{'column':'項目7', "persist": false},{'column':'項目8', "persist": false},{'column':'項目9', "persist": false}]);
 
+        var columns = new ava.views.Column_New_Collection([]);
 
-        var columns = new ava.views.Column_New_Collection([{'column':'項目1'},{'column':'項目2'},{'column':'項目3'},
-            {'column':'項目4'},{'column':'項目5'},{'column':'項目6'},{'column':'項目7'},{'column':'項目8'},{'column':'項目9'}]);
+        // var columns = new ava.views.Column_New_Collection([
+        //     {'column':'店櫃名稱', "persist": true},
+        //     {'column':'本日', "persist": false},
+        //     {'column':'去年本日', "persist": false},
+        //     {'column':'本月', "persist": false},
+
+        //     {'column':'去年本月', "persist": false},
+        //     {'column':'商品件數', "persist": false},
+        //     {'column':'平均客件數', "persist": false},
+        //     {'column':'新增會員數', "persist": false},
+
+        //     {'column':'客數', "persist": false},
+        //     {'column':'客單價', "persist": false},
+        //     {'column':'銷售金額', "persist": false},
+        //     {'column':'訂金金額', "persist": false},
+
+        //     {'column':'本月目標', "persist": false},
+        //     {'column':'達成率', "persist": false},
+        //     {'column':'庫存', "persist": false},
+        //     {'column':'可售金額', "persist": false}]);
+
         var self = this;
 
         var test = new ava.views.Table_New_Customize_Collection([],{domainName:"http://192.168.0.58:8080",
             urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns});
 
-        var tableView = new ava.views.Table_New_View({collection: test, columns: columns,
-            attributes : {"id":"RealtimeInfo_Today_Test-table"}});
+        // var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "tablesaw tablesaw-swipe tablesaw-fix-persist",
+        //     attributes : {"id":"RealtimeInfo_Today_Test-table", "data-tablesaw-mode":"swipe"}});
+        var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "table",
+        attributes : {"id":"RealtimeInfo_Today_Test-table"}});
         this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today_Test", true);  
 
 
         test.getResults();
-        
+
+        //fixed-Header
+        $('#RealtimeInfo_Today_Test-table').parent().addClass("container");
 
 
         // test.fetch({

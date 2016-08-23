@@ -383,19 +383,32 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
 
             // console.log(collection.models[item].attributes);
             var obj = collection.models[item].attributes;
-            var column;
-            for(column in obj){
-                var columnName = this.getColumnName(column);
-                if (obj.hasOwnProperty(column) && columnName != "")
-                    columns.push({'column': columnName });
+
+			var data = reorderSum0ForColumn(obj);
+
+            var index;
+            for(index in data){
+                var columnName = this.getColumnName(data[index]);            	
+                columns.push({'column': columnName, 'persist': false});              
             }
-            // console.log(columns);
             break;
+
+            // var column;
+            // for(column in obj){
+            //     var columnName = this.getColumnName(column);
+            //     if (obj.hasOwnProperty(column) && columnName != "")
+            //     {
+            //     	// var persist = (column == "name") ? true : false;  
+            //     	var persist = false;              	
+            //         columns.push({'column': columnName, 'persist': persist});
+            //     }
+            // }
+            // // console.log(columns);
+            // break;
 
         }   
         return columns;     
     },
-
 
     getColumnName: function (name) {
 
@@ -408,37 +421,37 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
                   value = "本日";
                   break;
               case 'volumeLastYearToday':
-                  value = "去年本日";
+                  value = "去年本日 >";
                   break;
               case 'volumeThisMonth':
                   value = "本月";
                   break;
               case 'volumeLastYearThisMonth':
-                  value = "去年本月";
+                  value = "去年本月 <>";
                   break;
               case 'deposit':
                   value = "庫存";
                   break;
               case 'volumeAvailable':
-                  value = '可售金額';
+                  value = '可售金額 <>';
                   break;
               case 'target':
                   value = "本月目標";
                   break;
               case 'targetRate':
-                  value = "達成率";
+                  value = "達成率 <>";
                   break;
               case 'saleTotal':
                   value = '銷售金額';
                   break;
               case 'preSaleTotal':
-                  value = "訂金金額";
+                  value = "訂金金額 <>";
                   break;
               case 'customer':
                   value = "客數";
                   break;
               case 'customerUPrice':
-                  value = "客單價";
+                  value = "客單價 <>";
                   break;
               case 'saleAmount':
                   value = '商品件數';
@@ -447,7 +460,7 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
                   value = "平均客件數";
                   break;
               case 'memberCount':
-                  value = "新增會員數";
+                  value = "新增會員數 <";
                   break;
               default:
                   value = "";
@@ -475,6 +488,10 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             dataType : "text",
             add:true,
             reset: true,
+            beforeSend: function (){     
+            	$('#RealtimeInfo_Today_Test-table').hide();       
+                $.mobile.loading('show');                
+            },
             success: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.options.columns.reset(self.getColumnsFromCollection(collection));
@@ -483,6 +500,16 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
+            },
+            complete: function(xhr,status){
+            	$('#RealtimeInfo_Today_Test-table').show();
+            	$('.pinned #RealtimeInfo_Today_Test-table').show();
+
+	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 16 - $('#RealtimeInfo_Today_Test-table thead').height();
+	        	$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
+
+                $.mobile.loading('hide');
+            
             }
         });
     }

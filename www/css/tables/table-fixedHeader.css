@@ -1,0 +1,43 @@
+
+tbody {
+    display:block;
+    height:200px;
+    overflow:auto;
+}
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+thead {
+    // width: calc( 100% - 1em );
+}
+
+
+#RealtimeInfo_Today_Test-table {
+	margin-bottom: 0px;
+
+	border-collapse: inherit;	
+}
+
+.container {
+	padding-bottom: 0px;
+}
+
+
+
+#RealtimeInfo_Today_Test-table tbody td + td {
+    text-align: right;
+}
+
+
+
+table.showG1 .item_1 { display: table-cell; width: 33%;}
+table.showG2 .item_1 { display: table-cell; width: 33%;}
+table.showG3 .item_1 { display: table-cell; width: 33%;}
+table.showG4 .item_1 { display: table-cell; width: 33%;}
+table.showG5 .item_1 { display: table-cell; width: 33%;}
+table.showG6 .item_1 { display: table-cell; width: 33%;}
+table.showG7 .item_1 { display: table-cell; width: 33%;}
+
+

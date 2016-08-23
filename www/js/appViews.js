@@ -626,12 +626,23 @@ ava.views.TableRow_New_View = ava.views.UtilityView.extend({
 
     getRow: function (data) {
       var str = "";
-      for(var key in data){
-          if(key != "code" && key != "isWithdraw"){
-              str += "<td>" + data[key] + "</td>";
-          }
+      var index = 0;
+
+      var reorderData = reorderSum0ForRow(data);
+      for(var key in reorderData){          
+          index += 1;
+          str += "<td class='item_" + index + "' >" + reorderData[key] + "</td>";          
       }
       return str;
+
+
+      // for(var key in data){
+      //     if(key != "code" && key != "isWithdraw"){
+      //         index += 1;
+      //         str += "<td class='item_" + index + "' >" + data[key] + "</td>";
+      //     }
+      // }
+      // return str;
 
     }
 });
@@ -662,6 +673,8 @@ ava.views.Table_New_View = Backbone.View.extend({
     addAll: function () {
       this.reset();
       this.collection.each(this.addOne, this);
+
+      this.getTable();
     },
 
     addOne: function (row) {
@@ -669,6 +682,12 @@ ava.views.Table_New_View = Backbone.View.extend({
         var row=new ava.views.TableRow_New_View({model:row});
         this.$el.append(row.render().$el);
         return this;
+    },
+
+    getTable: function () {
+        // console.log('test');
+         this.$el.addClass("showG1");
+        // this.$el
     },
 
     // addOne: function (todo) {
@@ -693,6 +712,16 @@ ava.views.Table_New_View = Backbone.View.extend({
 
     handleSuccess: function (options) {
         // options will be any options you passed when triggering the custom event
+
+        // if( this.options.attributes.id == "RealtimeInfo_Today_Test-table" ){
+        //     $('#' + this.options.attributes.id).table().data( "table" );
+        // }
+
+
+
+     
+
+            
     },
 
     handleError: function (options) {
@@ -722,9 +751,16 @@ ava.views.Table_New_View = Backbone.View.extend({
 
     },
 
-    renderColumnItem : function (column) {
-        var column = new ava.views.ColumnItemView({model:column.attributes.column});
-        this.$el.find('thead tr').append(column.render().$el);
+    renderColumnItem : function (column, index) {
+    
+        var columnItem;
+        if(column.attributes.persist == true){
+            columnItem = new ava.views.ColumnItemView({model:column.attributes.column, attributes : {"data-tablesaw-priority": "persist"}});
+        }else{
+            columnItem = new ava.views.ColumnItemView({model:column.attributes.column,attributes : {"class": "item_" + (index + 1).toString()}});
+        }
+        
+        this.$el.find('thead tr').append(columnItem.render().$el);
     },
 });
 
@@ -739,7 +775,13 @@ ava.views.ColumnItemView = Backbone.View.extend({
         // lets just return straight html.
         // this.$el.append(this.model + "<p class='test'>testtest</p>");
         this.$el.append(this.model);
+        
+        for(var key in this.options.attributes){
+            this.$el.attr(key, this.options.attributes[key]);
+        }
+        
         // this.$el.attr("class", 'test');
+
         return this;
 
     },
@@ -749,7 +791,20 @@ ava.views.ColumnItemView = Backbone.View.extend({
     },
     clickEvent : function () {        
         console.log(this.model);        
-    }
+    },
+    initialize: function (options) {
+        
+        // if(options.attributes){
+        //   var attrs = "";
+        //   for(var key in options.attributes){
+        //     attrs += key + "='" + options.attributes[key] + "' ";
+        //   }
+        //   this.$el = "<th " + attrs + ">" + "</th>"
+        // }
+        // this.attributes = options.attributes;
+        this.options = options;
+    },
+
 });
 
 
@@ -769,6 +824,57 @@ ava.views.PageView = ava.views.UtilityView.extend({
   //   href: "#myModal",
   //   storeName: "你好"
   // },
+
+  events: {
+      "swiperight" : "swipeRight",
+      "swipeleft" : "swipeLeft",
+  },
+
+  nowPage: 1,
+
+  swipeRight: function(e){
+    try{
+
+        if(this.nowPage != 7){
+            this.nowPage += 1;           
+            this.toggleColumn(this.nowPage);
+        }
+
+    }
+    catch(err) {
+        console.log("swipeIt" + err);
+    }
+  },
+
+  swipeLeft: function(e){
+    try{
+      
+      if(this.nowPage != 1){
+          this.nowPage -= 1;           
+          this.toggleColumn(this.nowPage);
+      }
+
+
+    }
+    catch(err) {
+        console.log("swipeIt" + err);
+    }
+  },
+
+  toggleColumn: function(n) {
+
+      var $table = $('table');
+      var currentClass = $table.attr('class');
+      if (currentClass.indexOf("showG"+n) == -1) {
+
+            $table.removeClass(currentClass);
+            var keepClass = currentClass.replace(/showG./g, "");
+            $table.addClass("showG"+n);
+            $table.addClass(keepClass);
+
+      }
+
+  },
 
   render:function (eventName) {
 
