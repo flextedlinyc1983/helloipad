@@ -2,7 +2,10 @@
 tbody {
     display:block;
     height:200px;
-    overflow:auto;
+
+  	overflow-y: scroll;
+	overflow-x: hidden; 
+	-webkit-font-smoothing: -webkit-overflow-scrolling: touch;
 }
 thead, tbody tr {
     display:table;

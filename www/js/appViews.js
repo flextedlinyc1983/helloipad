@@ -678,10 +678,14 @@ ava.views.Table_New_View = Backbone.View.extend({
     },
 
     addOne: function (row) {
+      if(row.toJSON().isWithdraw == "false"){
         // var row=new ava.views.TableRow_TodayView({model:row});
         var row=new ava.views.TableRow_New_View({model:row});
         this.$el.append(row.render().$el);
-        return this;
+      }
+      
+      return this;
+
     },
 
     getTable: function () {

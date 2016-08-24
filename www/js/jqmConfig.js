@@ -9,8 +9,11 @@ $(document).on('mobileinit', function() {
     $.mobile.defaultPageTransition = "fade";
     // $.mobile.defaultPageTransition = "slide";
     // $.mobile.autoInitializePage = false;
-
-	
+if(screen.availWidth >= 600){
+$.event.special.swipe.scrollSupressionThreshold = (screen.availWidth) / 60;
+$.event.special.swipe.horizontalDistanceThreshold = (screen.availWidth) / 60;
+$.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
+}
 	// Remove page from DOM when it's being replaced
     // $('div[data-role="page"]').on('pagehide', null, function (event, ui) {
 
