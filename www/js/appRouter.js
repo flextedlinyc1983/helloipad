@@ -712,7 +712,18 @@ $(document).ready(function () {
 
 
     var app = new ava.router();
+
     Backbone.history.start();
+   
+    Backbone.history.on('route', function () {
+        var path = Backbone.history.getFragment();
+        if( path == ""){
+            RealtimeInfo_Today_Test_Timeout.clear();
+        }else {
+
+        }
+    
+    });
 
     tabOperation.init();
 

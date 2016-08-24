@@ -487,15 +487,27 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             type: 'POST',
             dataType : "text",
             add:true,
-            reset: true,
-            beforeSend: function (){     
-            	$('#RealtimeInfo_Today_Test-table').hide();       
+            reset: true,            
+            beforeSend: function (){    
+            	
+            	if($('#RealtimeInfo_Today_Test-table tbody tr').length == 0){
+            		$('#RealtimeInfo_Today_Test-table').hide();       
+            	}
+
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
-                self.options.columns.reset(self.getColumnsFromCollection(collection));
+
+                if($('#RealtimeInfo_Today_Test-table thead th').length == 0){
+                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+            	}
+
                 self.trigger('successOnFetch');
+
+                //set timeout
+                // setTimeout(_.bind(self.getResults, self),60000);
+                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
