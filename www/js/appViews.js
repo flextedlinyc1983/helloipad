@@ -629,9 +629,18 @@ ava.views.TableRow_New_View = ava.views.UtilityView.extend({
       var index = 0;
 
       var reorderData = reorderSum0ForRow(data);
+      var codeNumber = getCodeNumber(data);
       for(var key in reorderData){          
+
+
           index += 1;
-          str += "<td class='item_" + index + "' >" + reorderData[key] + "</td>";          
+          
+          if(index == 1){              
+              str += "<td class='item_" + index + "  codeNumber' >" + "<span id=codeNumber_"+ codeNumber + ">"+ reorderData[key] + "</span>"+  "</td>";       
+          }else{
+              str += "<td class='item_" + index + "' >" + reorderData[key] + "</td>";            
+          }
+          
       }
       return str;
 
@@ -647,9 +656,57 @@ ava.views.TableRow_New_View = ava.views.UtilityView.extend({
     }
 });
 
+
+
+ava.views.TableRow_GetPosInfo_View = ava.views.UtilityView.extend({
+
+    el: "<tr>",
+    render: function() {
+        var html= this.getRow(this.model.toJSON());
+        this.$el.append(html);
+        return this;
+    },
+
+    initialize: function() {
+    },
+
+    getRow: function (data) {
+      var str = "";
+      for(var key in data){          
+          if(key != "id")
+              str += "<td>" + data[key] + "</td>";            
+  
+      }
+      return str;
+    }
+});
+
+
+
+
+
 ava.views.Table_New_View = Backbone.View.extend({
 
     tagName: 'table',
+
+    events: {
+        // "click .test": "clickEvent",
+        "click tbody .codeNumber": "clickEvent" 
+    },
+
+    clickEvent: function (e) {
+      var tagName = e.toElement.tagName;
+      var codeNumber = "";
+      if(tagName == "SPAN"){
+          codeNumber = $(e.toElement).attr('id').substring(11);
+      }else if(tagName == "TD"){
+          codeNumber = $(e.toElement).find('span').attr('id').substring(11);
+      }
+
+
+      Backbone.history.navigate('RealtimeInfo_Today_Test/getPosInfo/' + codeNumber, true);
+      
+    },
 
     initialize: function (options) {
 
@@ -772,6 +829,33 @@ ava.views.Table_New_View = Backbone.View.extend({
     },
 });
 
+
+
+ava.views.Table_GetPosInfo_View = ava.views.Table_New_View.extend({
+    addAll: function () {
+
+          this.reset();
+          this.collection.each(this.addOne, this);
+
+    },
+
+    addOne: function (row) {
+  
+      var row=new ava.views.TableRow_GetPosInfo_View({model:row});
+      this.$el.append(row.render().$el);
+      
+      return this;
+
+    },
+
+    renderColumnItem : function (column, index) {
+            
+        var columnItem = new ava.views.ColumnItemView({model:column.attributes.column,attributes : {"class": ""}});        
+        
+        this.$el.find('thead tr').append(columnItem.render().$el);
+    },
+});
+
 // {'name': '項目', 'value': "總計"}
 
 ava.views.ColumnItemView = Backbone.View.extend({
@@ -843,11 +927,14 @@ ava.views.PageView = ava.views.UtilityView.extend({
   swipeRight: function(e){
     try{
 
+      if($('table').attr('id') == "RealtimeInfo_Today_Test-table"){
+
         if(this.nowPage != 7){
             this.nowPage += 1;           
             this.toggleColumn(this.nowPage);
         }
 
+      }
     }
     catch(err) {
         console.log("swipeIt" + err);
@@ -857,11 +944,12 @@ ava.views.PageView = ava.views.UtilityView.extend({
   swipeLeft: function(e){
     try{
       
-      if(this.nowPage != 1){
-          this.nowPage -= 1;           
-          this.toggleColumn(this.nowPage);
+      if($('table').attr('id') == "RealtimeInfo_Today_Test-table"){
+        if(this.nowPage != 1){
+            this.nowPage -= 1;           
+            this.toggleColumn(this.nowPage);
+        }
       }
-
 
     }
     catch(err) {

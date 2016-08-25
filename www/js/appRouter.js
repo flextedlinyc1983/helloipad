@@ -9,13 +9,40 @@ ava.router = Backbone.Router.extend({
         "myModal" : "myModal",
         "RealtimeInfo_Today" : "RealtimeInfo_Today",
         "RealtimeInfo_Today_Test" : "RealtimeInfo_Today_Test",
-        "RealtimeInfo_Today_G1": "RealtimeInfo_Today_G1"
+        "RealtimeInfo_Today_G1": "RealtimeInfo_Today_G1",
+
+        "RealtimeInfo_Today_Test/getPosInfo/:codeNumber" : "getPosInfo",
 	},
 
     // initialize: function () {
 
     //     Backbone.history.start();
     // },
+
+    getPosInfo : function (codeNumber) {
+        console.log('#getPosInfo');
+        var page = new ava.views.PageView({attributes : {"id" : "getPosInfo"}});
+        this.changePageForMobile(page);
+
+
+
+        var columns = new ava.views.Column_New_Collection([]);
+
+
+        var self = this;
+        codeNumber = 'RM012';
+        var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:"http://192.168.0.58:8080",
+            urlPath: "/flaps2/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
+
+
+        var tableView = new ava.views.Table_GetPosInfo_View({collection: test, columns: columns, className: "table",
+        attributes : {"id":"getPosInfo-table"}});
+        this.putElementOnPageContent(tableView.render().$el, "getPosInfo", true);  
+
+
+        test.getResults();
+
+    },
 
     initialize:function () {
         // Handle back button throughout the application
@@ -38,7 +65,7 @@ ava.router = Backbone.Router.extend({
         });
 
     },
-    RealtimeInfo_Today_Test:function () {
+    RealtimeInfo_Today_Test:function (e) {
 
         console.log('#RealtimeInfo_Today_Test');
         var page = new ava.views.PageView({attributes : {"id" : "RealtimeInfo_Today_Test"}});
@@ -717,7 +744,7 @@ $(document).ready(function () {
    
     Backbone.history.on('route', function () {
         var path = Backbone.history.getFragment();
-        if( path == ""){
+        if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined' && path != "RealtimeInfo_Today_Test"){
             RealtimeInfo_Today_Test_Timeout.clear();
         }else {
 

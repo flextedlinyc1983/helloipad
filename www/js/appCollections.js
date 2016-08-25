@@ -507,7 +507,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
                 //set timeout
                 // setTimeout(_.bind(self.getResults, self),60000);
-                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+                // RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
@@ -536,3 +536,123 @@ ava.views.Column_New_Collection = Backbone.Collection.extend({
 	model: ava.models.Column_New_Model,
 
  });
+
+
+
+
+ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
+	parse: function (data) {
+		var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
+    				var $td =  $('td', this);
+
+    				var time = $td.eq(0).text().replace(/\s/g, '');
+    				var customer = $td.eq(1).text().replace(/\s/g, '');
+    				var dollar = $td.eq(2).text().replace(/\s/g, '');
+    				var count = $td.eq(3).text().replace(/\s/g, '');
+
+    				if( i > 0 && (time != "" || customer != "" || dollar != "" || count != "") ) {
+        				return {
+                 			id: i,
+                 			time: time,
+                 			customer: customer,
+                 			dollar: dollar,
+                 			count: count,
+               			}
+               		}
+				  }).get();
+		return tbl;
+	},
+
+	getResults: function () {
+
+        var self = this;
+
+        this.fetch({
+            // data: {api_key: 'secretkey'}, 
+            type: 'GET',
+            dataType : "HTML",
+            add:true,
+            reset: true,            
+            beforeSend: function (){    
+            	
+            	if($('#getPosInfo-table tbody tr').length == 0){
+            		$('#getPosInfo-table').hide();       
+            	}
+
+                $.mobile.loading('show');                
+            },
+            success: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+
+                if($('#getPosInfo-table thead th').length == 0){
+                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+            	}
+
+                self.trigger('successOnFetch');
+
+                //set timeout
+                // setTimeout(_.bind(self.getResults, self),60000);
+                // RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+            },
+            error: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('errorOnFetch');
+            },
+            complete: function(xhr,status){
+            	$('#getPosInfo-table').show();
+            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+
+	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 30 - $('#getPosInfo-table thead').height();
+	        	$('#getPosInfo-table tbody').css('height',tableHeight.toString());
+
+                $.mobile.loading('hide');
+            
+            }
+        });
+    },
+
+    getColumnsFromCollection: function (collection) {
+        var columns = []
+        for(var item in collection.models){ 
+
+            // console.log(collection.models[item].attributes);
+            var obj = collection.models[item].attributes;
+
+
+            var index;
+            for(index in obj){
+            	if(index != "id"){
+                	var columnName = this.getColumnName(index);            	
+                	columns.push({'column': columnName});              
+                }
+            }
+            break;
+        }   
+        return columns;     
+    },
+
+	getColumnName: function (name) {
+
+        var value = '';
+            switch (name) {
+              case "time":
+                  value = '時間';
+                  break;
+              case 'customer':
+                  value = "客次";
+                  break;
+              case 'dollar':
+                  value = "金額";
+                  break;
+              case 'count':
+                  value = "數量";
+                  break;
+              default:
+                  value = "";
+            }
+
+            return value;
+
+    },
+
+ });	

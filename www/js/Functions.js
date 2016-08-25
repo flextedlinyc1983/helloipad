@@ -381,3 +381,22 @@ function Timeout(fn, interval) {
         clearTimeout(id);
     };
 }
+
+
+getCodeNumber = function (data) {
+  var reslut = "";
+  for(var column in data){
+      if(column == "code"){
+        result = data[column];
+        break;
+      }
+  }
+
+  return result;
+}
+
+
+
+getPosInfo = function (codeNumber) {
+  alert(codeNumber);
+}
