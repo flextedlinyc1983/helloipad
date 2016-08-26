@@ -514,14 +514,37 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	$('#RealtimeInfo_Today_Test-table').show();
+
+
+
+            	
+
+            	$('#RealtimeInfo_Today_Test-table').show({
+            		complete: function (){
+            			//set last time scroll position
+            			if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
+            				$('table tbody').scrollTop(pagesData['#RealtimeInfo_Today_Test'].scrollPositon);
+
+            				var $table = $('table');
+            				$table.removeClass('showG1');
+            				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
+            			}
+            		}
+            	});
             	$('.pinned #RealtimeInfo_Today_Test-table').show();
+
 
 	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 16 - $('#RealtimeInfo_Today_Test-table thead').height();
 	        	$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
 
                 $.mobile.loading('hide');
-            
+                    
+                
+
+
+				// if($('table tbody').hasScrollBar())
+				// 	alert('okok');
+
             }
         });
     }

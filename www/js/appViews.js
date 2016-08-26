@@ -703,6 +703,13 @@ ava.views.Table_New_View = Backbone.View.extend({
           codeNumber = $(e.toElement).find('span').attr('id').substring(11);
       }
 
+      
+      //record scroll position and page group
+      var currentPageData = pagesData[window.location.hash] ||  (pagesData[window.location.hash] = {});
+      currentPageData.scrollPositon = $('table tbody').scrollTop();
+
+      var tableClass = $('table').attr('class');
+      currentPageData.pagegroupPositon = tableClass.substring(tableClass.indexOf('showG') + 5, tableClass.indexOf('showG') + 6);
 
       Backbone.history.navigate('RealtimeInfo_Today_Test/getPosInfo/' + codeNumber, true);
       
@@ -854,6 +861,8 @@ ava.views.Table_GetPosInfo_View = ava.views.Table_New_View.extend({
         
         this.$el.find('thead tr').append(columnItem.render().$el);
     },
+
+
 });
 
 // {'name': '項目', 'value': "總計"}

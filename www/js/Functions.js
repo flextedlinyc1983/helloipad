@@ -400,3 +400,14 @@ getCodeNumber = function (data) {
 getPosInfo = function (codeNumber) {
   alert(codeNumber);
 }
+
+
+
+pagesData = {};
+
+
+// (function($) {
+//     $.fn.hasScrollBar = function() {
+//         return this.get(0).scrollHeight > this.height();
+//     }
+// })(jQuery);
