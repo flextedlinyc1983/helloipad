@@ -342,7 +342,7 @@ RealtimeInfoCollection_Today = new ava.collections.RealtimeInfoList({model: ava.
 
 
 var urls= {
-	RealtimeInfo_Today:"http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1"
+	RealtimeInfo_Today: getIpFromDataConfig(setIpBySelf) + "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1"
 }
 
 

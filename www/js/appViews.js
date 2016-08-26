@@ -1134,7 +1134,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
         $('.alert-error').hide(); // Hide any errors on a new submit
         // var url = '../api/login';
-        var url = 'http://192.168.0.58:8080/flaps2/checkLogin.jsp';
+        var url = getIpFromDataConfig(setIpBySelf) + '/flaps2/checkLogin.jsp';
         // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
         console.log('Loggin in... ');
         var formValues = {

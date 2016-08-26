@@ -232,7 +232,7 @@ updateTbody = function () {
 
 
 reorderSum0ForColumn = function (data) {
-var reslut = [];
+var result = [];
 for(var column in data){
 
 
@@ -292,17 +292,17 @@ for(var column in data){
             }
 
             if(value != -1){
-              reslut[value] = column;
+              result[value] = column;
             }
 
   }
 
-            return reslut;
+            return result;
 }
 
 
 reorderSum0ForRow = function (data) {
-var reslut = [];
+var result = [];
 for(var column in data){
 
 
@@ -362,12 +362,12 @@ for(var column in data){
             }
 
             if(value != -1){
-              reslut[value] = data[column];
+              result[value] = data[column];
             }
 
   }
 
-            return reslut;
+            return result;
 }
 
 
@@ -384,7 +384,7 @@ function Timeout(fn, interval) {
 
 
 getCodeNumber = function (data) {
-  var reslut = "";
+  var result = "";
   for(var column in data){
       if(column == "code"){
         result = data[column];

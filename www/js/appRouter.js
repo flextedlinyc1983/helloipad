@@ -34,7 +34,7 @@ ava.router = Backbone.Router.extend({
 
         var self = this;
         codeNumber = 'RM012';
-        var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName:"http://192.168.0.58:8080",
+        var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
             urlPath: "/flaps2/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
 
 
@@ -60,7 +60,7 @@ ava.router = Backbone.Router.extend({
 
         var self = this;
         codeNumber = 'RM012';
-        var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:"http://192.168.0.58:8080",
+        var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
             urlPath: "/flaps2/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
 
 
@@ -137,7 +137,7 @@ ava.router = Backbone.Router.extend({
 
         var self = this;
 
-        var test = new ava.views.Table_New_Customize_Collection([],{domainName:"http://192.168.0.58:8080",
+        var test = new ava.views.Table_New_Customize_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
             urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns,page:page});
 
         // var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "tablesaw tablesaw-swipe tablesaw-fix-persist",
@@ -469,7 +469,7 @@ ava.router = Backbone.Router.extend({
         // var url = '../api/login';
         var url;
         if(!address){
-            url = 'http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1&FMieQ4fK=1';
+            url = getIpFromDataConfig(setIpBySelf) + '/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1&FMieQ4fK=1';
         }else{
             url = address;
         }
