@@ -516,7 +516,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             complete: function(xhr,status){
 
 
-
+            	var selfCollection = self;
             	
 
             	$('#RealtimeInfo_Today_Test-table').show({
@@ -528,6 +528,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             				var $table = $('table');
             				$table.removeClass('showG1');
             				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
+            				selfCollection.options.page.setNowpage(Number(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon));
             			}
             		}
             	});
@@ -557,7 +558,6 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 ava.views.Column_New_Collection = Backbone.Collection.extend({
 	model: ava.models.Column_New_Model,
-
  });
 
 

@@ -103,7 +103,7 @@ ava.router = Backbone.Router.extend({
         var self = this;
 
         var test = new ava.views.Table_New_Customize_Collection([],{domainName:"http://192.168.0.58:8080",
-            urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns});
+            urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns,page:page});
 
         // var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "tablesaw tablesaw-swipe tablesaw-fix-persist",
         //     attributes : {"id":"RealtimeInfo_Today_Test-table", "data-tablesaw-mode":"swipe"}});

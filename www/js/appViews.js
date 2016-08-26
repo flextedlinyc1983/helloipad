@@ -933,6 +933,10 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
   nowPage: 1,
 
+  setNowpage: function(nowPage){
+    this.nowPage = nowPage;
+  },
+
   swipeRight: function(e){
     try{
 
@@ -1407,6 +1411,10 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
                   // Backbone.history.navigate('RealtimeInfo_Today', true);
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   // Backbone.history.navigate('RealtimeInfo_Today_G1', true);
+
+                  if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
+                      delete pagesData['#RealtimeInfo_Today_Test'];
+                  }
                   break;
               case 1:
                   day = "Monday";
