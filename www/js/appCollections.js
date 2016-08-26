@@ -529,6 +529,9 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             				$table.removeClass('showG1');
             				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
             				selfCollection.options.page.setNowpage(Number(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon));
+
+            				// delete
+            				delete pagesData['#RealtimeInfo_Today_Test'];
             			}
             		}
             	});
@@ -669,6 +672,113 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
                   break;
               case 'count':
                   value = "數量";
+                  break;
+              default:
+                  value = "";
+            }
+
+            return value;
+
+    },
+
+ });	
+
+
+
+
+
+
+
+
+
+
+ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.extend({
+	parse: function (data) {
+		// var oJson = xml2json(data);
+		var oJson = xml2json($.parseXML(data));
+		return oJson.Info.Pos;
+	},
+
+	getResults: function () {
+
+        var self = this;
+
+        this.fetch({
+            // data: {api_key: 'secretkey'}, 
+            type: 'GET',
+            dataType : "HTML",
+            add:true,
+            reset: true,            
+            beforeSend: function (){    
+            	
+            	if($('#getBrandStatistics-table tbody tr').length == 0){
+            		$('#getBrandStatistics-table').hide();       
+            	}
+
+                $.mobile.loading('show');                
+            },
+            success: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+
+                if($('#getBrandStatistics-table thead th').length == 0){
+                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+            	}
+
+                self.trigger('successOnFetch');
+
+                //set timeout
+                // setTimeout(_.bind(self.getResults, self),60000);
+                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+            },
+            error: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('errorOnFetch');
+            },
+            complete: function(xhr,status){
+            	$('#getBrandStatistics-table').show();
+            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+
+	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 30 - $('#getBrandStatistics-table thead').height();
+	        	$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
+
+                $.mobile.loading('hide');
+            
+            }
+        });
+    },
+
+    getColumnsFromCollection: function (collection) {
+        var columns = []
+        for(var item in collection.models){ 
+
+            // console.log(collection.models[item].attributes);
+            var obj = collection.models[item].attributes;
+
+
+            var index;
+            for(index in obj){
+            	if(index != "code"){
+                	var columnName = this.getColumnName(index);            	
+                	columns.push({'column': columnName});              
+                }
+            }
+            break;
+        }   
+        return columns;     
+    },
+
+	getColumnName: function (name) {
+
+        var value = '';
+            switch (name) {
+              case "name":
+                  value = '品牌名稱';
+                  break;
+              case 'todayFeat':
+                  value = "本日業績";
+                  break;
+              case 'monthlyFeat':
+                  value = "本月累積業績";
                   break;
               default:
                   value = "";

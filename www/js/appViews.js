@@ -758,7 +758,8 @@ ava.views.Table_New_View = Backbone.View.extend({
 
     getTable: function () {
         // console.log('test');
-         this.$el.addClass("showG1");
+         // this.$el.addClass("showG1");
+         this.$el.addClass("showG" + this.options.page.getNowpage());
         // this.$el
     },
 
@@ -891,7 +892,27 @@ ava.views.ColumnItemView = Backbone.View.extend({
         "click": "clickEvent" 
     },
     clickEvent : function () {        
-        console.log(this.model);        
+        console.log(this.model);    
+
+
+        var name = this.model;          
+
+        switch (name) {
+            case "本日":
+                //record scroll position and page group
+                var currentPageData = pagesData[window.location.hash] ||  (pagesData[window.location.hash] = {});
+                currentPageData.scrollPositon = $('table tbody').scrollTop();
+
+                var tableClass = $('table').attr('class');
+                currentPageData.pagegroupPositon = tableClass.substring(tableClass.indexOf('showG') + 5, tableClass.indexOf('showG') + 6);
+
+                Backbone.history.navigate('getBrandStatistics', true);     
+                break;
+              default:
+                  alert('no match');
+          }
+
+
     },
     initialize: function (options) {
         
@@ -936,7 +957,9 @@ ava.views.PageView = ava.views.UtilityView.extend({
   setNowpage: function(nowPage){
     this.nowPage = nowPage;
   },
-
+  getNowpage: function(){
+    return this.nowPage;
+  },
   swipeRight: function(e){
     try{
 
@@ -1401,20 +1424,53 @@ ava.views.TableHead_TodayView = ava.views.UtilityView.extend({
 ava.views.TableRowView = ava.views.UtilityView.extend({
 // var RowView = Backbone.View.extend({  
     events: {
-        "click": function(event) {
+        "click .value": function(event) {
           var name = this.model.get("name");
           console.log(name);
 
           switch (name) {
               case "本日業績":
-                  // clearTimeout(RealtimeInfoTimeout);
-                  // Backbone.history.navigate('RealtimeInfo_Today', true);
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 1;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
-                  // Backbone.history.navigate('RealtimeInfo_Today_G1', true);
+                  break;
+              case "去年本日業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 1;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "本月業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 2;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "去年本月業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 2;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "現有庫存":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 3;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "可售金額":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 3;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              default:
+                  alert('no match');
+          }
 
-                  if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
-                      delete pagesData['#RealtimeInfo_Today_Test'];
-                  }
+        },
+      "click .name": function(event) {
+          var name = this.model.get("name");
+          console.log(name);
+
+          switch (name) {
+              case "本日業績":
+                  Backbone.history.navigate('getBrandStatistics', true);                                    
                   break;
               case 1:
                   day = "Monday";
@@ -1831,3 +1887,57 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
 
 });
 
+
+
+
+ava.views.Table_getBrandStatistics_View = ava.views.Table_New_View.extend({
+    addAll: function () {
+
+          this.reset();
+          this.collection.each(this.addOne, this);
+
+    },
+
+    addOne: function (row) {
+  
+      var row=new ava.views.TableRow_getBrandStatistics_View({model:row});
+      this.$el.append(row.render().$el);
+      
+      return this;
+
+    },
+
+    renderColumnItem : function (column, index) {
+            
+        var columnItem = new ava.views.ColumnItemView({model:column.attributes.column,attributes : {"class": ""}});        
+        
+        this.$el.find('thead tr').append(columnItem.render().$el);
+    },
+
+
+});
+
+
+
+ava.views.TableRow_getBrandStatistics_View = ava.views.UtilityView.extend({
+
+    el: "<tr>",
+    render: function() {
+        var html= this.getRow(this.model.toJSON());
+        this.$el.append(html);
+        return this;
+    },
+
+    initialize: function() {
+    },
+
+    getRow: function (data) {
+      var str = "";
+      for(var key in data){          
+          if(key != "code")
+              str += "<td>" + data[key] + "</td>";            
+  
+      }
+      return str;
+    }
+});

@@ -12,12 +12,41 @@ ava.router = Backbone.Router.extend({
         "RealtimeInfo_Today_G1": "RealtimeInfo_Today_G1",
 
         "RealtimeInfo_Today_Test/getPosInfo/:codeNumber" : "getPosInfo",
+
+        "getBrandStatistics" : "getBrandStatistics",
 	},
 
     // initialize: function () {
 
     //     Backbone.history.start();
     // },
+
+
+    getBrandStatistics : function () {
+        console.log('#getBrandStatistics');
+        var page = new ava.views.PageView({attributes : {"id" : "getBrandStatistics"}});
+        this.changePageForMobile(page);
+
+
+
+        var columns = new ava.views.Column_New_Collection([]);
+
+
+        var self = this;
+        codeNumber = 'RM012';
+        var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName:"http://192.168.0.58:8080",
+            urlPath: "/flaps2/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
+
+
+        var tableView = new ava.views.Table_getBrandStatistics_View({collection: test, columns: columns, className: "table",
+        attributes : {"id":"getBrandStatistics-table"}});
+        this.putElementOnPageContent(tableView.render().$el, "getBrandStatistics", true);  
+
+
+        test.getResults();
+
+    },
+
 
     getPosInfo : function (codeNumber) {
         console.log('#getPosInfo');
@@ -69,6 +98,12 @@ ava.router = Backbone.Router.extend({
 
         console.log('#RealtimeInfo_Today_Test');
         var page = new ava.views.PageView({attributes : {"id" : "RealtimeInfo_Today_Test"}});
+        // delete
+        if(typeof(pagesData['portal']) != "undefined"){
+            page.setNowpage(pagesData['portal'].group);
+            delete pagesData['portal'];
+        }
+        
         this.changePageForMobile(page);
 
 
@@ -107,7 +142,7 @@ ava.router = Backbone.Router.extend({
 
         // var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "tablesaw tablesaw-swipe tablesaw-fix-persist",
         //     attributes : {"id":"RealtimeInfo_Today_Test-table", "data-tablesaw-mode":"swipe"}});
-        var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "table",
+        var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "table",page:page,
         attributes : {"id":"RealtimeInfo_Today_Test-table"}});
         this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today_Test", true);  
 
@@ -749,6 +784,13 @@ $(document).ready(function () {
         }else {
 
         }
+
+        if( typeof(getBrandStatistics_Timeout) != 'undefined' && path != "getBrandStatistics"){
+            getBrandStatistics_Timeout.clear();
+        }else {
+
+        }
+        
     
     });
 
