@@ -752,6 +752,10 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
             	// 	$('#getBrandStatistics-table').hide();       
             	// }
 
+            	if($('#getBrandStatistics-table tbody tr').length == 0){
+            		$('#getBrandStatistics-table tbody').hide();       
+            	}
+
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
@@ -778,8 +782,12 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 	        			// $('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
             // 		}
             // 	});
+            	$('#getBrandStatistics-table tbody').show({
+            		complete: function () {
             			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
 	        			$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
+            		}
+            	});
 
             	// $('.pinned #RealtimeInfo_Today_Test-table').show();
 
@@ -914,9 +922,9 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
             reset: true,            
             beforeSend: function (){    
             	
-            	// if($('#portal-table tbody tr').length == 0){
-            	// 	$('#portal-table').hide();       
-            	// }
+            	if($('#portal-table tbody tr').length == 0){
+            		$('#portal-table').hide();       
+            	}
 
                 $.mobile.loading('show');                
             },
@@ -938,14 +946,13 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            // 	$('#portal-table').show({
-            // 		complete: function () {
-            // 			var tableHeight = $(window).height() - 2 -$("div[data-role=header]").outerHeight() - $('#portal-table thead').height();
-			        	// $('#portal-table tbody').css('height',tableHeight.toString());
-            // 		}
-            // 	});
-            	        var tableHeight = $(window).height() - 2 -$("div[data-role=header]").outerHeight() - $('#portal-table thead').height();
+            	$('#portal-table').show({
+            		complete: function () {
+            			var tableHeight = $(window).height() - 2 -$("div[data-role=header]").outerHeight() - $('#portal-table thead').height();
 			        	$('#portal-table tbody').css('height',tableHeight.toString());
+            		}
+            	});
+
             	// $('.pinned #RealtimeInfo_Today_Test-table').show();
 
 
