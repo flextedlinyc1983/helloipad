@@ -810,7 +810,16 @@ ava.views.Table_New_View = Backbone.View.extend({
         // this.collection.each(this.renderOne);
 
         // this.setEqualColumnWidth();
+
+        this.renderBody();
+
         return this;
+    },
+
+    renderBody : function() {
+        this.$el.append("<tbody></tbody>");
+        
+
     },
 
     renderHead : function(columns) {
