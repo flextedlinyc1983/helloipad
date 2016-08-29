@@ -29,11 +29,15 @@ ava.router = Backbone.Router.extend({
 
 
 
-        var columns = new ava.views.Column_New_Collection([]);
+        var columns = new ava.views.Column_New_Collection([
+            {'column':'品牌名稱'},
+            {'column':'本日業績'},
+            {'column':'本月累積業績'},
+            
+        ]);
 
 
         var self = this;
-        codeNumber = 'RM012';
         var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
             urlPath: "/flaps2/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
 
@@ -55,11 +59,16 @@ ava.router = Backbone.Router.extend({
 
 
 
-        var columns = new ava.views.Column_New_Collection([]);
+        var columns = new ava.views.Column_New_Collection([
+            {'column':'時間'},
+            {'column':'客次'},
+            {'column':'金額'},
+            {'column':'數量'},
+        ]);
 
 
         var self = this;
-        codeNumber = 'RM012';
+        // codeNumber = 'RM012';
         var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
             urlPath: "/flaps2/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
 
@@ -316,38 +325,75 @@ ava.router = Backbone.Router.extend({
 
     },
     portal:function () {
-
-
-
-
         console.log('#portal');
-        var portal = new ava.views.PortalView({className: "isSum1"});
-        this.changePageForMobile(portal);
-        // portal.loginGetData();
-        // console.log(RealtimeInfo);
-        
+        var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
+        this.changePageForMobile(page);
 
 
 
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
-            this.loginGetData();
-            this.loginGetData();
-            // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
-            var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"
-            , attributes: {"style": 'table-layout: fixed;'}
-            });            
-            this.putElementOnPageContent(tableView.render().$el, "portal-content");  
 
-            this.timeout("isSum1");
+            // var columns = new ava.views.Column_New_Collection([
+            //     {'column':'name'},
+            //     {'column':'value'},
+            // ]);
+            var columns = new ava.views.Column_New_Collection([
+                {'column':'項目'},
+                {'column':'總計'},
+            ]);
+
+            var self = this;
+            var test = new ava.views.Table_portal_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
+                urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
+
+
+            var tableView = new ava.views.Table_portal_View({collection: test, columns: columns, className: "table RealtimeInfo",
+            attributes : {"id":"portal-table"}});
+            this.putElementOnPageContent(tableView.render().$el, "portal", true);  
+
+
+            test.getResults();
 
         }else{
             this.putElementOnPageContent("尚未登入", "portal-content");  
         }
+
+    },
+
+    // portal:function () {
+
+
+
+
+    //     console.log('#portal');
+    //     var portal = new ava.views.PortalView({className: "isSum1"});
+    //     this.changePageForMobile(portal);
+    //     // portal.loginGetData();
+    //     // console.log(RealtimeInfo);
+        
+
+
+
+
+    //     if(window.localStorage.getItem('loginSuccess') == "true") {
+    //         this.loginGetData();
+    //         this.loginGetData();
+    //         // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
+    //         var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"
+    //         , attributes: {"style": 'table-layout: fixed;'}
+    //         });            
+    //         this.putElementOnPageContent(tableView.render().$el, "portal-content");  
+
+    //         this.timeout("isSum1");
+
+    //     }else{
+    //         this.putElementOnPageContent("尚未登入", "portal-content");  
+    //     }
       
 
 
-    },
+    // },
 
     timeout: function (className) {
         var period = 0;
@@ -791,7 +837,11 @@ $(document).ready(function () {
 
         }
         
-    
+        if( typeof(portal_Timeout) != 'undefined' && path != ""){
+            portal_Timeout.clear();
+        }else {
+
+        }
     });
 
     tabOperation.init();

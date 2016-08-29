@@ -211,7 +211,7 @@ padding-top: 10px;
 
  	.RealtimeInfo {
  		font-size: 20px;
- 		padding-top: 15px ;
+ 		// padding-top: 15px ;
  	}
 
 	#RealtimeInfo_Today-table {
@@ -236,7 +236,7 @@ padding-top: 10px;
 
 	 .RealtimeInfo {
  		font-size: 17px;
- 		padding-top: 15px ;
+ 		// padding-top: 15px ;
  	}
 
 	#RealtimeInfo_Today-table {
@@ -262,7 +262,7 @@ padding-top: 10px;
 
  	 .RealtimeInfo {
  		font-size: 22px;
- 		padding-top: 15px ;
+ 		// padding-top: 15px ;
  	}
        /* default iPad screens */
 
@@ -293,7 +293,7 @@ padding-top: 10px;
 
 	 .RealtimeInfo {
  		font-size: 20px;
- 		padding-top: 15px ;
+ 		// padding-top: 15px ;
  	}
   /* For portrait layouts only */
 
@@ -414,3 +414,9 @@ table, td, th {
 // tr th:nth-child(2), tr td:nth-child(2){
 //     color:red;
 // }
+
+
+.table {
+    margin-bottom: 0px;
+    border-bottom: none;
+}

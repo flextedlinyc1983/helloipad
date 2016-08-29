@@ -1173,7 +1173,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                     wrapper.innerHTML= data;
                     window.localStorage.setItem('storeName', $(wrapper).find('div')[1].innerHTML);
 
-                    this.loginGetData();
+                    // this.loginGetData();
                 }else{
                     window.localStorage.setItem('loginSuccess', false);
 
@@ -1940,4 +1940,138 @@ ava.views.TableRow_getBrandStatistics_View = ava.views.UtilityView.extend({
       }
       return str;
     }
+});
+
+
+
+
+ava.views.Table_portal_View = ava.views.Table_New_View.extend({
+    addAll: function () {
+
+          this.reset();
+          this.collection.each(this.addOne, this);
+
+    },
+
+    addOne: function (row) {
+  
+      var row=new ava.views.TableRow_portal_View({model:row});
+      this.$el.append(row.render().$el);
+      
+      return this;
+
+    },
+
+    renderColumnItem : function (column, index) {
+            
+        var columnItem = new ava.views.ColumnItemView({model:column.attributes.column,attributes : {"class": ""}});        
+        
+        this.$el.find('thead tr').append(columnItem.render().$el);
+    },
+
+
+});
+
+
+
+ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
+
+    el: "<tr>",
+    render: function() {
+        var html= this.getRow(this.model.toJSON());
+        this.$el.append(html);
+        return this;
+    },
+
+    initialize: function() {
+    },
+
+    getRow: function (data) {
+
+      var item = data.item;
+      var str = "";
+      for(var key in item){          
+          if(key == "name"){
+              str += "<td class='name'>" + item[key] + "</td>";             
+           }else if(key == "value"){
+              str += "<td class='value'>" + item[key] + "</td>";            
+           }
+           
+  
+      }
+      return str;
+    },
+
+    events: {
+        "click .value": function(event) {
+          var name = this.model.attributes.item.name;
+          console.log(name);
+
+          switch (name) {
+              case "本日業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 1;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "去年本日業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 1;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "本月業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 2;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "去年本月業績":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 2;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "現有庫存":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 3;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              case "可售金額":
+                  var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                  currentPageData.group = 3;
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;
+              default:
+                  alert('no match');
+          }
+
+        },
+      "click .name": function(event) {
+          var name = this.model.attributes.item.name;
+          console.log(name);
+
+          switch (name) {
+              case "本日業績":
+                  Backbone.history.navigate('getBrandStatistics', true);                                    
+                  break;
+              case 1:
+                  day = "Monday";
+                  break;
+              case 2:
+                  day = "Tuesday";
+                  break;
+              case 3:
+                  day = "Wednesday";
+                  break;
+              case 4:
+                  day = "Thursday";
+                  break;
+              case 5:
+                  day = "Friday";
+                  break;
+              case 6:
+                  day = "Saturday";
+              default:
+                  alert('no match');
+          }
+
+        }
+    },
 });

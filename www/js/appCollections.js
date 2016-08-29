@@ -474,8 +474,15 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
 ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
 		// var oJson = xml2json(data);
-		var oJson = xml2json($.parseXML(data));
-		return oJson.Info.Pos;
+		try {
+			var oJson = xml2json($.parseXML(data));
+			return oJson.Info.Pos;
+		}
+		catch(err) {
+    		console.log(err);
+    		window.location.replace('#');
+		}
+
 	},
 
 	getResults: function () {
@@ -507,7 +514,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
                 //set timeout
                 // setTimeout(_.bind(self.getResults, self),60000);
-                // RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
@@ -533,13 +540,15 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             				// delete
             				delete pagesData['#RealtimeInfo_Today_Test'];
             			}
+
+            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
+	        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
             		}
             	});
             	$('.pinned #RealtimeInfo_Today_Test-table').show();
 
 
-	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 16 - $('#RealtimeInfo_Today_Test-table thead').height();
-	        	$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
+
 
                 $.mobile.loading('hide');
                     
@@ -568,6 +577,7 @@ ava.views.Column_New_Collection = Backbone.Collection.extend({
 
 ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
+
 		var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
     				var $td =  $('td', this);
 
@@ -618,18 +628,21 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
                 //set timeout
                 // setTimeout(_.bind(self.getResults, self),60000);
-                // RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+                // _Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	$('#getPosInfo-table').show();
+            	$('#getPosInfo-table').show({
+            		complete: function () {
+            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
+	        			$('#getPosInfo-table tbody').css('height',tableHeight.toString());
+            		}
+            	});
             	// $('.pinned #RealtimeInfo_Today_Test-table').show();
 
-	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 30 - $('#getPosInfo-table thead').height();
-	        	$('#getPosInfo-table tbody').css('height',tableHeight.toString());
 
                 $.mobile.loading('hide');
             
@@ -694,9 +707,16 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
 ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
-		// var oJson = xml2json(data);
-		var oJson = xml2json($.parseXML(data));
-		return oJson.Info.Pos;
+		
+		try {
+			// var oJson = xml2json(data);
+			var oJson = xml2json($.parseXML(data));
+			return oJson.Info.Pos;
+		}
+		catch(err) {
+    		console.log(err);
+    		window.location.replace('#');
+		}
 	},
 
 	getResults: function () {
@@ -735,11 +755,16 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	$('#getBrandStatistics-table').show();
+            	$('#getBrandStatistics-table').show({
+            		complete: function () {
+            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
+	        			$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
+            		}
+            	});
             	// $('.pinned #RealtimeInfo_Today_Test-table').show();
 
-	        	var tableHeight = $(window).height()-$("div[data-role=footer]").height() - 30 - $('#getBrandStatistics-table thead').height();
-	        	$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
+
+
 
                 $.mobile.loading('hide');
             
@@ -787,5 +812,167 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
             return value;
 
     },
+
+ });	
+
+
+
+
+
+
+ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
+	parse: function (data) {
+
+		try {
+
+			if( $(data).find('table tr:has(td)').length > 0 ){
+
+			    var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
+
+		            if(i >= 2){
+		              var name =  $($('td', this)[0]).find('span').text();
+		              var value =  $($('td', this)[1]).find('div').text();
+		              return {item:{name:name, value:value}};
+		            }
+
+		        }).get();
+
+		        return tbl;
+
+			}else{
+
+				// var oJson = xml2json(data);
+				var oJson = xml2json($.parseXML(data));
+				var data = oJson.Info.Pos;
+
+				var result = [];
+				for(var key in data){
+		      		switch (key) {
+		              case "volumeToday":
+		                  result[0] = {name: "本日業績", value: data[key]};
+		                  break;
+		              case 'volumeLastYearToday':
+		                  result[1] = {name: "去年本日業績", value: data[key]};
+		                  break;
+		              case 'volumeThisMonth':
+		                  result[2] = {name: "本月業績", value: data[key]};
+		                  break;
+		              case 'volumeLastYearThisMonth':
+		                  result[3] = {name: "去年本月業績", value: data[key]};
+		                  break;
+		              case 'deposit':
+		                  result[4] = {name: "現有庫存", value: data[key]};
+		                  break;
+		              case 'volumeAvailable':
+		                  result[5] = {name: "可售金額", value: data[key]};
+		                  break;              
+		              default:
+		            }
+		      	}
+
+		      	var res = _.map(result, function (val) {
+		        	return {item: val};
+		    	});
+		    	return res;
+	    	}
+
+	 	}
+		catch(err) {
+    		console.log(err);
+		}
+	},
+
+	getResults: function () {
+
+        var self = this;
+
+        this.fetch({
+            // data: {api_key: 'secretkey'}, 
+            type: 'GET',
+            dataType : "HTML",
+            add:true,
+            reset: true,            
+            beforeSend: function (){    
+            	
+            	if($('#portal-table tbody tr').length == 0){
+            		$('#portal-table').hide();       
+            	}
+
+                $.mobile.loading('show');                
+            },
+            success: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+
+             //    if($('#getBrandStatistics-table thead th').length == 0){
+             //    	self.options.columns.reset(self.getColumnsFromCollection(collection));
+            	// }
+
+                self.trigger('successOnFetch');
+
+                //set timeout
+                // setTimeout(_.bind(self.getResults, self),60000);
+                portal_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+            },
+            error: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('errorOnFetch');
+            },
+            complete: function(xhr,status){
+            	$('#portal-table').show({
+            		complete: function () {
+            			var tableHeight = $(window).height() - 2 -$("div[data-role=header]").outerHeight() - $('#portal-table thead').height();
+			        	$('#portal-table tbody').css('height',tableHeight.toString());
+            		}
+            	});
+            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+
+
+
+                $.mobile.loading('hide');
+            
+            }
+        });
+    },
+
+ //    getColumnsFromCollection: function (collection) {
+ //        var columns = []
+ //        for(var item in collection.models){ 
+
+ //            // console.log(collection.models[item].attributes);
+ //            var obj = collection.models[item].attributes;
+
+
+ //            var index;
+ //            for(index in obj){
+ //            	if(index != "code"){
+ //                	var columnName = this.getColumnName(index);            	
+ //                	columns.push({'column': columnName});              
+ //                }
+ //            }
+ //            break;
+ //        }   
+ //        return columns;     
+ //    },
+
+	// getColumnName: function (name) {
+
+ //        var value = '';
+ //            switch (name) {
+ //              case "name":
+ //                  value = '品牌名稱';
+ //                  break;
+ //              case 'todayFeat':
+ //                  value = "本日業績";
+ //                  break;
+ //              case 'monthlyFeat':
+ //                  value = "本月累積業績";
+ //                  break;
+ //              default:
+ //                  value = "";
+ //            }
+
+ //            return value;
+
+ //    },
 
  });	

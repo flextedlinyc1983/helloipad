@@ -44,3 +44,6 @@ table.showG6 .item_1 { display: table-cell; width: 33%;}
 table.showG7 .item_1 { display: table-cell; width: 33%;}
 
 
+#portal-table, #getPosInfo-table, #getBrandStatistics-table {
+    margin-bottom: 0px;
+}
