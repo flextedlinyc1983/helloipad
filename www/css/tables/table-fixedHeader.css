@@ -23,6 +23,10 @@ thead {
 	border-collapse: inherit;	
 }
 
+#RealtimeInfo_Today_Test-table thead th{
+    vertical-align: middle;
+}
+
 .container {
 	padding-bottom: 0px;
 }

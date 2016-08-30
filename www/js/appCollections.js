@@ -543,12 +543,17 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 	            				delete pagesData['#RealtimeInfo_Today_Test'];
 	            			}
 
-	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
-		        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
 
+	            			// for small device table header setting
 		        			if( $('#RealtimeInfo_Today_Test-table thead').height() < 57){
 								$('#RealtimeInfo_Today_Test-table thead').thead('height',57);
 							}
+
+
+	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
+		        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
+
+
 	            			
 	            		}
 	            	});

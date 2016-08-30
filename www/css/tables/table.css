@@ -262,7 +262,9 @@ padding-top: 10px;
 
 	.table thead th {
 		padding-left: 1px;
-		padding-right: 1px
+		padding-right: 1px;
+		padding-top: 8px;
+    	padding-bottom: 8px;
 	}
  }
 
@@ -335,7 +337,7 @@ padding-top: 10px;
 		padding-top: 20px;
 		padding-bottom: 20px;
 	}
-	
+
 	.table thead {
 		font-size: 18px;
 	}
