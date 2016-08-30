@@ -735,13 +735,17 @@ ava.views.Table_New_View = Backbone.View.extend({
     },
 
     addAll: function () {
-      if($('#RealtimeInfo_Today_Test-table tbody tr').length == 0){
-          this.reset();
-          this.collection.each(this.addOne, this);
-          this.getTable();
-      }else{
-          this.reset();
-          this.collection.each(this.addOne, this);
+      if(window.location.hash == "#RealtimeInfo_Today_Test"){
+      
+        if($('#RealtimeInfo_Today_Test-table tbody tr').length == 0){
+            this.reset();
+            this.collection.each(this.addOne, this);
+            this.getTable();
+        }else{
+            this.reset();
+            this.collection.each(this.addOne, this);
+        }
+        
       }
     },
 

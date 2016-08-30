@@ -552,7 +552,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 
 
-	                $.mobile.loading('hide');
+	                
 	                    
 	                
 
@@ -560,6 +560,8 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 					// if($('table tbody').hasScrollBar())
 					// 	alert('okok');
 				}
+
+				$.mobile.loading('hide');
 
             }
         });
