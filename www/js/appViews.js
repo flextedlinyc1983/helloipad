@@ -745,7 +745,7 @@ ava.views.Table_New_View = Backbone.View.extend({
             this.reset();
             this.collection.each(this.addOne, this);
         }
-        
+
       }
     },
 
@@ -1069,12 +1069,33 @@ ava.views.PortalView = ava.views.UtilityView.extend({
     return this;
   },
 
-  
+  events: {
+     "click #myModal": "Logout",     
+  },
+
+  Logout:function (event) {
+    if($(event.currentTarget).attr("href") == "#myModal"){
+
+    }else {
+        event.preventDefault();
+        console.log('Logout');
+
+        var code = window.localStorage.getItem('code');
+        var pwd = window.localStorage.getItem('pwd');
+        localStorage.clear();
+        window.localStorage.setItem('code', code);
+        window.localStorage.setItem('pwd', pwd);
+
+        location.reload();
+    }
+
+      
+  },
 
   setLoginStatus: function () {
     if(window.localStorage.getItem('loginSuccess') == "true") {
       this.loginStatus.status = "登出";
-      this.loginStatus.href = "#";    
+      this.loginStatus.href = "#Logout";    
       this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
     }else{
       this.loginStatus.status = "登入";
@@ -1111,7 +1132,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
       // Backbone.Validation.bind(this);
 
         // $(this.el).html(this.template());
-        this.$el.html(this.template());
+        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" }));
         return this;
     },
 
@@ -1152,7 +1173,9 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         console.log('Loggin in... ');
         var formValues = {
             code: $('#code').val(),
-            pwd: $('#pwd').val()
+            pwd: $('#pwd').val(),
+            sLang: $('#sLang').val()
+
             // code: 'flextier99',
             // pwd: '0827203'
         };

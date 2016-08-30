@@ -22,6 +22,7 @@ ava.router = Backbone.Router.extend({
     // },
 
 
+
     getBrandStatistics : function () {
         console.log('#getBrandStatistics');
         var page = new ava.views.PageView({attributes : {"id" : "getBrandStatistics"}});
@@ -48,6 +49,7 @@ ava.router = Backbone.Router.extend({
 
 
         test.getResults();
+        this.pageCollection = test;
 
     },
 
@@ -79,6 +81,7 @@ ava.router = Backbone.Router.extend({
 
 
         test.getResults();
+        this.pageCollection = test;
 
     },
 
@@ -90,6 +93,12 @@ ava.router = Backbone.Router.extend({
             return false;
         });
         this.firstPage = true;
+
+        this.pageCollection = null;
+    },
+
+    getPageCollection: function () {
+       return  this.pageCollection;
     },
 
     login: function () {
@@ -157,6 +166,7 @@ ava.router = Backbone.Router.extend({
 
 
         test.getResults();
+        this.pageCollection = test;
 
         //fixed-Header
         $('#RealtimeInfo_Today_Test-table').parent().addClass("container");
@@ -355,8 +365,12 @@ ava.router = Backbone.Router.extend({
 
             test.getResults();
 
+            this.pageCollection = test;
+
         }else{
             this.putElementOnPageContent("尚未登入", "portal-content");  
+
+            this.pageCollection = null;
         }
 
     },
@@ -588,6 +602,8 @@ ava.router = Backbone.Router.extend({
         // Backbone.Validation.bind(loginView);
         this.changePageForMobile(loginView);
         // loginView.delegateEvents();
+
+        this.pageCollection = null;
     },
 
     changePageForMobile:function (page) {
@@ -786,45 +802,52 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         $(document).find(pos).addClass(className);
     },
     putElementOnPageContent: function (view, pageName, fixedHeader) {
-        var length = $('div[data-role=page]').find('div[data-role=content]').length;
-        var content = $('div[data-role=page]').find('div[data-role=content]').eq(length-1);
-         var strId = content.attr("id");
-        if(strId == pageName){
+        // var length = $('div[data-role=page]').find('div[data-role=content]').length;
+        // var content = $('div[data-role=page]').find('div[data-role=content]').eq(length-1);
+        //  var strId = content.attr("id");
+        // if(strId == pageName){
 
-            if(pageName == "RealtimeInfo_Today-content"){
-                $('div[data-role=page]').find('div[data-role=content] .table-container').html(view); 
+        //     if(pageName == "RealtimeInfo_Today-content"){
+        //         $('div[data-role=page]').find('div[data-role=content] .table-container').html(view); 
                 
-            }else{
-                $('div[data-role=page]').find('div[data-role=content]').html(view);    
-            }
+        //     }else{
+        //         $('div[data-role=page]').find('div[data-role=content]').html(view);    
+        //     }
 
             
 
-            // if(fixedHeader){
-            //     $('div[data-role=page]').find('div[data-role=content]').prepend('<div id="bottom_anchor"></div>');
-            // }
-        }else if ( $($('div[data-role=page]')[0]).attr('id') == pageName ){
-            $($('div[data-role=page]')[0]).find('div[data-role=content]').append(view);
-        }else if ( $($('div[data-role=page]')[1]).attr('id') == pageName ){
-            $($('div[data-role=page]')[1]).find('div[data-role=content]').append(view);
+        //     // if(fixedHeader){
+        //     //     $('div[data-role=page]').find('div[data-role=content]').prepend('<div id="bottom_anchor"></div>');
+        //     // }
+        // }else if ( $($('div[data-role=page]')[0]).attr('id') == pageName ){
+        //     $($('div[data-role=page]')[0]).find('div[data-role=content]').append(view);
+        // }else if ( $($('div[data-role=page]')[1]).attr('id') == pageName ){
+        //     $($('div[data-role=page]')[1]).find('div[data-role=content]').append(view);
+        // }
+
+
+
+
+
+
+        var nowHashPath = "";
+        var strs = window.location.hash.substring(1).split('/');
+        if(strs[0] == ""){
+            nowHashPath = "portal";
+        }else if(typeof(strs[1] ) == "undefined"){
+            //RealtimeInfo_Today_Test 
+            //getBrandStatistics
+            nowHashPath = strs[0];
+        }else{
+            //getPosInfo
+            nowHashPath = strs[1];
         }
+        $('div[id=' + nowHashPath).find('div[data-role=content]').append(view);
     },
-    
-});
 
-
-$(document).ready(function () {
-    // alert("document ready");
-
-    // document.addEventListener("touchstart", function() {},false);
-
-
-    var app = new ava.router();
-
-    Backbone.history.start();
-   
-    Backbone.history.on('route', function () {
-        var path = Backbone.history.getFragment();
+    clearTimeout : function () {
+        // alert('clearTimeout')
+         var path = Backbone.history.getFragment();
         if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined' && path != "RealtimeInfo_Today_Test"){
             RealtimeInfo_Today_Test_Timeout.clear();
         }else {
@@ -842,6 +865,64 @@ $(document).ready(function () {
         }else {
 
         }
+    },
+
+    clearTimeoutForPause : function () {
+
+        try{
+            // alert('clearTimeoutForPause');
+            var path = window.location.hash.substring(1);
+            switch (path) {
+                case "":
+                    portal_Timeout.clear();
+                    break;
+                case 'getBrandStatistics':
+                    getBrandStatistics_Timeout.clear();
+                    break;
+                case 'RealtimeInfo_Today_Test':
+                    RealtimeInfo_Today_Test_Timeout.clear();
+                    break;              
+            }
+        }catch(err) {
+            console.log(err);        
+        }
+    }
+    
+});
+
+var appRouter;
+$(document).ready(function () {
+    // alert("document ready");
+
+    // document.addEventListener("touchstart", function() {},false);
+
+
+    appRouter = new ava.router();
+
+    Backbone.history.start();
+   
+    Backbone.history.on('route', function () {
+
+        appRouter.clearTimeout();
+
+        // var path = Backbone.history.getFragment();
+        // if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined' && path != "RealtimeInfo_Today_Test"){
+        //     RealtimeInfo_Today_Test_Timeout.clear();
+        // }else {
+
+        // }
+
+        // if( typeof(getBrandStatistics_Timeout) != 'undefined' && path != "getBrandStatistics"){
+        //     getBrandStatistics_Timeout.clear();
+        // }else {
+
+        // }
+        
+        // if( typeof(portal_Timeout) != 'undefined' && path != ""){
+        //     portal_Timeout.clear();
+        // }else {
+
+        // }
     });
 
     tabOperation.init();

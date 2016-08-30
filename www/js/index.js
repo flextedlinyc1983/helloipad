@@ -42,7 +42,28 @@ var app = {
         // app.receivedEvent('deviceready');        
         alert(device.cordova);
         alert(device.uuid);
+
+        document.addEventListener("pause", app.onPause, false);
+        document.addEventListener("resume", app.onResume, false);
     },
+    onPause: function () {
+        appRouter.clearTimeoutForPause();
+        // alert("pause");
+    },
+
+    onResume: function () {
+
+        try{
+            // location.reload();
+            if(appRouter.getPageCollection() != null){
+                appRouter.getPageCollection().getResults();
+            }
+            // alert("resume");
+        }catch(err) {
+            console.log(err);        
+        }
+    },
+
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         // alert("test");
