@@ -937,8 +937,12 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
             reset: true,            
             beforeSend: function (){    
             	
+            	// if($('#portal-table tbody tr').length == 0){
+            	// 	$('#portal-table').hide();    
+            	// }
+
             	if($('#portal-table tbody tr').length == 0){
-            		$('#portal-table').hide();    
+            		$('#portal-table tbody').hide();    
             	}
 
                 $.mobile.loading('show');                
@@ -961,7 +965,15 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	$('#portal-table').show({
+            // 	$('#portal-table').show({
+            // 		complete: function () {
+            // 			//$("div[data-role=header]").outerHeight()  63px
+            // 			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
+			        	// $('#portal-table tbody').css('height',tableHeight.toString());
+
+            // 		}
+            // 	});
+            	$('#portal-table tbody').show({
             		complete: function () {
             			//$("div[data-role=header]").outerHeight()  63px
             			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
