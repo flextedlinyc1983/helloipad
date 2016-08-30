@@ -504,7 +504,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-            	if(window.location.hash == "#RealtimeInfo_Today_Test")
+            	if(window.location.hash == "#RealtimeInfo_Today_Test"){
 	                // you can pass additional options to the event you trigger here as well
 
 	                if($('#RealtimeInfo_Today_Test-table thead th').length == 0){
@@ -523,7 +523,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	if(window.location.hash == "#RealtimeInfo_Today_Test")
+            	if(window.location.hash == "#RealtimeInfo_Today_Test"){
 
             		var selfCollection = self;
             	
