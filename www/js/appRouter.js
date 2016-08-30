@@ -869,20 +869,35 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
 
     clearTimeoutForPause : function () {
 
-        try{
-            // alert('clearTimeoutForPause');
-            var path = window.location.hash.substring(1);
-            switch (path) {
-                case "":
-                    portal_Timeout.clear();
-                    break;
-                case 'getBrandStatistics':
-                    getBrandStatistics_Timeout.clear();
-                    break;
-                case 'RealtimeInfo_Today_Test':
-                    RealtimeInfo_Today_Test_Timeout.clear();
-                    break;              
+        // try{
+        //     // alert('clearTimeoutForPause');
+        //     var path = window.location.hash.substring(1);
+        //     switch (path) {
+        //         case "":
+        //             portal_Timeout.clear();
+        //             break;
+        //         case 'getBrandStatistics':
+        //             getBrandStatistics_Timeout.clear();
+        //             break;
+        //         case 'RealtimeInfo_Today_Test':
+        //             RealtimeInfo_Today_Test_Timeout.clear();
+        //             break;              
+        //     }
+        // }catch(err) {
+        //     console.log(err);        
+        // }
+
+       try{
+            if( typeof(portal_Timeout) != 'undefined'){
+                portal_Timeout.clear();
             }
+            if( typeof(getBrandStatistics_Timeout) != 'undefined'){
+                getBrandStatistics_Timeout.clear();
+            }
+            if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined'){
+                RealtimeInfo_Today_Test_Timeout.clear();
+            }
+            
         }catch(err) {
             console.log(err);        
         }

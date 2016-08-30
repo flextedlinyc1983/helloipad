@@ -948,45 +948,49 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-                // you can pass additional options to the event you trigger here as well
+            	if(window.location.hash == ""){
+	                // you can pass additional options to the event you trigger here as well
 
-             //    if($('#getBrandStatistics-table thead th').length == 0){
-             //    	self.options.columns.reset(self.getColumnsFromCollection(collection));
-            	// }
+	             //    if($('#getBrandStatistics-table thead th').length == 0){
+	             //    	self.options.columns.reset(self.getColumnsFromCollection(collection));
+	            	// }
 
-                self.trigger('successOnFetch');
+	                self.trigger('successOnFetch');
 
-                //set timeout
-                // setTimeout(_.bind(self.getResults, self),60000);
-                portal_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	                //set timeout
+	                // setTimeout(_.bind(self.getResults, self),60000);
+	                portal_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+            	}
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            // 	$('#portal-table').show({
-            // 		complete: function () {
-            // 			//$("div[data-role=header]").outerHeight()  63px
-            // 			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
-			        	// $('#portal-table tbody').css('height',tableHeight.toString());
+            	if(window.location.hash == ""){
+	            // 	$('#portal-table').show({
+	            // 		complete: function () {
+	            // 			//$("div[data-role=header]").outerHeight()  63px
+	            // 			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
+				        	// $('#portal-table tbody').css('height',tableHeight.toString());
 
-            // 		}
-            // 	});
-            	$('#portal-table tbody').show({
-            		complete: function () {
-            			//$("div[data-role=header]").outerHeight()  63px
-            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
-			        	$('#portal-table tbody').css('height',tableHeight.toString());
+	            // 		}
+	            // 	});
+	            	$('#portal-table tbody').show({
+	            		complete: function () {
+	            			//$("div[data-role=header]").outerHeight()  63px
+	            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
+				        	$('#portal-table tbody').css('height',tableHeight.toString());
 
-            		}
-            	});
+	            		}
+	            	});
 
-            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+	            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
 
 
 
-                $.mobile.loading('hide');
+	                $.mobile.loading('hide');
+            	}
             
             }
         });
