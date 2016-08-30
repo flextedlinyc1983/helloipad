@@ -544,10 +544,11 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 	            			}
 
 	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
-	            			if( tableHeight < 56){
-								tableHeight = 56;
-							}
 		        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
+
+		        			if( $('#RealtimeInfo_Today_Test-table thead').height() < 57){
+								$('#RealtimeInfo_Today_Test-table thead').thead('height',57);
+							}
 	            			
 	            		}
 	            	});
