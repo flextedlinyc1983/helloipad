@@ -546,7 +546,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 	            			// for small device table header setting
 		        			if( $('#RealtimeInfo_Today_Test-table thead').height() < 57){
-								$('#RealtimeInfo_Today_Test-table thead').thead('height',57);
+								$('#RealtimeInfo_Today_Test-table thead').css('height',57);
 							}
 
 
