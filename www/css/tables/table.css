@@ -255,6 +255,15 @@ padding-top: 10px;
 		padding: 20px 1px;
 
 	}
+
+	table thead {
+
+	}
+
+	.table thead th {
+		padding-left: 1px;
+		padding-right: 1px
+	}
  }
 
 
@@ -309,9 +318,27 @@ padding-top: 10px;
 		padding: 16px 5px;
 
 	}
+
+	.table thead {
+		font-size: 18px;
+	}
+
+	.table thead th {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
 }
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+
+	.table thead th {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	
+	.table thead {
+		font-size: 18px;
+	}
 
 	.RealtimeInfo {
  		font-size: 24px;
@@ -358,11 +385,13 @@ padding-top: 10px;
 		padding: 14px 3px;
 
 	}
+
+
 }
 
 
  table thead {
-  white-space: nowrap;
+  // white-space: nowrap;
 }
  table td {
   // white-space: nowrap;
