@@ -842,7 +842,7 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             //getPosInfo
             nowHashPath = strs[1];
         }
-        $('div[id=' + nowHashPath).find('div[data-role=content]').append(view);
+        $('div[id=' + nowHashPath + "]").find('div[data-role=content]').append(view);
     },
 
     clearTimeout : function () {

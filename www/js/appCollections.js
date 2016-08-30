@@ -938,7 +938,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
             beforeSend: function (){    
             	
             	if($('#portal-table tbody tr').length == 0){
-            		$('#portal-table').hide();       
+            		$('#portal-table').hide();    
             	}
 
                 $.mobile.loading('show');                
@@ -963,8 +963,10 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
             complete: function(xhr,status){
             	$('#portal-table').show({
             		complete: function () {
-            			var tableHeight = $(window).height() - 2 -$("div[data-role=header]").outerHeight() - $('#portal-table thead').height();
+            			//$("div[data-role=header]").outerHeight()  63px
+            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
 			        	$('#portal-table tbody').css('height',tableHeight.toString());
+
             		}
             	});
 
