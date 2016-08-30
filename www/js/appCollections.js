@@ -504,59 +504,62 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-                // you can pass additional options to the event you trigger here as well
+            	if(window.location.hash == "#RealtimeInfo_Today_Test")
+	                // you can pass additional options to the event you trigger here as well
 
-                if($('#RealtimeInfo_Today_Test-table thead th').length == 0){
-                	self.options.columns.reset(self.getColumnsFromCollection(collection));
-            	}
+	                if($('#RealtimeInfo_Today_Test-table thead th').length == 0){
+	                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+	            	}
 
-                self.trigger('successOnFetch');
+	                self.trigger('successOnFetch');
 
-                //set timeout
-                // setTimeout(_.bind(self.getResults, self),60000);
-                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	                //set timeout
+	                // setTimeout(_.bind(self.getResults, self),60000);
+	                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	            }
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
+            	if(window.location.hash == "#RealtimeInfo_Today_Test")
 
-
-            	var selfCollection = self;
+            		var selfCollection = self;
             	
 
-            	$('#RealtimeInfo_Today_Test-table').show({
-            		complete: function (){
-            			//set last time scroll position
-            			if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
-            				$('table tbody').scrollTop(pagesData['#RealtimeInfo_Today_Test'].scrollPositon);
+	            	$('#RealtimeInfo_Today_Test-table').show({
+	            		complete: function (){
+	            			//set last time scroll position
+	            			if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
+	            				$('table tbody').scrollTop(pagesData['#RealtimeInfo_Today_Test'].scrollPositon);
 
-            				var $table = $('table');
-            				$table.removeClass('showG1');
-            				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
-            				selfCollection.options.page.setNowpage(Number(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon));
+	            				var $table = $('table');
+	            				$table.removeClass('showG1');
+	            				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
+	            				selfCollection.options.page.setNowpage(Number(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon));
 
-            				// delete
-            				delete pagesData['#RealtimeInfo_Today_Test'];
-            			}
+	            				// delete
+	            				delete pagesData['#RealtimeInfo_Today_Test'];
+	            			}
 
-            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
-	        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
-            		}
-            	});
-            	$('.pinned #RealtimeInfo_Today_Test-table').show();
-
-
+	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
+		        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
+	            		}
+	            	});
+	            	$('.pinned #RealtimeInfo_Today_Test-table').show();
 
 
-                $.mobile.loading('hide');
-                    
-                
 
 
-				// if($('table tbody').hasScrollBar())
-				// 	alert('okok');
+	                $.mobile.loading('hide');
+	                    
+	                
+
+
+					// if($('table tbody').hasScrollBar())
+					// 	alert('okok');
+				}
 
             }
         });
