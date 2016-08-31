@@ -411,3 +411,33 @@ pagesData = {};
 //         return this.get(0).scrollHeight > this.height();
 //     }
 // })(jQuery);
+
+
+function loadBundles(sLang) {
+  jQuery.i18n.properties({
+      name:'Messages', 
+      path:'bundle/', 
+      mode:'both',
+      language:sLang, 
+      callback: function() {
+          // updateExamples();
+      }
+  });
+}
+
+
+function updateExamples() {
+  // Accessing values through the map
+  var ex1 = 'msg_hello';
+  alert(jQuery.i18n.prop(ex1));
+  var ex2 = 'msg_complex'; var ex2P = 'John';
+  alert(jQuery.i18n.prop(ex2, ex2P));
+
+}
+
+function getLocalLangugae(){
+  var language = navigator.language;
+  window.localStorage.setItem('local_language',language);
+  return language;
+  
+}

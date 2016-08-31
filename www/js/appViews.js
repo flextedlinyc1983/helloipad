@@ -1082,9 +1082,11 @@ ava.views.PortalView = ava.views.UtilityView.extend({
 
         var code = window.localStorage.getItem('code');
         var pwd = window.localStorage.getItem('pwd');
+        var sLang = window.localStorage.getItem('sLang');
         localStorage.clear();
         window.localStorage.setItem('code', code);
         window.localStorage.setItem('pwd', pwd);
+        window.localStorage.setItem('sLang', sLang);
 
         location.reload();
     }
@@ -1132,7 +1134,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
       // Backbone.Validation.bind(this);
 
         // $(this.el).html(this.template());
-        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" }));
+        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang: window.localStorage.getItem('sLang') || ""}));
         return this;
     },
 
@@ -1200,10 +1202,16 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
                 
                 if (jqXHR.getResponseHeader('Content-Length') != "4319") {
+
+                    //local language
+                    loadBundles(formValues.sLang);
+
+
                     window.localStorage.setItem('loginSuccess', true);
 
                     window.localStorage.setItem('code', formValues.code);
                     window.localStorage.setItem('pwd', formValues.pwd);
+                    window.localStorage.setItem('sLang', formValues.sLang);                    
 
                     var wrapper= document.createElement('div');
                     wrapper.innerHTML= data;

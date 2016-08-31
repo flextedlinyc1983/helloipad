@@ -344,13 +344,16 @@ ava.router = Backbone.Router.extend({
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
 
+            //local language
+            loadBundles(window.localStorage.getItem('sLang'));
+
             // var columns = new ava.views.Column_New_Collection([
             //     {'column':'name'},
             //     {'column':'value'},
             // ]);
             var columns = new ava.views.Column_New_Collection([
-                {'column':'項目'},
-                {'column':'總計'},
+                {'column':$.i18n.prop('msg_portal_item')},
+                {'column':$.i18n.prop('msg_portal_total')},
             ]);
 
             var self = this;
@@ -910,6 +913,8 @@ $(document).ready(function () {
     // alert("document ready");
 
     // document.addEventListener("touchstart", function() {},false);
+
+
 
 
     appRouter = new ava.router();
