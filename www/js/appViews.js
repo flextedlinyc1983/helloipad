@@ -909,7 +909,7 @@ ava.views.ColumnItemView = Backbone.View.extend({
 
 
         var name = this.model;          
-
+        name = getColumnNameFromClick(name);
         switch (name) {
             case "本日":
                 //record scroll position and page group
@@ -1205,6 +1205,9 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
                     //local language
                     loadBundles(formValues.sLang);
+                    //local Language for css setting
+                    document.documentElement.lang = window.localStorage.getItem('sLang');
+
 
 
                     window.localStorage.setItem('loginSuccess', true);
@@ -2049,6 +2052,7 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
     events: {
         "click .value": function(event) {
           var name = this.model.attributes.item.name;
+          name = getPortalRowNameFromClick(name);
           console.log(name);
 
           switch (name) {
@@ -2089,6 +2093,7 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
         },
       "click .name": function(event) {
           var name = this.model.attributes.item.name;
+          name = getPortalRowNameFromClick(name);
           console.log(name);
 
           switch (name) {

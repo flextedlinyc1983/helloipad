@@ -27,6 +27,11 @@ thead {
     vertical-align: middle;
 }
 
+#getBrandStatistics-table thead th{
+    vertical-align: middle;
+}
+
+
 .container {
 	padding-bottom: 0px;
 }

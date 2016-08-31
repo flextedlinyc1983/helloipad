@@ -31,12 +31,11 @@ ava.router = Backbone.Router.extend({
 
 
         var columns = new ava.views.Column_New_Collection([
-            {'column':'品牌名稱'},
-            {'column':'本日業績'},
-            {'column':'本月累積業績'},
+            {'column':$.i18n.prop('msg_getBrandStatistics_brandName')},
+            {'column':$.i18n.prop('msg_getBrandStatistics_volumeToday')},
+            {'column':$.i18n.prop('msg_getBrandStatistics_volumeAccuMonth')},
             
         ]);
-
 
         var self = this;
         var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
@@ -346,6 +345,9 @@ ava.router = Backbone.Router.extend({
 
             //local language
             loadBundles(window.localStorage.getItem('sLang'));
+            //local Language for css setting
+            document.documentElement.lang = window.localStorage.getItem('sLang');
+
 
             // var columns = new ava.views.Column_New_Collection([
             //     {'column':'name'},

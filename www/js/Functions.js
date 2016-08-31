@@ -441,3 +441,99 @@ function getLocalLangugae(){
   return language;
   
 }
+
+
+function getPortalRowNameFromClick(name){
+  // var sLang = window.localStorage.getItem('sLang');
+  var value = "";
+  // if( sLang == "zh_TW"){
+    
+    switch (name) {
+      case "本日業績":
+          value = "本日業績";
+          break;
+      case '去年本日業績':
+          value = "去年本日業績";
+          break;
+      case '本月業績':
+          value = '本月業績';
+          break;
+      case '去年本月業績':
+          value = '去年本月業績';
+          break;
+      case '現有庫存':
+          value = '現有庫存';
+          break;
+      case '可售金額':
+          value = '可售金額';
+          break;
+    // }
+
+  // }else if(sLang == "en_SG"){
+
+    // switch (name) {
+      case "Results of this day":
+          value = "本日業績";
+          break;
+      case 'Last year, the performance of the day':
+          value = "去年本日業績";
+          break;
+      case 'Performance this month':
+          value = '本月業績';
+          break;
+      case 'Last year, the performance of this month':
+          value = '去年本月業績';
+          break;
+      case 'Current inventory':
+          value = '現有庫存';
+          break;
+      case 'Stock available for sale amount':
+          value = '可售金額';
+          break;
+    // }
+
+  // }else if(sLang == "zh_CN"){
+
+    // switch (name) {
+      case "本日业绩":
+          value = "本日業績";
+          break;
+      case '去年本日业绩':
+          value = "去年本日業績";
+          break;
+      case '本月业绩':
+          value = '本月業績';
+          break;
+      case '去年本月业绩':
+          value = '去年本月業績';
+          break;
+      case '现有库存':
+          value = '現有庫存';
+          break;
+      case '可售金额':
+          value = '可售金額';
+          break;
+    }
+
+  // }
+
+  return value;
+  
+}
+
+
+function getColumnNameFromClick(name){
+  var value = "";
+
+    switch (name) {
+      case "Today":
+          value = "本日";
+          break;
+      case '本日':
+          value = "本日";
+          break;
+    }
+
+  return value;
+  
+}

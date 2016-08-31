@@ -415,52 +415,52 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
             var value = '';
             switch (name) {
               case "name":
-                  value = '店櫃名稱';
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_name');
                   break;
               case 'volumeToday':
-                  value = "本日";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_volumeToday');
                   break;
               case 'volumeLastYearToday':
-                  value = "去年本日 >";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_volumeLastYearToday');
                   break;
               case 'volumeThisMonth':
-                  value = "本月";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_volumeThisMonth');
                   break;
               case 'volumeLastYearThisMonth':
-                  value = "去年本月 <>";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_volumeLastYearThisMonth');
                   break;
               case 'deposit':
-                  value = "庫存";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_deposit');
                   break;
               case 'volumeAvailable':
-                  value = '可售金額 <>';
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_volumeAvailable');
                   break;
               case 'target':
-                  value = "本月目標";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_target');
                   break;
               case 'targetRate':
-                  value = "達成率 <>";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_targetRate');
                   break;
               case 'saleTotal':
-                  value = '銷售金額';
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_saleTotal');
                   break;
               case 'preSaleTotal':
-                  value = "訂金金額 <>";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_preSaleTotal');
                   break;
               case 'customer':
-                  value = "客數";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_customer');
                   break;
               case 'customerUPrice':
-                  value = "客單價 <>";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_customerUPrice');
                   break;
               case 'saleAmount':
-                  value = '商品件數';
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_saleAmount');
                   break;
               case 'customerAVAmount':
-                  value = "平均客件數";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_customerAVAmount');
                   break;
               case 'memberCount':
-                  value = "新增會員數 <";
+                  value = $.i18n.prop('msg_RealtimeInfo_Today_Test_memberCount');
                   break;
               default:
                   value = "";
@@ -873,7 +873,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 			    var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
 
 		            if(i >= 2 && i <= 7){
-		              var name =  $($('td', this)[0]).find('span').text();
+		              var name =  $($('td', this)[0]).find('span').text().trim();
 		              var value =  $($('td', this)[1]).find('div').text();
 		              return {item:{name:name, value:value}};
 		            }
@@ -892,22 +892,22 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 				for(var key in data){
 		      		switch (key) {
 		              case "volumeToday":
-		                  result[0] = {name: "本日業績", value: data[key]};
+		                  result[0] = {name: $.i18n.prop('msg_portal_volumeToday'), value: data[key]};
 		                  break;
 		              case 'volumeLastYearToday':
-		                  result[1] = {name: "去年本日業績", value: data[key]};
+		                  result[1] = {name: $.i18n.prop('msg_portal_volumeLastYearToday'), value: data[key]};
 		                  break;
 		              case 'volumeThisMonth':
-		                  result[2] = {name: "本月業績", value: data[key]};
+		                  result[2] = {name: $.i18n.prop('msg_portal_volumeThisMonth'), value: data[key]};
 		                  break;
 		              case 'volumeLastYearThisMonth':
-		                  result[3] = {name: "去年本月業績", value: data[key]};
+		                  result[3] = {name: $.i18n.prop('msg_portal_volumeLastYearThisMonth'), value: data[key]};
 		                  break;
 		              case 'deposit':
-		                  result[4] = {name: "現有庫存", value: data[key]};
+		                  result[4] = {name: $.i18n.prop('msg_portal_deposit'), value: data[key]};
 		                  break;
 		              case 'volumeAvailable':
-		                  result[5] = {name: "可售金額", value: data[key]};
+		                  result[5] = {name: $.i18n.prop('msg_portal_volumeAvailable'), value: data[key]};
 		                  break;              
 		              default:
 		            }
