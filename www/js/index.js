@@ -39,9 +39,14 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         // alert("test");
-        // app.receivedEvent('deviceready');        
+        // app.receivedEvent('deviceready');
         alert(device.cordova);
         alert(device.uuid);
+
+        navigator.globalization.getPreferredLanguage(function(language){
+          alert(language.value);
+          window.localStorage.setItem('local_language',language.value);
+        }, function(){alert('globalization error')});
 
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
@@ -60,7 +65,7 @@ var app = {
             }
             // alert("resume");
         }catch(err) {
-            console.log(err);        
+            console.log(err);
         }
     },
 
