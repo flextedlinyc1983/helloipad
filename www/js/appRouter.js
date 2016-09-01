@@ -61,12 +61,11 @@ ava.router = Backbone.Router.extend({
 
 
         var columns = new ava.views.Column_New_Collection([
-            {'column':'時間'},
-            {'column':'客次'},
-            {'column':'金額'},
-            {'column':'數量'},
+            {'column':$.i18n.prop('msg_getPosInfo_time')},
+            {'column':$.i18n.prop('msg_getPosInfo_customer')},
+            {'column':$.i18n.prop('msg_getPosInfo_dollar')},
+            {'column':$.i18n.prop('msg_getPosInfo_count')},
         ]);
-
 
         var self = this;
         // codeNumber = 'RM012';
@@ -342,9 +341,9 @@ ava.router = Backbone.Router.extend({
 
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
-
+            
             //local language
-            loadBundles(window.localStorage.getItem('sLang'));
+
             //local Language for css setting
             document.documentElement.lang = window.localStorage.getItem('sLang');
 
@@ -373,7 +372,7 @@ ava.router = Backbone.Router.extend({
             this.pageCollection = test;
 
         }else{
-            this.putElementOnPageContent("尚未登入", "portal-content");  
+            this.putElementOnPageContent($.i18n.prop('msg_portal_notLoginYet'), "portal-content");  
 
             this.pageCollection = null;
         }
@@ -916,7 +915,7 @@ $(document).ready(function () {
 
     // document.addEventListener("touchstart", function() {},false);
 
-
+    loadBundles(window.localStorage.getItem('sLang') || navigator.language || "");
 
 
     appRouter = new ava.router();

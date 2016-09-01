@@ -480,7 +480,8 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 		}
 		catch(err) {
     		console.log(err);
-    		window.location.replace('#');
+    		// window.location.replace('#');
+    		window.history.back('');
 		}
 
 	},
@@ -592,26 +593,30 @@ ava.views.Column_New_Collection = Backbone.Collection.extend({
 
 ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
+	
+		if($(data).find('table thead td').length != 0){
+			var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
+	    				var $td =  $('td', this);
 
-		var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
-    				var $td =  $('td', this);
+	    				var time = $td.eq(0).text().replace(/\s/g, '');
+	    				var customer = $td.eq(1).text().replace(/\s/g, '');
+	    				var dollar = $td.eq(2).text().replace(/\s/g, '');
+	    				var count = $td.eq(3).text().replace(/\s/g, '');
 
-    				var time = $td.eq(0).text().replace(/\s/g, '');
-    				var customer = $td.eq(1).text().replace(/\s/g, '');
-    				var dollar = $td.eq(2).text().replace(/\s/g, '');
-    				var count = $td.eq(3).text().replace(/\s/g, '');
-
-    				if( i > 0 && (time != "" || customer != "" || dollar != "" || count != "") ) {
-        				return {
-                 			id: i,
-                 			time: time,
-                 			customer: customer,
-                 			dollar: dollar,
-                 			count: count,
-               			}
-               		}
-				  }).get();
-		return tbl;
+	    				if( i > 0 && (time != "" || customer != "" || dollar != "" || count != "") ) {
+	        				return {
+	                 			id: i,
+	                 			time: time,
+	                 			customer: customer,
+	                 			dollar: dollar,
+	                 			count: count,
+	               			}
+	               		}
+					  }).get();
+			return tbl;
+		}else{			
+			return [];
+		}
 	},
 
 	getResults: function () {
@@ -747,7 +752,8 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 		}
 		catch(err) {
     		console.log(err);
-    		window.location.replace('#');
+    		// window.location.replace('#');
+    		window.history.back('');
 		}
 	},
 

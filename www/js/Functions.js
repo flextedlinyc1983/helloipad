@@ -414,15 +414,19 @@ pagesData = {};
 
 
 function loadBundles(sLang) {
-  jQuery.i18n.properties({
-      name:'Messages', 
-      path:'bundle/', 
-      mode:'both',
-      language:sLang, 
-      callback: function() {
-          // updateExamples();
-      }
-  });
+  try{
+    jQuery.i18n.properties({
+        name:'Messages', 
+        path:'bundle/', 
+        mode:'both',
+        language:sLang, 
+        callback: function() {
+            // updateExamples();
+        }
+    });
+  }catch(err){
+      console.log(err);
+  }
 }
 
 

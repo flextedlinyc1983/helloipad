@@ -11,6 +11,7 @@
 
 .ui-header a.back, .ui-header #loginIcon, .ui-header #myModal {
     margin: .7em 0;
+    min-width: 70px;
 }
 
 .modal-header {

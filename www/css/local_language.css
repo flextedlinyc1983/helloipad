@@ -1,29 +1,42 @@
 @media only screen and ( max-device-width: 480px ) {
 
 	html:lang(en_SG) table thead th {
-		font-size: 10px;
-		overflow-wrap: break-word;
+	
 	}
 
 	html:lang(en_SG) #RealtimeInfo_Today_Test-table thead th {
+		 font-size: 10px;
+		 overflow-wrap: break-word;
+
 		 padding-top: 1px;
    		 padding-bottom: 1px;
+   		 height: 83px;
 	}
 
-	#RealtimeInfo_Today_Test-table thead {
-		height: 83px;
-	}
+	// #RealtimeInfo_Today_Test-table thead {
+	// 	height: 83px;
+	// }
 
 	html:lang(en_SG) #getBrandStatistics-table thead th {
 		 padding-top: 1px;
    		 padding-bottom: 1px;
+	}
+
+	html:lang(en_SG) #portal-table tbody .name {
+		 font-size: 14px;
+	}
+
+	html:lang(en_SG) #portal-table tbody td {
+		 height: 71px;
+		 padding-top: 1px;
+   		 padding-bottom: 1px;
+   		 vertical-align: middle;   		 
 	}
 }
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
 
 	html:lang(en_SG) table thead th {
-		font-size: 14px;
 		overflow-wrap: break-word;
 	}
 
@@ -32,13 +45,22 @@
 	   		 padding-bottom: 5px;
 	}
 
-	#RealtimeInfo_Today_Test-table thead {
-		height: 71px;
-	}
+	// #RealtimeInfo_Today_Test-table thead {
+	// 	height: 71px;
+	// }
 
 	html:lang(en_SG) #getBrandStatistics-table thead th {
 		 padding-top: 6px;
    		 padding-bottom: 6 px;
+	}
+
+
+
+	html:lang(en_SG) #portal-table tbody td {
+		 height: 71px;
+		 padding-top: 1px;
+   		 padding-bottom: 1px;
+   		 vertical-align: middle;   		 
 	}
 
 }

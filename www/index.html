@@ -441,7 +441,8 @@
 
     <div data-role="footer"  data-position="fixed" data-tap-toggle="false">
         <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
-        <h1>本日業績明細 PageView</h1>
+        <!-- <h1>本日業績明細 PageView</h1> -->
+        <h1>Flaps Technology Corporation</h1>
     </div>
     
 
@@ -477,25 +478,25 @@
         <div class="modal-dialog">
             <div data-role="header">
                 <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
-                <h1>登入</h1>
+                <h1><%= login %></h1>
             </div>
             <div data-role="content">
                 <form id="loginForm" >
                     <div data-role="fieldcontainer" class="form-group">
-                        <label for="code">帳號:</label>
+                        <label for="code"><%= labelcode %></label>
                         <!-- <input type="text" id="code" name="code" value="flextier99"></input> -->
                         <input type="text" id="code" name="code" value=<%= code %>></input>
                         
                         <span class="help-block hidden"></span>
                     </div>
                     <div data-role="fieldcontainer" class="form-group">
-                        <label for="pwd">密碼:</label>
+                        <label for="pwd"><%= labelpwd %></label>
                         <!-- <input type="password" id="pwd" name="pwd" value="0827203"></input> -->
                         <input type="password" id="pwd" name="pwd" value=<%= pwd %>></input>
                         <span class="help-block hidden"></span>
                     </div>
                     <div data-role="fieldcontainer" class="form-group">
-                        <label for="sLang">選擇語言:</label>
+                        <label for="sLang"><%= labelslang %></label>
                         <select name="sLang" style="" id="sLang">
                         <option value="zh_TW" <%= sLang == 'zh_TW' ?  'selected' : '' %> >
                         中文(繁體)
@@ -514,7 +515,7 @@
 
                     </div>
                     <!-- <div data-role="fieldcontainer"> -->
-                    <input type='submit' value= '送出' id='loginButton' />
+                    <input type='submit' value= <%= submit %> id='loginButton' />
                     <!-- <input type='submit' value= '取得資料' id='loginButtonGetData' /> -->
                     <!-- </div> -->
                 </form>

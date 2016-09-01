@@ -1054,9 +1054,9 @@ ava.views.PortalView = ava.views.UtilityView.extend({
   template:_.template($('#portal').html()),
 
   loginStatus: {
-    status: "登入",
+    status: "",
     href: "#myModal",
-    storeName: "你好"
+    storeName: ""
   },
 
   render:function (eventName) {
@@ -1096,12 +1096,12 @@ ava.views.PortalView = ava.views.UtilityView.extend({
 
   setLoginStatus: function () {
     if(window.localStorage.getItem('loginSuccess') == "true") {
-      this.loginStatus.status = "登出";
+      this.loginStatus.status = $.i18n.prop('msg_portal_logout');
       this.loginStatus.href = "#Logout";    
       this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
     }else{
-      this.loginStatus.status = "登入";
-      this.loginStatus.storeName = "你好";
+      this.loginStatus.status = $.i18n.prop('msg_portal_login');
+      this.loginStatus.storeName = $.i18n.prop('msg_portal_hello');
     }
   }
 
@@ -1134,9 +1134,53 @@ ava.views.ModalView = ava.views.UtilityView.extend({
       // Backbone.Validation.bind(this);
 
         // $(this.el).html(this.template());
-        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang: window.localStorage.getItem('sLang') || ""}));
+        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang:  window.localStorage.getItem('sLang') || this.getChooseLanguageFromNvLang(navigator.language) || "",
+      labelcode: $.i18n.prop('msg_myModal_labelcode'),labelpwd: $.i18n.prop('msg_myModal_labelpwd'),labelslang: $.i18n.prop('msg_myModal_labelslang'),
+      login: $.i18n.prop('msg_myModal_login'),submit: $.i18n.prop('msg_myModal_submit')}));
         return this;
     },
+
+    getChooseLanguageFromNvLang: function (language) {
+        language = language.toLowerCase();
+
+        
+        var value = '';
+            switch (language) {
+              case "zh-tw":
+                  value = 'zh_TW';
+                  break;              
+              case 'en-sg':
+                  value = "en_SG";
+                  break;
+              case 'zh-cn':
+                  value = "zh_CN";
+                  break;
+              default:
+                  value = "";
+            }
+
+        var strArray = language.split('-');
+        var mainLang = strArray[0] || "";
+        // var subLang = ifstrArray[1] || "";
+        if(value == ""){
+
+            switch (mainLang) {
+              case "zh":
+                  value = 'zh_TW';
+                  break;              
+              case 'en':
+                  value = "en_SG";
+                  break;              
+              default:
+                  value = "";
+            }
+
+        }
+
+
+        return value;
+    },
+    
 
     events: {
         "click #loginButton": "login",
@@ -1218,7 +1262,10 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
                     var wrapper= document.createElement('div');
                     wrapper.innerHTML= data;
-                    window.localStorage.setItem('storeName', $(wrapper).find('div')[1].innerHTML);
+
+                    var storeName = $(wrapper).find('div')[1] ? $(wrapper).find('div')[1].innerHTML : "???";
+
+                    window.localStorage.setItem('storeName', storeName);
 
                     // this.loginGetData();
                 }else{

@@ -42,6 +42,13 @@ thead {
     text-align: right;
 }
 
+#getPosInfo-table tbody td + td, td + td + td, td + td + td + td {
+    text-align: right;
+}
+
+#getBrandStatistics-table tbody td + td, td + td + td {
+    text-align: right;
+}
 
 
 table.showG1 .item_1 { display: table-cell; width: 33%;}
