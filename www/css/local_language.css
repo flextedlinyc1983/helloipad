@@ -1,5 +1,13 @@
 @media only screen and ( max-device-width: 480px ) {
 
+	#footer_h1 {
+		overflow: hidden;
+    	white-space: nowrap;
+    	text-overflow: ellipsis;
+    	width: 150px;   
+    	margin: auto;
+	}
+
 	html:lang(en_SG) table thead th {
 	
 	}
@@ -18,6 +26,7 @@
 	// }
 
 	html:lang(en_SG) #getBrandStatistics-table thead th {
+		font-size: 12px;
 		 padding-top: 1px;
    		 padding-bottom: 1px;
 	}
@@ -32,6 +41,11 @@
    		 padding-bottom: 1px;
    		 vertical-align: middle;   		 
 	}
+
+
+	html:lang(en_SG) #getPosInfo-table thead th {
+		 font-size: 12px;
+	}
 }
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
@@ -41,8 +55,9 @@
 	}
 
 	html:lang(en_SG) #RealtimeInfo_Today_Test-table thead th {
-			 padding-top: 5px;
-	   		 padding-bottom: 5px;
+		 padding-top: 1px;
+   		 padding-bottom: 1px;
+   		 height: 91px;
 	}
 
 	// #RealtimeInfo_Today_Test-table thead {
