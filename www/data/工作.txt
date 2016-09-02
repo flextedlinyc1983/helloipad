@@ -1,0 +1,93 @@
+工作日誌 
+
+[其　它]:
+1. Survey how to meta data to generate report table data to reduce updating app version
+2. Modify css style for different local language
+
+
+var collection = appRouter.getPageCollection()
+collection.reset({item:{'name': '本日業績', 'value': "12345"}})
+var collec = new ava.views.Table_New_Collection
+collec.reset(oJson.Info.Pos)
+self.options.columns.reset(self.getColumnsFromCollection(collec))
+
+getStatistics
+file:///D:/cordova/helloipad/www/data/getStatistics.xml
+collection.reset({name:"922",volumeToday:"12345",volumeThisMonth:"5678"})
+
+var oJson = null
+d3.json("data/RealtimeInfo_Today_Test.json", function(data) {
+oJson = data
+});
+var collection = appRouter.getPageCollection()
+collection.reset(oJson.Info.Pos)
+
+SELECT A.* FROM  UserID A With(Nolock) WHERE  LEFT(A.Code,LEN(''admin''))=''admin'' 
+
+setIpBySelf = "230"
+setAppNameBySelf="flaps"
+
+Backbone.history.navigate('getBrandStatistics', true);
+window.location.replace('#');
+router.navigate(Backbone.history.getFragment(), { trigger: true, replace: true })
+Backbone.history.getFragment()
+
+appRouter.clearTimeoutForPause()
+
+document.documentElement.lang = "en_SG"
+, td + td + td, td + td + td + td
+中文簡體
+ios      zh-Hans-TW 
+android  zh-CN 
+
+ios      
+android  en-SG 
+$.i18n.prop('msg_portal_login')
+zwHlrybBSw==
+zwHlrybBSw==
+router 66  codeNumber = 'RM012';
+collection 510 // RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+collection 621 // RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+collection 731 // getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+view 1176 this.loginGetData();
+
+<table id="RealtimeInfo_Today_Test-table" style="display: none;" class="tablesaw tablesaw-swipe tablesaw-fix-persist" data-tablesaw-mode="swipe">
+
+goBrandStatistics()本日
+goStatistics()回總計
+setupInfoTable()Table資料
+
+
+clearTimeout(RealtimeInfoTimeout)
+
+RealtimeInfoCollection.push({'name': '本日業績', 'value': "12345"});
+
+RealtimeInfoCollection_Today.reset(RealtimeInfoCollection_Today_Data)
+
+https://github.com/filamentgroup/tablesaw/issues/163
+
+
+http://192.168.0.58:8080/flaps2/PDA/PISConsole/getLastSell.jsp?code=RM011&currentPage=7&currentGroup=G1
+
+oJson.Info.TimeOut
+
+RealtimeInfoCollection_Today.push({        
+        code: "",
+        name: "222",
+        volumeToday: "333",
+        volumeThisMonth: "4444",
+        volumeLastYearToday: "5555",
+		volumeLastYearThisMonth:"6666",
+		deposit: "7777",
+		volumeAvailable: "8888",
+		target: "8888",
+		targetRate: "88",
+		preSaleTotal:"99",
+		saleTotal: "999",
+		customer: "999",
+		customerUPrice:"99999",
+		saleAmount: "111",
+		customerAVAmount: "111",
+		memberCount: "11111",
+		isWithdraw: "11111"
+      });
