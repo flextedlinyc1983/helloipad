@@ -3,6 +3,24 @@
 [其　它]:
 1. Survey how to use meta data to generate report table data from template to reduce updating app version
 
+
+
+$.getJSON('data/RealtimeInfo_Today_Test.json', null, function(data) {
+	db.transaction(function (transaction) {
+		$.each(data.Info.Pos, function(i,item){
+
+                var city=item.code;           
+                var state=item.name;            
+                var population=item.deposit;
+                transaction.executeSql('INSERT INTO test (city, state, population) VALUES (?,?,?)',[city, state, population]);
+		});
+	});
+});
+
+
+
+
+
 db = openDatabase('mydb', '1.0', '測試用', 2*1024*1024);
 db.transaction(function(tx){
     tx.executeSql("Create Table test(city TEXT,state TEXT, population TEXT)");
