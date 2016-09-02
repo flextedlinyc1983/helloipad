@@ -2,7 +2,7 @@
 
 [其　它]:
 1. Survey how to use meta data to generate report table data from template to reduce updating app version
-
+2. Implement getting json data from local resource file and insert into table of webSQL database 
 
 
 $.getJSON('data/RealtimeInfo_Today_Test.json', null, function(data) {
