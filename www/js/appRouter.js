@@ -39,7 +39,7 @@ ava.router = Backbone.Router.extend({
 
         var self = this;
         var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
-            urlPath: "/flaps2/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
+            urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
 
 
         var tableView = new ava.views.Table_getBrandStatistics_View({collection: test, columns: columns, className: "table",
@@ -70,7 +70,7 @@ ava.router = Backbone.Router.extend({
         var self = this;
         // codeNumber = 'RM012';
         var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
-            urlPath: "/flaps2/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
+            urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
 
 
         var tableView = new ava.views.Table_GetPosInfo_View({collection: test, columns: columns, className: "table",
@@ -154,7 +154,7 @@ ava.router = Backbone.Router.extend({
         var self = this;
 
         var test = new ava.views.Table_New_Customize_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
-            urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns,page:page});
+            urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns,page:page});
 
         // var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "tablesaw tablesaw-swipe tablesaw-fix-persist",
         //     attributes : {"id":"RealtimeInfo_Today_Test-table", "data-tablesaw-mode":"swipe"}});
@@ -359,7 +359,7 @@ ava.router = Backbone.Router.extend({
 
             var self = this;
             var test = new ava.views.Table_portal_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
-                urlPath: "/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
+                urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
 
 
             var tableView = new ava.views.Table_portal_View({collection: test, columns: columns, className: "table RealtimeInfo",
@@ -851,23 +851,45 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
 
     clearTimeout : function () {
         // alert('clearTimeout')
-         var path = Backbone.history.getFragment();
-        if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined' && path != "RealtimeInfo_Today_Test"){
-            RealtimeInfo_Today_Test_Timeout.clear();
-        }else {
+        //  var path = Backbone.history.getFragment();
+        // if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined' && path != "RealtimeInfo_Today_Test"){
+        //     RealtimeInfo_Today_Test_Timeout.clear();
+        // }else {
 
-        }
+        // }
 
-        if( typeof(getBrandStatistics_Timeout) != 'undefined' && path != "getBrandStatistics"){
-            getBrandStatistics_Timeout.clear();
-        }else {
+        // if( typeof(getBrandStatistics_Timeout) != 'undefined' && path != "getBrandStatistics"){
+        //     getBrandStatistics_Timeout.clear();
+        // }else {
 
-        }
+        // }
         
-        if( typeof(portal_Timeout) != 'undefined' && path != ""){
-            portal_Timeout.clear();
-        }else {
+        // if( typeof(portal_Timeout) != 'undefined' && path != ""){
+        //     portal_Timeout.clear();
+        // }else {
 
+        // }
+        try{
+            var path = Backbone.history.getFragment();
+            if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined' ){
+                RealtimeInfo_Today_Test_Timeout.clear();
+            }else {
+
+            }
+
+            if( typeof(getBrandStatistics_Timeout) != 'undefined' ){
+                getBrandStatistics_Timeout.clear();
+            }else {
+
+            }
+            
+            if( typeof(portal_Timeout) != 'undefined' ){
+                portal_Timeout.clear();
+            }else {
+
+            }
+        }catch(err) {
+            console.log(err);        
         }
     },
 
@@ -915,7 +937,7 @@ $(document).ready(function () {
 
     // document.addEventListener("touchstart", function() {},false);
 
-    loadBundles(window.localStorage.getItem('sLang') || navigator.language || "");
+    loadBundles( window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "");
 
 
     appRouter = new ava.router();

@@ -11,7 +11,12 @@
 
 .ui-header a.back, .ui-header #loginIcon, .ui-header #myModal {
     margin: .7em 0;
-    min-width: 70px;
+    // min-width: 70px;
+}
+
+#myModal, #Logout {
+ 
+    min-width: 50px;
 }
 
 .modal-header {

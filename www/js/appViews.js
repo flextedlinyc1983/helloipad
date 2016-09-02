@@ -1134,57 +1134,25 @@ ava.views.ModalView = ava.views.UtilityView.extend({
       // Backbone.Validation.bind(this);
 
         // $(this.el).html(this.template());
-        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang:  window.localStorage.getItem('sLang') || this.getChooseLanguageFromNvLang(navigator.language) || "",
+        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang:  window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "",
       labelcode: $.i18n.prop('msg_myModal_labelcode'),labelpwd: $.i18n.prop('msg_myModal_labelpwd'),labelslang: $.i18n.prop('msg_myModal_labelslang'),
       login: $.i18n.prop('msg_myModal_login'),submit: $.i18n.prop('msg_myModal_submit')}));
         return this;
     },
 
-    getChooseLanguageFromNvLang: function (language) {
-        language = language.toLowerCase();
 
-        
-        var value = '';
-            switch (language) {
-              case "zh-tw":
-                  value = 'zh_TW';
-                  break;              
-              case 'en-sg':
-                  value = "en_SG";
-                  break;
-              case 'zh-cn':
-                  value = "zh_CN";
-                  break;
-              default:
-                  value = "";
-            }
-
-        var strArray = language.split('-');
-        var mainLang = strArray[0] || "";
-        // var subLang = ifstrArray[1] || "";
-        if(value == ""){
-
-            switch (mainLang) {
-              case "zh":
-                  value = 'zh_TW';
-                  break;              
-              case 'en':
-                  value = "en_SG";
-                  break;              
-              default:
-                  value = "";
-            }
-
-        }
-
-
-        return value;
-    },
     
 
     events: {
         "click #loginButton": "login",
-        "click #loginButtonGetData": "loginGetData"
+        "click #loginButtonGetData": "loginGetData",
+        "change #sLang": "langSelect"
+    },
+
+    langSelect: function() {        
+        loadBundles($('#sLang').val());
+        window.localStorage.setItem('sLang', $('#sLang').val()); 
+        Backbone.history.loadUrl(Backbone.history.fragment);
     },
 
     remove: function() {
@@ -1214,7 +1182,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
         $('.alert-error').hide(); // Hide any errors on a new submit
         // var url = '../api/login';
-        var url = getIpFromDataConfig(setIpBySelf) + '/flaps2/checkLogin.jsp';
+        var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkLogin.jsp';
         // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
         console.log('Loggin in... ');
         var formValues = {
@@ -1245,8 +1213,28 @@ ava.views.ModalView = ava.views.UtilityView.extend({
             success:function (data, textStatus, jqXHR) {
 
                 
-                if (jqXHR.getResponseHeader('Content-Length') != "4319") {
+                if (jqXHR.getResponseHeader('Content-Length') == "4319") {
 
+                    window.localStorage.setItem('loginSuccess', false);
+
+                    window.localStorage.setItem('code', "");
+                    window.localStorage.setItem('pwd', "");
+
+                    window.localStorage.setItem('storeName', "");
+
+                    
+                }else if(jqXHR.getResponseHeader('Content-Length') == "4337"){
+
+                    window.localStorage.setItem('loginSuccess', false);
+
+                    window.localStorage.setItem('code', "");
+                    window.localStorage.setItem('pwd', "");
+
+                    window.localStorage.setItem('storeName', "");
+                  
+                    alert('此帳號無即時業績權限!');
+
+                }else{
                     //local language
                     loadBundles(formValues.sLang);
                     //local Language for css setting
@@ -1268,13 +1256,6 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                     window.localStorage.setItem('storeName', storeName);
 
                     // this.loginGetData();
-                }else{
-                    window.localStorage.setItem('loginSuccess', false);
-
-                    window.localStorage.setItem('code', "");
-                    window.localStorage.setItem('pwd', "");
-
-                    window.localStorage.setItem('storeName', "");
                 }
                 
 
@@ -1283,7 +1264,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                
                 if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
                     // $('.alert-error').text(data.error.text).show();
-                    alert("登入錯誤");
+                    alert($.i18n.prop('msg_myModal_loginError'));
                 }
                 else { // If not, send them back to the home page
                     window.location.replace('#');

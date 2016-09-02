@@ -83,13 +83,19 @@ ava.models.LoginModel = Backbone.Model.extend(
 		// password: {required:true, msg: "請輸入密碼"},		
 		    code: {
 	      		required: true,
-	      		msg: '請輸入帳號'
+	      		msg: function () {
+	      			return $.i18n.prop('msg_myModal_validateCodemsg');
+	      		}
 	   		},
 	   		pwd: {
 	      		required: true,
-	      		msg: '請輸入密碼'
+	      		msg:  function () {
+	      			return $.i18n.prop('msg_myModal_validatePwdmsg');
+	      		}
 	   		},
-	}
+	},
+
+
 });
 
 

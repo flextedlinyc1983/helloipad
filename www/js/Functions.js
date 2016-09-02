@@ -541,3 +541,45 @@ function getColumnNameFromClick(name){
   return value;
   
 }
+
+
+function getChooseLanguageFromNvLang(language) {
+    language = language.toLowerCase();
+
+    
+    var value = '';
+        switch (language) {
+          case "zh-tw":
+              value = 'zh_TW';
+              break;              
+          case 'en-sg':
+              value = "en_SG";
+              break;
+          case 'zh-cn':
+              value = "zh_CN";
+              break;
+          default:
+              value = "";
+        }
+
+    var strArray = language.split('-');
+    var mainLang = strArray[0] || "";
+    // var subLang = ifstrArray[1] || "";
+    if(value == ""){
+
+        switch (mainLang) {
+          case "zh":
+              value = 'zh_TW';
+              break;              
+          case 'en':
+              value = "en_SG";
+              break;              
+          default:
+              value = "";
+        }
+
+    }
+
+
+    return value;
+}
