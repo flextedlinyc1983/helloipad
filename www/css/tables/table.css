@@ -271,6 +271,11 @@ padding-top: 10px;
     	height: 30px;
     	vertical-align: middle;
 	}
+
+	#RealtimeInfo_Today_Test-table tbody td + td {	    
+	    padding-left: 2px;
+	    padding-right: 2px;
+	}
  }
 
 
