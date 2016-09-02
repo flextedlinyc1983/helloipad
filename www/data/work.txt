@@ -1,8 +1,31 @@
 工作日誌 
 
 [其　它]:
-1. Survey how to meta data to generate report table data to reduce updating app version
-2. Modify css style for different local language
+1. Survey how to use meta data to generate report table data from template to reduce updating app version
+
+db = openDatabase('mydb', '1.0', '測試用', 2*1024*1024);
+db.transaction(function(tx){
+    tx.executeSql("Create Table test(city TEXT,state TEXT, population TEXT)");
+});
+db.transaction(function (transaction) {
+            var len = oJson.length;
+            for(var i = 0; i < len; i++) {
+                var city=oJson[i].city;           
+                var state=oJson[i].state;            
+                var population=oJson[i].population;
+                transaction.executeSql('INSERT INTO test (city, state, population) VALUES (?,?,?)',[city, state, population]);
+            }
+        });
+		
+db.transaction(function(tx){
+    tx.executeSql("Create Table test(city TEXT,state TEXT, population TEXT)");
+});
+
+
+
+d3.csv("data/cities.csv", function(data) {
+    console.log(data);
+});
 
 
 var collection = appRouter.getPageCollection()
