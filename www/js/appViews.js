@@ -707,6 +707,7 @@ ava.views.Table_New_View = Backbone.View.extend({
       //record scroll position and page group
       var currentPageData = pagesData[window.location.hash] ||  (pagesData[window.location.hash] = {});
       currentPageData.scrollPositon = $('table tbody').scrollTop();
+      currentPageData.scrollHeight = $('table tbody').height();
 
       var tableClass = $('table').attr('class');
       currentPageData.pagegroupPositon = tableClass.substring(tableClass.indexOf('showG') + 5, tableClass.indexOf('showG') + 6);

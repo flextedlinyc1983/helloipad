@@ -530,21 +530,8 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             	
 
 	            	$('#RealtimeInfo_Today_Test-table').show({
-	            		duration:10,
+						duration:10,
 	            		complete: function (){
-	            			//set last time scroll position
-	            			if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
-	            				$('table tbody').scrollTop(pagesData['#RealtimeInfo_Today_Test'].scrollPositon);
-
-	            				var $table = $('table');
-	            				$table.removeClass('showG1');
-	            				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
-	            				selfCollection.options.page.setNowpage(Number(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon));
-
-	            				// delete
-	            				delete pagesData['#RealtimeInfo_Today_Test'];
-	            			}
-
 
 	            			// for small device table header setting
 		        			if( $('#RealtimeInfo_Today_Test-table thead').height() < 57){
@@ -554,6 +541,25 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
 		        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
+
+
+	            			//set last time scroll position
+	            			if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){
+								$('table tbody').height(pagesData['#RealtimeInfo_Today_Test'].scrollHeight);
+
+	            				var $table = $('table');
+	            				$table.removeClass('showG1');
+	            				$table.addClass('showG' + pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
+	            				selfCollection.options.page.setNowpage(Number(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon));
+
+
+	            				$('table tbody').scrollTop(pagesData['#RealtimeInfo_Today_Test'].scrollPositon);
+
+	            				// delete
+	            				delete pagesData['#RealtimeInfo_Today_Test'];
+	            			}
+
+
 
 
 	            			
