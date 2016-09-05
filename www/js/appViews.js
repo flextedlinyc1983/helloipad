@@ -827,13 +827,14 @@ ava.views.Table_New_View = Backbone.View.extend({
     },
 
     renderHead : function(columns) {
+      if(getRightTableDisplayPath(this, window.location.hash.substring(1))){
         // var row=new ava.views.TableHeadView({model:model});
         // this.$el.append(row.render().$el);
         // return this;
         $(this.$el).find('thead').remove();
         this.$el.prepend("<thead><tr></tr></thead>");
         columns.models.forEach(this.renderColumnItem, this);
-        
+      }
 
     },
 

@@ -529,7 +529,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             		var selfCollection = self;
             	
 
-	            	$('#RealtimeInfo_Today_Test-table').show({
+	            	$('#RealtimeInfo_Today_Test-table').delay(200).show({
 	            		complete: function (){
 	            			//set last time scroll position
 	            			if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){

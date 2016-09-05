@@ -583,3 +583,46 @@ function getChooseLanguageFromNvLang(language) {
 
     return value;
 }
+
+
+function getRightTableDisplayPath(view, urlHash) {
+    
+    var tableId = view.$el.attr("id").split('-')[0];
+    if( tableId == "getPosInfo"){
+      var strGetPosInfo = "RealtimeInfo_Today_Test/getPosInfo";  
+      if(urlHash.indexOf(strGetPosInfo) !== -1){
+
+        return true;      
+      }else{
+        return false;      
+      }
+    }else if(tableId == "portal"){
+      if(urlHash == ""){
+        return true;      
+      }else{
+        return false;      
+      }
+    }else if( tableId == "getBrandStatistics"){
+      if(urlHash == "getBrandStatistics"){
+        return true;      
+      }else{
+        return false;      
+      }
+    }else if(tableId == "RealtimeInfo_Today_Test"){
+      if(urlHash == "RealtimeInfo_Today_Test"){
+        return true;      
+      }else{
+        return false;      
+      }
+    }else if(tableId == "RealtimeInfo_Today_Test"){
+      if(urlHash == "RealtimeInfo_Today_Test"){
+        return true;      
+      }else{
+        return false;      
+      }
+    }
+    return false;
+    
+    
+   
+}

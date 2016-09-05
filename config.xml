@@ -27,5 +27,8 @@
         <!-- <preference name="Orientation" value="landscape" /> -->
         <preference name="StatusBarOverlaysWebView" value="false" />
         <preference name="StatusBarBackgroundColor" value="#000000" />
+        <preference name="Orientation" value="all" />
+        
+
     </platform>
 </widget>
