@@ -1213,7 +1213,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
             success:function (data, textStatus, jqXHR) {
 
                 
-                if (jqXHR.getResponseHeader('Content-Length') == "4319") {
+                if (jqXHR.getResponseHeader('Content-Length') == "4319" || jqXHR.getResponseHeader('Content-Length') == "2827") {
 
                     window.localStorage.setItem('loginSuccess', false);
 
