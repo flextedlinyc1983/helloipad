@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.flaps.helloipad" version="0.0.1" android-versionCode="1" ios-CFBundleVersion="1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 <!--     <icon src="res/icon.jpg" width="57" height="57" /> -->
-    <name>Helloipad</name>
+    <name>Flaps</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
