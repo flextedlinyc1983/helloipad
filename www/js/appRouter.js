@@ -38,8 +38,8 @@ ava.router = Backbone.Router.extend({
         ]);
 
         var self = this;
-        var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
-            urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
+        var test = new ava.views.Table_getBrandStatistics_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
+            urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getBrandStatistics.jsp",columns:columns});
 
 
         var tableView = new ava.views.Table_getBrandStatistics_View({collection: test, columns: columns, className: "table",
@@ -69,8 +69,8 @@ ava.router = Backbone.Router.extend({
 
         var self = this;
         // codeNumber = 'RM012';
-        var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
-            urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
+        var test = new ava.views.Table_GetPosInfo_Collection([],{domainName:window.localStorage.getItem('ipAdress'),
+            urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getLastSell.jsp?code=" + codeNumber,columns:columns});
 
 
         var tableView = new ava.views.Table_GetPosInfo_View({collection: test, columns: columns, className: "table",
@@ -153,8 +153,8 @@ ava.router = Backbone.Router.extend({
 
         var self = this;
 
-        var test = new ava.views.Table_New_Customize_Collection([],{domainName:getIpFromDataConfig(setIpBySelf),
-            urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns,page:page});
+        var test = new ava.views.Table_New_Customize_Collection([],{domainName:window.localStorage.getItem('ipAdress'),
+            urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1",columns:columns,page:page});
 
         // var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "tablesaw tablesaw-swipe tablesaw-fix-persist",
         //     attributes : {"id":"RealtimeInfo_Today_Test-table", "data-tablesaw-mode":"swipe"}});
@@ -358,8 +358,8 @@ ava.router = Backbone.Router.extend({
             ]);
 
             var self = this;
-            var test = new ava.views.Table_portal_Collection([],{domainName: getIpFromDataConfig(setIpBySelf),
-                urlPath: getAppNameFromDataConfig(setAppNameBySelf) + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
+            var test = new ava.views.Table_portal_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
+                urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
 
 
             var tableView = new ava.views.Table_portal_View({collection: test, columns: columns, className: "table RealtimeInfo",

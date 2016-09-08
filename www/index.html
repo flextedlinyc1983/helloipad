@@ -388,7 +388,7 @@
     <div data-role="header" data-position='fixed' background="img/title-2.png">
         <h1><%= storeName %></h1>
         <!-- <a href="#" data-rel="dialog" id="loginIcon" class="ui-btn-right" >登入</a> -->
-        <a href=<%= href %> class="ui-btn-right" id="myModal"><%= status %></a>
+        <a href=<%= href %> class="ui-btn-right" id="myModal" <% if(register == "false") { %><%= ' style="display:none;"' %><%}%> ><%= status %></a>
         <!-- <a href="login.html" data-rel="dialog"  class="ui-btn-right" >登入</a> -->
     </div>
 
@@ -406,6 +406,8 @@
 
           <BUTTON style="background-color: #8495DB; width:35%;position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%);  
     transform: translate(-50%, -50%); "id="register" value="register"><%= registerText %></BUTTON>
+
+
 
         <% } %>
     </div>

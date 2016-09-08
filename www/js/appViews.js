@@ -1059,14 +1059,27 @@ ava.views.PortalView = ava.views.UtilityView.extend({
     status: "",
     href: "#myModal",
     storeName: "",
-    register : "false",
+
   },
 
   getRegister: function () {
     return "test";
   },
 
+  setRegisterStatus: function () {
+    var bRegisStat = window.localStorage.getItem('registerSuccess');
+    if( bRegisStat && bRegisStat == "true"){
+      this.loginStatus.register = "true";    
+    }else{
+      this.loginStatus.register = "false";    
+    }
+  },
+
   render:function (eventName) {
+
+
+
+    this.setRegisterStatus();
 
     this.setLoginStatus();
 
@@ -1076,9 +1089,16 @@ ava.views.PortalView = ava.views.UtilityView.extend({
     return this;
   },
 
+  setLanguage: function () {
+    this.loginStatus.sLang = window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "";
+  },
+
+
+
   events: {
      "click #myModal": "Logout", 
-     "click #register": "Register",     
+     "click #register": "Register",  
+ 
 
   },
   Register: function () {
@@ -1088,8 +1108,8 @@ ava.views.PortalView = ava.views.UtilityView.extend({
         $.i18n.prop('msg_PortalView_registerPromptMsg'),                  // message
         function (results) {
           if(results.buttonIndex  == 1){// confirm
-            alert(results.input1.trim());
-              self.getRegisterResult();
+            // alert(results.input1.trim());
+              self.getRegisterResult(results.input1.trim());
           }else{
             //cancel
             $('#register').show({duration:0});
@@ -1101,8 +1121,53 @@ ava.views.PortalView = ava.views.UtilityView.extend({
       );
   },
 
-  getRegisterResult: function () {
-      alert('test');
+  getRegisterResult: function (code) {
+    $('#register').show({duration:0});
+      var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkLogin.jsp';
+        $.ajax({
+            timeout: 10000,
+            url:url,
+            type:'POST',
+            // crossDomain: true,
+            // headers: { 'Access-Control-Allow-Origin': '*',
+            // 'Content-Type':'application/x-www-form-urlencoded' },
+            // dataType:"json",
+            data: code,
+            beforeSend: function (){
+               $.mobile.loading('show');
+            },
+            success:function (data, textStatus, jqXHR) {
+
+                
+                if (code == "123") {
+
+                    window.localStorage.setItem('ipAdress', "http://192.168.0.58:8080");
+                    window.localStorage.setItem('AppName', "/flaps2");
+                    window.localStorage.setItem('registerSuccess', "true");
+                    alert($.i18n.prop('msg_PortalView_registerSuccess'));
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+                    
+                }else{
+
+                    
+                    window.localStorage.setItem('ipAdress', "");
+                    window.localStorage.setItem('AppName', "");
+                    window.localStorage.setItem('registerSuccess', "false");
+                    alert($.i18n.prop('msg_PortalView_registerFail'));
+
+                }
+                
+
+
+
+            },
+            error: function(xhr, textStatus, errorThrown){
+               alert('request failed');
+            },
+            complete: function ( jqXHR, textStatus) {
+              $.mobile.loading('hide');
+            }
+        });
   },
 
   Logout:function (event) {
@@ -1115,11 +1180,16 @@ ava.views.PortalView = ava.views.UtilityView.extend({
         var code = window.localStorage.getItem('code');
         var pwd = window.localStorage.getItem('pwd');
         var sLang = window.localStorage.getItem('sLang');
+        var registerSuccess = window.localStorage.getItem('registerSuccess');
+        var ipAdress = window.localStorage.getItem('ipAdress');
+        var AppName = window.localStorage.getItem('AppName');
         localStorage.clear();
         window.localStorage.setItem('code', code);
         window.localStorage.setItem('pwd', pwd);
         window.localStorage.setItem('sLang', sLang);
-
+        window.localStorage.setItem('registerSuccess', registerSuccess);
+        window.localStorage.setItem('ipAdress', ipAdress);
+        window.localStorage.setItem('AppName', AppName);
         location.reload();
     }
 
@@ -1214,7 +1284,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
         $('.alert-error').hide(); // Hide any errors on a new submit
         // var url = '../api/login';
-        var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkLogin.jsp';
+        var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/checkLogin.jsp';
         // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
         console.log('Loggin in... ');
         var formValues = {
@@ -1228,7 +1298,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
         $.ajax({
             context: this,
-            timeout: 3000,
+            timeout: 10000,
             url:url,
             // type:'GET',
             type:'POST',
