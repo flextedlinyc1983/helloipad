@@ -21,6 +21,9 @@
         },
         "cordova-plugin-globalization": {
             "PACKAGE_NAME": "com.flaps.helloipad"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.flaps.helloipad"
         }
     },
     "dependent_plugins": {}
