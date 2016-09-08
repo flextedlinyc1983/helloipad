@@ -1190,6 +1190,7 @@ ava.views.PortalView = ava.views.UtilityView.extend({
         window.localStorage.setItem('registerSuccess', registerSuccess);
         window.localStorage.setItem('ipAdress', ipAdress);
         window.localStorage.setItem('AppName', AppName);
+        window.localStorage.setItem('loginSuccess', "");
         location.reload();
     }
 

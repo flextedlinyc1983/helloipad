@@ -505,7 +505,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-            	if(window.location.hash == "#RealtimeInfo_Today_Test"){
+            	if(window.location.hash == "#RealtimeInfo_Today_Test" && window.localStorage.getItem('loginSuccess') == "true" ){
 	                // you can pass additional options to the event you trigger here as well
 
 	                if($('#RealtimeInfo_Today_Test-table thead th').length == 0){
@@ -524,7 +524,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	if(window.location.hash == "#RealtimeInfo_Today_Test"){
+            	if(window.location.hash == "#RealtimeInfo_Today_Test" && window.localStorage.getItem('loginSuccess') == "true" ){
 
             		var selfCollection = self;
             	
@@ -626,6 +626,16 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 		}
 	},
 
+	getPathLocation : function () {
+        var pathSplit = window.location.hash.split('/');
+    	var pathSplitLength = pathSplit.length;
+    	var pathLocation = false;
+    	if(pathSplitLength-2 >= 0 && pathSplit[pathSplitLength-2] == "getPosInfo"){
+    		pathLocation = true;
+    	}
+    	return pathLocation	;
+	},
+
 	getResults: function () {
 
         var self = this;
@@ -649,47 +659,53 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-                // you can pass additional options to the event you trigger here as well
 
-                if($('#getPosInfo-table thead th').length == 0){
-                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+            	
+            	if(self.getPathLocation() && window.localStorage.getItem('loginSuccess') == "true" ){
+
+	                // you can pass additional options to the event you trigger here as well
+
+	                if($('#getPosInfo-table thead th').length == 0){
+	                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+	            	}
+
+	                self.trigger('successOnFetch');
+
+	                //set timeout
+	                // setTimeout(_.bind(self.getResults, self),60000);
+	                // _Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             	}
-
-                self.trigger('successOnFetch');
-
-                //set timeout
-                // setTimeout(_.bind(self.getResults, self),60000);
-                // _Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            // 	$('#getPosInfo-table').show({
-            // 		complete: function () {
-            // 			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
-	        			// $('#getPosInfo-table tbody').css('height',tableHeight.toString());
+            	if(self.getPathLocation() && window.localStorage.getItem('loginSuccess') == "true" ){
+		            // 	$('#getPosInfo-table').show({
+		            // 		complete: function () {
+		            // 			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
+			        			// $('#getPosInfo-table tbody').css('height',tableHeight.toString());
 
-            // 		}
-            // 	});
-            console.log('test');
-				$('#getPosInfo-table tbody').show({
-            		complete: function () {
-            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
-	        			$('#getPosInfo-table tbody').css('height',tableHeight.toString());
-	        			console.log('height: ' + $('#getPosInfo-table thead').height());
+		            // 		}
+		            // 	});
+		            console.log('test');
+					$('#getPosInfo-table tbody').show({
+	            		complete: function () {
+	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
+		        			$('#getPosInfo-table tbody').css('height',tableHeight.toString());
+		        			console.log('height: ' + $('#getPosInfo-table thead').height());
 
-            		}
-            	});
-
-
-	        	
-            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+	            		}
+	            	});
 
 
-                $.mobile.loading('hide');
-            
+		        	
+	            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+    
+            	}
+
+            	$.mobile.loading('hide');
             }
         });
     },
@@ -787,40 +803,43 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-                // you can pass additional options to the event you trigger here as well
+            	if(window.location.hash == "#getBrandStatistics" && window.localStorage.getItem('loginSuccess') == "true" ){
+	                // you can pass additional options to the event you trigger here as well
 
-                if($('#getBrandStatistics-table thead th').length == 0){
-                	self.options.columns.reset(self.getColumnsFromCollection(collection));
-            	}
+	                if($('#getBrandStatistics-table thead th').length == 0){
+	                	self.options.columns.reset(self.getColumnsFromCollection(collection));
+	            	}
 
-                self.trigger('successOnFetch');
+	                self.trigger('successOnFetch');
 
-                //set timeout
-                // setTimeout(_.bind(self.getResults, self),60000);
-                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	                //set timeout
+	                // setTimeout(_.bind(self.getResults, self),60000);
+	                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	            }
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            // 	$('#getBrandStatistics-table').show({
-            // 		complete: function () {
-            // 			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
-	        			// $('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
-            // 		}
-            // 	});
-            	$('#getBrandStatistics-table tbody').show({
-            		complete: function () {
-            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
-	        			$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
-            		}
-            	});
+            	if(window.location.hash == "#getBrandStatistics" && window.localStorage.getItem('loginSuccess') == "true" ){
+		            // 	$('#getBrandStatistics-table').show({
+		            // 		complete: function () {
+		            // 			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
+			        			// $('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
+		            // 		}
+		            // 	});
+	            	$('#getBrandStatistics-table tbody').show({
+	            		complete: function () {
+	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
+		        			$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
+	            		}
+	            	});
 
-            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+	            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
 
 
-
+				}
 
                 $.mobile.loading('hide');
             
@@ -961,7 +980,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 $.mobile.loading('show');                
             },
             success: function (collection, response, options) {
-            	if(window.location.hash == ""){
+            	if(window.location.hash == "" && window.localStorage.getItem('loginSuccess') == "true"){
 	                // you can pass additional options to the event you trigger here as well
 
 	             //    if($('#getBrandStatistics-table thead th').length == 0){
@@ -980,7 +999,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 self.trigger('errorOnFetch');
             },
             complete: function(xhr,status){
-            	if(window.location.hash == ""){
+            	if(window.location.hash == "" && window.localStorage.getItem('loginSuccess') == "true"){
 	            // 	$('#portal-table').show({
 	            // 		complete: function () {
 	            // 			//$("div[data-role=header]").outerHeight()  63px
@@ -1002,9 +1021,10 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
 
 
-	                $.mobile.loading('hide');
+	               
             	}
-            
+
+             	$.mobile.loading('hide');
             }
         });
     },
