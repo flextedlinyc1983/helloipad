@@ -1058,21 +1058,51 @@ ava.views.PortalView = ava.views.UtilityView.extend({
   loginStatus: {
     status: "",
     href: "#myModal",
-    storeName: ""
+    storeName: "",
+    register : "false",
+  },
+
+  getRegister: function () {
+    return "test";
   },
 
   render:function (eventName) {
 
     this.setLoginStatus();
 
-
+    this.loginStatus.registerText = $.i18n.prop('msg_PortalView_registerText');
     $(this.el).html(this.template(this.loginStatus));
 
     return this;
   },
 
   events: {
-     "click #myModal": "Logout",     
+     "click #myModal": "Logout", 
+     "click #register": "Register",     
+
+  },
+  Register: function () {
+    $('#register').hide();
+    var self = this;
+      navigator.notification.prompt(
+        $.i18n.prop('msg_PortalView_registerPromptMsg'),                  // message
+        function (results) {
+          if(results.buttonIndex  == 1){// confirm
+            alert(results.input1.trim());
+              self.getRegisterResult();
+          }else{
+            //cancel
+            $('#register').show({duration:0});
+          }
+        },
+        $.i18n.prop('msg_PortalView_registerPromptTitle'),                   // title
+        [$.i18n.prop('msg_PortalView_registerPromptConfirm'),$.i18n.prop('msg_PortalView_registerPromptCancel')],          // buttonName
+        '' 
+      );
+  },
+
+  getRegisterResult: function () {
+      alert('test');
   },
 
   Logout:function (event) {

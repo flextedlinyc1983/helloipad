@@ -372,7 +372,7 @@ ava.router = Backbone.Router.extend({
             this.pageCollection = test;
 
         }else{
-            this.putElementOnPageContent($.i18n.prop('msg_portal_notLoginYet'), "portal-content");  
+            // this.putElementOnPageContent($.i18n.prop('msg_portal_notLoginYet'), "portal-content");  
 
             this.pageCollection = null;
         }
