@@ -507,11 +507,13 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             reset: true,            
             beforeSend: function (){    
             	
+            	$.mobile.loading('show');   
+            	
             	if($('#RealtimeInfo_Today_Test-table tbody tr').length == 0){
             		$('#RealtimeInfo_Today_Test-table').hide({duration: 0});       
             	}
 
-                $.mobile.loading('show');                
+                            
             },
             success: function (collection, response, options) {
             	if(window.location.hash == "#RealtimeInfo_Today_Test" && window.localStorage.getItem('loginSuccess') == "true" ){
