@@ -1203,6 +1203,7 @@ ava.views.PortalView = ava.views.UtilityView.extend({
       this.loginStatus.href = "#Logout";    
       this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
     }else{
+      this.loginStatus.href = "#myModal";  
       this.loginStatus.status = $.i18n.prop('msg_portal_login');
       this.loginStatus.storeName = $.i18n.prop('msg_portal_hello');
     }

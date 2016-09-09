@@ -626,3 +626,104 @@ function getRightTableDisplayPath(view, urlHash) {
     
    
 }
+
+
+function relogin() {
+    var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/checkLogin.jsp';
+    var formValues = {
+      code: window.localStorage.getItem('code') || "",
+      pwd: window.localStorage.getItem('pwd') || "",
+      sLang: window.localStorage.getItem('sLang') || "",
+    };
+    $.ajax({
+        context: this,
+        timeout: 10000,
+        url:url,
+        // type:'GET',
+        type:'POST',
+        // crossDomain: true,
+        // headers: { 'Access-Control-Allow-Origin': '*',
+        // 'Content-Type':'application/x-www-form-urlencoded' },
+        // dataType:"json",
+        data: formValues,
+        beforeSend: function (){
+          // alert('beforesend');
+           // $.mobile.showPageLoadingMsg();
+           $.mobile.loading('show');
+        },
+        success:function (data, textStatus, jqXHR) {
+
+            
+            if (jqXHR.getResponseHeader('Content-Length') == "4319" || jqXHR.getResponseHeader('Content-Length') == "2827") {
+
+                window.localStorage.setItem('loginSuccess', false);
+
+                window.localStorage.setItem('code', "");
+                window.localStorage.setItem('pwd', "");
+
+                window.localStorage.setItem('storeName', "");
+
+                
+            }else if(jqXHR.getResponseHeader('Content-Length') == "4337"){
+
+                window.localStorage.setItem('loginSuccess', false);
+
+                window.localStorage.setItem('code', "");
+                window.localStorage.setItem('pwd', "");
+
+                window.localStorage.setItem('storeName', "");
+              
+                alert('此帳號無即時業績權限!');
+
+            }else{
+                //local language
+                loadBundles(formValues.sLang);
+                //local Language for css setting
+                document.documentElement.lang = window.localStorage.getItem('sLang');
+
+
+
+                window.localStorage.setItem('loginSuccess', true);
+
+                window.localStorage.setItem('code', formValues.code);
+                window.localStorage.setItem('pwd', formValues.pwd);
+                window.localStorage.setItem('sLang', formValues.sLang);                    
+
+                var wrapper= document.createElement('div');
+                wrapper.innerHTML= data;
+
+                var storeName = $(wrapper).find('div')[1] ? $(wrapper).find('div')[1].innerHTML : "???";
+
+                window.localStorage.setItem('storeName', storeName);
+
+                // this.loginGetData();
+            }
+            
+
+
+            console.log(["Login request details: ", data]);
+           
+            if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
+                // $('.alert-error').text(data.error.text).show();
+                // alert($.i18n.prop('msg_myModal_loginError'));
+                if(window.location.hash == ""){
+                    location.reload();  
+                }else{
+                    Backbone.history.navigate('', {trigger: true, replace: true});  
+                }
+                
+            }
+            else { // If not, send them back to the home page
+                location.reload();
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){
+           alert('request failed');
+        },
+        complete: function ( jqXHR, textStatus) {
+          $.mobile.loading('hide');
+        }
+    });
+    
+   
+}

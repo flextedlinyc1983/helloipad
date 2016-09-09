@@ -475,6 +475,14 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 	parse: function (data) {
 		// var oJson = xml2json(data);
 		try {
+
+			var str = $($(data).find('table tr')[0]).text().trim();
+			if( str == "系統登入" ){
+				window.localStorage.setItem('loginSuccess', false);
+				relogin();
+				return [];
+			}
+
 			var oJson = xml2json($.parseXML(data));
 			return oJson.Info.Pos;
 		}
@@ -517,6 +525,8 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	            }else{
+	            	$('table').hide();
 	            }
             },
             error: function (collection, response, options) {
@@ -600,29 +610,42 @@ ava.views.Column_New_Collection = Backbone.Collection.extend({
 
 ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
-	
-		if($(data).find('table thead td').length != 0){
-			var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
-	    				var $td =  $('td', this);
+		try {
 
-	    				var time = $td.eq(0).text().replace(/\s/g, '');
-	    				var customer = $td.eq(1).text().replace(/\s/g, '');
-	    				var dollar = $td.eq(2).text().replace(/\s/g, '');
-	    				var count = $td.eq(3).text().replace(/\s/g, '');
+			var str = $($(data).find('table tr')[0]).text().trim();
+			if( str == "系統登入" ){
+				window.localStorage.setItem('loginSuccess', false);
+				relogin();
+				return [];
+			}
+		
+			if($(data).find('table thead td').length != 0){
+				var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
+		    				var $td =  $('td', this);
 
-	    				if( i > 0 && (time != "" || customer != "" || dollar != "" || count != "") ) {
-	        				return {
-	                 			id: i,
-	                 			time: time,
-	                 			customer: customer,
-	                 			dollar: dollar,
-	                 			count: count,
-	               			}
-	               		}
-					  }).get();
-			return tbl;
-		}else{			
-			return [];
+		    				var time = $td.eq(0).text().replace(/\s/g, '');
+		    				var customer = $td.eq(1).text().replace(/\s/g, '');
+		    				var dollar = $td.eq(2).text().replace(/\s/g, '');
+		    				var count = $td.eq(3).text().replace(/\s/g, '');
+
+		    				if( i > 0 && (time != "" || customer != "" || dollar != "" || count != "") ) {
+		        				return {
+		                 			id: i,
+		                 			time: time,
+		                 			customer: customer,
+		                 			dollar: dollar,
+		                 			count: count,
+		               			}
+		               		}
+						  }).get();
+				return tbl;
+			}else{			
+				return [];
+			}
+
+		}
+		catch(err) {
+    		console.log(err);
 		}
 	},
 
@@ -674,7 +697,9 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                // _Timeout = new Timeout(_.bind(self.getResults, self), 15000);
-            	}
+            	}else{
+	            	$('table').hide();
+	            }
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
@@ -769,6 +794,14 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 	parse: function (data) {
 		
 		try {
+
+			var str = $($(data).find('table tr')[0]).text().trim();
+			if( str == "系統登入" ){
+				window.localStorage.setItem('loginSuccess', false);
+				relogin();
+				return [];
+			}
+
 			// var oJson = xml2json(data);
 			var oJson = xml2json($.parseXML(data));
 			return oJson.Info.Pos;
@@ -815,6 +848,8 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
+	            }else{
+	            	$('table').hide();
 	            }
             },
             error: function (collection, response, options) {
@@ -899,6 +934,13 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
 
 		try {
+
+			var str = $($(data).find('table tr')[0]).text().trim();
+			if( str == "系統登入" ){
+				window.localStorage.setItem('loginSuccess', false);
+				relogin();
+				return [];
+			}
 
 			if( $(data).find('table tr:has(td)').length > 0 ){
 
@@ -992,7 +1034,9 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                portal_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
-            	}
+            	}else{
+	            	$('table').hide();
+	            }
             },
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well

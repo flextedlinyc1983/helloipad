@@ -24,6 +24,12 @@ ava.router = Backbone.Router.extend({
 
 
     getBrandStatistics : function () {
+
+        if(window.localStorage.getItem('loginSuccess') == "false"){
+            Backbone.history.navigate('', {trigger: true, replace: true});  
+            return true;
+        }
+
         console.log('#getBrandStatistics');
         var page = new ava.views.PageView({attributes : {"id" : "getBrandStatistics"}});
         this.changePageForMobile(page);
@@ -54,6 +60,13 @@ ava.router = Backbone.Router.extend({
 
 
     getPosInfo : function (codeNumber) {
+
+
+        if(window.localStorage.getItem('loginSuccess') == "false"){
+            Backbone.history.navigate('', {trigger: true, replace: true});  
+            return true;
+        }
+
         console.log('#getPosInfo');
         var page = new ava.views.PageView({attributes : {"id" : "getPosInfo"}});
         this.changePageForMobile(page);
@@ -111,6 +124,11 @@ ava.router = Backbone.Router.extend({
 
     },
     RealtimeInfo_Today_Test:function (e) {
+
+        if(window.localStorage.getItem('loginSuccess') == "false"){
+            window.history.go(-1);
+            return true;
+        }
 
         console.log('#RealtimeInfo_Today_Test');
         var page = new ava.views.PageView({attributes : {"id" : "RealtimeInfo_Today_Test"}});
