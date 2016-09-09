@@ -526,7 +526,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
 	            }else{
-	            	$('table').hide();
+	            	//$('table').hide();
 	            }
             },
             error: function (collection, response, options) {
@@ -698,7 +698,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                // _Timeout = new Timeout(_.bind(self.getResults, self), 15000);
             	}else{
-	            	$('table').hide();
+	            	//$('table').hide();
 	            }
             },
             error: function (collection, response, options) {
@@ -849,7 +849,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 	                // setTimeout(_.bind(self.getResults, self),60000);
 	                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 15000);
 	            }else{
-	            	$('table').hide();
+	            	//$('table').hide();
 	            }
             },
             error: function (collection, response, options) {

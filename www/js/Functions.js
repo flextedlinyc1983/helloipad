@@ -723,7 +723,13 @@ function relogin() {
             }
             else { // If not, send them back to the home page
 
-                if(window.location.hash == ""){
+                // if(window.location.hash == ""){
+
+
+                // }else{
+                //     location.reload();
+                // }
+
                     try{
                         // location.reload();
                         if(appRouter.getPageCollection() != null){
@@ -733,10 +739,6 @@ function relogin() {
                     }catch(err) {
                         console.log(err);
                     }
-
-                }else{
-                    location.reload();
-                }
             }
         },
         error: function(xhr, textStatus, errorThrown){           
