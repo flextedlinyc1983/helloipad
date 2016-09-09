@@ -652,7 +652,8 @@ function relogin() {
            $.mobile.loading('show');
         },
         success:function (data, textStatus, jqXHR) {
-
+            
+            var strCheckLogin = $($(data).find('table tr')[0]).text().trim();
             
             if (jqXHR.getResponseHeader('Content-Length') == "4319" || jqXHR.getResponseHeader('Content-Length') == "2827") {
 
@@ -675,6 +676,13 @@ function relogin() {
               
                 alert('此帳號無即時業績權限!');
 
+            }else if(strCheckLogin == "系統登入"){
+                window.localStorage.setItem('loginSuccess', false);
+
+                window.localStorage.setItem('code', "");
+                window.localStorage.setItem('pwd', "");
+
+                window.localStorage.setItem('storeName', "");  
             }else{
                 //local language
                 loadBundles(formValues.sLang);
@@ -731,8 +739,8 @@ function relogin() {
                 }
             }
         },
-        error: function(xhr, textStatus, errorThrown){
-           alert('request failed');
+        error: function(xhr, textStatus, errorThrown){           
+           alert($.i18n.prop('msg_myModal_loginError'));
         },
         complete: function ( jqXHR, textStatus) {
           $.mobile.loading('hide');

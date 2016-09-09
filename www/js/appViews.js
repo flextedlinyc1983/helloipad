@@ -1123,7 +1123,8 @@ ava.views.PortalView = ava.views.UtilityView.extend({
 
   getRegisterResult: function (code) {
     $('#register').show({duration:0});
-      var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkLogin.jsp';
+      // var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkLogin.jsp';
+      var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkSubscription.jsp';
         $.ajax({
             timeout: 10000,
             url:url,
@@ -1132,17 +1133,22 @@ ava.views.PortalView = ava.views.UtilityView.extend({
             // headers: { 'Access-Control-Allow-Origin': '*',
             // 'Content-Type':'application/x-www-form-urlencoded' },
             // dataType:"json",
-            data: code,
+            data: {SubscriptId:code},
             beforeSend: function (){
                $.mobile.loading('show');
             },
             success:function (data, textStatus, jqXHR) {
 
                 
-                if (code == "123") {
 
-                    window.localStorage.setItem('ipAdress', "http://192.168.0.58:8080");
-                    window.localStorage.setItem('AppName', "/flaps2");
+
+                if (jqXHR.status == 200) {
+                    var str = (data.match(/{([^}]+)}/)[0]);
+                    str = str.replace(/'/g,"\"");
+                    str = JSON.parse(str);
+
+                    window.localStorage.setItem('ipAdress', "http://" + str.ip );
+                    window.localStorage.setItem('AppName', "/" + str.APN );
                     window.localStorage.setItem('registerSuccess', "true");
                     alert($.i18n.prop('msg_PortalView_registerSuccess'));
                     Backbone.history.loadUrl(Backbone.history.fragment);
@@ -1162,7 +1168,9 @@ ava.views.PortalView = ava.views.UtilityView.extend({
 
             },
             error: function(xhr, textStatus, errorThrown){
-               alert('request failed');
+              if(xhr.status == "403"){
+                alert($.i18n.prop('msg_registrationCode_error'));
+              }
             },
             complete: function ( jqXHR, textStatus) {
               $.mobile.loading('hide');
@@ -1315,7 +1323,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                $.mobile.loading('show');
             },
             success:function (data, textStatus, jqXHR) {
-
+                
+                var strCheckLogin = $($(data).find('table tr')[0]).text().trim();
                 
                 if (jqXHR.getResponseHeader('Content-Length') == "4319" || jqXHR.getResponseHeader('Content-Length') == "2827") {
 
@@ -1338,6 +1347,13 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                   
                     alert('此帳號無即時業績權限!');
 
+                }else if(strCheckLogin == "系統登入"){
+                    window.localStorage.setItem('loginSuccess', false);
+
+                    window.localStorage.setItem('code', "");
+                    window.localStorage.setItem('pwd', "");
+
+                    window.localStorage.setItem('storeName', "");  
                 }else{
                     //local language
                     loadBundles(formValues.sLang);
@@ -1375,7 +1391,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                 }
             },
             error: function(xhr, textStatus, errorThrown){
-               alert('request failed');
+               alert($.i18n.prop('msg_myModal_loginError'));
+
             },
             complete: function ( jqXHR, textStatus) {
               $.mobile.loading('hide');
