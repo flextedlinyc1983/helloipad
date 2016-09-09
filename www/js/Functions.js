@@ -714,7 +714,21 @@ function relogin() {
                 
             }
             else { // If not, send them back to the home page
-                location.reload();
+
+                if(window.location.hash == ""){
+                    try{
+                        // location.reload();
+                        if(appRouter.getPageCollection() != null){
+                            appRouter.getPageCollection().getResults();
+                        }
+                        // alert("resume");
+                    }catch(err) {
+                        console.log(err);
+                    }
+
+                }else{
+                    location.reload();
+                }
             }
         },
         error: function(xhr, textStatus, errorThrown){
