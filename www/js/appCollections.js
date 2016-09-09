@@ -508,7 +508,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             beforeSend: function (){    
             	
             	if($('#RealtimeInfo_Today_Test-table tbody tr').length == 0){
-            		$('#RealtimeInfo_Today_Test-table').hide();       
+            		$('#RealtimeInfo_Today_Test-table').hide({duration: 0});       
             	}
 
                 $.mobile.loading('show');                
