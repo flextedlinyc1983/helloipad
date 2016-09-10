@@ -620,7 +620,7 @@ ava.router = Backbone.Router.extend({
     //login here
     myModal:function () {
         console.log('#myModal');
-        var loginView = new ava.views.ModalView({model: new ava.models.LoginModel()});
+        var loginView = new ava.views.ModalView({model: new ava.models.LoginModel(), className: "landscapeModal"});
         // Backbone.Validation.bind(loginView);
         this.changePageForMobile(loginView);
         // loginView.delegateEvents();

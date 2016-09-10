@@ -448,7 +448,7 @@
     </div>
 
     <div data-role="footer"  data-position="fixed" data-tap-toggle="false">
-        <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+        <a href="#" data-icon="back" class="back ui-btn-left"><%= back_text%></a>
         <!-- <h1>本日業績明細 PageView</h1> -->
         <h1 id="footer_h1" >Flaps Technology Corporation</h1>
     </div>
@@ -485,7 +485,7 @@
     <div class="modal fade in" role="dialog">
         <div class="modal-dialog">
             <div data-role="header">
-                <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+                <a href="#" data-icon="back" class="back ui-btn-left"><%= back_text %></a>
                 <h1><%= login %></h1>
             </div>
             <div data-role="content">
@@ -507,16 +507,19 @@
                         <label for="sLang"><%= labelslang %></label>
                         <select name="sLang" style="" id="sLang">
                         <option value="zh_TW" <%= sLang == 'zh_TW' ?  'selected' : '' %> >
-                        中文(繁體)
+                        <!-- 中文(繁體) -->
+                        <%= sel_zh_TW %>
                         </option>   
 
 
                         <option value="en_SG" <%= sLang == 'en_SG' ?  'selected' : '' %>  >
-                        English(Singapore)
+                        <!-- English(Singapore) -->
+                        <%= sel_en_SG %>
                         </option>
 
                         <option value="zh_CN" <%= sLang == 'zh_CN' ?  'selected' : '' %>  >
-                        中文(簡體)
+                        <!-- 中文(簡體) -->
+                        <%= sel_zh_CN %>
                         </option>
                               
                         </select>

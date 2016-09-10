@@ -232,6 +232,13 @@ padding-top: 10px;
 	}
  }
 
+ @media only screen and ( max-device-width: 568px ) and (orientation:landscape) {
+	.landscapeModal .ui-content {
+		height:230px;overflow-x:hidden;overflow-y:auto;	
+	}
+ 	
+ }
+
   @media only screen and ( max-device-width: 480px ) {
 
 	 .RealtimeInfo {
@@ -365,6 +372,29 @@ padding-top: 10px;
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
 
+	#portal-table tbody td {
+	    height: 45px;
+	    vertical-align: middle;
+	}
+
+	#getPosInfo-table tbody td {
+    	height: 45px;
+    	vertical-align: middle;
+    	font-size: 18px;
+	}
+
+	#getBrandStatistics-table tbody td {
+    	height: 45px;
+    	vertical-align: middle;
+    	font-size: 18px;
+	}
+
+	#RealtimeInfo_Today_Test-table tbody td{
+    	height: 45px;
+    	vertical-align: middle;
+    	font-size: 18px;
+	}
+
 	.table thead th {
 		padding-top: 20px;
 		padding-bottom: 20px;
@@ -426,6 +456,7 @@ padding-top: 10px;
 
  table thead {
   // white-space: nowrap;
+  width: 99.9%;
 }
  table td {
   // white-space: nowrap;
@@ -482,4 +513,6 @@ table, td, th {
 .table {
     margin-bottom: 0px;
     border-bottom: none;
+    border-left: none;
+    border-right: none;
 }

@@ -1029,7 +1029,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
 
     // $(this.el).html(this.template(this.loginStatus));
-    this.$el.html(this.template());
+    this.$el.html(this.template({back_text: $.i18n.prop('msg_back_text')}));
 
     return this;
   },
@@ -1252,7 +1252,11 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         // $(this.el).html(this.template());
         this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang:  window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "",
       labelcode: $.i18n.prop('msg_myModal_labelcode'),labelpwd: $.i18n.prop('msg_myModal_labelpwd'),labelslang: $.i18n.prop('msg_myModal_labelslang'),
-      login: $.i18n.prop('msg_myModal_login'),submit: $.i18n.prop('msg_myModal_submit')}));
+      login: $.i18n.prop('msg_myModal_login'),submit: $.i18n.prop('msg_myModal_submit')
+        ,sel_zh_TW: $.i18n.prop('msg_myModal_sel_zh_TW')
+        ,sel_en_SG: $.i18n.prop('msg_myModal_sel_en_SG')
+        ,sel_zh_CN: $.i18n.prop('msg_myModal_sel_zh_CN')
+        ,back_text: $.i18n.prop('msg_back_text')}));
         return this;
     },
 

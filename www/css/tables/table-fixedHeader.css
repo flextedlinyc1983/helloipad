@@ -9,7 +9,7 @@ tbody {
 }
 thead, tbody tr {
     display:table;
-    width:100%;
+    width:99.9%;
     table-layout:fixed;
 }
 thead {
@@ -22,7 +22,7 @@ thead {
 #RealtimeInfo_Today_Test-table {
 	margin-bottom: 0px;
 
-	border-collapse: inherit;	
+	// border-collapse: inherit;	
 }
 
 #RealtimeInfo_Today_Test-table thead th{

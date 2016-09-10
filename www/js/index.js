@@ -32,6 +32,7 @@ var app = {
         // alert("test bindEvents");
         console.log(document);
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        window.addEventListener('orientationchange', this.orientationChange);
     },
     // deviceready Event Handler
     //
@@ -50,7 +51,36 @@ var app = {
 
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
+        
     },
+
+    orientationChange:function (e) {
+        // var currentOrientation = "";
+
+        // if (window.orientation == 0) {
+        //     currentOrientation = "portrait";
+        // } else if (window.orientation == 90) {
+        //     currentOrientation = "landscape";
+        // } else if (window.orientation == -90) {
+        //     currentOrientation = "landscape";
+        // } else if (window.orientation == 180) {
+        //     currentOrientation = "portrait";
+        // }
+        // alert(currentOrientation);
+
+ 
+        appRouter.clearTimeoutForPause();
+        try{
+            // location.reload();
+            if(appRouter.getPageCollection() != null){
+                appRouter.getPageCollection().getResults();
+            }
+            // alert("resume");
+        }catch(err) {
+            console.log(err);
+        }
+    },
+
     onPause: function () {
         appRouter.clearTimeoutForPause();
         // alert("pause");
