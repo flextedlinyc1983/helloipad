@@ -21,6 +21,9 @@
         },
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.flaps.helloipad"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.flaps.helloipad"
         }
     },
     "dependent_plugins": {}

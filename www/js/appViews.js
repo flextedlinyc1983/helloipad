@@ -924,7 +924,8 @@ ava.views.ColumnItemView = Backbone.View.extend({
                 Backbone.history.navigate('getBrandStatistics', true);     
                 break;
               default:
-                  alert('no match');
+                  // alert('no match');
+                  console.log('ColumnItemView');
           }
 
 
@@ -2281,7 +2282,8 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
               case 6:
                   day = "Saturday";
               default:
-                  alert('no match');
+                  // alert('no match');
+                  console.log('TableRow_portal_View')
           }
 
         }
