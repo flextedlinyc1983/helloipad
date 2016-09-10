@@ -1170,6 +1170,10 @@ ava.views.PortalView = ava.views.UtilityView.extend({
             error: function(xhr, textStatus, errorThrown){
               if(xhr.status == "403"){
                 alert($.i18n.prop('msg_registrationCode_error'));
+              }else if(xhr.status =="0"){
+                alert($.i18n.prop('msg_networkError'));
+              }else if(xhr.status =="404"){
+                alert($.i18n.prop('msg_serverError'));
               }
             },
             complete: function ( jqXHR, textStatus) {
@@ -1391,7 +1395,13 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                 }
             },
             error: function(xhr, textStatus, errorThrown){
-               alert($.i18n.prop('msg_myModal_loginError'));
+              if(xhr.readyState == 0){
+                  alert($.i18n.prop('msg_networkError'));
+              }else if(xhr.readyState == 4){
+                  alert($.i18n.prop('msg_serverError'));
+              }else{
+                  alert($.i18n.prop('msg_myModal_loginError'));
+              }
 
             },
             complete: function ( jqXHR, textStatus) {

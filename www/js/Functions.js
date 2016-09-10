@@ -741,8 +741,14 @@ function relogin() {
                     }
             }
         },
-        error: function(xhr, textStatus, errorThrown){           
-           alert($.i18n.prop('msg_myModal_loginError'));
+        error: function(xhr, textStatus, errorThrown){  
+          
+          if(xhr.readyState == 0){
+              alert($.i18n.prop('msg_networkError'));
+          }else{
+              alert($.i18n.prop('msg_myModal_loginError'));
+          }         
+   
         },
         complete: function ( jqXHR, textStatus) {
           $.mobile.loading('hide');

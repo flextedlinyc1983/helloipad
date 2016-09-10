@@ -535,6 +535,12 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
+
+                if(response.readyState == 0){
+                 	alert($.i18n.prop('msg_networkError'));
+              	}else if(response.readyState == 4){
+              		alert($.i18n.prop('msg_serverError'));
+              	}
             },
             complete: function(xhr,status){
             	if(window.location.hash == "#RealtimeInfo_Today_Test" && window.localStorage.getItem('loginSuccess') == "true" ){
@@ -707,6 +713,12 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
+
+                if(response.readyState == 0){
+                    alert($.i18n.prop('msg_networkError'));
+              	}else if(response.readyState == 4){
+              		alert($.i18n.prop('msg_serverError'));
+              	}
             },
             complete: function(xhr,status){
             	if(self.getPathLocation() && window.localStorage.getItem('loginSuccess') == "true" ){
@@ -858,6 +870,12 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
+
+                if(response.readyState == 0){
+                  	alert($.i18n.prop('msg_networkError'));
+              	}else if(response.readyState == 4){
+              		alert($.i18n.prop('msg_serverError'));
+              	}
             },
             complete: function(xhr,status){
             	if(window.location.hash == "#getBrandStatistics" && window.localStorage.getItem('loginSuccess') == "true" ){
@@ -1044,6 +1062,12 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
             error: function (collection, response, options) {
                 // you can pass additional options to the event you trigger here as well
                 self.trigger('errorOnFetch');
+
+                if(response.readyState == 0){
+                    alert($.i18n.prop('msg_networkError'));
+              	}else if(response.readyState == 4){
+              		alert($.i18n.prop('msg_serverError'));
+              	}
             },
             complete: function(xhr,status){
             	if(window.location.hash == "" && window.localStorage.getItem('loginSuccess') == "true"){
