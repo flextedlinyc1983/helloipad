@@ -32,8 +32,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <!-- <preference name="Orientation" value="landscape" /> -->
-        <preference name="StatusBarOverlaysWebView" value="false" />
-        <preference name="StatusBarBackgroundColor" value="#000000" />
+        <preference name="StatusBarOverlaysWebView" value="true" />
+        <preference name="StatusBarBackgroundColor" value="#A7A7A7" />
+        <preference name="StatusBarStyle" value="default" />
         <preference name="Orientation" value="all" />
 
 
@@ -85,4 +86,5 @@
 
     <preference name="SplashScreenDelay" value="3500" />
     <preference name="FadeSplashScreen" value="false"/>
+    <preference name="ShowSplashScreenSpinner" value="false" />
 </widget>

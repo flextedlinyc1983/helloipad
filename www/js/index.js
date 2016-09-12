@@ -41,8 +41,8 @@ var app = {
     onDeviceReady: function() {
         // alert("test");
         // app.receivedEvent('deviceready');
-        alert(device.cordova);
-        alert(device.uuid);
+        //// alert(device.cordova);
+        //// alert(device.uuid);
 
         // navigator.globalization.getPreferredLanguage(function(language){
         //   alert(language.value);

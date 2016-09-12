@@ -1,4 +1,4 @@
-alert('data-config');
+// alert('data-config');
 setIpBySelf = "58";
 
 getIpFromDataConfig = function (data) {

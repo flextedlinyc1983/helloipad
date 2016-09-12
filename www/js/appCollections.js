@@ -503,6 +503,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             // data: {api_key: 'secretkey'}, 
             type: 'POST',
             dataType : "text",
+            timeout:10000,
             add:true,
             reset: true,            
             beforeSend: function (){    
@@ -676,6 +677,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
             // data: {api_key: 'secretkey'}, 
             type: 'GET',
             dataType : "HTML",
+            timeout:10000,
             add:true,
             reset: true,            
             beforeSend: function (){    
@@ -836,6 +838,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
             // data: {api_key: 'secretkey'}, 
             type: 'GET',
             dataType : "HTML",
+            timeout:10000,
             add:true,
             reset: true,            
             beforeSend: function (){    
@@ -1028,6 +1031,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
             // data: {api_key: 'secretkey'}, 
             type: 'GET',
             dataType : "HTML",
+            timeout:10000,
             add:true,
             reset: true,            
             beforeSend: function (){    
