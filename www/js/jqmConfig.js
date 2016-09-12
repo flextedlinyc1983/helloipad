@@ -6,7 +6,8 @@ $(document).on('mobileinit', function() {
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;
     $.mobile.pushStateEnabled = false;
-    $.mobile.defaultPageTransition = "fade";
+    $.mobile.defaultPageTransition = "none";
+    // $.mobile.defaultPageTransition = "fade";
     // $.mobile.defaultPageTransition = "slide";
     // $.mobile.autoInitializePage = false;
 if(screen.availWidth >= 600){

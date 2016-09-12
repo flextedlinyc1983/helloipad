@@ -733,6 +733,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 		            // 	});
 		            console.log('test');
 					$('#getPosInfo-table tbody').show({
+						duration: 10,
 	            		complete: function () {
 	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
 		        			$('#getPosInfo-table tbody').css('height',tableHeight.toString());
@@ -889,6 +890,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 		            // 		}
 		            // 	});
 	            	$('#getBrandStatistics-table tbody').show({
+	            		duration: 10,
 	            		complete: function () {
 	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
 		        			$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
@@ -1084,6 +1086,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 	            // 		}
 	            // 	});
 	            	$('#portal-table tbody').show({
+	            		duration: 10,
 	            		complete: function () {
 	            			//$("div[data-role=header]").outerHeight()  63px
 	            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
