@@ -539,10 +539,10 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
                 if(response.readyState == 0){
                  	// alert($.i18n.prop('msg_networkError'));
-                 	navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                 	navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}else if(response.readyState == 4){
               		// alert($.i18n.prop('msg_serverError'));
-              		navigator.notification.alert($.i18n.prop('msg_serverError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              		navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}
             },
             complete: function(xhr,status){
@@ -720,10 +720,10 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
                 if(response.readyState == 0){
                     // alert($.i18n.prop('msg_networkError'));
-                    navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                    navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}else if(response.readyState == 4){
               		// alert($.i18n.prop('msg_serverError'));
-              		navigator.notification.alert($.i18n.prop('msg_serverError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              		navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}
             },
             complete: function(xhr,status){
@@ -881,10 +881,10 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 
                 if(response.readyState == 0){
                   	// alert($.i18n.prop('msg_networkError'));
-                  	navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                  	navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}else if(response.readyState == 4){
               		// alert($.i18n.prop('msg_serverError'));
-              		navigator.notification.alert($.i18n.prop('msg_serverError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              		navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}
             },
             complete: function(xhr,status){
@@ -1077,10 +1077,10 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
                 if(response.readyState == 0){
                     // alert($.i18n.prop('msg_networkError'));
-                    navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                    navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}else if(response.readyState == 4){
               		// alert($.i18n.prop('msg_serverError'));
-              		navigator.notification.alert($.i18n.prop('msg_serverError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              		navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               	}
             },
             complete: function(xhr,status){
