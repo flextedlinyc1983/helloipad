@@ -1151,7 +1151,8 @@ ava.views.PortalView = ava.views.UtilityView.extend({
                     window.localStorage.setItem('ipAdress', "http://" + str.ip );
                     window.localStorage.setItem('AppName', "/" + str.APN );
                     window.localStorage.setItem('registerSuccess', "true");
-                    alert($.i18n.prop('msg_PortalView_registerSuccess'));
+                    // alert($.i18n.prop('msg_PortalView_registerSuccess'));
+                    navigator.notification.alert($.i18n.prop('msg_PortalView_registerSuccess'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
                     Backbone.history.loadUrl(Backbone.history.fragment);
                     
                 }else{
@@ -1160,7 +1161,8 @@ ava.views.PortalView = ava.views.UtilityView.extend({
                     window.localStorage.setItem('ipAdress', "");
                     window.localStorage.setItem('AppName', "");
                     window.localStorage.setItem('registerSuccess', "false");
-                    alert($.i18n.prop('msg_PortalView_registerFail'));
+                    // alert($.i18n.prop('msg_PortalView_registerFail'));
+                    navigator.notification.alert($.i18n.prop('msg_PortalView_registerFail'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
 
                 }
                 
@@ -1170,11 +1172,14 @@ ava.views.PortalView = ava.views.UtilityView.extend({
             },
             error: function(xhr, textStatus, errorThrown){
               if(xhr.status == "403"){
-                alert($.i18n.prop('msg_registrationCode_error'));
+                // alert($.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_registrationCode_error'));
+                navigator.notification.alert($.i18n.prop('msg_registrationCode_error'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               }else if(xhr.status =="0"){
-                alert($.i18n.prop('msg_networkError'));
+                // alert($.i18n.prop('msg_networkError'));
+                navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               }else if(xhr.status =="404"){
-                alert($.i18n.prop('msg_serverError'));
+                // alert($.i18n.prop('msg_serverError'));
+                navigator.notification.alert($.i18n.prop('msg_serverError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               }
             },
             complete: function ( jqXHR, textStatus) {
@@ -1393,7 +1398,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                
                 if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
                     // $('.alert-error').text(data.error.text).show();
-                    alert($.i18n.prop('msg_myModal_loginError'));
+                    // alert($.i18n.prop('msg_myModal_loginError'));
+                    navigator.notification.alert($.i18n.prop('msg_myModal_loginError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
                 }
                 else { // If not, send them back to the home page
                     window.location.replace('#');
@@ -1401,11 +1407,14 @@ ava.views.ModalView = ava.views.UtilityView.extend({
             },
             error: function(xhr, textStatus, errorThrown){
               if(xhr.readyState == 0){
-                  alert($.i18n.prop('msg_networkError'));
+                  // alert($.i18n.prop('msg_networkError'));
+                  navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               }else if(xhr.readyState == 4){
-                  alert($.i18n.prop('msg_serverError'));
+                  // alert($.i18n.prop('msg_serverError'));
+                  navigator.notification.alert($.i18n.prop('msg_serverError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               }else{
-                  alert($.i18n.prop('msg_myModal_loginError'));
+                  // alert($.i18n.prop('msg_myModal_loginError'));
+                  navigator.notification.alert($.i18n.prop('msg_myModal_loginError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
               }
 
             },

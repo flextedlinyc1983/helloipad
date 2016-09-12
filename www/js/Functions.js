@@ -744,9 +744,11 @@ function relogin() {
         error: function(xhr, textStatus, errorThrown){  
           
           if(xhr.readyState == 0){
-              alert($.i18n.prop('msg_networkError'));
+              // alert($.i18n.prop('msg_networkError'));
+              navigator.notification.alert($.i18n.prop('msg_networkError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
           }else{
-              alert($.i18n.prop('msg_myModal_loginError'));
+              // alert($.i18n.prop('msg_myModal_loginError'));
+              navigator.notification.alert($.i18n.prop('msg_myModal_loginError'), '', $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
           }         
    
         },
