@@ -516,3 +516,8 @@ table, td, th {
     border-left: none;
     border-right: none;
 }
+
+
+#RealtimeInfo_Today_Test [data-role=content] {
+	width: 100%;
+}
