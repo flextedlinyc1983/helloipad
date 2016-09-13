@@ -84,7 +84,7 @@
 
     </platform>
 
-    <preference name="SplashScreenDelay" value="3500" />
+    <preference name="SplashScreenDelay" value="2000" />
     <preference name="FadeSplashScreen" value="false"/>
     <preference name="ShowSplashScreenSpinner" value="false" />
 </widget>
