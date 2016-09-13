@@ -27,6 +27,8 @@
 
         <splash src="www/res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
         <name>Flaps測試</name>
+
+        <preference name="SplashScreenDelay" value="2000" />
     </platform>
     <platform name="ios">
         <name>Flaps</name>
@@ -83,9 +85,10 @@
           <splash src="www/res/screen/ios/Default-736h.png" width="1242" height="2208"/>
           <splash src="www/res/screen/ios/Default-Landscape-736h.png" width="2208" height="1242"/>
 
+          <preference name="SplashScreenDelay" value="1000" />
     </platform>
 
-    <preference name="SplashScreenDelay" value="2000" />
+
     <preference name="FadeSplashScreen" value="false"/>
     <preference name="ShowSplashScreenSpinner" value="false" />
 </widget>
