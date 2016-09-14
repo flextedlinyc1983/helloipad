@@ -26,7 +26,7 @@ ava.router = Backbone.Router.extend({
     getBrandStatistics : function () {
 
         if(window.localStorage.getItem('loginSuccess') == "false"){
-            Backbone.history.navigate('', {trigger: true, replace: true});  
+            Backbone.history.navigate('', {trigger: true, replace: true});
             return true;
         }
 
@@ -40,7 +40,7 @@ ava.router = Backbone.Router.extend({
             {'column':$.i18n.prop('msg_getBrandStatistics_brandName')},
             {'column':$.i18n.prop('msg_getBrandStatistics_volumeToday')},
             {'column':$.i18n.prop('msg_getBrandStatistics_volumeAccuMonth')},
-            
+
         ]);
 
         var self = this;
@@ -50,7 +50,7 @@ ava.router = Backbone.Router.extend({
 
         var tableView = new ava.views.Table_getBrandStatistics_View({collection: test, columns: columns, className: "table",
         attributes : {"id":"getBrandStatistics-table"}});
-        this.putElementOnPageContent(tableView.render().$el, "getBrandStatistics", true);  
+        this.putElementOnPageContent(tableView.render().$el, "getBrandStatistics", true);
 
 
         test.getResults();
@@ -63,7 +63,7 @@ ava.router = Backbone.Router.extend({
 
 
         if(window.localStorage.getItem('loginSuccess') == "false"){
-            Backbone.history.navigate('', {trigger: true, replace: true});  
+            Backbone.history.navigate('', {trigger: true, replace: true});
             return true;
         }
 
@@ -88,7 +88,7 @@ ava.router = Backbone.Router.extend({
 
         var tableView = new ava.views.Table_GetPosInfo_View({collection: test, columns: columns, className: "table",
         attributes : {"id":"getPosInfo-table"}});
-        this.putElementOnPageContent(tableView.render().$el, "getPosInfo", true);  
+        this.putElementOnPageContent(tableView.render().$el, "getPosInfo", true);
 
 
         test.getResults();
@@ -114,7 +114,7 @@ ava.router = Backbone.Router.extend({
 
     login: function () {
         alert("test");
-        
+
         var loginModel = new ava.models.LoginModel();
         var loginView = new ava.views.LoginView( {model:loginModel});
         loginView.render().showModal({
@@ -137,7 +137,7 @@ ava.router = Backbone.Router.extend({
             page.setNowpage(pagesData['portal'].group);
             delete pagesData['portal'];
         }
-        
+
         this.changePageForMobile(page);
 
 
@@ -178,7 +178,7 @@ ava.router = Backbone.Router.extend({
         //     attributes : {"id":"RealtimeInfo_Today_Test-table", "data-tablesaw-mode":"swipe"}});
         var tableView = new ava.views.Table_New_View({collection: test, columns: columns, className: "table",page:page,
         attributes : {"id":"RealtimeInfo_Today_Test-table"}});
-        this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today_Test", true);  
+        this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today_Test", true);
 
 
         test.getResults();
@@ -189,7 +189,7 @@ ava.router = Backbone.Router.extend({
 
 
         // test.fetch({
-        //     // data: {api_key: 'secretkey'}, 
+        //     // data: {api_key: 'secretkey'},
         //     type: 'POST',
         //     dataType : "text",
         //     add:true,
@@ -208,7 +208,7 @@ ava.router = Backbone.Router.extend({
         //         console.log(options);            }
         // });
 
-        
+
 
 
 
@@ -229,7 +229,7 @@ ava.router = Backbone.Router.extend({
 
     // getColumnsFromCollection: function (collection,self) {
     //     var columns = []
-    //     for(var item in collection.models){ 
+    //     for(var item in collection.models){
 
     //         // console.log(collection.models[item].attributes);
     //         var obj = collection.models[item].attributes;
@@ -242,8 +242,8 @@ ava.router = Backbone.Router.extend({
     //         // console.log(columns);
     //         break;
 
-    //     }   
-    //     return columns;     
+    //     }
+    //     return columns;
     // },
 
 
@@ -306,7 +306,7 @@ ava.router = Backbone.Router.extend({
     //         return value;
 
     // },
-    
+
     RealtimeInfo_Today:function () {
 
 
@@ -317,7 +317,7 @@ ava.router = Backbone.Router.extend({
         this.changePageForMobile(page);
         // portal.loginGetData();
         // console.log(RealtimeInfo);
-        
+
 
 
 
@@ -327,16 +327,16 @@ ava.router = Backbone.Router.extend({
             // this.loginGetData();
             // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
             //RealtimeInfoCollection_today
-            
+
             // var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "ui-responsive",
             //     attributes : {"data-mode":"columntoggle", "data-role": "table", "data-column-btn-text": "欄位選項", "id":"RealtimeInfo_Today-table"}
             // });
-            
+
             var tableView = new ava.views.Table_TodayView({collection: RealtimeInfoCollection_Today, className: "fixedHeader",
                 attributes : {"id":"RealtimeInfo_Today-table", "data-role": "table","style":"table-layout: auto"}
             });
 
-            this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content", true);  
+            this.putElementOnPageContent(tableView.render().$el, "RealtimeInfo_Today-content", true);
 
 
 
@@ -344,9 +344,9 @@ ava.router = Backbone.Router.extend({
             // this.timeout();
 
         }else{
-            this.putElementOnPageContent("尚未登入");  
+            this.putElementOnPageContent("尚未登入");
         }
-      
+
 
 
     },
@@ -359,7 +359,7 @@ ava.router = Backbone.Router.extend({
 
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
-            
+
             //local language
 
             //local Language for css setting
@@ -382,7 +382,7 @@ ava.router = Backbone.Router.extend({
 
             var tableView = new ava.views.Table_portal_View({collection: test, columns: columns, className: "table RealtimeInfo",
             attributes : {"id":"portal-table"}});
-            this.putElementOnPageContent(tableView.render().$el, "portal", true);  
+            this.putElementOnPageContent(tableView.render().$el, "portal", true);
 
 
             test.getResults();
@@ -390,7 +390,7 @@ ava.router = Backbone.Router.extend({
             this.pageCollection = test;
 
         }else{
-            // this.putElementOnPageContent($.i18n.prop('msg_portal_notLoginYet'), "portal-content");  
+            // this.putElementOnPageContent($.i18n.prop('msg_portal_notLoginYet'), "portal-content");
 
             this.pageCollection = null;
         }
@@ -407,7 +407,7 @@ ava.router = Backbone.Router.extend({
     //     this.changePageForMobile(portal);
     //     // portal.loginGetData();
     //     // console.log(RealtimeInfo);
-        
+
 
 
 
@@ -418,15 +418,15 @@ ava.router = Backbone.Router.extend({
     //         // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
     //         var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"
     //         , attributes: {"style": 'table-layout: fixed;'}
-    //         });            
-    //         this.putElementOnPageContent(tableView.render().$el, "portal-content");  
+    //         });
+    //         this.putElementOnPageContent(tableView.render().$el, "portal-content");
 
     //         this.timeout("isSum1");
 
     //     }else{
-    //         this.putElementOnPageContent("尚未登入", "portal-content");  
+    //         this.putElementOnPageContent("尚未登入", "portal-content");
     //     }
-      
+
 
 
     // },
@@ -446,13 +446,13 @@ ava.router = Backbone.Router.extend({
         var self = this;
 
         var isNowPageClassname = false;
-        
+
         if( $(':jqmData(role=page)').length == 1 ){
-            var nowPageClassname = $(':jqmData(role=page)').attr('class');   
+            var nowPageClassname = $(':jqmData(role=page)').attr('class');
             if(nowPageClassname.indexOf(className) != -1)
             {
                 isNowPageClassname = true;
-            } 
+            }
         }else{
             $(':jqmData(role=page)').each(function (argument) {
                 var classes = $(this).attr('class');
@@ -461,7 +461,7 @@ ava.router = Backbone.Router.extend({
                 }
             });
         }
-        
+
         if(isNowPageClassname) {
             RealtimeInfoTimeout = setTimeout(function () {
                 // Do Something Here
@@ -471,7 +471,7 @@ ava.router = Backbone.Router.extend({
                 self.loginGetData();
                 // RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
                 // var tableView = new ava.views.TableView({collection: RealtimeInfoCollection, className: "RealtimeInfo"});
-                // self.putElementOnPageContent(tableView.render().$el);  
+                // self.putElementOnPageContent(tableView.render().$el);
                 self.timeout(className);
             }, period);
         }else{
@@ -488,7 +488,7 @@ ava.router = Backbone.Router.extend({
         //     {'name': '去年本月業績', 'value': oJson.Info.Pos.volumeLastYearThisMonth},
         //     {'name': '現有庫存', 'value': oJson.Info.Pos.deposit},
         //     {'name': '可售金額', 'value': oJson.Info.Pos.volumeAvailable}
-            
+
         // ];
 
         try {
@@ -504,8 +504,8 @@ ava.router = Backbone.Router.extend({
                                     // for (var i = 0; i < 20; i++) {
                                     //     testoJson.push(oJson.Info.Pos[i]);
                                     // }
-                                    // RealtimeInfoCollection_Today.reset(testoJson);   
-                                  RealtimeInfoCollection_Today.reset((oJson.Info.Pos));                              
+                                    // RealtimeInfoCollection_Today.reset(testoJson);
+                                  RealtimeInfoCollection_Today.reset((oJson.Info.Pos));
                                   break;
                               case 1:
                                   day = "Monday";
@@ -540,11 +540,11 @@ ava.router = Backbone.Router.extend({
             console.log("setRealtimeInfoData" + err);
         }
 
-        
+
     },
 
     loginGetData:function (address,page) {
-        
+
     // loginGetData:function (event) {
         // event.preventDefault(); // Don't let this button submit the form
         // $('.alert-error').hide(); // Hide any errors on a new submit
@@ -592,7 +592,7 @@ ava.router = Backbone.Router.extend({
                 // alert(JSON.stringify(oJson));
 
                 this.setRealtimeInfoData(oJson,page);
-               
+
                 // if(data.error) {  // If there is an error, show the error messages
                 //     $('.alert-error').text(data.error.text).show();
                 // }
@@ -654,7 +654,7 @@ ava.router = Backbone.Router.extend({
 
 
         this.clearPage();
-        
+
         this.getBasePage(new ava.views.LayoutView({model: {template: "#homeLayout-template", layoutTemplate:"#homeLayout-template"}, className: "home-container"}));
         new MyView();
         this.putElement(new ava.views.LayoutView({model: {template:"#tabOneLayout-template", tagId:"tabOneLayout"}, className: "tabOneLayout"}),'#content-first');
@@ -809,14 +809,14 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
 
     clearPage: function () {
         $('body').html("");
-        
+
     },
     getSectionPage: function (page,sectionId) {
-        
+
         $('body .section-body ' + sectionId).append(page.el);
     },
     putElement: function (page,className) {
-        
+
         $(className).append(page.el);
     },
     addCustomClass: function (pos,className) {
@@ -830,13 +830,13 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         // if(strId == pageName){
 
         //     if(pageName == "RealtimeInfo_Today-content"){
-        //         $('div[data-role=page]').find('div[data-role=content] .table-container').html(view); 
-                
+        //         $('div[data-role=page]').find('div[data-role=content] .table-container').html(view);
+
         //     }else{
-        //         $('div[data-role=page]').find('div[data-role=content]').html(view);    
+        //         $('div[data-role=page]').find('div[data-role=content]').html(view);
         //     }
 
-            
+
 
         //     // if(fixedHeader){
         //     //     $('div[data-role=page]').find('div[data-role=content]').prepend('<div id="bottom_anchor"></div>');
@@ -857,7 +857,7 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         if(strs[0] == ""){
             nowHashPath = "portal";
         }else if(typeof(strs[1] ) == "undefined"){
-            //RealtimeInfo_Today_Test 
+            //RealtimeInfo_Today_Test
             //getBrandStatistics
             nowHashPath = strs[0];
         }else{
@@ -881,7 +881,7 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         // }else {
 
         // }
-        
+
         // if( typeof(portal_Timeout) != 'undefined' && path != ""){
         //     portal_Timeout.clear();
         // }else {
@@ -900,14 +900,14 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             }else {
 
             }
-            
+
             if( typeof(portal_Timeout) != 'undefined' ){
                 portal_Timeout.clear();
             }else {
 
             }
         }catch(err) {
-            console.log(err);        
+            console.log(err);
         }
     },
 
@@ -925,10 +925,10 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         //             break;
         //         case 'RealtimeInfo_Today_Test':
         //             RealtimeInfo_Today_Test_Timeout.clear();
-        //             break;              
+        //             break;
         //     }
         // }catch(err) {
-        //     console.log(err);        
+        //     console.log(err);
         // }
 
        try{
@@ -941,16 +941,19 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             if( typeof(RealtimeInfo_Today_Test_Timeout) != 'undefined'){
                 RealtimeInfo_Today_Test_Timeout.clear();
             }
-            
+
         }catch(err) {
-            console.log(err);        
+            console.log(err);
         }
     }
-    
+
 });
 
 var appRouter;
 $(document).ready(function () {
+
+
+
     // alert("document ready");
 
     // document.addEventListener("touchstart", function() {},false);
@@ -961,7 +964,7 @@ $(document).ready(function () {
     appRouter = new ava.router();
 
     Backbone.history.start();
-   
+
     Backbone.history.on('route', function () {
 
         appRouter.clearTimeout();
@@ -978,7 +981,7 @@ $(document).ready(function () {
         // }else {
 
         // }
-        
+
         // if( typeof(portal_Timeout) != 'undefined' && path != ""){
         //     portal_Timeout.clear();
         // }else {
@@ -989,4 +992,3 @@ $(document).ready(function () {
     tabOperation.init();
 
 });
-

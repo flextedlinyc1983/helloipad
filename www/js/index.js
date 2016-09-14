@@ -41,7 +41,7 @@ var app = {
     onDeviceReady: function() {
         // alert("test");
         // app.receivedEvent('deviceready');
-        //// alert(device.cordova);
+        ////alert(device.cordova);
         //// alert(device.uuid);
 
         // navigator.globalization.getPreferredLanguage(function(language){
@@ -51,7 +51,18 @@ var app = {
 
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
-        
+
+        window.setTimeout(function () {
+          try{
+            if(device.platform == "iOS" && StatusBar.isVisible ==false){
+              StatusBar.show();
+            }
+          }catch(err){
+            console.log(err);
+          }
+        },600);
+
+
     },
 
     orientationChange:function (e) {
@@ -68,7 +79,7 @@ var app = {
         // }
         // alert(currentOrientation);
 
- 
+
         appRouter.clearTimeoutForPause();
         try{
             // location.reload();

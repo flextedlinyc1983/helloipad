@@ -377,6 +377,7 @@
 				INFOPLIST_FILE = "Flaps/Flaps-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_NAME = "Flaps測試";
+				PROVISIONING_PROFILE = "50738c89-84fd-437d-a040-b1d6fd1a0c13";
 			};
 			name = Debug;
 		};
@@ -396,6 +397,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Flaps/Flaps-Info.plist";
 				PRODUCT_NAME = "Flaps測試";
+				PROVISIONING_PROFILE = "50738c89-84fd-437d-a040-b1d6fd1a0c13";
 			};
 			name = Release;
 		};
