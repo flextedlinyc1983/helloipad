@@ -15,7 +15,7 @@ ava.collections.CircleBtn = Backbone.Collection.extend({
 	model: ava.models.CircleBtnItem
 });
 
-var menu = new ava.collections.Menu([{id: "1", title: "test1"}, 
+var menu = new ava.collections.Menu([{id: "1", title: "test1"},
 	{id: "2", title: "test2"}, {id: "3", title: "test3"},
 	{id: "4", title: "test4"}, {id: "5", title: "test5"},
 	{id: "6", title: "test6"}, {id: "7", title: "test7"},
@@ -31,7 +31,7 @@ ava.collections.Tab = ava.collections.Menu.extend({
 });
 
 
-var tab = new ava.collections.Tab([{href: "section_1", title: "test"}, 
+var tab = new ava.collections.Tab([{href: "section_1", title: "test"},
 	{href: "circleBtn", title: "circle button"}, {href: "layout", title: "計算機"},
 	{href: "section_4", title: "test4"}, {href: "section_5", title: "test5"},
 	{href: "section_6", title: "test6"}, {href: "section_7", title: "test7"},
@@ -44,24 +44,24 @@ var tab = new ava.collections.Tab([{href: "section_1", title: "test"},
 
 
 var circleBtn = new ava.collections.Menu([
-	{img_1: "img/circleBtn/01_gr.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 200}, 
-	{img_1: "img/circleBtn/02_gr.png", img_2: "img/circleBtn/02_bl.png", name: "長頸鹿", price: 30}, 
+	{img_1: "img/circleBtn/01_gr.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 200},
+	{img_1: "img/circleBtn/02_gr.png", img_2: "img/circleBtn/02_bl.png", name: "長頸鹿", price: 30},
 	{img_1: "img/circleBtn/03_gr.png", img_2: "img/circleBtn/03_bl.png", name: "狼", price: 500},
 	{img_1: "img/circleBtn/04_gr.png", img_2: "img/circleBtn/04_bl.png", name: "犀牛", price: 800},
-		{img_1: "img/circleBtn/01_bl.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 300}, 
-	{img_1: "img/circleBtn/02_bl.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 100}, 
+		{img_1: "img/circleBtn/01_bl.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 300},
+	{img_1: "img/circleBtn/02_bl.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 100},
 	{img_1: "img/circleBtn/03_bl.png", img_2: "img/circleBtn/03_bl.png", name: "WOLF", price: 299},
 	{img_1: "img/circleBtn/04_bl.png", img_2: "img/circleBtn/04_bl.png", name: "RHINOCEROS", price: 99},
-		{img_1: "img/circleBtn/01_gr.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 39}, 
-	{img_1: "img/circleBtn/02_gr.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 79}, 
+		{img_1: "img/circleBtn/01_gr.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 39},
+	{img_1: "img/circleBtn/02_gr.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 79},
 	{img_1: "img/circleBtn/03_gr.png", img_2: "img/circleBtn/03_bl.png", name: "WOLF", price: 89},
 	{img_1: "img/circleBtn/04_gr.png", img_2: "img/circleBtn/04_bl.png", name: "RHINOCEROS", price: 999}
-	,	{img_1: "img/circleBtn/01_bl.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 99999}, 
-	{img_1: "img/circleBtn/02_bl.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 1999}, 
+	,	{img_1: "img/circleBtn/01_bl.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 99999},
+	{img_1: "img/circleBtn/02_bl.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 1999},
 	{img_1: "img/circleBtn/03_bl.png", img_2: "img/circleBtn/03_bl.png", name: "WOLF", price: 699},
 	{img_1: "img/circleBtn/04_bl.png", img_2: "img/circleBtn/04_bl.png", name: "RHINOCEROS", price: 799},
-		{img_1: "img/circleBtn/01_gr.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 888}, 
-	{img_1: "img/circleBtn/02_gr.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 77777}, 
+		{img_1: "img/circleBtn/01_gr.png", img_2: "img/circleBtn/01_bl.png", name: "大象", price: 888},
+	{img_1: "img/circleBtn/02_gr.png", img_2: "img/circleBtn/02_bl.png", name: "GIRAFFE", price: 77777},
 	{img_1: "img/circleBtn/03_gr.png", img_2: "img/circleBtn/03_bl.png", name: "WOLF", price: 666},
 	{img_1: "img/circleBtn/04_gr.png", img_2: "img/circleBtn/04_bl.png", name: "RHINOCEROS", price: 5555555}
 	]);
@@ -84,7 +84,7 @@ ava.collections.TodoList = ava.collections.UtilityForCollection.extend({
 // ava.collections.TodoList = Backbone.Collection.extend({
 	model: ava.models.Todo,
 	localStorage: new Backbone.LocalStorage("todos-backbone"),
-	
+
 	done: function() {
 		return this.where({done: true});
 	},
@@ -96,25 +96,25 @@ ava.collections.TodoList = ava.collections.UtilityForCollection.extend({
 	// 	return this.last().get("order") + 1;
 	// },
 	// comparator: 'order'
-	
+
 	// url: "https://backgridjs.com/examples/territories.json"
 
 	calcuTotalPrice: function () {
 		var totalPrice = 0;
 		this.reduce(function(memo, value) {
 			if(!value.get("done")){
-				totalPrice += value.get("price");				
-			} 			
+				totalPrice += value.get("price");
+			}
 		}, 0);
 		return totalPrice;
 	},
 	getColumns: function () {
 		ava.collections.TodoList.__super__.getColumns.call(this);
-		
+
 
 		if(this.columns){
 			this.columns = $.grep(this.columns , function(value) {
-			  
+
 			  var name = value.name;
 
 			  if(name == "title"){
@@ -128,7 +128,7 @@ ava.collections.TodoList = ava.collections.UtilityForCollection.extend({
 			  }
 
 			  if (name != "id" && name != "test123" && name != "priceFormat" && name != "done") {
-			  	return value;	
+			  	return value;
 			  }
 			});
 		}
@@ -182,7 +182,7 @@ var	RealtimeInfo = [
 		{'name': '去年本月業績', 'value': ""},//volumeLastYearThisMonth
 		{'name': '現有庫存 ', 'value': ""},//deposit
 		{'name': '可售金額', 'value': ""},//volumeAvailable
-		
+
 	];
 
 var	RealtimeInfoTest = [
@@ -193,7 +193,7 @@ var	RealtimeInfoTest = [
 	{'name': '去年本月業績', 'value': "-10"},//volumeLastYearThisMonth
 	{'name': '現有庫存 ', 'value': "-10"},//deposit
 	{'name': '可售金額', 'value': "-10"},//volumeAvailable
-	
+
 ];
 
 // var RealtimeInfoCollection = new Backbone.Collection(RealtimeInfo);
@@ -202,7 +202,7 @@ var	RealtimeInfoTest = [
 ava.collections.RealtimeInfoList = ava.collections.UtilityForCollection.extend({
 	model: ava.models.RealtimeInfo,
 	localStorage: new Backbone.LocalStorage("RealtimeInfos-backbone"),
-	
+
 	// done: function() {
 	// 	return this.where({done: true});
 	// },
@@ -214,25 +214,25 @@ ava.collections.RealtimeInfoList = ava.collections.UtilityForCollection.extend({
 	// 	return this.last().get("order") + 1;
 	// },
 	// comparator: 'order'
-	
+
 	// url: "https://backgridjs.com/examples/territories.json"
 
 	// calcuTotalPrice: function () {
 	// 	var totalPrice = 0;
 	// 	this.reduce(function(memo, value) {
 	// 		if(!value.get("done")){
-	// 			totalPrice += value.get("price");				
-	// 		} 			
+	// 			totalPrice += value.get("price");
+	// 		}
 	// 	}, 0);
 	// 	return totalPrice;
 	// },
 	getColumns: function () {
 		ava.collections.RealtimeInfoList.__super__.getColumns.call(this);
-		
+
 
 		if(this.columns){
 			this.columns = $.grep(this.columns , function(value) {
-			  
+
 			  var name = value.name;
 
 			  // if(name == "title"){
@@ -246,7 +246,7 @@ ava.collections.RealtimeInfoList = ava.collections.UtilityForCollection.extend({
 			  // }
 
 			  // if (name != "id" && name != "test123" && name != "priceFormat" && name != "done") {
-			  // 	return value;	
+			  // 	return value;
 			  // }
 			});
 		}
@@ -260,7 +260,7 @@ RealtimeInfoCollection = new ava.collections.RealtimeInfoList();
 ava.collections.RealtimeInfoListToday = ava.collections.RealtimeInfoList.extend({
 	model: ava.models.RealtimeInfo_today,
 	localStorage: new Backbone.LocalStorage("RealtimeInfos_today-backbone"),
-	
+
 	// done: function() {
 	// 	return this.where({done: true});
 	// },
@@ -272,25 +272,25 @@ ava.collections.RealtimeInfoListToday = ava.collections.RealtimeInfoList.extend(
 	// 	return this.last().get("order") + 1;
 	// },
 	// comparator: 'order'
-	
+
 	// url: "https://backgridjs.com/examples/territories.json"
 
 	// calcuTotalPrice: function () {
 	// 	var totalPrice = 0;
 	// 	this.reduce(function(memo, value) {
 	// 		if(!value.get("done")){
-	// 			totalPrice += value.get("price");				
-	// 		} 			
+	// 			totalPrice += value.get("price");
+	// 		}
 	// 	}, 0);
 	// 	return totalPrice;
 	// },
 	getColumns: function () {
 		ava.collections.RealtimeInfoListToday.__super__.getColumns.call(this);
-		
+
 
 		if(this.columns){
 			this.columns = $.grep(this.columns , function(value) {
-			  
+
 			  var name = value.name;
 
 			  // if(name == "title"){
@@ -304,7 +304,7 @@ ava.collections.RealtimeInfoListToday = ava.collections.RealtimeInfoList.extend(
 			  // }
 
 			  // if (name != "id" && name != "test123" && name != "priceFormat" && name != "done") {
-			  // 	return value;	
+			  // 	return value;
 			  // }
 			});
 		}
@@ -313,7 +313,7 @@ ava.collections.RealtimeInfoListToday = ava.collections.RealtimeInfoList.extend(
 });
 
 RealtimeInfoCollection_Today = new ava.collections.RealtimeInfoList({model: ava.models.RealtimeInfo_today});
-// RealtimeInfoCollection_today.push({        
+// RealtimeInfoCollection_today.push({
 //         code: "",
 //         name: "",
 //         volumeToday: "",
@@ -379,7 +379,7 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
 
 	getColumnsFromCollection: function (collection) {
         var columns = []
-        for(var item in collection.models){ 
+        for(var item in collection.models){
 
             // console.log(collection.models[item].attributes);
             var obj = collection.models[item].attributes;
@@ -388,8 +388,8 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
 
             var index;
             for(index in data){
-                var columnName = this.getColumnName(data[index]);            	
-                columns.push({'column': columnName, 'persist': false});              
+                var columnName = this.getColumnName(data[index]);
+                columns.push({'column': columnName, 'persist': false});
             }
             break;
 
@@ -398,16 +398,16 @@ ava.views.Table_New_Collection = Backbone.Collection.extend({
             //     var columnName = this.getColumnName(column);
             //     if (obj.hasOwnProperty(column) && columnName != "")
             //     {
-            //     	// var persist = (column == "name") ? true : false;  
-            //     	var persist = false;              	
+            //     	// var persist = (column == "name") ? true : false;
+            //     	var persist = false;
             //         columns.push({'column': columnName, 'persist': persist});
             //     }
             // }
             // // console.log(columns);
             // break;
 
-        }   
-        return columns;     
+        }
+        return columns;
     },
 
     getColumnName: function (name) {
@@ -500,21 +500,21 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
         var self = this;
 
         this.fetch({
-            // data: {api_key: 'secretkey'}, 
+            // data: {api_key: 'secretkey'},
             type: 'POST',
             dataType : "text",
             timeout:10000,
             add:true,
-            reset: true,            
-            beforeSend: function (){    
-            	
-            	$.mobile.loading('show');   
-            	
+            reset: true,
+            beforeSend: function (){
+
+            	$.mobile.loading('show');
+
             	if($('#RealtimeInfo_Today_Test-table tbody tr').length == 0){
-            		$('#RealtimeInfo_Today_Test-table').hide({duration: 0});       
+            		$('#RealtimeInfo_Today_Test-table').hide({duration: 0});
             	}
 
-                            
+
             },
             success: function (collection, response, options) {
             	if(window.location.hash == "#RealtimeInfo_Today_Test" && window.localStorage.getItem('loginSuccess') == "true" ){
@@ -549,7 +549,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
             	if(window.location.hash == "#RealtimeInfo_Today_Test" && window.localStorage.getItem('loginSuccess') == "true" ){
 
             		var selfCollection = self;
-            	
+
 
 	            	$('#RealtimeInfo_Today_Test-table').show({
 						duration:10,
@@ -584,7 +584,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 
 
-	            			
+
 	            		}
 	            	});
 	            	$('.pinned #RealtimeInfo_Today_Test-table').show();
@@ -592,9 +592,9 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 
 
-	                
-	                    
-	                
+
+
+
 
 
 					// if($('table tbody').hasScrollBar())
@@ -609,7 +609,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 
 
- });	
+ });
 
 
 
@@ -630,7 +630,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 				relogin();
 				return [];
 			}
-		
+
 			if($(data).find('table thead td').length != 0){
 				var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
 		    				var $td =  $('td', this);
@@ -651,7 +651,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 		               		}
 						  }).get();
 				return tbl;
-			}else{			
+			}else{
 				return [];
 			}
 
@@ -676,27 +676,27 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
         var self = this;
 
         this.fetch({
-            // data: {api_key: 'secretkey'}, 
+            // data: {api_key: 'secretkey'},
             type: 'GET',
             dataType : "HTML",
             timeout:10000,
             add:true,
-            reset: true,            
-            beforeSend: function (){    
-            	
+            reset: true,
+            beforeSend: function (){
+
             	// if($('#getPosInfo-table tbody tr').length == 0){
-            	// 	$('#getPosInfo-table').hide();       
+            	// 	$('#getPosInfo-table').hide();
             	// }
-				
+
 				if($('#getPosInfo-table tbody tr').length == 0){
-            		$('#getPosInfo-table tbody').hide();  
+            		$('#getPosInfo-table tbody').hide();
 				}
 
-                $.mobile.loading('show');                
+                $.mobile.loading('show');
             },
             success: function (collection, response, options) {
 
-            	
+
             	if(self.getPathLocation() && window.localStorage.getItem('loginSuccess') == "true" ){
 
 	                // you can pass additional options to the event you trigger here as well
@@ -747,9 +747,9 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	            	});
 
 
-		        	
+
 	            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
-    
+
             	}
 
             	$.mobile.loading('hide');
@@ -759,7 +759,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
     getColumnsFromCollection: function (collection) {
         var columns = []
-        for(var item in collection.models){ 
+        for(var item in collection.models){
 
             // console.log(collection.models[item].attributes);
             var obj = collection.models[item].attributes;
@@ -768,13 +768,13 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
             var index;
             for(index in obj){
             	if(index != "id"){
-                	var columnName = this.getColumnName(index);            	
-                	columns.push({'column': columnName});              
+                	var columnName = this.getColumnName(index);
+                	columns.push({'column': columnName});
                 }
             }
             break;
-        }   
-        return columns;     
+        }
+        return columns;
     },
 
 	getColumnName: function (name) {
@@ -801,7 +801,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
     },
 
- });	
+ });
 
 
 
@@ -814,7 +814,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
 ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
-		
+
 		try {
 
 			var str = $($(data).find('table tr')[0]).text().trim();
@@ -840,23 +840,23 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
         var self = this;
 
         this.fetch({
-            // data: {api_key: 'secretkey'}, 
+            // data: {api_key: 'secretkey'},
             type: 'GET',
             dataType : "HTML",
             timeout:10000,
             add:true,
-            reset: true,            
-            beforeSend: function (){    
-            	
+            reset: true,
+            beforeSend: function (){
+
             	// if($('#getBrandStatistics-table tbody tr').length == 0){
-            	// 	$('#getBrandStatistics-table').hide();       
+            	// 	$('#getBrandStatistics-table').hide();
             	// }
 
             	if($('#getBrandStatistics-table tbody tr').length == 0){
-            		$('#getBrandStatistics-table tbody').hide();       
+            		$('#getBrandStatistics-table tbody').hide();
             	}
 
-                $.mobile.loading('show');                
+                $.mobile.loading('show');
             },
             success: function (collection, response, options) {
             	if(window.location.hash == "#getBrandStatistics" && window.localStorage.getItem('loginSuccess') == "true" ){
@@ -909,14 +909,14 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 				}
 
                 $.mobile.loading('hide');
-            
+
             }
         });
     },
 
     getColumnsFromCollection: function (collection) {
         var columns = []
-        for(var item in collection.models){ 
+        for(var item in collection.models){
 
             // console.log(collection.models[item].attributes);
             var obj = collection.models[item].attributes;
@@ -925,13 +925,13 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
             var index;
             for(index in obj){
             	if(index != "code"){
-                	var columnName = this.getColumnName(index);            	
-                	columns.push({'column': columnName});              
+                	var columnName = this.getColumnName(index);
+                	columns.push({'column': columnName});
                 }
             }
             break;
-        }   
-        return columns;     
+        }
+        return columns;
     },
 
 	getColumnName: function (name) {
@@ -955,7 +955,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 
     },
 
- });	
+ });
 
 
 
@@ -1014,7 +1014,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 		                  break;
 		              case 'volumeAvailable':
 		                  result[5] = {name: $.i18n.prop('msg_portal_volumeAvailable'), value: data[key]};
-		                  break;              
+		                  break;
 		              default:
 		            }
 		      	}
@@ -1036,23 +1036,23 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
         var self = this;
 
         this.fetch({
-            // data: {api_key: 'secretkey'}, 
+            // data: {api_key: 'secretkey'},
             type: 'GET',
             dataType : "HTML",
             timeout:10000,
             add:true,
-            reset: true,            
-            beforeSend: function (){    
-            	
+            reset: true,
+            beforeSend: function (){
+
             	// if($('#portal-table tbody tr').length == 0){
-            	// 	$('#portal-table').hide();    
+            	// 	$('#portal-table').hide();
             	// }
 
             	if($('#portal-table tbody tr').length == 0){
-            		$('#portal-table tbody').hide();    
+            		$('#portal-table tbody').hide();
             	}
 
-                $.mobile.loading('show');                
+                $.mobile.loading('show');
             },
             success: function (collection, response, options) {
             	if(window.location.hash == "" && window.localStorage.getItem('loginSuccess') == "true"){
@@ -1097,7 +1097,15 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 	            		duration: 10,
 	            		complete: function () {
 	            			//$("div[data-role=header]").outerHeight()  63px
-	            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
+
+										//for ios status bar
+										if(typeof (StatusBarLength) != "undefined"){
+											StatusBarLength = 0;
+										}else{
+											StatusBarLength = 20;
+										}
+
+	            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height() - StatusBarLength;
 				        	$('#portal-table tbody').css('height',tableHeight.toString());
 
 	            		}
@@ -1107,7 +1115,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
 
 
-	               
+
             	}
 
              	$.mobile.loading('hide');
@@ -1117,7 +1125,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
  //    getColumnsFromCollection: function (collection) {
  //        var columns = []
- //        for(var item in collection.models){ 
+ //        for(var item in collection.models){
 
  //            // console.log(collection.models[item].attributes);
  //            var obj = collection.models[item].attributes;
@@ -1126,13 +1134,13 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
  //            var index;
  //            for(index in obj){
  //            	if(index != "code"){
- //                	var columnName = this.getColumnName(index);            	
- //                	columns.push({'column': columnName});              
+ //                	var columnName = this.getColumnName(index);
+ //                	columns.push({'column': columnName});
  //                }
  //            }
  //            break;
- //        }   
- //        return columns;     
+ //        }
+ //        return columns;
  //    },
 
 	// getColumnName: function (name) {
@@ -1156,4 +1164,4 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
  //    },
 
- });	
+ });

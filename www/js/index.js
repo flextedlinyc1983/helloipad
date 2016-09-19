@@ -56,9 +56,13 @@ var app = {
           try{
             if(device.platform == "iOS" && StatusBar.isVisible ==false){
               StatusBar.show();
+              // StatusBarLengthForStartFlag = true;
+              // alert('StatusBarLengthForStartFlag')
             }
+            // alert('not StatusBarLengthForStartFlag')
           }catch(err){
             console.log(err);
+            // alert('index' + err)
           }
         },600);
 
