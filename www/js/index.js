@@ -91,6 +91,7 @@ var app = {
                 appRouter.getPageCollection().getResults();
             }
             // alert("resume");
+            appRouter.setCompanyInfoScreen();
         }catch(err) {
             console.log(err);
         }

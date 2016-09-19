@@ -390,10 +390,22 @@ ava.router = Backbone.Router.extend({
             this.pageCollection = test;
 
         }else{
-            // this.putElementOnPageContent($.i18n.prop('msg_portal_notLoginYet'), "portal-content");
+            
+            if(window.localStorage.getItem('registerSuccess') == "true"){
+                var companyInfoView = new ava.views.CompanyInfoView({className: "CompanyInfo"});
+                this.putElementOnPageContent(companyInfoView.render().$el, "portal", true);
+                this.setCompanyInfoScreen();    
+            }            
 
             this.pageCollection = null;
         }
+
+    },
+
+    setCompanyInfoScreen: function () {
+        var width = $(window).width();
+        var height = $(window).height() - $("div[data-role=header]").outerHeight();
+        $('.CompanyInfo').css({'height': height + 'px','width': width + 'px'});
 
     },
 

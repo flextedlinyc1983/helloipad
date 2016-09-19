@@ -2298,3 +2298,15 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
         }
     },
 });
+
+
+
+ava.views.CompanyInfoView = Backbone.View.extend({
+
+   tagName: "div",
+   template: _.template($("#Company_Info").html()),
+    render:function () {
+      this.$el.html(this.template({companyInfo_tw: $.i18n.prop('msg_companyInfo_tw'), companyInfo_china: $.i18n.prop('msg_companyInfo_china')}));
+      return this;
+    },
+});
