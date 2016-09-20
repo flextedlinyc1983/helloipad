@@ -79,3 +79,17 @@
 	}
 
 }
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+
+
+
+	html:lang(en_SG) #RealtimeInfo_Today_Test-table thead th {
+		 padding-top: 1px;
+   		 padding-bottom: 1px;
+   		 height: 81px;
+	}
+
+
+
+}
