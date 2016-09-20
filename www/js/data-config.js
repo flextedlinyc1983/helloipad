@@ -1,5 +1,6 @@
 // alert('data-config');
-setIpBySelf = "58";
+// setIpBySelf = "58";
+setIpBySelf = "72";
 
 getIpFromDataConfig = function (data) {
     var result = '';
@@ -10,6 +11,9 @@ getIpFromDataConfig = function (data) {
         case '58':
             result = 'http://192.168.0.58:8080';
             break;
+        case '72':
+            result = 'http://203.67.131.72';
+            break;
         default:
             result = '';
     }
@@ -18,7 +22,8 @@ getIpFromDataConfig = function (data) {
 }
 
 
-setAppNameBySelf = "flaps2";
+// setAppNameBySelf = "flaps2";
+setAppNameBySelf = "flapsTW";
 
 getAppNameFromDataConfig = function (data) {
     var result = '';
@@ -28,6 +33,9 @@ getAppNameFromDataConfig = function (data) {
             break;
         case 'flaps':
             result = '/flaps';
+            break;
+        case 'flapsTW':
+            result = '/flapsTW';
             break;
         default:
             result = '';
