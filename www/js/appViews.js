@@ -1316,8 +1316,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
             pwd: $('#pwd').val(),
             sLang: $('#sLang').val()
 
-            // code: 'flextier99',
-            // pwd: '0827203'
+            // code: '',
+            // pwd: ''
         };
 
         $.ajax({

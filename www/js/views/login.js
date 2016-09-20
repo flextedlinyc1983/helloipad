@@ -63,8 +63,8 @@ ava.views.LoginView = Backbone.ModalView.extend({
         var formValues = {
             // code: $('#code').val(),
             // pwd: $('#pwd').val()
-            code: 'flextier99',
-            pwd: '0827203'
+            code: '',
+            pwd: ''
         };
 
         $.ajax({
@@ -112,8 +112,8 @@ ava.views.LoginView = Backbone.ModalView.extend({
         var formValues = {
             // code: $('#code').val(),
             // pwd: $('#pwd').val()
-            code: 'flextier99',
-            pwd: '0827203'
+            code: '',
+            pwd: ''
         };
 
         $.ajax({

@@ -572,8 +572,8 @@ ava.router = Backbone.Router.extend({
         var formValues = {
             // code: $('#code').val(),
             // pwd: $('#pwd').val()
-            // code: 'flextier99',
-            // pwd: '0827203'
+            // code: '',
+            // pwd: ''
             code: window.localStorage.getItem('code') + "111",
             pwd: window.localStorage.getItem('pwd')
         };
