@@ -1134,7 +1134,7 @@ ava.views.PortalView = ava.views.UtilityView.extend({
             // headers: { 'Access-Control-Allow-Origin': '*',
             // 'Content-Type':'application/x-www-form-urlencoded' },
             // dataType:"json",
-            data: {SubscriptId:code},
+            data: {SubscriptId:code, device_platform: device.platform, device_uuid:device.uuid},
             beforeSend: function (){
                $.mobile.loading('show');
             },
