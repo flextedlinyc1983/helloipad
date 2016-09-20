@@ -31,7 +31,7 @@
         <splash src="www/res/screen/android/splash-land-hdpi.png" density="land-hdpi"/>
 
         <splash src="www/res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
-        <name>Flaps-即時業績</name>
+        <name>Flaps即時業績</name>
 
         <preference name="SplashScreenDelay" value="2000" />
     </platform>
