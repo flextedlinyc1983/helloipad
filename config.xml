@@ -33,7 +33,9 @@
         <splash src="www/res/screen/android/splash-port-hdpi.png" density="port-hdpi"/>
         <name>Flaps即時業績</name>
 
-        <preference name="SplashScreenDelay" value="2000" />
+        <preference name="SplashScreenDelay" value="2500" />
+        <preference name="android-minSdkVersion" value="19"/> //android 4.4
+        <preference name="android-targetSdkVersion" value="23"/> //android 6.0
     </platform>
     <platform name="ios">
         <name>Flaps</name>
