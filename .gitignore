@@ -27,3 +27,8 @@ platforms/android/src/org/apache/cordova/dialogs/*
 
 !platforms/android/src/org/apache/cordova/dialogs/Notification.java
 
+
+
+!platforms/android/assets/
+platforms/android/assets/*
+!platforms/android/assets/images/button.png
