@@ -624,6 +624,8 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 	parse: function (data) {
 		try {
 
+			data = data.replace('../images/button.png','');
+
 			var str = $($(data).find('table tr')[0]).text().trim();
 			if( str == "系統登入" ){
 				window.localStorage.setItem('loginSuccess', false);
