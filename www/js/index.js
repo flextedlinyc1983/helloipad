@@ -30,7 +30,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         // alert("test bindEvents");
-        console.log(document);
+        // console.log(document);
         document.addEventListener('deviceready', this.onDeviceReady, false);
         window.addEventListener('orientationchange', this.orientationChange);
     },
@@ -61,7 +61,7 @@ var app = {
             }
             // alert('not StatusBarLengthForStartFlag')
           }catch(err){
-            console.log(err);
+            // console.log(err);
             // alert('index' + err)
           }
         },600);
@@ -93,7 +93,7 @@ var app = {
             // alert("resume");
             appRouter.setCompanyInfoScreen();
         }catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     },
 
@@ -111,7 +111,7 @@ var app = {
             }
             // alert("resume");
         }catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     },
 
@@ -125,7 +125,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+        // console.log('Received Event: ' + id);
         alert('Received Event: ' + id);
     }
 };

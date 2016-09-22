@@ -1,6 +1,6 @@
 // alert('data-config');
 // setIpBySelf = "58";
-setIpBySelf = "72";
+setIpBySelf = "76";
 
 getIpFromDataConfig = function (data) {
     var result = '';
@@ -14,6 +14,9 @@ getIpFromDataConfig = function (data) {
         case '72':
             result = 'http://203.67.131.72';
             break;
+        case '76':
+            result = 'http://203.67.131.76:18080';
+            break;            
         default:
             result = '';
     }

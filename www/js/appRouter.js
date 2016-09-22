@@ -30,7 +30,7 @@ ava.router = Backbone.Router.extend({
             return true;
         }
 
-        console.log('#getBrandStatistics');
+        // console.log('#getBrandStatistics');
         var page = new ava.views.PageView({attributes : {"id" : "getBrandStatistics"}});
         this.changePageForMobile(page);
 
@@ -67,7 +67,7 @@ ava.router = Backbone.Router.extend({
             return true;
         }
 
-        console.log('#getPosInfo');
+        // console.log('#getPosInfo');
         var page = new ava.views.PageView({attributes : {"id" : "getPosInfo"}});
         this.changePageForMobile(page);
 
@@ -130,7 +130,7 @@ ava.router = Backbone.Router.extend({
             return true;
         }
 
-        console.log('#RealtimeInfo_Today_Test');
+        // console.log('#RealtimeInfo_Today_Test');
         var page = new ava.views.PageView({attributes : {"id" : "RealtimeInfo_Today_Test"}});
         // delete
         if(typeof(pagesData['portal']) != "undefined"){
@@ -351,7 +351,7 @@ ava.router = Backbone.Router.extend({
 
     },
     portal:function () {
-        console.log('#portal');
+        // console.log('#portal');
         var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
         this.changePageForMobile(page);
 
@@ -549,7 +549,7 @@ ava.router = Backbone.Router.extend({
             }
         }
         catch(err) {
-            console.log("setRealtimeInfoData" + err);
+            // console.log("setRealtimeInfoData" + err);
         }
 
 
@@ -596,7 +596,7 @@ ava.router = Backbone.Router.extend({
               }
             },
             success:function (data, textStatus, jqXHR) {
-                console.log(["Login request details: ", data]);
+                // console.log(["Login request details: ", data]);
 
                 var oJson = xml2json(data);
 
@@ -626,12 +626,12 @@ ava.router = Backbone.Router.extend({
     },
 
     page1:function () {
-        console.log('#page1');
+        // console.log('#page1');
         this.changePageForMobile(new ava.views.Page1View());
     },
     //login here
     myModal:function () {
-        console.log('#myModal');
+        // console.log('#myModal');
         var loginView = new ava.views.ModalView({model: new ava.models.LoginModel(), className: "landscapeModal"});
         // Backbone.Validation.bind(loginView);
         this.changePageForMobile(loginView);
@@ -919,7 +919,7 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
 
             }
         }catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     },
 
@@ -955,7 +955,7 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             }
 
         }catch(err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 

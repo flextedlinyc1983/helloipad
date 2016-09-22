@@ -488,7 +488,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 			return oJson.Info.Pos;
 		}
 		catch(err) {
-    		console.log(err);
+    		// console.log(err);
     		// window.location.replace('#');
     		window.history.back('');
 		}
@@ -657,7 +657,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
 		}
 		catch(err) {
-    		console.log(err);
+    		// console.log(err);
 		}
 	},
 
@@ -735,13 +735,13 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 
 		            // 		}
 		            // 	});
-		            console.log('test');
+		            // console.log('test');
 					$('#getPosInfo-table tbody').show({
 						duration: 10,
 	            		complete: function () {
 	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
 		        			$('#getPosInfo-table tbody').css('height',tableHeight.toString());
-		        			console.log('height: ' + $('#getPosInfo-table thead').height());
+		        			// console.log('height: ' + $('#getPosInfo-table thead').height());
 
 	            		}
 	            	});
@@ -829,7 +829,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 			return oJson.Info.Pos;
 		}
 		catch(err) {
-    		console.log(err);
+    		// console.log(err);
     		// window.location.replace('#');
     		window.history.back('');
 		}
@@ -1027,7 +1027,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
 	 	}
 		catch(err) {
-    		console.log(err);
+    		// console.log(err);
 		}
 	},
 

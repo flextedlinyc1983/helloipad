@@ -907,7 +907,7 @@ ava.views.ColumnItemView = Backbone.View.extend({
         "click": "clickEvent" 
     },
     clickEvent : function () {        
-        console.log(this.model);    
+        // console.log(this.model);    
 
 
         var name = this.model;          
@@ -925,7 +925,7 @@ ava.views.ColumnItemView = Backbone.View.extend({
                 break;
               default:
                   // alert('no match');
-                  console.log('ColumnItemView');
+                  // console.log('ColumnItemView');
           }
 
 
@@ -989,7 +989,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
       }
     }
     catch(err) {
-        console.log("swipeIt" + err);
+        // console.log("swipeIt" + err);
     }
   },
 
@@ -1005,7 +1005,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
     }
     catch(err) {
-        console.log("swipeIt" + err);
+        // console.log("swipeIt" + err);
     }
   },
 
@@ -1193,7 +1193,7 @@ ava.views.PortalView = ava.views.UtilityView.extend({
 
     }else {
         event.preventDefault();
-        console.log('Logout');
+        // console.log('Logout');
 
         var code = window.localStorage.getItem('code');
         var pwd = window.localStorage.getItem('pwd');
@@ -1310,7 +1310,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         // var url = '../api/login';
         var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/checkLogin.jsp';
         // var url = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=7waqfqbprs7pajbz28mqf6vz&page_limit=20&page=1';
-        console.log('Loggin in... ');
+        // console.log('Loggin in... ');
         var formValues = {
             code: $('#code').val(),
             pwd: $('#pwd').val(),
@@ -1394,7 +1394,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                 
 
 
-                console.log(["Login request details: ", data]);
+                // console.log(["Login request details: ", data]);
                
                 if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
                     // $('.alert-error').text(data.error.text).show();
@@ -1455,7 +1455,7 @@ ava.views.TableView = ava.views.UtilityView.extend({
       // (this.$el.find('thead th')[0]).css('width','50%');
       $(this.$el.find('thead th')[0]).css('width','50%');
       $(this.$el.find('thead th')[1]).css('width','50%');
-      console.log('test');
+      // console.log('test');
     },
 
     renderOne : function(model) {
@@ -1646,7 +1646,7 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
     events: {
         "click .value": function(event) {
           var name = this.model.get("name");
-          console.log(name);
+          // console.log(name);
 
           switch (name) {
               case "本日業績":
@@ -1686,7 +1686,7 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
         },
       "click .name": function(event) {
           var name = this.model.get("name");
-          console.log(name);
+          // console.log(name);
 
           switch (name) {
               case "本日業績":
@@ -1736,7 +1736,7 @@ ava.views.TableRow_TodayView = ava.views.UtilityView.extend({
     events: {
         "click": function(event) {
           var name = this.model.get("name");
-          console.log(name);
+          // console.log(name);
 
           switch (name) {
               case "本日業績":
@@ -1931,7 +1931,7 @@ ava.views.RealtimeInfo_Today = ava.views.UtilityView.extend({
       }
     }
     catch(err) {
-        console.log("swipeIt" + err);
+        // console.log("swipeIt" + err);
     }
   },
 
@@ -2226,7 +2226,7 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
         "click .value": function(event) {
           var name = this.model.attributes.item.name;
           name = getPortalRowNameFromClick(name);
-          console.log(name);
+          // console.log(name);
 
           switch (name) {
               case "本日業績":
@@ -2267,7 +2267,7 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
       "click .name": function(event) {
           var name = this.model.attributes.item.name;
           name = getPortalRowNameFromClick(name);
-          console.log(name);
+          // console.log(name);
 
           switch (name) {
               case "本日業績":
@@ -2292,7 +2292,7 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
                   day = "Saturday";
               default:
                   // alert('no match');
-                  console.log('TableRow_portal_View')
+                  // console.log('TableRow_portal_View')
           }
 
         }
