@@ -2310,3 +2310,99 @@ ava.views.CompanyInfoView = Backbone.View.extend({
       return this;
     },
 });
+
+
+ava.views.Menu  = Backbone.View.extend({
+
+  //define this.el, the wrapper element
+  //id: '',
+  tagName: 'div',
+  className: 'menu',
+  id: 'menu',
+  
+  //template function
+  template: _.template($('#menu-template').html()),
+
+  initialize: function(options) {
+
+    if (!options.collection) throw 'no collection provided';
+
+    //listen on non-this events
+    _.bindAll(this, 'render');
+    this.collection.bind('reset', this.render); //collection loaded
+  },
+  events: {
+    //"click": "console"
+  },
+  close: function (){
+    this.unbind();
+    this.collection.unbind();
+  },
+  /***************************************
+   Render the view into the view's element
+  ****************************************/
+  render: function (event){
+
+    var content = this.template({}); //compiling template =  create DOM fragment
+    var $el = $(this.el);
+    
+    $el.html(content);
+
+    //render list menu
+    $el.append(this.renderMenu(this.collection.root()));
+    return this;
+  },
+  /**********************************************
+   Render list menu. Input is an array of models.
+   Output is DOM fragment.
+  **********************************************/
+  renderMenu: function(list){
+    if(_.size(list) === 0) {return null;}
+    var $dom = $("<ul></ul>");
+    _.each(list, function(model){
+      $dom.append(this.renderMenuItem(model));
+      var kids = this.collection.children(model);
+      $dom.find(':last').append(this.renderMenu(kids)); //recursive
+    }, this);
+    return $dom;
+
+  },
+  //  returns a DOM element fragment for a single menu item
+  renderMenuItem: function (model){
+    var view = new ava.views.Menuitem({model: model});
+    return view.render().el;
+  },
+  console: function (event){
+    console.log(event, 'event');
+  }
+});
+
+
+ava.views.Menuitem = Backbone.View.extend({
+  
+  //define this.el, the wrapper element
+  //el: $('#menu'),  //used in cases where the view wrapper already exists in the DOM
+  tagName: 'li',
+  //id: '',
+  //className: 'menuitem',
+
+  // Cache the template function for a single item.
+  template: _.template($('#menu-item-template').html()),
+  
+  initialize: function(options) {
+    _.bindAll(this, 'render'); 
+    this.model.bind('change', this.render);
+  },
+  events: {
+  },
+  close: function (){
+    this.unbind();
+    this.model.unbind();
+  },
+  //render the view using a template
+  render: function (event) {
+    var content = this.template(this.model.toJSON());
+    $(this.el).html(content);
+    return this;
+  }
+});

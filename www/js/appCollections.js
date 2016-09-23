@@ -1167,3 +1167,41 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
  //    },
 
  });
+
+
+
+
+
+
+
+
+ava.collections.Menuitems = Backbone.Collection.extend({
+	// model : ava.views.Menuitem,
+	url : './dataForJson/menuitems.json',
+	initialize: function(options){
+		this.bind('reset', this.relationships); //collection loads so calculate relationships
+	},
+	
+	relationships: function(){
+		this.relations = _.groupBy(this.models, this.parent);
+	},
+	//return an array of root models
+	root: function(){
+		if(!this.relations) this.relationships();
+		return this.relations[0];
+	},
+	//return an array of child models
+	children: function(model){
+		if(!this.relations) this.relationships();
+		return (typeof this.relations[model.id] === 'undefined')? [] : this.relations[model.id];
+	},
+	//return parent_id or 0 if model.parent_id is undefined
+	parent: function(model){
+		var parent_id = model.get('parent_id');
+		return (!parent_id)? 0: parent_id;
+	},
+	parse: function (data) {
+		console.log(data);
+		return data.result;
+	}
+});
