@@ -1,0 +1,14 @@
+portal
+http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1 GET
+
+RealtimeInfo_Today_Test
+http://192.168.0.58:8080/flaps2/PDA/PISConsole/getRealtimeInfo.jsp?isSum=0&57t3o34O=1 POST
+
+RealtimeInfo_Today_Test/getPosInfo/:codeNumber
+http://192.168.0.58:8080/flaps2/PDA/PISConsole/getLastSell.jsp?code=168 GET
+
+getBrandStatistics
+http://192.168.0.58:8080/flaps2/PDA/PISConsole/getBrandStatistics.jsp GET
+
+
+http://127.0.0.1:8080/flaps2/Company_Info.html

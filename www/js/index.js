@@ -92,6 +92,13 @@ var app = {
             }
             // alert("resume");
             appRouter.setCompanyInfoScreen();
+
+
+        }catch(err) {
+            // console.log(err);
+        }
+        try{
+            getResizeFromTableServer();
         }catch(err) {
             // console.log(err);
         }

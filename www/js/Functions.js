@@ -709,7 +709,7 @@ function relogin() {
             
 
 
-            console.log(["Login request details: ", data]);
+            // console.log(["Login request details: ", data]);
            
             if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
                 // $('.alert-error').text(data.error.text).show();
@@ -759,3 +759,6 @@ function relogin() {
     
    
 }
+
+
+

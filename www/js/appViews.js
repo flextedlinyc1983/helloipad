@@ -986,6 +986,10 @@ ava.views.PageView = ava.views.UtilityView.extend({
             this.toggleColumn(this.nowPage);
         }
 
+      }else if ($('table').attr('id') == "getBrandStatistics_New-table"){
+        appRouter.pageTable.swipeShowRight();
+      }else if ($('table').attr('id') == "getBrandStatistics_New_Two-table"){
+        appRouter.pageTable.swipeShowRight();
       }
     }
     catch(err) {
@@ -1001,6 +1005,10 @@ ava.views.PageView = ava.views.UtilityView.extend({
             this.nowPage -= 1;           
             this.toggleColumn(this.nowPage);
         }
+      }else if ($('table').attr('id') == "getBrandStatistics_New-table"){
+        appRouter.pageTable.swipeShowLeft();
+      }else if ($('table').attr('id') == "getBrandStatistics_New_Two-table"){
+        appRouter.pageTable.swipeShowLeft();
       }
 
     }
@@ -1155,6 +1163,8 @@ ava.views.PortalView = ava.views.UtilityView.extend({
                     navigator.notification.alert($.i18n.prop('msg_PortalView_registerSuccess'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
                     Backbone.history.loadUrl(Backbone.history.fragment);
                     
+                    //update tableFromServer
+                    appRouter.getTableFromServer();
                 }else{
 
                     
@@ -2273,11 +2283,11 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
               case "本日業績":
                   Backbone.history.navigate('getBrandStatistics', true);                                    
                   break;
-              case 1:
-                  day = "Monday";
+              case "去年本日業績":
+                  Backbone.history.navigate('getBrandStatistics_New', true);  
                   break;
-              case 2:
-                  day = "Tuesday";
+              case "本月業績":
+                  Backbone.history.navigate('getBrandStatistics_New_Two', true);  
                   break;
               case 3:
                   day = "Wednesday";
@@ -2310,3 +2320,10 @@ ava.views.CompanyInfoView = Backbone.View.extend({
       return this;
     },
 });
+
+
+
+
+
+
+

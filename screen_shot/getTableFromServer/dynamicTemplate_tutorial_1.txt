@@ -1,0 +1,35 @@
+<tr>
+	<td>FIX<td>
+
+	<td columnGroup="C1" style="display:inline;"></td>
+
+	<td columnGroup="C2" style="display:inline;"></td>
+
+	<td columnGroup="C3" style="display:none;"></td>
+
+	<td columnGroup="C4" style="display:none;"></td>
+
+	<td columnGroup="C5" style="display:none;"></td>
+
+	<td columnGroup="C6" style="display:none;"></td>
+
+	<td columnGroup="C7" style="display:none;"></td>
+
+	<td columnGroup="C8" style="display:none;"></td>
+
+	<td columnGroup="C9" style="display:none;"></td>
+
+	<td columnGroup="C10" style="display:none;"></td>
+
+</tr>
+
+
+
+DISLAY COLUMNS(DC#) : 2
+NOW COLUMN INDEX(CI#) : 1
+DISPLAY COLUMN : (CI# * DC#) TO (((CI# + 1) * DC#)-1)
+DISPLAYABLE COLUMN:
+C1, C2, C3(X), C4, C5, C6, C7, C8, C9, C10
+COLUMN ORDER:
+C1, C2, C4, C5, C6, C7, C8, C9, C10
+

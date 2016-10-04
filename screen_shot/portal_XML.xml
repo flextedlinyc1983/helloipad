@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><Info>
+  <TimeOut>false</TimeOut>
+
+<Pos>
+<code>Withdraw</code>
+<name>Withdraw</name>
+<volumeToday>0</volumeToday>
+<volumeThisMonth>115,550</volumeThisMonth>
+<volumeLastYearToday>0</volumeLastYearToday>
+<volumeLastYearThisMonth>436,751</volumeLastYearThisMonth>
+<deposit>76,869,336</deposit>
+<volumeAvailable>80,072,331,291</volumeAvailable>
+<target>0</target>
+<targetRate>0</targetRate>
+<preSaleTotal>0</preSaleTotal>
+<saleTotal>0</saleTotal>
+<customer>0</customer>
+<customerUPrice>0</customerUPrice>
+<saleAmount>0</saleAmount>
+<customerAVAmount>0</customerAVAmount>
+<memberCount>0</memberCount>
+<isWithdraw>true</isWithdraw>
+</Pos>
+</Info>

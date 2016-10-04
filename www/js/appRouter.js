@@ -14,14 +14,88 @@ ava.router = Backbone.Router.extend({
         "RealtimeInfo_Today_Test/getPosInfo/:codeNumber" : "getPosInfo",
 
         "getBrandStatistics" : "getBrandStatistics",
+        "getBrandStatistics_New" : "getBrandStatistics_New",
+        "getBrandStatistics_New_Two" : "getBrandStatistics_New_Two",
 	},
+
+    getBrandStatistics_New_Two : function () {
+
+        if(window.localStorage.getItem('loginSuccess') == "false"){
+            Backbone.history.navigate('', {trigger: true, replace: true});
+            return true;
+        }
+
+        // console.log('#getBrandStatistics');
+        var page = new ava.views.PageView({attributes : {"id" : "getBrandStatistics_New_Two"}});
+        this.changePageForMobile(page);
+        
+
+
+        var self = this;
+
+        var getTable = function () {
+            var test = new ava.collections.Table_Template_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
+                urlPath: window.localStorage.getItem('AppName') + "/dataTableTwo.jsp",routeName: '#getBrandStatistics_New',templateName: '#test-template-two'});
+
+            var tableView = new ava.views.Table_Template_View({collection: test, 
+                attributes : {"id":"getBrandStatistics_New_Two-table"}, templateName: '#test-template-two', templateNameTwo: '#test-row-template-two'});
+            self.putElementOnPageContent(tableView.el, "getBrandStatistics_New_Two", true);
+            test.getResults();
+            self.pageCollection = test;
+            self.pageTable = tableView;
+        }
+
+        ajaxSetTable(getTable);
+        setTimeout(function(){ 
+            ajaxGetData();
+        }, 100);
+        
+
+    },
 
     // initialize: function () {
 
     //     Backbone.history.start();
     // },
 
+    getPageTable: function () {
+       return  this.pageTable;
+    },
 
+    getBrandStatistics_New : function () {
+
+        if(window.localStorage.getItem('loginSuccess') == "false"){
+            Backbone.history.navigate('', {trigger: true, replace: true});
+            return true;
+        }
+
+        // console.log('#getBrandStatistics');
+        var page = new ava.views.PageView({attributes : {"id" : "getBrandStatistics_New"}});
+        this.changePageForMobile(page);
+        
+
+
+        var self = this;
+
+        var getTable = function () {
+            var test = new ava.collections.Table_Template_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
+                urlPath: window.localStorage.getItem('AppName') + "/dataTable.jsp",routeName: '#getBrandStatistics_New',templateName: '#test-template'});
+
+            var tableView = new ava.views.Table_Template_View({collection: test, 
+                attributes : {"id":"getBrandStatistics_New-table"}, templateName: '#test-template', templateNameTwo: '#test-row-template'});
+            self.putElementOnPageContent(tableView.el, "getBrandStatistics_New", true);
+            test.getResults();
+            self.pageCollection = test;
+            self.pageTable = tableView;
+        }
+
+        ajaxSetTable(getTable);
+        setTimeout(function(){ 
+            ajaxGetData();
+        }, 100);
+        
+
+    },
 
     getBrandStatistics : function () {
 
@@ -957,6 +1031,25 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         }catch(err) {
             // console.log(err);
         }
+    },
+
+    getTableFromServer: function () {
+        try{
+            // loadTemplate(window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/Company_Info.html' );
+
+
+            if( window.localStorage.getItem('registerSuccess') == "true" ){
+                loadCSS(window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/css/table.css');
+                loadJS(window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/tableFromServer.js');
+
+                setTimeout(function(){ 
+                    ajaxGetTemplate(window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + "/Company_Info.html");
+                }, 1000);    
+            }
+            
+         }catch(err) {
+            // console.log("swipeIt" + err);
+         } 
     }
 
 });
@@ -964,6 +1057,39 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
 var appRouter;
 $(document).ready(function () {
 
+
+    /**
+      * function to load a given css file 
+      */ 
+     loadCSS = function(href) {
+         var cssLink = $("<link rel='stylesheet' type='text/css' href='"+href+"'>");
+         $("head").append(cssLink); 
+     };
+
+    /**
+     * function to load a given js file 
+     */ 
+     loadJS = function(src) {
+         var jsLink = $("<script type='text/javascript' src='"+src+"'>");
+         $("head").append(jsLink); 
+     };
+
+     loadTemplate = function (src) {         
+         $.ajax({
+            timeout: 10000,
+            url:src,
+            type:'GET',
+            success:function (data, textStatus, jqXHR) {
+                $("head").append($(data));
+            },
+            error: function(xhr, textStatus, errorThrown){
+            
+            },
+         });
+     }
+
+     
+      
 
 
     // alert("document ready");
@@ -999,8 +1125,12 @@ $(document).ready(function () {
         // }else {
 
         // }
+        appRouter.pageTable = null;
     });
 
     tabOperation.init();
+
+
+    appRouter.getTableFromServer();
 
 });
