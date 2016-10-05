@@ -1,4 +1,11 @@
 try{
+	var columnsForLangs = {"zh_TW":{"#test-template":{"column_fix":"名字", "column_C0": "姓", "column_C1": "活動", "column_C2": "最後"},
+									"#test-template-two":{"column_fix":"fix", "column_C0": "C0", "column_C1": "C1", "column_C2": "C2", "column_C3": "C3"}},
+	"en_SG":{"#test-template":{"column_fix":"Name", "column_C0": "Last Name", "column_C1": "Lastactivity", "column_C2": "Last"},
+									"#test-template-two":{"column_fix":"fix_SG", "column_C0": "C0_SG", "column_C1": "C1_SG", "column_C2": "C2_SG", "column_C3": "C3_SG"}},
+	"zh_CN":{"#test-template":{"column_fix":"Test", "column_C0": "姓_CN", "column_C1": "活動_CN", "column_C2": "最後_CN"},
+									"#test-template-two":{"column_fix":"fix_CN", "column_C0": "C0_CN", "column_C1": "C1_CN", "column_C2": "C2_CN", "column_C3": "C3_CN"}}
+	};
 
 	// alert('test');
 	ava.collections.Table_Template_Collection = Backbone.Collection.extend({
@@ -236,13 +243,17 @@ try{
 		}
 
 	  },
+	  getColumnNames: function (lang, templateName) {
+		return columnsForLangs[lang][templateName];
+	  },
 	  onlyUpdateDataFlag: false,
 	  render: function (event){
 
 	    
 	    var $el = $(this.el);
 	    if(this.onlyUpdateDataFlag == false){
-	    	var content = this.template({});
+	    	var columnNames = this.getColumnNames(window.localStorage.getItem('sLang'), this.options.templateName);
+	    	var content = this.template(columnNames);
 	    	$el.html(content);
 	    	this.onlyUpdateDataFlag = true; 	
 
