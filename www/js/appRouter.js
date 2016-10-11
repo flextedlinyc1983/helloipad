@@ -14,7 +14,63 @@ ava.router = Backbone.Router.extend({
         "RealtimeInfo_Today_Test/getPosInfo/:codeNumber" : "getPosInfo",
 
         "getBrandStatistics" : "getBrandStatistics",
+
+        "navMenu": "navMenu",
+        "connectOperation": "connectOperation",
+        "connectOperation/detailConnectInfo/:connectName": "detailConnectInfo",
 	},
+    detailConnectInfo: function (connectName) {
+        var page = new ava.views.PageView({attributes : {"id" : "detailConnectInfo"}});
+        this.changePageForMobile(page);
+
+        var connects = new ava.collections.Connects();
+        connects.fetch({reset: true});
+        connect = connects.where({connectName: connectName})[0];
+        var detailConnect = new ava.views.DetailConnectView({ model: connect });
+        $('#detailConnectInfo [data-role=content]').append("<div><button id='modiyConnectName' class='modify'>" + $.i18n.prop('label_ConnectView_modify') + "</button></div>");
+        this.putElementOnPageContent(detailConnect.render().$el, "detailConnectInfo", true);
+        
+        //add click event
+        $( "#modiyConnectName" ).on( "click", function() {
+            detailConnect.modifyOnClick();
+        });
+        
+        this.pageCollection = null;
+    },
+
+    connectOperation: function (argument) {
+        var page = new ava.views.PageView({attributes : {"id" : "connectOperation"}});
+        this.changePageForMobile(page);
+
+        
+
+        // this.putElementOnPageContent("<button id='new-connect' class='new-connect ui-btn ui-corner-all' >New Connection</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
+        this.putElementOnPageContent("<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
+
+        var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
+        this.setulHeightForconnectOperation(ulHeight);
+
+        var ConnectOpeView = new ava.views.ConnectOpeView({collection: new ava.collections.Connects()});
+        
+        this.pageCollection = null;
+    },
+    setulHeightForconnectOperation: function (height) {
+        $('.connects-list').css('height',height);
+    },
+
+    navMenu: function (argument) {
+        var page = new ava.views.PageView({attributes : {"id" : "navMenu"}});
+        this.changePageForMobile(page);
+
+        var menuCollection = new ava.collections.Menu([{name: "", title: $.i18n.prop('navMenu_Operation'), dataDivider: true},
+            {name: "connectOperation", title: $.i18n.prop('navMenu_Connection'), dataDivider: false}]);
+
+        var menuView = new ava.views.navMenu({collection: menuCollection, attributes : {"data-role" : "listview"}, className:"listview"});
+
+        this.putElementOnPageContent(menuView.el, "navMenu", true);
+
+        this.pageCollection = null;
+    },
 
     // initialize: function () {
 
@@ -354,6 +410,33 @@ ava.router = Backbone.Router.extend({
         // console.log('#portal');
         var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
         this.changePageForMobile(page);
+
+        
+        //check now connection is added or not
+        var connects = new ava.collections.Connects();
+        connects.fetch({reset:true});
+        var isUpdateNowConnection = window.localStorage.getItem('isUpdateNowConnection') || "false";
+        if (isUpdateNowConnection == "false" && window.localStorage.getItem('registerSuccess') == "true") {            
+            var connectIpAdress = window.localStorage.getItem('ipAdress') || '';
+            var connectAppName = window.localStorage.getItem('AppName') || '';
+            connectIpAdress = connectIpAdress.substring(7);
+            connectAppName = connectAppName.substring(1);
+            var isHasRepeatConnect = connects.checkRepeatByipAdressAndAppName(connectIpAdress, connectAppName);
+            if( isHasRepeatConnect == false){
+                var connectItem = {connectName: connectAppName,
+                  connectId: connects.getMaxId() + 1,
+                  connectIpAdress: connectIpAdress,
+                  connectAppName: connectAppName,
+                  connectCode: window.localStorage.getItem('code') || '',
+                  connectPwd: window.localStorage.getItem('pwd') || '',
+                  connectsLang: window.localStorage.getItem('sLang') || '',
+                  checked: true};
+                connects.create(connectItem);
+            }
+            window.localStorage.setItem('isUpdateNowConnection', true);
+        }
+        connects.updateCodePwdsLang();
+
 
 
 

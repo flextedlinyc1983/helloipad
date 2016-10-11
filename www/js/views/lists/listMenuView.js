@@ -69,3 +69,188 @@ ava.views.TabSectionView = ava.views.ListMenuView.extend({
 
     }
 });
+
+ava.views.navMenu = ava.views.ListMenuView.extend({
+
+    className : "",
+    render: function() {
+      // TODO
+
+      var $el = $(this.el);
+
+      this.collection.each(function(list) {
+          var item, sidebarItem;
+          item = new ava.views.navMenuItem({ model: list});
+          $el.append(item.render().el);
+      });
+
+      //jquery widget initialize
+      $(this.el).listview();
+
+      return this;
+
+    }
+});
+
+
+ava.views.ConnectOpeView = Backbone.View.extend({
+    el: '#connectOperation',
+    events: {
+        'click .new-connect': 'createOnClick',
+    },
+    initialize : function () {
+        this.$list = $('.connects-list');
+        
+        this.listenTo(this.collection, 'add', this.addOne);
+        this.listenTo(this.collection, 'reset', this.addAll);
+
+        
+        this.collection.fetch({reset: true});
+    },
+
+    addAll: function () {
+      this.$list.html('');
+      this.$list.listview();
+      this.collection.each(this.addOne, this);
+      
+    },
+    addOne: function (connect) {
+      var view = new ava.views.ConnectView({ model: connect });
+      this.$list.prepend(view.render().el);
+
+      this.$list.listview('refresh');
+    },
+
+    createOnClick: function (e) {
+      // window.setTimeout(_.bind(this.callPopUP, this),500);
+
+      // $.mobile.activePage.focus();
+      // $(e.currentTarget).addClass('activate');
+      // window.setTimeout(function () {
+      //     $(e.currentTarget).find('#new-connect').removeClass('activate');
+      // },200);
+      
+      $.mobile.activePage.focus();
+      this.callPopUP();
+      
+     
+    },
+
+    callPopUP: function () {        
+        try{
+          var self = this;
+          navigator.notification.prompt(
+            $.i18n.prop('msg_ConnectOpeView_connectPromptTitle'),                  // message
+            function (results) {
+              if(results.buttonIndex  == 1){// confirm
+                // alert(results.input1.trim());
+                  // self.getRegisterResult(results.input1.trim());
+
+                  // this.setInputName(results.input1.trim());
+                  // self.setInputName('test123 ' + Math.floor((Math.random() * 100) + 1));
+                  self.getConnectionResult(results.input1.trim());                 
+              }else{
+                //cancel
+                // $('#register').show({duration:0});
+                // alert('test 2')
+              }
+            },
+            $.i18n.prop('msg_ConnectOpeView_connectPromptMsg'),                   // title
+            [$.i18n.prop('msg_ConnectOpeView_connectPromptConfirm'),$.i18n.prop('msg_ConnectOpeView_connectPromptCancel')],          // buttonName
+            '' 
+          );
+        }catch(err) {
+          // this.setInputName('test123 ' + Math.floor((Math.random() * 100) + 1));
+          // this.newConnection();
+        }
+
+    },
+    setInputName: function (str) {
+      this.inputName = str;
+    },
+    newConnection: function (connectName, connectIpAdress, connectAppName) {
+      var connectItem = {connectName: connectName,
+      connectId: this.collection.getMaxId() + 1,
+      connectIpAdress: connectIpAdress,
+      connectAppName: connectAppName,
+      connectCode: '',
+      connectPwd: '',
+      connectsLang: window.localStorage.getItem('sLang'),
+      checked: false};
+      this.collection.create(connectItem);
+    },
+    getConnectionResult: function (code) {
+        var self = this;
+        var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkSubscription.jsp';
+        $.ajax({
+            timeout: 10000,
+            url:url,
+            type:'POST',
+            // crossDomain: true,
+            // headers: { 'Access-Control-Allow-Origin': '*',
+            // 'Content-Type':'application/x-www-form-urlencoded' },
+            // dataType:"json",
+            data: {SubscriptId:code, device_platform: device.platform, device_uuid:device.uuid},
+            beforeSend: function (){
+               $.mobile.loading('show');
+            },
+            success:function (data, textStatus, jqXHR) {
+
+                
+
+
+                if (jqXHR.status == 200) {
+                    var str = (data.match(/{([^}]+)}/)[0]);
+                    str = str.replace(/'/g,"\"");
+                    str = JSON.parse(str);
+
+                    var stripAdress = "http://" + str.ip;
+                    var strAppName = "/" + str.APN;
+                    // if(self.collection.checkRepeatByipAdressAndAppName(stripAdress, strAppName)){
+                    if(self.collection.checkRepeatByipAdressAndAppName(str.ip, str.APN)){
+                        navigator.notification.alert($.i18n.prop('msg_ConnectOpeView_connectRepeat'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                    }else{
+                      //新增連線
+                      var connectName = self.collection.getNewNoRepeatConnectName(str.APN);
+                      // self.newConnection(connectName, stripAdress, strAppName );
+                      self.newConnection(connectName, str.ip, str.APN );
+                      navigator.notification.alert($.i18n.prop('msg_ConnectOpeView_connectSuccess'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                      Backbone.history.loadUrl(Backbone.history.fragment);  
+                    }
+                    
+                    
+                }else{
+                  
+                    navigator.notification.alert($.i18n.prop('msg_ConnectOpeView_connectFail'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+
+                }
+                
+
+
+
+            },
+            error: function(xhr, textStatus, errorThrown){
+              if(xhr.status == "403"){                
+                navigator.notification.alert($.i18n.prop('msg_connectCode_error'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              }else if(xhr.status =="0"){
+                // alert($.i18n.prop('msg_networkError'));
+                navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              }else if(xhr.status =="404"){
+                // alert($.i18n.prop('msg_serverError'));
+                navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              }
+            },
+            complete: function ( jqXHR, textStatus) {
+              $.mobile.loading('hide');
+            }
+        });
+    },
+
+});
+
+
+
+
+
+
+

@@ -190,3 +190,21 @@ ava.models.Column_New_Model = ava.models.UtilityForModel.extend({
       };
     },
 });
+
+
+ava.models.Connect = Backbone.Model.extend({
+	
+	idAttribute: "connectId",
+
+	defaults: {
+			connectName: '',
+			connectId: '',
+			connectIpAdress: '',
+			connectAppName: '',
+			connectCode: '',
+			connectPwd: '',
+			connectsLang: '',
+			checked: false,
+			
+	},
+});

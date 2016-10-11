@@ -172,6 +172,24 @@
             <a href="#" class="list-title" data-list-id="<%= id %>"><%= title %></a> 
         </script>
 
+        <script type="text/template" id="list-menu-item-navMenuItem">
+        <% if (dataDivider) { %>
+            <li data-role='list-divider' ><%= title %></li>
+        <% }else{ %>
+            <li li_name=<%= name %> data-icon="home"><%= title %></li>
+        <% } %>
+        </script>
+
+        <script type="text/template" id="connect-item-template">
+            <div class="view">
+
+                <h2><span><%- label_connectName %>:</span>&nbsp<%- connectName %></h2>
+                <input class="toggle" type="checkbox" <%= checked ? "checked disabled " : "style='display:none'" %>>
+                <label class="toggle" <%= checked ? "" : "style='display:none'" %>><%- defaultValue %></label>
+            </div>
+            <button class="destroy" <%= checked ? "style='display:none'" : '' %> ><%- label_delete %></button>
+        </script>
+
         <script type="text/template" id="circle-btn-item">
             <span>
                 <img src="<%= img_1 %>"><br> 
@@ -386,6 +404,13 @@
 <script type="text/template" id="portal">
 
     <div data-role="header" data-position='fixed' background="img/title-2.png">
+        
+        <% if (register == "true") { %>
+            <div>
+                <a href="#navMenu" id="navMenu"></a>
+            </div>
+        <% } %>
+
         <h1><%= storeName %></h1>
         <!-- <a href="#" data-rel="dialog" id="loginIcon" class="ui-btn-right" >登入</a> -->
         <a href=<%= href %> class="ui-btn-right" id="myModal" <% if(register == "false") { %><%= ' style="display:none;"' %><%}%> ><%= status %></a>
@@ -537,6 +562,13 @@
                         </select>
 
                     </div>
+
+                    <div data-role="fieldcontainer" class="form-group">
+                        <label for="sLang"><%= labelconnect %></label>
+                        <select name="sLang" style="" id="selectForConnection">
+                        </select>
+                    </div>
+
                     <!-- <div data-role="fieldcontainer"> -->
                     <input type='submit' value= <%= submit %> id='loginButton' />
                     <!-- <input type='submit' value= '取得資料' id='loginButtonGetData' /> -->
@@ -547,6 +579,20 @@
     </div>
 </script>
 
+
+<script type="text/template" id="connectSelect">
+    <option value="<%= connectName %>" <%= checked ?  'selected' : '' %> >
+    <%= connectName %>
+    </option>  
+</script>
+<script type="text/template" id="connect-detail-template">
+    <tr><td><%= label_connectName %></td><td><%= connectName %></td></tr>
+    <tr><td><%= label_connectCode %></td><td><%= connectCode %></td></tr>
+    <tr><td><%= label_connectPwd %></td><td><%= connectPwd %></td></tr>
+    <tr><td><%= label_connectsLang %></td><td><%= connectsLang %></td></tr>
+    <tr><td><%= label_connectIpAdress %></td><td><%= connectIpAdress %></td></tr>
+    <tr><td><%= label_connectAppName %></td><td><%= connectAppName %></td></tr>    
+</script>
 <!-- 
         <div id="todoapp">
     <header>

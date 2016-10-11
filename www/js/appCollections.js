@@ -1167,3 +1167,75 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
  //    },
 
  });
+
+
+ava.collections.Connects = Backbone.Collection.extend({
+  model: ava.models.Connect,
+
+  localStorage: new Backbone.LocalStorage('connects-backbone'),
+  comparator: function(item) {
+      return item.get('connectId');
+  },
+  getMaxId: function () {
+  	var max = 0;
+	this.each(function(model){
+		if(model.id > max){
+			max = model.id;
+	   }
+	});
+	return max;
+  },
+  checkRepeatByipAdressAndAppName: function (stripAdress, strAppName) {
+  	var isRepeat = false;
+  	var ipAdress = stripAdress;
+  	var AppName = strAppName;
+  	this.each(function(model){
+		if(model.get('connectIpAdress') == ipAdress && model.get('connectAppName') == AppName){
+			isRepeat = true;
+	   }
+	});
+  	return isRepeat;
+  },
+  updateCodePwdsLang: function () {
+  	    var connectIpAdress = window.localStorage.getItem('ipAdress') || '';
+        var connectAppName = window.localStorage.getItem('AppName') || '';
+        connectIpAdress = connectIpAdress.substring(7);
+        connectAppName = connectAppName.substring(1);
+        $(this.models).each(function(index, model){
+			if(model.attributes['connectIpAdress'] == connectIpAdress && model.attributes['connectAppName'] == connectAppName){
+				var jsonModel = {'connectCode': window.localStorage.getItem('code') || '',
+					'connectPwd': window.localStorage.getItem('pwd') || '',
+					'connectsLang': window.localStorage.getItem('sLang') || ''};
+				model.set(jsonModel);
+				model.save();
+				// console.log('ok');
+				return false;
+		   }
+		});
+  },
+  getConnectName: function () {
+  	var array = [];
+  	this.each(function(model){
+		array.push({"connectName":model.get('connectName'), "checked":model.get('checked') });
+	});
+	return array;
+  },
+  updateConnectByConnectName: function (str) {
+  		
+  },
+  getNewNoRepeatConnectName: function (str) {  	
+  	var self = this;
+  	var newStr = str;
+  	var array = [];
+  	this.each(function(model){
+		array.push(model.get('connectName'));
+	});
+	$(array).each(function(index,item){
+			if(item == str){
+				newStr = self.getNewNoRepeatConnectName(str + "New");
+			}
+	});
+	return newStr;
+  }
+
+});

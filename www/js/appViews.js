@@ -1195,20 +1195,21 @@ ava.views.PortalView = ava.views.UtilityView.extend({
         event.preventDefault();
         // console.log('Logout');
 
-        var code = window.localStorage.getItem('code');
-        var pwd = window.localStorage.getItem('pwd');
-        var sLang = window.localStorage.getItem('sLang');
-        var registerSuccess = window.localStorage.getItem('registerSuccess');
-        var ipAdress = window.localStorage.getItem('ipAdress');
-        var AppName = window.localStorage.getItem('AppName');
-        localStorage.clear();
-        window.localStorage.setItem('code', code);
-        window.localStorage.setItem('pwd', pwd);
-        window.localStorage.setItem('sLang', sLang);
-        window.localStorage.setItem('registerSuccess', registerSuccess);
-        window.localStorage.setItem('ipAdress', ipAdress);
-        window.localStorage.setItem('AppName', AppName);
+        // var code = window.localStorage.getItem('code');
+        // var pwd = window.localStorage.getItem('pwd');
+        // var sLang = window.localStorage.getItem('sLang');
+        // var registerSuccess = window.localStorage.getItem('registerSuccess');
+        // var ipAdress = window.localStorage.getItem('ipAdress');
+        // var AppName = window.localStorage.getItem('AppName');
+        // localStorage.clear();
+        // window.localStorage.setItem('code', code);
+        // window.localStorage.setItem('pwd', pwd);
+        // window.localStorage.setItem('sLang', sLang);
+        // window.localStorage.setItem('registerSuccess', registerSuccess);
+        // window.localStorage.setItem('ipAdress', ipAdress);
+        // window.localStorage.setItem('AppName', AppName);
         window.localStorage.setItem('loginSuccess', "");
+        window.localStorage.setItem('storeName', "");
         location.reload();
     }
 
@@ -1262,22 +1263,82 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         ,sel_zh_TW: $.i18n.prop('msg_myModal_sel_zh_TW')
         ,sel_en_SG: $.i18n.prop('msg_myModal_sel_en_SG')
         ,sel_zh_CN: $.i18n.prop('msg_myModal_sel_zh_CN')
-        ,back_text: $.i18n.prop('msg_back_text')}));
+        ,back_text: $.i18n.prop('msg_back_text')
+        ,labelconnect: $.i18n.prop('msg_myModal_labelconnect')}));
+
+        this.setConnectSelect();
         return this;
     },
 
-
+    setConnectSelect: function () {
+      var self = this;
+      var connects = new ava.collections.Connects();  
+      connects.fetch({reset:true});
+      var connectNames = connects.getConnectName();
+      var items = new ava.views.SelectComponentView({ "connectNames": connectNames});
+      this.$el.find('#selectForConnection').append($(items.el).html());
+    },
     
 
     events: {
         "click #loginButton": "login",
         "click #loginButtonGetData": "loginGetData",
-        "change #sLang": "langSelect"
+        "change #sLang": "langSelect",
+        "change #selectForConnection": "selectForConnection",
+    },
+
+    selectForConnection: function () {
+        
+
+        var connect = $('#selectForConnection').val().trim();
+        var connects = new ava.collections.Connects();
+        connects.fetch({reset:true});
+        
+
+        var oldConnect = connects.where({"checked": true});
+        var oldSelectModel = oldConnect[0];
+        oldSelectModel.set({"checked": false});
+        oldSelectModel.save();
+
+        var updateConnect = connects.where({"connectName": connect});
+        var newSelectModel = updateConnect[0];
+        var connectIpAdress = newSelectModel.get('connectIpAdress');
+        var connectAppName = newSelectModel.get('connectAppName');
+        var connectsLang = newSelectModel.get('connectsLang');
+        var connectCode = newSelectModel.get('connectCode');
+        var connectPwd = newSelectModel.get('connectPwd');
+
+        connectIpAdress = "http://" + connectIpAdress;
+        connectAppName = "/" + connectAppName;
+
+        window.localStorage.setItem('ipAdress', connectIpAdress); 
+        window.localStorage.setItem('AppName', connectAppName);
+        window.localStorage.setItem('sLang', connectsLang);
+        window.localStorage.setItem('code', connectCode);
+        window.localStorage.setItem('pwd', connectPwd);
+        newSelectModel.set({"checked": true});
+        newSelectModel.save();
+
+        loadBundles(connectsLang);
+
+        Backbone.history.loadUrl(Backbone.history.fragment);
+    },
+
+    updateConnectLang: function () {
+        var connect = $('#selectForConnection').val().trim();
+        var connects = new ava.collections.Connects();
+        connects.fetch({reset:true});
+        var updateConnect = connects.where({"connectName": connect});
+        var newSelectModel = updateConnect[0];
+        var connectsLang = newSelectModel.get('connectsLang'); 
+        newSelectModel.set({"connectsLang": $('#sLang').val()});
+        newSelectModel.save();
     },
 
     langSelect: function() {        
         loadBundles($('#sLang').val());
         window.localStorage.setItem('sLang', $('#sLang').val()); 
+        this.updateConnectLang();
         Backbone.history.loadUrl(Backbone.history.fragment);
     },
 

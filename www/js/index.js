@@ -92,6 +92,12 @@ var app = {
             }
             // alert("resume");
             appRouter.setCompanyInfoScreen();
+
+            if(window.location.hash == "#connectOperation"){
+                var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
+                appRouter.setulHeightForconnectOperation(ulHeight);    
+            }
+            
         }catch(err) {
             // console.log(err);
         }
