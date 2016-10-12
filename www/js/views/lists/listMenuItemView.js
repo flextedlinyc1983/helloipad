@@ -166,7 +166,7 @@ ava.views.SelectComponentView = Backbone.View.extend({
       var self = this;
       var $el = $(this.el);
       options.connectNames.forEach(function (select) {
-        $el.append(self.template(select));
+        $el.prepend(self.template(select));
       });            
   },  
 });
