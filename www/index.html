@@ -184,10 +184,14 @@
             <div class="view">
 
                 <h2><span><%- label_connectName %>:</span>&nbsp<%- connectName %></h2>
-                <input class="toggle" type="checkbox" <%= checked ? "checked disabled " : "style='display:none'" %>>
-                <label class="toggle" <%= checked ? "" : "style='display:none'" %>><%- defaultValue %></label>
+                <input class="toggle" type="checkbox" <%= isInUse ? "checked disabled " : "style='display:none'" %>>
+                <label class="toggle" <%= isInUse ? "" : "style='display:none'" %>><%- inUse %></label>
             </div>
-            <button class="destroy" <%= checked ? "style='display:none'" : '' %> ><%- label_delete %></button>
+            <div class= 'connectDefaultSelector'>
+            <input type="radio" id="idConnectDefault-<%- connectName %>" name="connectDefaultSelector" <%= checked ? "checked='checked'" : '' %>>
+            <label for="connectDefaultSelector" name="labelConnectDefaultSelector" ><%- defaultValue %></label>
+            </div>
+            <button class="destroy" <%= isInUse ? "disabled" : '' %> ><%- label_delete %></button>
         </script>
 
         <script type="text/template" id="circle-btn-item">
@@ -526,7 +530,14 @@
                 <h1><%= login %></h1>
             </div>
             <div data-role="content">
+
+                <div data-role="fieldcontainer" class="form-group" style="margin: 5px 15px">
+                    <label for="selectForConnection"><%= labelconnect %></label>
+                    <select style="" id="selectForConnection" name="selectForConnection">
+                    </select>
+                </div>
                 <form id="loginForm" >
+
                     <div data-role="fieldcontainer" class="form-group">
                         <label for="code"><%= labelcode %></label>
                         <!-- <input type="text" id="code" name="code" value=""></input> -->
@@ -563,17 +574,14 @@
 
                     </div>
 
-                    <div data-role="fieldcontainer" class="form-group">
-                        <label for="sLang"><%= labelconnect %></label>
-                        <select name="sLang" style="" id="selectForConnection">
-                        </select>
-                    </div>
 
-                    <!-- <div data-role="fieldcontainer"> -->
+
+
+                </form>
+                    <div style = "margin: 1em 15px;"  data-role="fieldcontainer">
                     <input type='submit' value= <%= submit %> id='loginButton' />
                     <!-- <input type='submit' value= '取得資料' id='loginButtonGetData' /> -->
-                    <!-- </div> -->
-                </form>
+                    </div>
             </div>
         </div>
     </div>

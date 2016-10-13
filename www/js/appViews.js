@@ -1251,9 +1251,16 @@ ava.views.ModalView = ava.views.UtilityView.extend({
     initialize: function(){
       // _.bindAll(this, 'login');
       Backbone.Validation.bind(this);
+      this.firstRender = true;
     },
 
     render:function (eventName) {    
+      if(window.localStorage.getItem('enterModalFromPortal') == "true"){
+        this.getDefaultAndsetLocalStorage();  
+        window.localStorage.setItem('enterModalFromPortal', "false");
+      }
+      
+
       // Backbone.Validation.bind(this);
 
         // $(this.el).html(this.template());
@@ -1266,8 +1273,35 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         ,back_text: $.i18n.prop('msg_back_text')
         ,labelconnect: $.i18n.prop('msg_myModal_labelconnect')}));
 
+
         this.setConnectSelect();
+
         return this;
+    },
+
+    getDefaultAndsetLocalStorage: function () {
+        var self = this;
+        var connects = new ava.collections.Connects();     
+        connects.fetch({reset:true});
+        var defaultModel = connects.where({'checked':true});
+        
+        if(defaultModel.length > 0){
+          window.localStorage.setItem('code', defaultModel[0].get('connectCode'));
+          window.localStorage.setItem('pwd', defaultModel[0].get('connectPwd'));
+          window.localStorage.setItem('sLang', defaultModel[0].get('connectsLang'));
+          window.localStorage.setItem('AppName', '/' + defaultModel[0].get('connectAppName'));
+          window.localStorage.setItem('ipAdress', 'http://' + defaultModel[0].get('connectIpAdress'));
+        }else{
+          window.localStorage.setItem('code', '');
+          window.localStorage.setItem('pwd', '');
+          // window.localStorage.setItem('sLang', '');  
+          window.localStorage.setItem('AppName', '');
+          window.localStorage.setItem('ipAdress', '');        
+        }
+
+        loadBundles(window.localStorage.getItem('sLang'));
+
+
     },
 
     setConnectSelect: function () {
@@ -1293,12 +1327,6 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         var connect = $('#selectForConnection').val().trim();
         var connects = new ava.collections.Connects();
         connects.fetch({reset:true});
-        
-
-        var oldConnect = connects.where({"checked": true});
-        var oldSelectModel = oldConnect[0];
-        oldSelectModel.set({"checked": false});
-        oldSelectModel.save();
 
         var updateConnect = connects.where({"connectName": connect});
         var newSelectModel = updateConnect[0];
@@ -1316,8 +1344,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         window.localStorage.setItem('sLang', connectsLang);
         window.localStorage.setItem('code', connectCode);
         window.localStorage.setItem('pwd', connectPwd);
-        newSelectModel.set({"checked": true});
-        newSelectModel.save();
+
 
         loadBundles(connectsLang);
 
@@ -1325,14 +1352,17 @@ ava.views.ModalView = ava.views.UtilityView.extend({
     },
 
     updateConnectLang: function () {
+
+      if($('#selectForConnection').val() != null){
         var connect = $('#selectForConnection').val().trim();
         var connects = new ava.collections.Connects();
         connects.fetch({reset:true});
         var updateConnect = connects.where({"connectName": connect});
-        var newSelectModel = updateConnect[0];
-        var connectsLang = newSelectModel.get('connectsLang'); 
+        var newSelectModel = updateConnect[0];        
         newSelectModel.set({"connectsLang": $('#sLang').val()});
         newSelectModel.save();
+      }
+        
     },
 
     langSelect: function() {        
@@ -1405,8 +1435,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
                     window.localStorage.setItem('loginSuccess', false);
 
-                    window.localStorage.setItem('code', "");
-                    window.localStorage.setItem('pwd', "");
+                    // window.localStorage.setItem('code', "");
+                    // window.localStorage.setItem('pwd', "");
 
                     window.localStorage.setItem('storeName', "");
 
@@ -1415,8 +1445,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
 
                     window.localStorage.setItem('loginSuccess', false);
 
-                    window.localStorage.setItem('code', "");
-                    window.localStorage.setItem('pwd', "");
+                    // window.localStorage.setItem('code', "");
+                    // window.localStorage.setItem('pwd', "");
 
                     window.localStorage.setItem('storeName', "");
                   
@@ -1425,8 +1455,8 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                 }else if(strCheckLogin == "系統登入"){
                     window.localStorage.setItem('loginSuccess', false);
 
-                    window.localStorage.setItem('code', "");
-                    window.localStorage.setItem('pwd', "");
+                    // window.localStorage.setItem('code', "");
+                    // window.localStorage.setItem('pwd', "");
 
                     window.localStorage.setItem('storeName', "");  
                 }else{

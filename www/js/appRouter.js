@@ -406,12 +406,36 @@ ava.router = Backbone.Router.extend({
 
 
     },
-    portal:function () {
-        // console.log('#portal');
-        var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
-        this.changePageForMobile(page);
+    updateLocalStorageFromDefault: function () {
+        var isLogin = window.localStorage.getItem('loginSuccess') || '';
+        if(isLogin != "true"){
+            var connects = new ava.collections.Connects();
+            connects.fetch({reset:true});
+            var defaultConnect = connects.where({"checked": true});
+            if(defaultConnect.length > 0){
+              var defaultModel = defaultConnect[0];
+              var connectIpAdress = defaultModel.get('connectIpAdress');
+              var connectAppName = defaultModel.get('connectAppName');
+              var connectsLang = defaultModel.get('connectsLang');
+              var connectCode = defaultModel.get('connectCode');
+              var connectPwd = defaultModel.get('connectPwd');
 
-        
+              connectIpAdress = "http://" + connectIpAdress;
+              connectAppName = "/" + connectAppName;
+
+              window.localStorage.setItem('ipAdress', connectIpAdress); 
+              window.localStorage.setItem('AppName', connectAppName);
+              window.localStorage.setItem('sLang', connectsLang);
+              window.localStorage.setItem('code', connectCode);
+              window.localStorage.setItem('pwd', connectPwd);  
+
+              loadBundles(connectsLang);
+              
+            }
+            
+        }
+    },
+    portal:function () {
         //check now connection is added or not
         var connects = new ava.collections.Connects();
         connects.fetch({reset:true});
@@ -436,6 +460,20 @@ ava.router = Backbone.Router.extend({
             window.localStorage.setItem('isUpdateNowConnection', true);
         }
         connects.updateCodePwdsLang();
+        window.localStorage.setItem('enterModalFromPortal',"true");
+        
+        //for modal back to portal localstorage to the same with default
+        this.updateLocalStorageFromDefault();
+        
+
+
+
+
+        // console.log('#portal');
+        var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
+        this.changePageForMobile(page);
+
+        
 
 
 

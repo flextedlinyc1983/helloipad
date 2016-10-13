@@ -1214,9 +1214,24 @@ ava.collections.Connects = Backbone.Collection.extend({
 		});
   },
   getConnectName: function () {
+  	var connectIpAdress = window.localStorage.getItem('ipAdress') || '';
+    var connectAppName = window.localStorage.getItem('AppName') || '';
+    connectIpAdress = connectIpAdress.substring(7);
+    connectAppName = connectAppName.substring(1);
+  	var oModel = this.where({"connectIpAdress": connectIpAdress, "connectAppName": connectAppName});
+  	
   	var array = [];
   	this.each(function(model){
-		array.push({"connectName":model.get('connectName'), "checked":model.get('checked') });
+  		if(window.localStorage.getItem('enterModalFromPortal') == "true"){
+  			array.push({"connectName":model.get('connectName'), "checked":model.get('checked') });	
+  		}else{
+  			var booChoose = false;
+  			if(model.get('connectName') == oModel[0].get("connectName")){
+				booChoose = true;
+  			}
+  			array.push({"connectName":model.get('connectName'), "checked":booChoose });	
+  		}
+		
 	});
 	return array;
   },

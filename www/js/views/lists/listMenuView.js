@@ -115,7 +115,7 @@ ava.views.ConnectOpeView = Backbone.View.extend({
       
     },
     addOne: function (connect) {
-      var view = new ava.views.ConnectView({ model: connect });
+      var view = new ava.views.ConnectView({ model: connect, collection: this.collection });
       this.$list.prepend(view.render().el);
 
       this.$list.listview('refresh');
@@ -160,8 +160,8 @@ ava.views.ConnectOpeView = Backbone.View.extend({
             '' 
           );
         }catch(err) {
-          // this.setInputName('test123 ' + Math.floor((Math.random() * 100) + 1));
-          // this.newConnection();
+          // this.setInputName('test123 ' + Math.floor((Math.random() * 100) + 1).toString());
+          // this.newConnection(Math.floor((Math.random() * 100) + 1).toString());
         }
 
     },
@@ -169,6 +169,10 @@ ava.views.ConnectOpeView = Backbone.View.extend({
       this.inputName = str;
     },
     newConnection: function (connectName, connectIpAdress, connectAppName) {
+      var getChecked = false;
+      if(this.collection.length == 0){
+        getChecked = true;
+      }
       var connectItem = {connectName: connectName,
       connectId: this.collection.getMaxId() + 1,
       connectIpAdress: connectIpAdress,
@@ -176,7 +180,7 @@ ava.views.ConnectOpeView = Backbone.View.extend({
       connectCode: '',
       connectPwd: '',
       connectsLang: window.localStorage.getItem('sLang'),
-      checked: false};
+      checked: getChecked};
       this.collection.create(connectItem);
     },
     getConnectionResult: function (code) {

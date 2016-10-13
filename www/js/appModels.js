@@ -207,4 +207,10 @@ ava.models.Connect = Backbone.Model.extend({
 			checked: false,
 			
 	},
+
+	setClicked: function () {
+			this.save({
+				checked: true
+			});
+	}
 });
