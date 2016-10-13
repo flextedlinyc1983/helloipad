@@ -987,6 +987,18 @@ ava.views.PageView = ava.views.UtilityView.extend({
         }
 
       }
+
+      if(window.location.hash == "#navMenu"){
+        window.history.back();
+      }
+      if(window.location.hash == "#connectOperation"){
+        window.history.back();
+      }
+      if(window.location.hash.indexOf("#connectOperation/detailConnectInfo/") > -1){
+        window.history.back();
+      }
+      
+      
     }
     catch(err) {
         // console.log("swipeIt" + err);
