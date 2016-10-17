@@ -49,7 +49,7 @@ getAppNameFromDataConfig = function (data) {
 
 autoRediectToModal = "true";
 
-timeoutPollingPeriod = 10000;
+timeoutPollingPeriod = 60000;
 
 
 
