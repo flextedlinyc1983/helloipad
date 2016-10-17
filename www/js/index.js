@@ -51,6 +51,7 @@ var app = {
 
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
+        document.addEventListener("backbutton", app.onBackKeyDown, false);
 
         window.setTimeout(function () {
           try{
@@ -67,6 +68,19 @@ var app = {
         },600);
 
 
+    },
+    onBackKeyDown: function () {
+        try{
+            if(window.location.hash != ""){
+                window.history.back()            
+            }else{
+                navigator.app.exitApp();
+            }
+        
+        }catch(err){
+            
+        }
+        
     },
 
     orientationChange:function (e) {

@@ -27,15 +27,39 @@ ava.router = Backbone.Router.extend({
         connects.fetch({reset: true});
         connect = connects.where({connectName: connectName})[0];
         var detailConnect = new ava.views.DetailConnectView({ model: connect });
-        $('#detailConnectInfo [data-role=content]').append("<div><button id='modiyConnectName' class='modify'>" + $.i18n.prop('label_ConnectView_modify') + "</button></div>");
+
+        // check login connection
+        var strDetailConnectLogin = '';
+        if(window.localStorage.getItem('loginSuccess') == "true"){            
+            
+            var loginAppName = window.localStorage.getItem('AppName') || '' ;
+            loginAppName = loginAppName.substring(1);
+            var loginipAdress = window.localStorage.getItem('ipAdress') || '' ;
+            loginipAdress = loginipAdress.substring(7);
+            if(connect.get('connectAppName') == loginAppName && connect.get('connectIpAdress') == loginipAdress){
+                strDetailConnectLogin = "<button id='detailConnectLogin' disabled>登入</button>";
+            }else{
+                strDetailConnectLogin = "<button id='detailConnectLogin'>登入</button>";
+            }
+        }else{
+                strDetailConnectLogin = "<button id='detailConnectLogin'>登入</button>";
+        }                
+
+
+        $('#detailConnectInfo [data-role=content]').append("<div><button id='modiyConnectName' class='modify'>" + $.i18n.prop('label_ConnectView_modify') + "</button></div>"
+            + strDetailConnectLogin +"</div>");
         this.putElementOnPageContent(detailConnect.render().$el, "detailConnectInfo", true);
         
         //add click event
         $( "#modiyConnectName" ).on( "click", function() {
             detailConnect.modifyOnClick();
         });
+        $( "#detailConnectLogin" ).on( "click", function() {
+            detailConnect.detailConnectLoginOnClick();
+        });
         
         this.pageCollection = null;
+
     },
 
     connectOperation: function (argument) {
@@ -519,6 +543,16 @@ ava.router = Backbone.Router.extend({
             }            
 
             this.pageCollection = null;
+
+
+
+            if(autoRediectToModal == "true"){                 
+                autoRediectToModal = "false";
+                setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
+            }else{
+                autoRediectToModal = "true";
+            }
+            
         }
 
     },

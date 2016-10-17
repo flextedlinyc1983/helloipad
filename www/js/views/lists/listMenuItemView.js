@@ -285,11 +285,58 @@ ava.views.DetailConnectView = Backbone.View.extend({
   template: _.template($('#connect-detail-template').html()),
   initialize: function () {
       this.listenTo(this.model, 'change', this.render);  
+      this.updateLocalStorageFromDefault();
+  },
+  updateLocalStorageFromDefault: function () {
+      var isLogin = window.localStorage.getItem('loginSuccess') || '';
+      if(isLogin != "true"){
+          var connects = new ava.collections.Connects();
+          connects.fetch({reset:true});
+          var defaultConnect = connects.where({"checked": true});
+          if(defaultConnect.length > 0){
+            var defaultModel = defaultConnect[0];
+            var connectIpAdress = defaultModel.get('connectIpAdress');
+            var connectAppName = defaultModel.get('connectAppName');
+            var connectsLang = defaultModel.get('connectsLang');
+            var connectCode = defaultModel.get('connectCode');
+            var connectPwd = defaultModel.get('connectPwd');
+
+            connectIpAdress = "http://" + connectIpAdress;
+            connectAppName = "/" + connectAppName;
+
+            window.localStorage.setItem('ipAdress', connectIpAdress); 
+            window.localStorage.setItem('AppName', connectAppName);
+            window.localStorage.setItem('sLang', connectsLang);
+            window.localStorage.setItem('code', connectCode);
+            window.localStorage.setItem('pwd', connectPwd);  
+
+            loadBundles(connectsLang);
+            
+          }
+          
+      }
   },
   modifyOnClick: function (e) {
       
       $.mobile.activePage.focus();      
       this.modifyPopUP();           
+  },
+  detailConnectLoginOnClick: function (e) {      
+      $.mobile.activePage.focus();
+      var loginStatus = window.localStorage.getItem('loginSuccess');      
+      
+      if(checkConnection() == "No network connection"){
+        navigator.notification.alert("網路錯誤，請檢查網路連線!!", function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));  
+        return false;
+      }
+            
+      if(loginStatus == "true"){
+        this.detailConnectLoginPopUP();  
+      }else{
+        //direct login
+        this.loginForDetailConnect();
+      }
+      
   },
   checkConnectNameRepeat: function (connectName) {
       var connects = new ava.collections.Connects();
@@ -304,6 +351,58 @@ ava.views.DetailConnectView = Backbone.View.extend({
   updateConnectName: function (connectName) {
       this.model.save({connectName: connectName});
       navigator.notification.alert($.i18n.prop('msg_DetailConnectView_ModifySuccess'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+  },
+  detailConnectLoginPopUP: function () {
+      try{
+        var self = this;
+        navigator.notification.confirm(
+          // $.i18n.prop('msg_DetailConnectView_Message'),                  // message          
+          "確定登出目前連線，登入此連線??",
+          function (results) {
+            if(results == 1){// confirm
+                window.localStorage.setItem('loginSuccess', "");
+                window.localStorage.setItem('storeName', "");
+
+                this.loginForDetailConnect();
+            }else{
+
+            }
+          },
+          // $.i18n.prop('msg_DetailConnectView_Title'),                   // title          
+          "連線登入作業",
+          [$.i18n.prop('msg_ConnectOpeView_connectPromptConfirm'),$.i18n.prop('msg_ConnectOpeView_connectPromptCancel')],          // buttonName
+          '' 
+        );
+      }catch(err) {
+        // this.setInputName('test123 ' + Math.floor((Math.random() * 100) + 1));
+        // this.newConnection();
+      } 
+  },
+  
+  loginForDetailConnect: function () {
+      var AppName = this.model.get('connectAppName');
+      var IpAdress = this.model.get('connectIpAdress');
+      var Code = this.model.get('connectCode');
+      var Pwd = this.model.get('connectPwd');      
+      var sLang = this.model.get('connectsLang');
+
+      var connectIpAdress = "http://" + IpAdress;
+      var connectAppName = "/" + AppName;
+
+      window.localStorage.setItem('ipAdress', connectIpAdress); 
+      window.localStorage.setItem('AppName', connectAppName);
+      window.localStorage.setItem('sLang', sLang);
+      window.localStorage.setItem('code', Code);
+      window.localStorage.setItem('pwd', Pwd);  
+
+      //code or pwd empty redirect Modal
+      if( Code == "" || Pwd == ""){
+        window.localStorage.setItem('enterModalFromPortal', "false");
+        loadBundles(sLang);
+        Backbone.history.navigate('myModal', true);
+      }else{
+        loginFromDetailConnect();
+      }
   },
   modifyPopUP: function () {        
       try{

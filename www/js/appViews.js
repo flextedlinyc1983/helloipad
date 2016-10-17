@@ -1264,6 +1264,9 @@ ava.views.ModalView = ava.views.UtilityView.extend({
       // _.bindAll(this, 'login');
       Backbone.Validation.bind(this);
       this.firstRender = true;
+
+
+      
     },
 
     render:function (eventName) {    
@@ -1271,12 +1274,25 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         this.getDefaultAndsetLocalStorage();  
         window.localStorage.setItem('enterModalFromPortal', "false");
       }
-      
+
+      //for keep input code pwd when change select
+      var formCode = '';
+      var formPwd = '';      
+      var oFromModalSelect = JSON.parse(window.localStorage.getItem('fromModalSelect') || "{\"isfromModalSelect\":\"empty\"}");
+      window.localStorage.removeItem('fromModalSelect');
+      if(oFromModalSelect.isfromModalSelect == "true" && (window.localStorage.getItem('code') || "") == "" && (window.localStorage.getItem('pwd') || "") == ""){
+        formCode = oFromModalSelect.code;
+        formPwd = oFromModalSelect.pwd;
+      }else{
+        formCode = window.localStorage.getItem('code') || "";
+        formPwd = window.localStorage.getItem('pwd') || "";
+      }
+
 
       // Backbone.Validation.bind(this);
 
         // $(this.el).html(this.template());
-        this.$el.html(this.template({code: window.localStorage.getItem('code') || "", pwd: window.localStorage.getItem('pwd') || "" , sLang:  window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "",
+        this.$el.html(this.template({code: formCode, pwd: formPwd , sLang:  window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "",
       labelcode: $.i18n.prop('msg_myModal_labelcode'),labelpwd: $.i18n.prop('msg_myModal_labelpwd'),labelslang: $.i18n.prop('msg_myModal_labelslang'),
       login: $.i18n.prop('msg_myModal_login'),submit: $.i18n.prop('msg_myModal_submit')
         ,sel_zh_TW: $.i18n.prop('msg_myModal_sel_zh_TW')
@@ -1334,7 +1350,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
     },
 
     selectForConnection: function () {
-        
+        window.localStorage.setItem('fromModalSelect', JSON.stringify({"isfromModalSelect": "true","code": $('#code').val().trim(), "pwd": $('#pwd').val().trim()}));
 
         var connect = $('#selectForConnection').val().trim();
         var connects = new ava.collections.Connects();
@@ -1377,7 +1393,10 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         
     },
 
-    langSelect: function() {        
+    langSelect: function() {   
+        window.localStorage.setItem('fromModalSelect', JSON.stringify({"isfromModalSelect": "true","code": $('#code').val().trim(), "pwd": $('#pwd').val().trim()}));
+
+
         loadBundles($('#sLang').val());
         window.localStorage.setItem('sLang', $('#sLang').val()); 
         this.updateConnectLang();

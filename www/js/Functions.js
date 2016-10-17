@@ -759,3 +759,150 @@ function relogin() {
     
    
 }
+
+
+function checkConnection() {
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    return  states[networkState];
+    // alert('Connection type: ' + states[networkState]);
+}
+
+
+function loginFromDetailConnect () {
+    var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/checkLogin.jsp';
+    var formValues = {
+      code: window.localStorage.getItem('code') || "",
+      pwd: window.localStorage.getItem('pwd') || "",
+      sLang: window.localStorage.getItem('sLang') || "",
+    };
+    $.ajax({
+        context: this,
+        timeout: 10000,
+        url:url,
+        // type:'GET',
+        type:'POST',
+        // crossDomain: true,
+        // headers: { 'Access-Control-Allow-Origin': '*',
+        // 'Content-Type':'application/x-www-form-urlencoded' },
+        // dataType:"json",
+        data: formValues,
+        beforeSend: function (){
+          // alert('beforesend');
+           // $.mobile.showPageLoadingMsg();
+           $.mobile.loading('show');
+        },
+        success:function (data, textStatus, jqXHR) {
+            
+            var strCheckLogin = $($(data).find('table tr')[0]).text().trim();
+            
+            if (jqXHR.getResponseHeader('Content-Length') == "4319" || jqXHR.getResponseHeader('Content-Length') == "2827") {
+
+                window.localStorage.setItem('loginSuccess', false);
+
+                // window.localStorage.setItem('code', "");
+                // window.localStorage.setItem('pwd', "");
+
+                // window.localStorage.setItem('storeName', "");
+
+                
+            }else if(jqXHR.getResponseHeader('Content-Length') == "4337"){
+
+                window.localStorage.setItem('loginSuccess', false);
+
+                // window.localStorage.setItem('code', "");
+                // window.localStorage.setItem('pwd', "");
+
+                // window.localStorage.setItem('storeName', "");
+              
+                alert('此帳號無即時業績權限!');
+
+            }else if(strCheckLogin == "系統登入"){
+                window.localStorage.setItem('loginSuccess', false);
+
+                // window.localStorage.setItem('code', "");
+                // window.localStorage.setItem('pwd', "");
+
+                // window.localStorage.setItem('storeName', "");  
+            }else{
+                //local language
+                loadBundles(formValues.sLang);
+                //local Language for css setting
+                document.documentElement.lang = window.localStorage.getItem('sLang');
+
+
+
+                window.localStorage.setItem('loginSuccess', true);
+
+                window.localStorage.setItem('code', formValues.code);
+                window.localStorage.setItem('pwd', formValues.pwd);
+                window.localStorage.setItem('sLang', formValues.sLang);                    
+
+                var wrapper= document.createElement('div');
+                wrapper.innerHTML= data;
+
+                var storeName = $(wrapper).find('div')[1] ? $(wrapper).find('div')[1].innerHTML : "???";
+
+                window.localStorage.setItem('storeName', storeName);
+
+                // this.loginGetData();
+            }
+            
+
+
+            // console.log(["Login request details: ", data]);
+           
+            if(window.localStorage.getItem('loginSuccess') == "false") {  // If there is an error, show the error messages
+                // $('.alert-error').text(data.error.text).show();
+                // alert($.i18n.prop('msg_myModal_loginError'));
+                // if(window.location.hash == ""){
+                //     location.reload();  
+                // }else{
+                //     Backbone.history.navigate('', {trigger: true, replace: true});  
+                // }
+
+                navigator.notification.alert("登入錯誤", function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                Backbone.history.loadUrl(Backbone.history.fragment);
+            }
+            else { // If not, send them back to the home page
+
+                // if(window.location.hash == ""){
+
+
+                // }else{
+                //     location.reload();
+                // }
+
+                try{
+                   Backbone.history.navigate('', true);
+                }catch(err) {
+                    console.log(err);
+                }
+            }
+        },
+        error: function(xhr, textStatus, errorThrown){  
+          
+          if(xhr.readyState == 0){
+              // alert($.i18n.prop('msg_networkError'));
+              navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+          }else{
+              // alert($.i18n.prop('msg_myModal_loginError'));
+              navigator.notification.alert($.i18n.prop('msg_myModal_loginError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+          }         
+          Backbone.history.loadUrl(Backbone.history.fragment);
+        },
+        complete: function ( jqXHR, textStatus) {
+          $.mobile.loading('hide');
+        }
+    });
+}

@@ -528,7 +528,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
-	                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), 60000);
+	                RealtimeInfo_Today_Test_Timeout = new Timeout(_.bind(self.getResults, self), timeoutPollingPeriod);
 	            }else{
 	            	//$('table').hide();
 	            }
@@ -872,7 +872,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
-	                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), 60000);
+	                getBrandStatistics_Timeout = new Timeout(_.bind(self.getResults, self), timeoutPollingPeriod);
 	            }else{
 	            	//$('table').hide();
 	            }
@@ -1068,7 +1068,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
 	                //set timeout
 	                // setTimeout(_.bind(self.getResults, self),60000);
-	                portal_Timeout = new Timeout(_.bind(self.getResults, self), 60000);
+	                portal_Timeout = new Timeout(_.bind(self.getResults, self), timeoutPollingPeriod);
             	}else{
 	            	// $('table').hide();
 	            }
