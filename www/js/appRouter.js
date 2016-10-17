@@ -37,12 +37,12 @@ ava.router = Backbone.Router.extend({
             var loginipAdress = window.localStorage.getItem('ipAdress') || '' ;
             loginipAdress = loginipAdress.substring(7);
             if(connect.get('connectAppName') == loginAppName && connect.get('connectIpAdress') == loginipAdress){
-                strDetailConnectLogin = "<button id='detailConnectLogin' disabled>登入</button>";
+                strDetailConnectLogin = "<button id='detailConnectLogin' disabled>" + $.i18n.prop('msg_ConnectView_loginName') + "</button>";
             }else{
-                strDetailConnectLogin = "<button id='detailConnectLogin'>登入</button>";
+                strDetailConnectLogin = "<button id='detailConnectLogin'>" + $.i18n.prop('msg_ConnectView_loginName') + "</button>";
             }
         }else{
-                strDetailConnectLogin = "<button id='detailConnectLogin'>登入</button>";
+                strDetailConnectLogin = "<button id='detailConnectLogin'>" + $.i18n.prop('msg_ConnectView_loginName') + "</button>";
         }                
 
 
@@ -545,13 +545,15 @@ ava.router = Backbone.Router.extend({
             this.pageCollection = null;
 
 
-
-            if(autoRediectToModal == "true"){                 
-                autoRediectToModal = "false";
-                setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
-            }else{
-                autoRediectToModal = "true";
+            if(window.localStorage.getItem('registerSuccess') == "true"){
+                if(autoRediectToModal == "true"){                 
+                    autoRediectToModal = "false";
+                    setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
+                }else{
+                    autoRediectToModal = "true";
+                }    
             }
+            
             
         }
 

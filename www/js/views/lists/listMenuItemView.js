@@ -326,7 +326,7 @@ ava.views.DetailConnectView = Backbone.View.extend({
       var loginStatus = window.localStorage.getItem('loginSuccess');      
       
       if(checkConnection() == "No network connection"){
-        navigator.notification.alert("網路錯誤，請檢查網路連線!!", function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));  
+        navigator.notification.alert($.i18n.prop('msg_ConnectView_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));  
         return false;
       }
             
@@ -357,19 +357,19 @@ ava.views.DetailConnectView = Backbone.View.extend({
         var self = this;
         navigator.notification.confirm(
           // $.i18n.prop('msg_DetailConnectView_Message'),                  // message          
-          "確定登出目前連線，登入此連線??",
+          $.i18n.prop('msg_DetailConnectView_Login_Message'),
           function (results) {
             if(results == 1){// confirm
                 window.localStorage.setItem('loginSuccess', "");
                 window.localStorage.setItem('storeName', "");
 
-                this.loginForDetailConnect();
+                self.loginForDetailConnect();
             }else{
 
             }
           },
           // $.i18n.prop('msg_DetailConnectView_Title'),                   // title          
-          "連線登入作業",
+          $.i18n.prop('msg_ConnectView_Login_Title'),
           [$.i18n.prop('msg_ConnectOpeView_connectPromptConfirm'),$.i18n.prop('msg_ConnectOpeView_connectPromptCancel')],          // buttonName
           '' 
         );

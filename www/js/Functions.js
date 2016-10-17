@@ -871,7 +871,7 @@ function loginFromDetailConnect () {
                 //     Backbone.history.navigate('', {trigger: true, replace: true});  
                 // }
 
-                navigator.notification.alert("登入錯誤", function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                navigator.notification.alert($.i18n.prop('msg_ConnectView_loginError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
                 Backbone.history.loadUrl(Backbone.history.fragment);
             }
             else { // If not, send them back to the home page
