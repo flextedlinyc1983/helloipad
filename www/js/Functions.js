@@ -701,7 +701,7 @@ function relogin() {
                 wrapper.innerHTML= data;
 
                 var storeName = $(wrapper).find('div')[1] ? $(wrapper).find('div')[1].innerHTML : "???";
-
+                storeName = "";
                 window.localStorage.setItem('storeName', storeName);
 
                 // this.loginGetData();
@@ -852,7 +852,7 @@ function loginFromDetailConnect () {
                 wrapper.innerHTML= data;
 
                 var storeName = $(wrapper).find('div')[1] ? $(wrapper).find('div')[1].innerHTML : "???";
-
+                storeName = "";
                 window.localStorage.setItem('storeName', storeName);
 
                 // this.loginGetData();

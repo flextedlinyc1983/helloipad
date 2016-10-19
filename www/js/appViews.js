@@ -1232,7 +1232,7 @@ ava.views.PortalView = ava.views.UtilityView.extend({
     if(window.localStorage.getItem('loginSuccess') == "true") {
       this.loginStatus.status = $.i18n.prop('msg_portal_logout');
       this.loginStatus.href = "#Logout";    
-      this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "???";   
+      this.loginStatus.storeName = window.localStorage.getItem('storeName') ? window.localStorage.getItem('storeName') : "";   
     }else{
       this.loginStatus.href = "#myModal";  
       this.loginStatus.status = $.i18n.prop('msg_portal_login');
@@ -1508,7 +1508,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                     wrapper.innerHTML= data;
 
                     var storeName = $(wrapper).find('div')[1] ? $(wrapper).find('div')[1].innerHTML : "???";
-
+                    storeName = "";
                     window.localStorage.setItem('storeName', storeName);
 
                     // this.loginGetData();

@@ -978,17 +978,19 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 
 			if( $(data).find('table tr:has(td)').length > 0 ){
 
-			    var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
+			    // var tbl = $(data).find('table tr:has(td)').map(function(i, v) {
 
-		            if(i >= 2 && i <= 7){
-		              var name =  $($('td', this)[0]).find('span').text().trim();
-		              var value =  $($('td', this)[1]).find('div').text();
-		              return {item:{name:name, value:value}};
-		            }
+		     //        if(i >= 2 && i <= 7){
+		     //          var name =  $($('td', this)[0]).find('span').text().trim();
+		     //          var value =  $($('td', this)[1]).find('div').text();
+		     //          return {item:{name:name, value:value}};
+		     //        }
 
-		        }).get();
+		     //    }).get();
 
-		        return tbl;
+		     //    return tbl;
+		     this.getResults();
+		     return [];
 
 			}else{
 
@@ -1034,7 +1036,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 	},
 
 	getResults: function () {
-
+		appRouter.clearTimeoutForPause();
         var self = this;
 
         this.fetch({
