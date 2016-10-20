@@ -989,7 +989,9 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 		     //    }).get();
 
 		     //    return tbl;
-		     this.getResults();
+		     // this.getResults();
+		     // Backbone.history.loadUrl(Backbone.history.fragment);
+		     setTimeout(_.bind(this.getResults, this),100);
 		     return [];
 
 			}else{
