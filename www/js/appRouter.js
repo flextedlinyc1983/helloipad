@@ -18,8 +18,92 @@ ava.router = Backbone.Router.extend({
         "navMenu": "navMenu",
         "connectOperation": "connectOperation",
         "connectOperation/detailConnectInfo/:connectName": "detailConnectInfo",
+        "attendance": "attendance",
+        "stock": "stock",
 	},
+
+    before: function () {
+        try{
+            console.log('before');          
+            setFooterItemByLoginStatus();
+            clearRealtimeBusinessPagesData();
+        }catch(e){
+           console.log(e);
+        }
+    },
+    after: function () {
+        console.log('after');
+    },
+    stock: function () {
+        var page = new ava.views.PageView({attributes : {"id" : "stock"}});
+        this.changePageForMobile(page);
+    
+        this.pageCollection = null;
+        
+        try{
+            $.mobile.loading('show');
+            // openBrowser();
+
+            // $.mobile.activePage.find('div[data-role=header]').remove();
+            // var url = "http://203.67.131.72:8888/flaps/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1";
+            var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Attendance/attendance.jsp';
+            var width = $(window).width();
+            var divHeight = $(window).height() - 53 + 5 + 5;
+            var frameHeight = $(window).height() - 53 ;
+            //var str = "<div style='overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + height + "px'><iframe id='inappiframeattendance' src='" + url + "' style='display:none; width:100%;height:100%;border: 0px;'/></iframe></div>"
+            var str = "<div id= 'Divinappiframestock' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframestock' id='inappiframestock' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
+            $.mobile.activePage.find('div[data-role=content]').append(str)
+            var inappiFrameStock = document.getElementById("inappiframestock");
+            inappiFrameStock.onload = inappiFrameStockLoad;
+            StockLoadFinish = false;
+            // lock click
+
+
+        }catch(err) {
+            // console.log("swipeIt" + err);
+        }
+    },
+    attendance: function () {
+        var page = new ava.views.PageView({attributes : {"id" : "attendance"}});
+        this.changePageForMobile(page);
+
+        
+
+        // this.putElementOnPageContent("<button id='new-connect' class='new-connect ui-btn ui-corner-all' >New Connection</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
+        // this.putElementOnPageContent("<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
+
+        // var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
+        // this.setulHeightForconnectOperation(ulHeight);
+
+        // var ConnectOpeView = new ava.views.ConnectOpeView({collection: new ava.collections.Connects()});
+        
+        this.pageCollection = null;
+        
+        try{
+            $.mobile.loading('show');
+            // openBrowser();
+
+            // $.mobile.activePage.find('div[data-role=header]').remove();
+            // var url = "http://203.67.131.72:8888/flaps/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1";
+            var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Attendance/attendance.jsp';
+            var width = $(window).width();
+            var divHeight = $(window).height() - 53 + 5 + 5;
+            var frameHeight = $(window).height() - 53 ;
+            //var str = "<div style='overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + height + "px'><iframe id='inappiframeattendance' src='" + url + "' style='display:none; width:100%;height:100%;border: 0px;'/></iframe></div>"
+            var str = "<div id= 'Divinappiframeattendance' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframeattendance' id='inappiframeattendance' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
+            $.mobile.activePage.find('div[data-role=content]').append(str)
+            var inappiFrameAttendance = document.getElementById("inappiframeattendance");
+            inappiFrameAttendance.onload = inappiFrameAttendanceonLoad;
+            AttendanceonLoadFinish = false;
+            // lock click
+
+
+        }catch(err) {
+            // console.log("swipeIt" + err);
+        }
+    },
     detailConnectInfo: function (connectName) {
+        autoRediectToModal = "true";
         var page = new ava.views.PageView({attributes : {"id" : "detailConnectInfo"}});
         this.changePageForMobile(page);
 
@@ -69,7 +153,16 @@ ava.router = Backbone.Router.extend({
         
 
         // this.putElementOnPageContent("<button id='new-connect' class='new-connect ui-btn ui-corner-all' >New Connection</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
-        this.putElementOnPageContent("<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
+        var btnNew = "<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button>" ;
+        var loginLogoutText = "";
+        if( window.localStorage.getItem('loginSuccess') == "true" ){
+            loginLogoutText = "登出";
+        }else{
+            loginLogoutText = "登入";
+        }
+        
+        var btnLoginLogout = "<button id='loginlogout-connect' class='loginlogout-connect' >" + loginLogoutText + "</button>" ;
+        this.putElementOnPageContent( btnNew + btnLoginLogout + "<ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
 
         var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
         this.setulHeightForconnectOperation(ulHeight);
@@ -87,7 +180,9 @@ ava.router = Backbone.Router.extend({
         this.changePageForMobile(page);
 
         var menuCollection = new ava.collections.Menu([{name: "", title: $.i18n.prop('navMenu_Operation'), dataDivider: true},
-            {name: "connectOperation", title: $.i18n.prop('navMenu_Connection'), dataDivider: false}]);
+            {name: "connectOperation", title: $.i18n.prop('navMenu_Connection'), dataDivider: false},
+            {name: "attendance", title: "attendance", dataDivider: false},
+            ]);
 
         var menuView = new ava.views.navMenu({collection: menuCollection, attributes : {"data-role" : "listview"}, className:"listview"});
 
@@ -192,6 +287,10 @@ ava.router = Backbone.Router.extend({
        return  this.pageCollection;
     },
 
+    getPageView: function () {
+       return  this.basicPageView;
+    },
+
     login: function () {
         alert("test");
 
@@ -212,14 +311,24 @@ ava.router = Backbone.Router.extend({
 
         // console.log('#RealtimeInfo_Today_Test');
         var page = new ava.views.PageView({attributes : {"id" : "RealtimeInfo_Today_Test"}});
+        this.basicPageView = page;
         // delete
         if(typeof(pagesData['portal']) != "undefined"){
-            page.setNowpage(pagesData['portal'].group);
+            page.setNowpage(pagesData['portal'].group);           
+            page.setClickValueItemFromPortal(pagesData['portal'].clickValueItemFromPortal || false);            
             delete pagesData['portal'];
+        }
+       if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined" ){            
+            if( typeof(pagesData['#RealtimeInfo_Today_Test'].headerScrollleftForgetPosInfo) != "undefined" ){
+                page.setHeaderScrollleftForgetPosInfo(pagesData['#RealtimeInfo_Today_Test'].headerScrollleftForgetPosInfo);
+            }
+            if( typeof(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon) != "undefined" ){
+                page.setNowpage(pagesData['#RealtimeInfo_Today_Test'].pagegroupPositon);
+            }
         }
 
         this.changePageForMobile(page);
-
+        
 
 
 
@@ -459,7 +568,7 @@ ava.router = Backbone.Router.extend({
             
         }
     },
-    portal:function () {
+    portal:function () {        
         //check now connection is added or not
         var connects = new ava.collections.Connects();
         connects.fetch({reset:true});
@@ -494,9 +603,10 @@ ava.router = Backbone.Router.extend({
 
 
         // console.log('#portal');
-        var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
+        // var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
+        var page = new ava.views.PageView({className: "isSum1", attributes : {"id" : "portal"}});
         this.changePageForMobile(page);
-
+        
         
 
 
@@ -546,22 +656,20 @@ ava.router = Backbone.Router.extend({
 
 
             if(window.localStorage.getItem('registerSuccess') == "true"){
-                if(autoRediectToModal == "true"){                 
-                    autoRediectToModal = "false";
+                if(autoRediectToModal == "true"){                                     
                     setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
                 }else{
                     autoRediectToModal = "true";
                 }    
             }
-            
-            
+                        
         }
 
     },
 
     setCompanyInfoScreen: function () {
         var width = $(window).width();
-        var height = $(window).height() - $("div[data-role=header]").outerHeight();
+        var height = $(window).height() - $("div[data-role=header]").outerHeight() -51 + 51;
         $('.CompanyInfo').css({'height': height + 'px','width': width + 'px'});
 
     },
@@ -788,6 +896,7 @@ ava.router = Backbone.Router.extend({
     },
     //login here
     myModal:function () {
+        autoRediectToModal = "false";
         // console.log('#myModal');
         var loginView = new ava.views.ModalView({model: new ava.models.LoginModel(), className: "landscapeModal"});
         // Backbone.Validation.bind(loginView);
@@ -798,17 +907,29 @@ ava.router = Backbone.Router.extend({
     },
 
     changePageForMobile:function (page) {
-        $(page.el).attr('data-role', 'page');
-        page.render();
-        $('body').append($(page.el));
-        var transition = $.mobile.defaultPageTransition;
-        // We don't want to slide the first page
-        if (this.firstPage) {
-            transition = 'none';
-            this.firstPage = false;
+        try{
+            $(page.el).attr('data-role', 'page');
+            page.render();
+            $('body').append($(page.el));
+            var transition = $.mobile.defaultPageTransition;
+            // We don't want to slide the first page
+            if (this.firstPage) {
+                transition = 'none';
+                this.firstPage = false;
+            }else{
+                transition = 'none';
+            }
+            headerNavItem(page, window.location.hash);
+            footerNavItem(page, window.location.hash);
+            var scrollLeftValue = getHeaderAreaScrollLeft(page);
+            // $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
+            $(":mobile-pagecontainer").pagecontainer( "change", $(page.el), { changeHash: false, transition: transition});
+
+
+            setHeaderAreaScrollLeft(page, scrollLeftValue);
+        }catch(e){
+            console.log(e);
         }
-        // $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
-        $(":mobile-pagecontainer").pagecontainer( "change", $(page.el), { changeHash: false, transition: transition});
     },
 
     home: function () {
@@ -1155,7 +1276,8 @@ $(document).ready(function () {
         //     portal_Timeout.clear();
         // }else {
 
-        // }
+        // }        
+        
     });
 
     tabOperation.init();

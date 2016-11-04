@@ -21,6 +21,7 @@ thead {
 
 #RealtimeInfo_Today_Test-table {
 	margin-bottom: 0px;
+    position: absolute;
 
 	// border-collapse: inherit;	
 }
@@ -67,4 +68,6 @@ table.showG7 .item_1 { display: table-cell; width: 33%;}
 
 #portal-table, #getPosInfo-table, #getBrandStatistics-table {
     margin-bottom: 0px;
+    // position: absolute;
+    position: fixed;
 }

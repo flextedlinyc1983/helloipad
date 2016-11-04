@@ -470,6 +470,7 @@ th {
 .ui-content {
     
     padding: 0em; 
+    padding-top: 1px;
 }
 
 
@@ -520,4 +521,9 @@ table, td, th {
 
 #RealtimeInfo_Today_Test [data-role=content] {
 	width: 100%;
+}
+
+
+.table thead th {
+	text-align: center;
 }

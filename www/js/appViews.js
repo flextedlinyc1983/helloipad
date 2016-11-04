@@ -712,6 +712,8 @@ ava.views.Table_New_View = Backbone.View.extend({
       var tableClass = $('table').attr('class');
       currentPageData.pagegroupPositon = tableClass.substring(tableClass.indexOf('showG') + 5, tableClass.indexOf('showG') + 6);
 
+      currentPageData.headerScrollleftForgetPosInfo = $.mobile.activePage.find('[data-role=header] ul').scrollLeft();
+
       Backbone.history.navigate('RealtimeInfo_Today_Test/getPosInfo/' + codeNumber, true);
       
     },
@@ -964,10 +966,210 @@ ava.views.PageView = ava.views.UtilityView.extend({
   // },
 
   events: {
+      "click #register": "Register", 
       "swiperight" : "swipeRight",
       "swipeleft" : "swipeLeft",
+      // "swiperight" : "swipeLeft",
+      // "swipeleft" : "swipeRight",
+      "vclick div[data-role=footer] ul .index a": "indexClick",
+      "vclick div[data-role=footer] ul .connection a": "connectionClick",
+      "vclick div[data-role=footer] ul .attendance a": "attendanceClick",
+      "vclick div[data-role=footer] ul .stock a": "stockClick",
+      "click div[data-role=footer] ul .backPage a": "backPageClick",
+      "swiperight div[data-role=footer] ul" : "swipeRightFooter",
+      "swiperight div[data-role=header] ul" : "swipeRightHeader",
+      "swipeleft div[data-role=footer] ul" : "swipeLeftFooter",
+      "swipeleft div[data-role=header] ul" : "swipeLeftHeader",
+      // "tap": "tapClick",
+      "vclick div[data-role=header] .headerArea #hrefBackBtn": "backBtnClick",
+      
+  },
+  Register: function () {
+    try{
+      $('#register').hide();
+      var self = this;
+        navigator.notification.prompt(
+          $.i18n.prop('msg_PortalView_registerPromptMsg'),                  // message
+          function (results) {
+            if(results.buttonIndex  == 1){// confirm
+              // alert(results.input1.trim());
+                self.getRegisterResult(results.input1.trim());
+            }else{
+              //cancel
+              $('#register').show({duration:0});
+            }
+          },
+          $.i18n.prop('msg_PortalView_registerPromptTitle'),                   // title
+          [$.i18n.prop('msg_PortalView_registerPromptConfirm'),$.i18n.prop('msg_PortalView_registerPromptCancel')],          // buttonName
+          '' 
+        );
+    }catch(e){
+      console.log(e);
+    }
   },
 
+  getRegisterResult: function (code) {
+    $('#register').show({duration:0});
+      // var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkLogin.jsp';
+      var url = getIpFromDataConfig(setIpBySelf) + getAppNameFromDataConfig(setAppNameBySelf) + '/checkSubscription.jsp';
+        $.ajax({
+            timeout: 10000,
+            url:url,
+            type:'POST',
+            // crossDomain: true,
+            // headers: { 'Access-Control-Allow-Origin': '*',
+            // 'Content-Type':'application/x-www-form-urlencoded' },
+            // dataType:"json",
+            data: {SubscriptId:code, device_platform: device.platform, device_uuid:device.uuid},
+            beforeSend: function (){
+               $.mobile.loading('show');
+            },
+            success:function (data, textStatus, jqXHR) {
+
+                
+
+
+                if (jqXHR.status == 200) {
+                    var str = (data.match(/{([^}]+)}/)[0]);
+                    str = str.replace(/'/g,"\"");
+                    str = JSON.parse(str);
+
+                    window.localStorage.setItem('ipAdress', "http://" + str.ip );
+                    window.localStorage.setItem('AppName', "/" + str.APN );
+                    window.localStorage.setItem('registerSuccess', "true");
+                    // alert($.i18n.prop('msg_PortalView_registerSuccess'));
+                    navigator.notification.alert($.i18n.prop('msg_PortalView_registerSuccess'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                    Backbone.history.loadUrl(Backbone.history.fragment);
+                    
+                }else{
+
+                    
+                    window.localStorage.setItem('ipAdress', "");
+                    window.localStorage.setItem('AppName', "");
+                    window.localStorage.setItem('registerSuccess', "false");
+                    // alert($.i18n.prop('msg_PortalView_registerFail'));
+                    navigator.notification.alert($.i18n.prop('msg_PortalView_registerFail'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+
+                }
+                
+
+
+
+            },
+            error: function(xhr, textStatus, errorThrown){
+              if(xhr.status == "403"){
+                // alert($.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_registrationCode_error'));
+                navigator.notification.alert($.i18n.prop('msg_registrationCode_error'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              }else if(xhr.status =="0"){
+                // alert($.i18n.prop('msg_networkError'));
+                navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              }else if(xhr.status =="404"){
+                // alert($.i18n.prop('msg_serverError'));
+                navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              }
+            },
+            complete: function ( jqXHR, textStatus) {
+              $.mobile.loading('hide');
+            }
+        });
+  },
+  stockClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerStockClick(e);
+      
+  },
+  attendanceClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerAttendanceClick(e);
+      
+  },
+
+  backBtnClick: function (e) {
+      e.preventDefault();
+      // e.stopImmediatePropagation();
+      e.stopPropagation();
+      $.mobile.activePage.focus();
+
+      // window.history.back();
+      var name = $.mobile.activePage.attr("id");
+      try {
+            switch (name) {                  
+              case "detailConnectInfo":                  
+                  Backbone.history.navigate('connectOperation', true);
+                  break;
+              case "getPosInfo":                  
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                  break;                                
+              default:
+                  // alert('no match');
+            }
+      } catch (e) {
+          console.log(e.message);
+      }
+  },
+  // tapClick:function (e) {
+  //   e.preventDefault();
+  //   e.stopImmediatePropagation();
+  //   // alert('swipeLeftHeader');    
+  // },
+  swipeLeftHeader:function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    // alert('swipeLeftHeader');
+  },
+  swipeLeftFooter:function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    // alert('swipeLeftFooter');
+  },
+  swipeRightHeader:function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    // alert('swipeRightHeader');
+  },
+  swipeRightFooter:function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    // alert('swipeRightFooter');
+  },
+  backPageClick: function (e) {
+
+    // $(e.target).removeClass('ui-btn-active');
+    e.preventDefault();
+    // e.stopImmediatePropagation();
+    $.mobile.activePage.focus();
+
+    window.history.back();
+  },
+
+  indexClick: function (e) {
+    // $(e.target).removeClass('ui-btn-active');
+    e.preventDefault();
+    // e.stopImmediatePropagation();
+    $.mobile.activePage.focus();
+
+    if( $.mobile.activePage.attr('id') == "attendance" && AttendanceonLoadFinish == false){
+      return false;
+    }
+
+    footerIndexClick(e);
+  },
+  connectionClick: function (e) {
+      
+    e.preventDefault();      
+    $.mobile.activePage.focus();
+
+    if( $.mobile.activePage.attr('id') == "attendance" && AttendanceonLoadFinish == false){
+      return false;
+    }
+    
+    footerConnectionClick(e);
+      
+  },
   nowPage: 1,
 
   setNowpage: function(nowPage){
@@ -975,6 +1177,21 @@ ava.views.PageView = ava.views.UtilityView.extend({
   },
   getNowpage: function(){
     return this.nowPage;
+  },
+
+  headerScrollleftForgetPosInfo : 0,
+  setHeaderScrollleftForgetPosInfo: function (value) {
+    this.headerScrollleftForgetPosInfo = value;
+  },
+  getHeaderScrollleftForgetPosInfo: function () {
+    return this.headerScrollleftForgetPosInfo;
+  },
+  clickValueItemFromPortal : false,
+  setClickValueItemFromPortal: function (value) {
+    this.clickValueItemFromPortal = value;
+  },
+  getClickValueItemFromPortal: function () {
+    return this.clickValueItemFromPortal;
   },
   swipeRight: function(e){
     try{
@@ -984,15 +1201,28 @@ ava.views.PageView = ava.views.UtilityView.extend({
         if(this.nowPage != 7){
             this.nowPage += 1;           
             this.toggleColumn(this.nowPage);
+
+            setHeaderAreaBySwipe(this);
+            setHeaderItemCenterBySwipe(this);
+        }else{
+            var $Page = $(this.el);
+            var isStop = $Page.find('div[data-role=header] ul li a.selected').parent().hasClass("classIndex9");
+            if(!isStop){
+              swipeForNotRealtimeInfo_Today_Test = true;
+              setHeaderAreaBySwipeRightForNotRealtimeInfo_Today_Test(this);          
+            }
         }
 
+      }else{
+          swipeForNotRealtimeInfo_Today_Test = true;
+          setHeaderAreaBySwipeRightForNotRealtimeInfo_Today_Test(this);  
       }
 
       if(window.location.hash == "#navMenu"){
         window.history.back();
       }
       if(window.location.hash == "#connectOperation"){
-        window.history.back();
+        // window.history.back();
       }
       if(window.location.hash.indexOf("#connectOperation/detailConnectInfo/") > -1){
         window.history.back();
@@ -1012,7 +1242,23 @@ ava.views.PageView = ava.views.UtilityView.extend({
         if(this.nowPage != 1){
             this.nowPage -= 1;           
             this.toggleColumn(this.nowPage);
+
+            setHeaderAreaBySwipe(this);
+            setHeaderItemCenterBySwipe(this);
+        }else {
+            swipeForNotRealtimeInfo_Today_Test = true;
+            setHeaderAreaBySwipeLeftForNotRealtimeInfo_Today_Test(this);
+
         }
+
+
+      }else{
+            var $Page = $(this.el);
+            var isStop = $Page.find('div[data-role=header] ul li a.selected').parent().hasClass("classIndex1");
+            if(!isStop){
+              swipeForNotRealtimeInfo_Today_Test = true;
+              setHeaderAreaBySwipeLeftForNotRealtimeInfo_Today_Test(this);  
+            }            
       }
 
     }
@@ -1042,7 +1288,23 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
 
     // $(this.el).html(this.template(this.loginStatus));
-    this.$el.html(this.template({back_text: $.i18n.prop('msg_back_text'), flaps_name: $.i18n.prop('msg_flaps_name')}));
+    this.$el.html(this.template({back_text: $.i18n.prop('msg_back_text'), flaps_name: $.i18n.prop('msg_flaps_name'), registerText:$.i18n.prop('msg_PortalView_registerText')}));
+    
+    
+
+    if(window.location.hash.indexOf("#stock") && window.location.hash.indexOf("#attendance") && window.location.hash.indexOf("#connectOperation") && window.location.hash != "#navMenu" && window.location.hash.indexOf("#RealtimeInfo_Today_Test/getPosInfo")){
+      var items = getHeaderAreaItems(window.location.hash);
+      setHeaderArea(items, this.$el);  
+    }else{
+      if(window.location.hash.split("/")[1] || "" != ""){
+          this.$el.find("[data-role=header] .headerArea").append('<a id="hrefBackBtn"></a>');
+          this.$el.find("[data-role=content]").addClass("contentWithHeaderBackBtn");
+      }else{
+          this.$el.find("[data-role=header]").remove();  
+      }
+      
+    }
+    
 
     return this;
   },
@@ -1099,8 +1361,25 @@ ava.views.PortalView = ava.views.UtilityView.extend({
     this.loginStatus.registerText = $.i18n.prop('msg_PortalView_registerText');
     $(this.el).html(this.template(this.loginStatus));
 
+
+    // var items = new ava.collections.Menu([
+    //     {title: "即時業績", className:"classIndex1"},
+    //     {title: "本日業績", className:"classIndex2"},
+    //     {title: "本月業績", className:"classIndex3"},
+    //     {title: "現有庫存", className:"classIndex4"},
+    //     {title: "業績5", className:"classIndex5"},
+    //     {title: "業績6", className:"classIndex6"},
+    //     {title: "業績7", className:"classIndex7"},
+    //     {title: "業績8", className:"classIndex8"},
+    //     {title: "業績9", className:"classIndex9"},
+    //     ]);
+    var items = getHeaderAreaItems(window.location.hash);
+    setHeaderArea(items, this.$el);
+      
+      
     return this;
   },
+
 
   setLanguage: function () {
     this.loginStatus.sLang = window.localStorage.getItem('sLang') || getChooseLanguageFromNvLang(navigator.language) || "";
@@ -1111,8 +1390,72 @@ ava.views.PortalView = ava.views.UtilityView.extend({
   events: {
      "click #myModal": "Logout", 
      "click #register": "Register",  
- 
+     "vclick div[data-role=footer] ul .index a": "indexClick",
+     "vclick div[data-role=footer] ul .connection a": "connectionClick",
+     "vclick div[data-role=footer] ul .attendance a": "attendanceClick",
+     "vclick div[data-role=footer] ul .stock a": "stockClick",
+     "swiperight" : "swipeRightPortal",
+     "swipeleft" : "swipeLeftPortal",
+     "swiperight div[data-role=footer] ul" : "swipeRightFooterPortal",
+     "swiperight div[data-role=header] ul" : "swipeRightHeaderPortal",
+     "swipeleft div[data-role=footer] ul" : "swipeLeftFooterPortal",
+     "swipeleft div[data-role=header] ul" : "swipeLeftHeaderPortal"
+  },
 
+  stockClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerStockClick(e);
+      
+  },
+  attendanceClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerAttendanceClick(e);
+      
+  },
+  swipeRightPortal: function(e){
+    // alert('test');
+    e.preventDefault();      
+    e.stopImmediatePropagation();
+    $.mobile.activePage.focus();
+  },
+  swipeLeftPortal: function(e){
+    // alert('test');
+    e.preventDefault();      
+    e.stopImmediatePropagation();
+    $.mobile.activePage.focus();
+  },
+  swipeLeftHeaderPortal:function (e) {
+    e.stopImmediatePropagation();
+    // alert('swipeLeftHeader');
+  },
+  swipeLeftFooterPortal:function (e) {
+    e.stopImmediatePropagation();
+    // alert('swipeLeftFooter');
+  },
+  swipeRightHeaderPortal:function (e) {
+    e.stopImmediatePropagation();
+    // alert('swipeRightHeader');
+  },
+  swipeRightFooterPortal:function (e) {
+    e.stopImmediatePropagation();
+    // alert('swipeRightFooter');
+  },
+  connectionClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerConnectionClick(e);
+      
+  },
+  indexClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerIndexClick(e);
   },
   Register: function () {
     $('#register').hide();
@@ -1347,6 +1690,12 @@ ava.views.ModalView = ava.views.UtilityView.extend({
         "click #loginButtonGetData": "loginGetData",
         "change #sLang": "langSelect",
         "change #selectForConnection": "selectForConnection",
+        'vclick .back': 'backBtnClick',
+
+    },
+    backBtnClick: function (e) {
+      e.preventDefault(); 
+      Backbone.history.navigate('connectOperation', true); 
     },
 
     selectForConnection: function () {
@@ -1524,6 +1873,7 @@ ava.views.ModalView = ava.views.UtilityView.extend({
                     navigator.notification.alert($.i18n.prop('msg_myModal_loginError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
                 }
                 else { // If not, send them back to the home page
+                    footerClickItem = "";
                     window.location.replace('#');
                 }
             },
@@ -1774,31 +2124,37 @@ ava.views.TableRowView = ava.views.UtilityView.extend({
               case "本日業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 1;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "去年本日業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 1;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "本月業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 2;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "去年本月業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 2;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "現有庫存":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 3;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "可售金額":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 3;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               default:
@@ -2346,6 +2702,8 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
 
     events: {
         "click .value": function(event) {
+          event.stopPropagation();
+          event.preventDefault();
           var name = this.model.attributes.item.name;
           name = getPortalRowNameFromClick(name);
           // console.log(name);
@@ -2354,31 +2712,37 @@ ava.views.TableRow_portal_View = ava.views.UtilityView.extend({
               case "本日業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 1;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "去年本日業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 1;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "本月業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 2;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "去年本月業績":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 2;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "現有庫存":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 3;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               case "可售金額":
                   var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
                   currentPageData.group = 3;
+                  currentPageData.clickValueItemFromPortal = true;
                   Backbone.history.navigate('RealtimeInfo_Today_Test', true);
                   break;
               default:

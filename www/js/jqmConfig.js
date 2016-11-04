@@ -2,6 +2,7 @@ $(document).on('mobileinit', function() {
 	// alert('mobileinit');
 
 
+    $.mobile.activeBtnClass = 'unused';
     $.mobile.ajaxEnabled = false;
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;
@@ -23,11 +24,26 @@ $.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
  //        $(event.currentTarget).remove();
  //    });
 
+    // $(document).on('touchmove', ":jqmData(role='page')", function (event) {
+    //     if (!$('.scrollable').has($(event.target)).length) event.preventDefault();
+
+
+
+    // });
+
 
 	$(document).on('pagehide', ":jqmData(role='page')", function (event, ui) {
         $(event.currentTarget).remove();
     });
 
+    $(document).on('pagebeforeshow', ":jqmData(role='page')", function (event, ui) {
+        console.log('test')
+    });
+
+    $(document).on('pageshow', ":jqmData(role='page')", function (event, ui) {
+        console.log('test')
+        setPageHeight();
+    });
 
 // $(document).bind('pagebeforeshow', function (event, data) {
 // 	var url = $.mobile.path.parseUrl(data.toPage).hash;

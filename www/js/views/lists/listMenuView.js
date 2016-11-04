@@ -97,6 +97,42 @@ ava.views.ConnectOpeView = Backbone.View.extend({
     el: '#connectOperation',
     events: {
         'click .new-connect': 'createOnClick',
+        'click .loginlogout-connect': 'loginlogoutOnClick',
+        
+    },
+    loginlogoutOnClick: function (e) {
+        e.preventDefault();   
+        $.mobile.activePage.focus();  
+        if( window.localStorage.getItem('loginSuccess') == "true" ){
+            
+
+            try{
+                var self = this;
+                navigator.notification.confirm(
+                // $.i18n.prop('msg_ConnectView_connectPromptMsg'),                  // message
+                "確定登出??",
+                function (results) {
+                  if(results == 1){// confirm
+                    window.localStorage.setItem('loginSuccess', "");
+                    window.localStorage.setItem('storeName', "");
+                    autoRediectToModal = "true";
+                    Backbone.history.navigate('', true); 
+                    // navigator.notification.alert($.i18n.prop('msg_DetailConnectView_DeleteSuccess'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+                    // self.updateLocalStorageFromDefault();    
+                  }else{
+                  }
+                },
+                // $.i18n.prop('msg_ConnectView_connectPromptTitle'),                   // title
+                "登出作業",
+                [$.i18n.prop('msg_ConnectView_connectPromptConfirm'),$.i18n.prop('msg_ConnectView_connectPromptCancel')],          // buttonName
+                '' 
+              );
+            }catch(err) {                  
+            }
+
+        }else{
+            Backbone.history.navigate('myModal', true); 
+        }
     },
     initialize : function () {
         this.$list = $('.connects-list');
@@ -250,6 +286,33 @@ ava.views.ConnectOpeView = Backbone.View.extend({
         });
     },
 
+});
+
+
+
+
+ava.views.headerArea = ava.views.navMenu.extend({
+
+    className : "",
+    render: function() {
+      // TODO
+
+      var $el = $(this.el);
+
+      this.collection.each(function(list) {
+          var item;
+          var className = list.attributes.className + " liHeaderArea";
+
+          item = new ava.views.headerAreaItem({ model: list, attributes : {"class":className}});
+          $el.append(item.render().el);
+      });
+
+      //jquery widget initialize
+      // $(this.el).listview();
+
+      return this;
+
+    }
 });
 
 

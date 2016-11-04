@@ -30,7 +30,7 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json http://* ">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval';frame-src 'self' gap://ready http://* 'unsafe-eval'; style-src 'self' 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src *; connect-src 'self' https://backgridjs.com/examples/territories.json http://* ">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -180,10 +180,15 @@
         <% } %>
         </script>
 
+        <script type="text/template" id="list-menu-item-headerAreaItem">
+            <li class=<%= className  %> ><a><%= title %></a></li>               
+        </script>
+
         <script type="text/template" id="connect-item-template">
             <div class="view">
 
-                <h2><span><%- label_connectName %>:</span>&nbsp<%- connectName %></h2>
+                <!-- <h2><span><%- label_connectName %>:</span>&nbsp<%- connectName %></h2> -->
+                <h2 style=""><%- connectName %></h2>
                 <input class="toggle" type="checkbox" <%= isInUse ? "checked disabled " : "style='display:none'" %>>
                 <label class="toggle" <%= isInUse ? "" : "style='display:none'" %>><%- inUse %></label>
             </div>
@@ -407,19 +412,55 @@
 
 <script type="text/template" id="portal">
 
-    <div data-role="header" data-position='fixed' background="img/title-2.png">
+    
         
         <% if (register == "true") { %>
-            <div>
-                <a href="#navMenu" id="navMenu"></a>
+        <%     if(window.localStorage.getItem('loginSuccess') == "true"){ %>
+                
+                <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="headerData" data-theme="a" class="divHeaderArea">
+                    <div class="headerArea">
+                    <!--     <ul>
+                            <li class="index"><a class="">首頁</a></li>
+                            <li class="search"><a onclick="gotop(0)">搜尋</a></li> 
+                            <li class="cart"><a>購物車<span id="totalItemCountInAllShoppingCarts"></span></a></li> 
+                            <li class="backPage"><a>上一頁</a></li> 
+
+                            
+                            <li><a>About</a></li>
+                            <li><a>Work</a></li>
+                            <li><a>Clients</a></li>
+                            <li><a>Contact</a></li>
+                            <li><a>Home</a></li>
+                            <li><a>About</a></li>
+                            <li><a>Work</a></li>
+                            <li><a>Clients</a></li>
+                            <li><a>Contact</a></li>
+                            <li><a>Home</a></li>
+                            <li><a>About</a></li>
+                            <li><a>Work</a></li>
+                            <li><a>Clients</a></li>
+                            <li><a>Contact</a></li>
+                        </ul> -->
+                    </div>
+                </div>
+
+        <%     }else{ %>
+            <!-- <div data-role="header" data-position='fixed' background="img/title-2.png">
+                <div>
+                    <a href="#navMenu" id="navMenu"></a>
+                </div>
+                <h1 id="portalHeaderTitle"><%= storeName %></h1>            
+            <a href=<%= href %> class="ui-btn-right" id="myModal" <% if(register == "false") { %><%= ' style="display:none;"' %><%}%> ><%= status %></a>            
+            </div> -->
+        <%      } %>
+        <%  }else{ %>
+            <div data-role="header" data-position='fixed' background="img/title-2.png">
+                <h1 id="portalHeaderTitle"><%= storeName %></h1>
             </div>
         <% } %>
 
-        <h1 id="portalHeaderTitle"><%= storeName %></h1>
-        <!-- <a href="#" data-rel="dialog" id="loginIcon" class="ui-btn-right" >登入</a> -->
-        <a href=<%= href %> class="ui-btn-right" id="myModal" <% if(register == "false") { %><%= ' style="display:none;"' %><%}%> ><%= status %></a>
-        <!-- <a href="login.html" data-rel="dialog"  class="ui-btn-right" >登入</a> -->
-    </div>
+        
+    
 
     <div data-role="content" id="portal-content">
 <!--         <h3>Application Template for using Backbone.js and jQuery Mobile.</h3>
@@ -440,6 +481,22 @@
 
         <% } %>
     </div>
+
+    
+    <% if (register == "true") { %>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="main" data-theme="a">
+        <div data-role="navbar" class="footerArea">
+            <ul class="indexPage">              
+              <li class="connection"><a class="defaultSelect">設定</a></li> 
+              <li class="index"><a>業績</a></li>
+              <li class="attendance"><a>出勤</a></li>
+              <li class="stock"><a>庫存</a></li>
+              <!-- <li class="member"><a href="https://m.momoshop.com.tw/mymomo/membercenter.momo">會員中心</a></li>  -->
+              <li class="empty"><a>&nbsp;</a></li> 
+            </ul>
+        </div>
+    </div>
+    <% } %>
 
 </script>
 
@@ -479,22 +536,45 @@
 </script>
 
 <script type="text/template" id="PageView">
-
-
-
+        <% if (window.localStorage.getItem('registerSuccess') == "true") { %>
+            <div data-role="header" data-position="fixed" data-tap-toggle="false" data-id="headerData" data-theme="a" class="divHeaderArea">
+                <div class="headerArea">
+                </div>
+            </div>
+        <%      } %>
+        
     <div data-role="content">
-        
+          <% if (window.localStorage.getItem('registerSuccess') != "true") { %>
+
+          <BUTTON style="background-color: #548DD4; width:35%;position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%);  
+    transform: translate(-50%, -50%); "id="register" value="register"><%= registerText %></BUTTON>
+
+
+
+        <% } %>
     </div>
 
-    <div data-role="footer"  data-position="fixed" data-tap-toggle="false">
+    <!-- <div data-role="footer"  data-position="fixed" data-tap-toggle="false">
         <a href="#" data-icon="back" class="back ui-btn-left"><%= back_text%></a>
-        <!-- <h1>本日業績明細 PageView</h1> -->
+        <h1>本日業績明細 PageView</h1> -->
         <!-- <h1 id="footer_h1" >Flaps Technology Corporation</h1> -->
-        <h1 id="footer_h1" ><%= flaps_name%></h1>
+        <!-- <h1 id="footer_h1" ><%= flaps_name%></h1>
         
+    </div> -->
+    <%     if(window.localStorage.getItem('registerSuccess') == "true"){ %>
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-id="main" data-theme="a">
+        <div data-role="navbar" class="footerArea">
+            <ul class="indexPage">              
+              <li class="connection"><a>設定</a></li> 
+              <li class="index"><a>業績</a></li>
+              <li class="attendance"><a>出勤</a></li>
+              <li class="stock"><a>庫存</a></li> 
+              <!-- <li class="member"><a href="https://m.momoshop.com.tw/mymomo/membercenter.momo">會員中心</a></li>  -->
+              <li class="empty"><a>&nbsp;</a></li> 
+            </ul>
+        </div>
     </div>
-    
-
+    <%      } %>
 </script>
 
 
@@ -645,6 +725,7 @@
         <!-- <script type="text/javascript" src="js/lodash.min.js"></script> -->
         <script type="text/javascript" src="js/underscore.js"></script>
         <script type="text/javascript" src="js/backbone.js"></script>
+        <script type="text/javascript" src="js/customBackbone.js"></script>
 <!--         <script type="text/javascript" src="js/hammer-1.0.3.js"></script>
         <script type="text/javascript" src="js/jquery.hammer.js"></script> -->
         <script type="text/javascript" src="js/backbone-validation.js"></script>
@@ -724,7 +805,7 @@
 <script type="text/javascript" src="js/dataTables.fixedHeader.min.js"></script>
 
 <script type="text/javascript" src="js/jquery.i18n.properties.js"></script>
-
+<!-- <script type="application/javascript" src="js/fastclick.js"></script>  -->
     </head>
     <body>
 <!--         <div class="app">

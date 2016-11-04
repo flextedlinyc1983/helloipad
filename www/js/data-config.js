@@ -49,7 +49,13 @@ getAppNameFromDataConfig = function (data) {
 
 autoRediectToModal = "true";
 
-timeoutPollingPeriod = 60000;
+timeoutPollingPeriod = 160000;
+
+footerClickItem = "業績";
+
+
+swipeForNotRealtimeInfo_Today_Test = false;
+scrollLeftValueForNotRealtimeInfo_Today_Test = 0;
 
 
 

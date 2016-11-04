@@ -118,8 +118,8 @@ ava.views.ConnectView = Backbone.View.extend({
   },
   events: {    
       'click .destroy': 'clear',  
-      'click': 'connectDetail',
-      'click .connectDefaultSelector': 'defaultSelector'
+      'vclick .view': 'connectDetail',
+      'vclick .connectDefaultSelector': 'defaultSelector'
   },
 
   setInUse: function () {
@@ -137,7 +137,9 @@ ava.views.ConnectView = Backbone.View.extend({
   },
 
   defaultSelector: function (e) {
-      e.stopImmediatePropagation();
+      // e.stopImmediatePropagation();
+      e.preventDefault();
+      e.stopPropagation();        
       var radioButton = this.$el.find('input[name=connectDefaultSelector]');
       // if($(radioButton).is(':checked')!= "checked"){
       //     radioButton.attr('checked', true);  
@@ -159,7 +161,8 @@ ava.views.ConnectView = Backbone.View.extend({
           value.save();
       })
   },
-  connectDetail: function () {
+  connectDetail: function (e) {
+      e.preventDefault();  
       var connectName = this.model.get('connectName');
       if(connectName == "")
         return false;
@@ -479,4 +482,131 @@ ava.views.DetailConnectView = Backbone.View.extend({
       return str;
   }
 
+});
+
+
+
+
+
+ava.views.headerAreaItem = ava.views.navMenuItem.extend({
+    className : '',
+    initialize: function(options) {
+      this.options = options;
+      var html = this.template(this.model.toJSON());
+      this.setElement(html);
+    },  
+    template: _.template($("#list-menu-item-headerAreaItem").html()),
+    render: function () {
+        for(var key in this.options.attributes){
+            this.$el.attr(key, this.options.attributes[key]);
+        }
+        return this;
+    },
+    events: {
+        "vclick": "clickEvent" ,        
+    },
+    
+    clickEvent: function (e) {        
+        e.stopPropagation();
+        e.preventDefault();
+
+        try {
+
+
+           var name = $(e.target).html();
+           var hash = window.location.hash;
+
+           switch (name) {
+                case "即時業績":
+                    if( $(e.target).hasClass('selected') == true ){
+                      // Backbone.history.loadUrl(Backbone.history.fragment);
+                      HeaderAreaClickChangePage(e, hash, 0);   
+                    }else{
+                      var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                      currentPageData.group = 1;                
+                      Backbone.history.navigate('', true);  
+                    }                  
+                    break;
+                case "本日&amp;本月累積業績":
+                    if( $(e.target).hasClass('selected') == true ){
+                      // Backbone.history.loadUrl(Backbone.history.fragment);
+                      HeaderAreaClickChangePage(e, hash, 0);   
+                    }else{      
+                      var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                      currentPageData.group = 1;                
+                      Backbone.history.navigate('getBrandStatistics', true); 
+                    }                  
+                    break;
+                case "本日業績":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 1;
+                    
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);     
+
+                    break;
+                // case "去年本日業績":
+                //     var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                //     currentPageData.group = 1;
+                //     Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                //     break;
+                case "本月業績":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 2;
+
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);  
+
+                    break;
+                // case "去年本月業績":
+                //     var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                //     currentPageData.group = 2;
+                //     Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                //     break;
+                case "現有庫存":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 3;
+
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);
+
+                    break;
+                // case "可售金額":
+                //     var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                //     currentPageData.group = 3;
+                //     Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+                //     break;
+                case "本月目標":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 4;
+
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);
+
+                    break;
+                case "銷售金額":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 5;
+
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);
+
+                    break;
+                case "客數":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 6;
+
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);
+
+                    break;
+                case "商品件數":
+                    var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+                    currentPageData.group = 7;
+
+                    HeaderAreaClickChangePage(e, hash, currentPageData.group);
+
+                    break;
+                default:
+                    // alert('no match');
+            }
+        }catch(err) {
+            // console.log(err);
+        }
+      
+    }
 });

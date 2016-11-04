@@ -49,6 +49,8 @@ var app = {
         //   window.localStorage.setItem('local_language',language.value);
         // }, function(){alert('globalization error')});
 
+        // FastClick.attach(document.body);
+
         document.addEventListener("pause", app.onPause, false);
         document.addEventListener("resume", app.onResume, false);
         document.addEventListener("backbutton", app.onBackKeyDown, false);
@@ -66,8 +68,13 @@ var app = {
             // alert('index' + err)
           }
         },600);
-
-
+            
+            // try{
+            //     window.open = cordova.InAppBrowser.open;
+            // }catch(err){
+            //     // console.log(err);
+            //     // alert('index' + err)
+            // }
     },
     onBackKeyDown: function () {
         try{
@@ -95,7 +102,7 @@ var app = {
         // } else if (window.orientation == 180) {
         //     currentOrientation = "portrait";
         // }
-        // alert(currentOrientation);
+        // console.log(currentOrientation);
 
 
         appRouter.clearTimeoutForPause();
@@ -110,6 +117,18 @@ var app = {
             if(window.location.hash == "#connectOperation"){
                 var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
                 appRouter.setulHeightForconnectOperation(ulHeight);    
+            }
+
+            setPageHeight();
+
+            if(window.location.hash == "#attendance"){
+                var attendWidth = $(window).width();
+                var attenddivHeight = $(window).height() - 53 + 5 + 5;
+                var attendframeHeight = $(window).height() - 53 ;
+                $('#Divinappiframeattendance').height(attenddivHeight);
+                $('#Divinappiframeattendance').width(attendWidth);
+                $('#inappiframeattendance').height(attendframeHeight);
+                customIframeAttendanceCSS();
             }
             
         }catch(err) {

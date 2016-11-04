@@ -561,7 +561,7 @@ ava.views.Table_New_Customize_Collection = ava.views.Table_New_Collection.extend
 							}
 
 
-	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height();
+	            			var tableHeight = $(window).height() -2 -$("div[data-role=footer]").outerHeight() - $('#RealtimeInfo_Today_Test-table thead').height() - 53;
 		        			$('#RealtimeInfo_Today_Test-table tbody').css('height',tableHeight.toString());
 
 
@@ -741,7 +741,7 @@ ava.views.Table_GetPosInfo_Collection = ava.views.Table_New_Collection.extend({
 					$('#getPosInfo-table tbody').show({
 						duration: 10,
 	            		complete: function () {
-	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height();
+	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getPosInfo-table thead').height() - 53;
 		        			$('#getPosInfo-table tbody').css('height',tableHeight.toString());
 		        			// console.log('height: ' + $('#getPosInfo-table thead').height());
 
@@ -900,7 +900,7 @@ ava.views.Table_getBrandStatistics_Collection = ava.views.Table_New_Collection.e
 	            	$('#getBrandStatistics-table tbody').show({
 	            		duration: 10,
 	            		complete: function () {
-	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height();
+	            			var tableHeight = $(window).height() - 2 -$("div[data-role=footer]").outerHeight() - $('#getBrandStatistics-table thead').height() - 53;
 		        			$('#getBrandStatistics-table tbody').css('height',tableHeight.toString());
 	            		}
 	            	});
@@ -1104,14 +1104,18 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
 	            		complete: function () {
 	            			//$("div[data-role=header]").outerHeight()  63px
 
+									if(cordova.platformId == "ios"){
 										//for ios status bar
 										if(typeof (StatusBarLength) != "undefined"){
 											StatusBarLength = 0;
 										}else{
 											StatusBarLength = 20;
 										}
-
-	            			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height() - StatusBarLength;
+									}else if(cordova.platformId == "android"){
+										StatusBarLength = 0;
+									}
+										
+	            			var tableHeight = $(window).height() - 56 - 53 - $('#portal-table thead').height() - StatusBarLength;
 				        	$('#portal-table tbody').css('height',tableHeight.toString());
 
 	            		}

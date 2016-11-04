@@ -884,6 +884,7 @@ function loginFromDetailConnect () {
                 // }
 
                 try{
+                   footerClickItem = "";
                    Backbone.history.navigate('', true);
                 }catch(err) {
                     console.log(err);
@@ -905,4 +906,682 @@ function loginFromDetailConnect () {
           $.mobile.loading('hide');
         }
     });
+}
+
+
+
+
+function footerNavItem(page, hash) {
+  
+
+  // var selectedItem = $.mobile.activePage.find('div[data-role=footer] ul a:hover').html() || $.mobile.activePage.find('div[data-role=footer] ul a:active').html() || $.mobile.activePage.find('div[data-role=footer] ul a.unused').html() || $.mobile.activePage.find('div[data-role=footer] ul a.selected').html() || "";
+  
+  var selectedItem = footerClickItem;
+  // switch (hash) {
+  //   case "":
+  //   case "#RealtimeInfo_Today_Test":    
+  //       $(page.el).find("div[data-role=footer] ul .index a").addClass('selected');
+  //       break;
+  //   case "去年本日業績":
+  //       var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+  //       currentPageData.group = 1;
+  //       Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+  //       break;    
+  //   default:
+  //       // alert('no match');
+  // }
+  $(page.el).find("div[data-role=footer] ul .index a").removeClass('selected');
+  switch (selectedItem) {
+    case "":      
+    case "業績":      
+        $(page.el).find("div[data-role=footer] ul .index a").addClass('selected');
+        break;
+    case "設定":        
+        $(page.el).find("div[data-role=footer] ul .connection a").addClass('selected');
+        break;    
+    case "出勤":        
+        $(page.el).find("div[data-role=footer] ul .attendance a").addClass('selected');
+        break;  
+    case "庫存":        
+        $(page.el).find("div[data-role=footer] ul .stock a").addClass('selected');
+        break;  
+    default:
+        // alert('no match');
+  }
+
+  setFooterItemDisabledByLoginStatus(page);
+
+}
+
+function headerNavItem(page, hash) {
+  
+  $(page.el).find("div[data-role=header] ul li a").removeClass('selected');
+
+  switch (hash) {
+    case "":
+            if(window.localStorage.getItem('loginSuccess') != "true"){
+                // $(page.el).find("div[data-role=header]").css({"display": "none"});
+                // $(page.el).css({"padding-top": "0px"});
+                $(page.el).find("div[data-role=header]").remove();
+            }       
+            $(page.el).find("div[data-role=header] ul .classIndex1 a").addClass('selected');  
+                     
+        break;
+    case "#getBrandStatistics":
+            $(page.el).find("div[data-role=header] ul .classIndex2 a").addClass('selected');
+        break;
+    case "#RealtimeInfo_Today_Test":   
+            // var nowPage = page.getNowpage();
+            // if(nowPage == "1"){
+            //   $(page.el).find("div[data-role=header] ul .classIndex2 a").addClass('selected');  
+            // }else if(nowPage == "2"){
+            //   $(page.el).find("div[data-role=header] ul .classIndex3 a").addClass('selected');  
+            // }else if(nowPage == "3"){
+            //   $(page.el).find("div[data-role=header] ul .classIndex4 a").addClass('selected');  
+            // }
+            setHeaderAreaBySwipe(page);
+        break;
+    case "去年本日業績":
+        var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+        currentPageData.group = 1;
+        Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+        break;    
+    default:
+        // alert('no match');
+  }
+
+}
+
+
+
+function setHeaderArea(items, header) {
+
+
+  
+  var menuView = new ava.views.headerArea({collection: items});
+
+  header.find('div[data-role=header] .headerArea').append(menuView.el);
+}
+
+
+function getHeaderAreaItems(hash) {
+  var items = null;
+  switch (hash) {
+    case "":
+    case "#RealtimeInfo_Today_Test":    
+    case "#getBrandStatistics":    
+        items = new ava.collections.Menu([
+        {title: "即時業績", className:"classIndex1"},
+        {title: "本日&本月累積業績", className:"classIndex2"},
+        {title: "本日業績", className:"classIndex3"},
+        {title: "本月業績", className:"classIndex4"},
+        {title: "現有庫存", className:"classIndex5"},
+        {title: "本月目標", className:"classIndex6"},
+        {title: "銷售金額", className:"classIndex7"},
+        {title: "客數", className:"classIndex8"},
+        {title: "商品件數", className:"classIndex9"},
+        
+        ]);
+        break;
+    case "去年本日業績":
+        // var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
+        // currentPageData.group = 1;
+        // Backbone.history.navigate('RealtimeInfo_Today_Test', true);
+        break;    
+    default:
+        items = new ava.collections.Menu();
+  }
+  return items;
+}
+
+
+
+
+function HeaderAreaClickChangePage(e, hash, targetPage){
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      appRouter.clearTimeout();
+      if(appRouter.getPageCollection() != null){
+          appRouter.getPageCollection().getResults();
+      }
+    }else{
+
+      if(hash == "#RealtimeInfo_Today_Test"){
+          if(appRouter.getPageView() != null){
+            var page = appRouter.getPageView();
+              page.setNowpage(targetPage);
+              headerNavItem(page,hash);
+              page.toggleColumn(targetPage);
+          }
+      }else{
+        Backbone.history.navigate('RealtimeInfo_Today_Test', true);    
+      }
+      
+      
+    } 
+}
+
+
+function getHeaderAreaScrollLeft(page) {
+  var scrollLeftValue = 0;
+  var nowPage = $.mobile.activePage.find('div[data-role=footer] a.selected').html();
+  var newPage = $(page.el).find('div[data-role=footer] a.selected').html();
+  if (nowPage == newPage) {
+    if($.mobile.activePage.attr("id") == "getPosInfo"){
+      scrollLeftValue = page.getHeaderScrollleftForgetPosInfo();
+    }else if($.mobile.activePage.attr("id") == "portal"){
+        
+        if(page.getClickValueItemFromPortal()){
+          scrollLeftValue = getHeaderItemCenterByClickValueItemFromPortal(page);
+        }else{
+          scrollLeftValue = $.mobile.activePage.find('div[data-role=header] ul').scrollLeft();  
+        }
+
+    }else{       
+        scrollLeftValue = $.mobile.activePage.find('div[data-role=header] ul').scrollLeft();          
+    }
+
+    //for swipe
+    if(swipeForNotRealtimeInfo_Today_Test){
+        scrollLeftValueForNotRealtimeInfo_Today_Test = getHeaderItemCenterBySwipeForNotRealtimeInfo_Today_Test(page);
+    }
+    
+  }else{
+    scrollLeftValue = 0;
+  }
+  return scrollLeftValue;
+}
+
+function setHeaderAreaScrollLeft(page, value) {
+  try{
+    $.mobile.activePage.find('div[data-role=header] ul').scrollLeft(value);  
+    if(swipeForNotRealtimeInfo_Today_Test){
+      swipeForNotRealtimeInfo_Today_Test = false;
+      $.mobile.activePage.find('div[data-role=header] ul').animate({scrollLeft: scrollLeftValueForNotRealtimeInfo_Today_Test}, 350);
+    }
+  }catch(err) {
+    // console.log(err);
+  }
+}
+
+
+function setHeaderAreaBySwipe(page) {
+    var $Page = $(page.el);
+    $Page.find('div[data-role=header] ul li a').removeClass('selected');
+    var nowPage = page.getNowpage();
+    if(nowPage == "1"){
+      $Page.find("div[data-role=header] ul .classIndex3 a").addClass('selected');  
+    }else if(nowPage == "2"){
+      $Page.find("div[data-role=header] ul .classIndex4 a").addClass('selected');  
+    }else if(nowPage == "3"){
+      $Page.find("div[data-role=header] ul .classIndex5 a").addClass('selected');  
+    }else if(nowPage == "4"){
+      $Page.find("div[data-role=header] ul .classIndex6 a").addClass('selected');  
+    }else if(nowPage == "5"){
+      $Page.find("div[data-role=header] ul .classIndex7 a").addClass('selected');  
+    }else if(nowPage == "6"){
+      $Page.find("div[data-role=header] ul .classIndex8 a").addClass('selected');  
+    }else if(nowPage == "7"){
+      $Page.find("div[data-role=header] ul .classIndex9 a").addClass('selected');  
+    }
+
+    
+}
+
+function setHeaderAreaBySwipeLeftForNotRealtimeInfo_Today_Test(page) {
+    var $Page = $(page.el);
+    var indexSelected = 0;
+    $Page.find("div[data-role=header] ul li").each(function(index){
+      if($(this).find('a').hasClass('selected')){
+      indexSelected = index;
+      return false;
+      }
+    });
+    
+    $Page.find('div[data-role=header] ul li a').removeClass('selected');
+    var name = $Page.find("div[data-role=header] ul .classIndex" + indexSelected +" a").html();   
+    setHeaderItemBySwipeForNotRealtimeInfo_Today_Test(name);
+}
+
+function setHeaderAreaBySwipeRightForNotRealtimeInfo_Today_Test(page) {
+    var $Page = $(page.el);
+    var indexSelected = 0;
+    $Page.find("div[data-role=header] ul li").each(function(index){
+      if($(this).find('a').hasClass('selected')){
+      indexSelected = index;
+      return false;
+      }
+    });
+    indexSelected += 2;
+    $Page.find('div[data-role=header] ul li a').removeClass('selected');
+    var name = $Page.find("div[data-role=header] ul .classIndex" + indexSelected +" a").html();   
+    setHeaderItemBySwipeForNotRealtimeInfo_Today_Test(name);
+}
+
+function setHeaderItemBySwipeForNotRealtimeInfo_Today_Test(name) {
+    try {
+       switch (name) {
+            case "即時業績":
+                  Backbone.history.navigate('', true);                 
+                break;
+            case "本日&amp;本月累積業績":                   
+                  Backbone.history.navigate('getBrandStatistics', true);                 
+                break;     
+            case "本日業績":                   
+                  Backbone.history.navigate('RealtimeInfo_Today_Test', true);                 
+                break;         
+            default:
+                // alert('no match');
+        }
+    }catch(err) {
+        // console.log(err);
+    }
+}
+
+
+function setHeaderItemCenterBySwipe(page) {
+    var $Page = $(page.el);
+    var value = 0;
+    var selectedLength = 0;
+    $Page.find("div[data-role=header] ul li").each(function () {
+        if($(this).find('a').hasClass('selected')){
+          selectedLength = $(this).outerWidth();
+          return false;
+        }        
+        value += $(this).outerWidth();
+    });
+    value = value - ($(window).width() - selectedLength)/2;
+    // $Page.find("div[data-role=header] ul").scrollLeft(value);
+    $Page.find("div[data-role=header] ul").animate({scrollLeft: value}, 350);
+}
+
+
+function footerIndexClick(e) {
+    footerClickItem = "業績";
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      // HeaderAreaClickChangePage(e, hash, 0);   
+
+      // var isCorrespFooter = $.mobile.activePage.find('div[data-role=header] ul a.selected').parent().hasClass('classIndex1');
+      // if(isCorrespFooter){
+      //   appRouter.clearTimeout();
+      //   if(appRouter.getPageCollection() != null){
+      //       appRouter.getPageCollection().getResults();
+      //   }  
+      // }else{
+      //   Backbone.history.navigate('', true);    
+      // }
+            
+      appRouter.clearTimeout();
+      if(appRouter.getPageCollection() != null){
+          appRouter.getPageCollection().getResults();
+      }  
+
+    }else{
+      if(!$(e.target).hasClass('footerItemDisabled')){
+          Backbone.history.navigate('', true);    
+      }
+      
+    } 
+
+
+}
+
+function footerStockClick(e) {
+  footerClickItem = "庫存";
+    // if( $(e.target).hasClass('selected') == true ){
+    //   // Backbone.history.loadUrl(Backbone.history.fragment);
+    //   // HeaderAreaClickChangePage(e, hash, 0);   
+    // }else{
+    //   if(!$(e.target).hasClass('footerItemDisabled')){
+    //     Backbone.history.navigate('attendance', true); 
+    //   }
+    // } 
+    // alert('stock');
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      // HeaderAreaClickChangePage(e, hash, 0);   
+    }else{
+      if(!$(e.target).hasClass('footerItemDisabled')){
+        Backbone.history.navigate('stock', true); 
+      }
+    } 
+}
+
+function footerAttendanceClick(e) {
+  footerClickItem = "出勤";
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      // HeaderAreaClickChangePage(e, hash, 0);   
+    }else{
+      if(!$(e.target).hasClass('footerItemDisabled')){
+        Backbone.history.navigate('attendance', true); 
+      }
+    } 
+}
+
+function footerConnectionClick(e) {
+  footerClickItem = "設定";
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      // HeaderAreaClickChangePage(e, hash, 0);   
+    }else{
+      Backbone.history.navigate('connectOperation', true); 
+    } 
+}
+
+
+
+function setPageHeight(){
+    var currentOrientation = "";
+
+    if (window.orientation == 0) {
+        currentOrientation = "portrait";
+    } else if (window.orientation == 90) {
+        currentOrientation = "landscape";
+    } else if (window.orientation == -90) {
+        currentOrientation = "landscape";
+    } else if (window.orientation == 180) {
+        currentOrientation = "portrait";
+    }
+    var statusBar = 0;
+    if(currentOrientation == "portrait"){
+      statusBar = 20;
+    }
+    // var pageHeight = $.mobile.activePage.height();
+    var pageHeight = $(window).height();
+    var headerHeight = $.mobile.activePage.find("[data-role=header]").outerHeight();
+    var footerHeight = $.mobile.activePage.find("[data-role=footer]").outerHeight();
+    $.mobile.activePage.css("height",(pageHeight - headerHeight - footerHeight - statusBar).toString());
+}
+
+
+
+
+
+function openBrowser() {
+   // var url = 'https://cordova.apache.org';
+   var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Attendance/attendance.jsp';
+   var target = '_blank';
+   var options = "location=no";
+   if(cordova.platformId == "ios"){
+      options += ",disallowoverscroll=yes,toolbar=no";
+   }else if(cordova.platformId == "android"){
+      
+   }
+   // var ref = cordova.InAppBrowser.open(url, target, options);
+   var ref = window.open(url, target, options);
+   
+
+   ref.addEventListener('loadstart', loadstartCallback);
+   ref.addEventListener('loadstop', loadstopCallback);
+   ref.addEventListener('loadloaderror', loaderrorCallback);
+   ref.addEventListener('exit', exitCallback);
+
+   function loadstartCallback(event) {
+      console.log('Loading started: '  + event.url)
+   }
+
+   function loadstopCallback(event) {
+      console.log('Loading finished: ' + event.url)
+      reSizeWindow();
+   }
+
+   function loaderrorCallback(error) {
+      console.log('Loading error: ' + error.message)
+   }
+
+   function exitCallback() {
+      console.log('Browser is closed...')
+   }
+
+   // var codeStr = "";
+   // codeStr = " var viewportmeta = document.querySelector('meta[name='viewport']');"
+   // function reSizeWindow(){
+   //    ref.executeScript({
+   //        code: "var itm = document.querySelector('#Main div'); itm.setAttribute('style','width:100%');"
+   //    }, function() {
+   //        alert("Element Successfully Hijacked");
+   //    });
+   // }
+
+   function reSizeWindow(){
+      window.resizeTo(250, 250);                             // Resizes the new window
+      window.focus();     
+   }
+}
+
+
+
+
+function  inappiFrameAttendanceonLoad(){
+  try{
+    $.mobile.loading('hide');
+    // alert('myframe is loaded');  
+    // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
+    // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
+
+
+
+    // var loadStatus = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]').length > 0 ? true : false;
+    // if(loadStatus){
+    //   $('#inappiframeattendance').show({duration:0});
+    // }else{
+    //   alert('error');
+    // }
+    
+    if( $.mobile.activePage.attr('id') == "attendance"){ 
+        if($('#inappiframeattendance').length > 0){
+          customIframeAttendanceCSS();
+          $('#inappiframeattendance').show({duration:0});
+          // customIframeAttendanceSet_PageBackBtn();
+        }             
+    }
+
+    AttendanceonLoadFinish = true;
+    
+  }catch(e){
+      console.log(e);
+  }
+}
+
+function  inappiFrameStockLoad(){
+  try{
+    $.mobile.loading('hide');
+    // alert('myframe is loaded');  
+    // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
+    // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
+
+
+
+    // var loadStatus = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]').length > 0 ? true : false;
+    // if(loadStatus){
+    //   $('#inappiframeattendance').show({duration:0});
+    // }else{
+    //   alert('error');
+    // }
+    
+    if( $.mobile.activePage.attr('id') == "stock"){ 
+        if($('#inappiframestock').length > 0){
+          customIframeStockCSS();
+          $('#inappiframestock').show({duration:0});
+          // customIframeAttendanceSet_PageBackBtn();
+        }             
+    }
+
+    StockLoadFinish = true;
+    
+  }catch(e){
+      console.log(e);
+  }
+}
+
+function customIframeStockCSS(){
+  try{
+
+
+      var iframeDocument = document.getElementById('inappiframestock').contentWindow.document;
+      $(iframeDocument).find('[data-role=page]#page1 [data-role=footer]').remove();
+
+      var screenHeight = $(window).height() || 0;
+      var screenWidth = $(window).width() || 0;
+      screenWidth = screenWidth -5;
+      // var tabsHeaderHeight = $(iframeDocument).find('[data-role=page]#page1 [data-role=header]').outerHeight() || 0;
+      var tabsHeaderHeight = 81;
+      var baseFooterHeight = $.mobile.activePage.find('[data-role=footer]').outerHeight() || 0;
+      var tabsHeight = screenHeight - tabsHeaderHeight - baseFooterHeight -5;
+      $(iframeDocument).find('[data-role=page]#page1 #tabs').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","height": tabsHeight + "px", "width": screenWidth + "px"});
+      $(iframeDocument).find('[data-role=page]#page1').css({"height":"100%"});
+
+      // var set_PageHeaderHeight = $(iframeDocument).find('[data-role=page]#set_Page [data-role=header]').outerHeight() || 0;
+      var set_PageHeaderHeight = 90;
+      var set_PageHeight = screenHeight - set_PageHeaderHeight - baseFooterHeight;
+      $(iframeDocument).find('[data-role=page]#set_Page [data-role=content]').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","width": screenWidth + "px","height": set_PageHeight + "px"});
+
+
+
+
+  }catch(e){
+      console.log(e);
+  }
+
+}
+
+function customIframeAttendanceCSS(){
+  try{
+
+
+      var iframeDocument = document.getElementById('inappiframeattendance').contentWindow.document;
+      $(iframeDocument).find('[data-role=page]#page1 [data-role=footer]').remove();
+
+      var screenHeight = $(window).height() || 0;
+      var screenWidth = $(window).width() || 0;
+      screenWidth = screenWidth -5;
+      // var tabsHeaderHeight = $(iframeDocument).find('[data-role=page]#page1 [data-role=header]').outerHeight() || 0;
+      var tabsHeaderHeight = 81;
+      var baseFooterHeight = $.mobile.activePage.find('[data-role=footer]').outerHeight() || 0;
+      var tabsHeight = screenHeight - tabsHeaderHeight - baseFooterHeight -5;
+      $(iframeDocument).find('[data-role=page]#page1 #tabs').css({"position":"fixed","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","height": tabsHeight + "px", "width": screenWidth + "px"});
+      $(iframeDocument).find('[data-role=page]#page1').css({"height":"100%"});
+
+      $(iframeDocument).find('[data-role=page]#page1 #tabs [data-role=table]').css({"width": screenWidth + "px"});
+
+      // var set_PageHeaderHeight = $(iframeDocument).find('[data-role=page]#set_Page [data-role=header]').outerHeight() || 0;
+      var set_PageHeaderHeight = 90;
+      var set_PageHeight = screenHeight - set_PageHeaderHeight - baseFooterHeight;
+      $(iframeDocument).find('[data-role=page]#set_Page [data-role=content]').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","width": screenWidth + "px","height": set_PageHeight + "px"});
+
+
+
+
+  }catch(e){
+      console.log(e);
+  }
+
+}
+
+
+function customIframeAttendanceSet_PageBackBtn(){
+  try{
+
+
+      var iframeDocument = document.getElementById('inappiframeattendance').contentWindow.document;
+      $(iframeDocument).find('#set_Page form [data-role=header] a').on('click',function(e){
+          // alert('test')
+          // customIframeAttendanceCSS();
+      })
+
+      
+
+  }catch(e){
+      console.log(e);
+  }
+
+}
+
+
+
+function  routerControl (){
+  try{
+    var hash = window.location.hash;
+    switch (hash) {
+      case "connectOperation":
+          value = 0;
+          break;
+      case '':
+          Backbone.history.navigate('connectOperation', true); 
+          break;
+      default:          
+    }
+  }catch(e){
+      console.log(e);
+  }
+}
+
+
+function  setFooterItemByLoginStatus() {
+  if( window.localStorage.getItem('loginSuccess') == "true" ){      
+  }else{
+      footerClickItem = "設定";
+  }
+}
+
+function  setFooterItemDisabledByLoginStatus(page) {
+  if( window.localStorage.getItem('loginSuccess') == "true" ){  
+      $(page.el).find("div[data-role=footer] ul a").removeClass('defaultSelect');
+  }else{
+      $(page.el).find("div[data-role=footer] ul a").each(function () {
+        if(!$(this).hasClass('defaultSelect')){
+          $(this).addClass('footerItemDisabled');
+        }
+      });
+  }
+}
+
+
+function clearRealtimeBusinessPagesData(){
+  try{
+    if(footerClickItem != "業績"){
+        if(typeof(pagesData['portal']) != "undefined"){        
+            delete pagesData['portal'];
+        }
+        if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined"){        
+            delete pagesData['#RealtimeInfo_Today_Test'];
+        }
+    }
+  }catch(e){
+      console.log(e);
+  }
+}
+
+
+function getHeaderItemCenterByClickValueItemFromPortal(page) {
+    var $Page = $(page.el);
+    var $activePage = $.mobile.activePage;
+    var value = 0;
+    var selectedLength = 0;
+    var indexSelected = 0;
+    $Page.find("div[data-role=header] ul li").each(function(index){
+      if($(this).find('a').hasClass('selected')){
+      indexSelected = index;
+      return false;
+      }
+    });
+
+    $activePage.find("div[data-role=header] ul li").each(function (index) {
+        if(index == indexSelected){
+          selectedLength = $(this).outerWidth();
+          return false;
+        }        
+        value += $(this).outerWidth();
+    });
+    value = value - ($(window).width() - selectedLength)/2;
+    return value;
+    // $Page.find("div[data-role=header] ul").scrollLeft(value);
+    // $Page.find("div[data-role=header] ul").animate({scrollLeft: value}, 500);
+}
+
+function getHeaderItemCenterBySwipeForNotRealtimeInfo_Today_Test(page){
+    var value = getHeaderItemCenterByClickValueItemFromPortal(page);
+    return value;
 }
