@@ -24,7 +24,7 @@ ava.router = Backbone.Router.extend({
 
     before: function () {
         try{
-            console.log('before');          
+            // console.log('before');          
             setFooterItemByLoginStatus();
             clearRealtimeBusinessPagesData();
         }catch(e){
@@ -32,7 +32,7 @@ ava.router = Backbone.Router.extend({
         }
     },
     after: function () {
-        console.log('after');
+        // console.log('after');
     },
     stock: function () {
         var page = new ava.views.PageView({attributes : {"id" : "stock"}});
@@ -614,7 +614,7 @@ ava.router = Backbone.Router.extend({
 
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
-
+            footerClickItem = "業績";
             //local language
 
             //local Language for css setting

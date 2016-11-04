@@ -1213,7 +1213,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
             }
         }
 
-      }else{
+      }else if($('table').attr('id') == "portal-table" || $('table').attr('id') == "getBrandStatistics-table"){
           swipeForNotRealtimeInfo_Today_Test = true;
           setHeaderAreaBySwipeRightForNotRealtimeInfo_Today_Test(this);  
       }
@@ -1225,6 +1225,10 @@ ava.views.PageView = ava.views.UtilityView.extend({
         // window.history.back();
       }
       if(window.location.hash.indexOf("#connectOperation/detailConnectInfo/") > -1){
+        window.history.back();
+      }
+
+      if(window.location.hash.indexOf("#RealtimeInfo_Today_Test/getPosInfo/") > -1){
         window.history.back();
       }
       
@@ -1245,14 +1249,14 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
             setHeaderAreaBySwipe(this);
             setHeaderItemCenterBySwipe(this);
-        }else {
+        }else{
             swipeForNotRealtimeInfo_Today_Test = true;
             setHeaderAreaBySwipeLeftForNotRealtimeInfo_Today_Test(this);
 
         }
 
 
-      }else{
+      }else if($('table').attr('id') == "portal-table" || $('table').attr('id') == "getBrandStatistics-table"){
             var $Page = $(this.el);
             var isStop = $Page.find('div[data-role=header] ul li a.selected').parent().hasClass("classIndex1");
             if(!isStop){

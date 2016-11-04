@@ -37,11 +37,11 @@ $.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
     });
 
     $(document).on('pagebeforeshow', ":jqmData(role='page')", function (event, ui) {
-        console.log('test')
+        // console.log('test')
     });
 
     $(document).on('pageshow', ":jqmData(role='page')", function (event, ui) {
-        console.log('test')
+        // console.log('test')
         setPageHeight();
     });
 
