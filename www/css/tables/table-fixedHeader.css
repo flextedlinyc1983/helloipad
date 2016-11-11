@@ -57,6 +57,10 @@ thead {
     text-align: right;
 }
 
+#business-table tbody td + td{
+    text-align: right;
+}
+
 table.showG1 .item_1 { display: table-cell; width: 33%;}
 table.showG2 .item_1 { display: table-cell; width: 33%;}
 table.showG3 .item_1 { display: table-cell; width: 33%;}

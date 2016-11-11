@@ -1584,7 +1584,7 @@ function  setFooterItemDisabledByLoginStatus(page) {
 
 function clearRealtimeBusinessPagesData(){
   try{
-    if(footerClickItem != "業績"){
+    if(footerClickItem != "業績" && footerClickItem != "app業績"){
         if(typeof(pagesData['portal']) != "undefined"){        
             delete pagesData['portal'];
         }

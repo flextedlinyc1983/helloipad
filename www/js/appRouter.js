@@ -1301,7 +1301,7 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             ]);
 
             var self = this;
-            var test = new ava.views.Table_portal_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
+            var test = new ava.views.Table_business_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
                 urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
 
 

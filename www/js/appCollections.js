@@ -1061,7 +1061,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 $.mobile.loading('show');
             },
             success: function (collection, response, options) {
-            	if((window.location.hash == "" || window.location.hash == "#business") && window.localStorage.getItem('loginSuccess') == "true"){
+            	if(window.location.hash == "" && window.localStorage.getItem('loginSuccess') == "true"){
 	                // you can pass additional options to the event you trigger here as well
 
 	             //    if($('#getBrandStatistics-table thead th').length == 0){
@@ -1175,6 +1175,105 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
  //    },
 
  });
+
+
+ava.views.Table_business_Collection = ava.views.Table_portal_Collection.extend({
+	getResults: function () {
+		appRouter.clearTimeoutForPause();
+        var self = this;
+
+        this.fetch({
+            // data: {api_key: 'secretkey'},
+            type: 'GET',
+            dataType : "HTML",
+            timeout:10000,
+            add:true,
+            reset: true,
+            beforeSend: function (){
+
+            	// if($('#portal-table tbody tr').length == 0){
+            	// 	$('#portal-table').hide();
+            	// }
+
+            	if($('#portal-table tbody tr').length == 0){
+            		$('#portal-table tbody').hide();
+            	}
+
+                $.mobile.loading('show');
+            },
+            success: function (collection, response, options) {
+            	if(window.location.hash == "#business" && window.localStorage.getItem('loginSuccess') == "true"){
+	                // you can pass additional options to the event you trigger here as well
+
+	             //    if($('#getBrandStatistics-table thead th').length == 0){
+	             //    	self.options.columns.reset(self.getColumnsFromCollection(collection));
+	            	// }
+
+	                self.trigger('successOnFetch');
+
+	                //set timeout
+	                // setTimeout(_.bind(self.getResults, self),60000);
+	                portal_Timeout = new Timeout(_.bind(self.getResults, self), timeoutPollingPeriod);
+            	}else{
+	            	// $('table').hide();
+	            }
+            },
+            error: function (collection, response, options) {
+                // you can pass additional options to the event you trigger here as well
+                self.trigger('errorOnFetch');
+
+                if(response.readyState == 0){
+                    // alert($.i18n.prop('msg_networkError'));
+                    navigator.notification.alert($.i18n.prop('msg_networkError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              	}else if(response.readyState == 4){
+              		// alert($.i18n.prop('msg_serverError'));
+              		navigator.notification.alert($.i18n.prop('msg_serverError'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+              	}
+            },
+            complete: function(xhr,status){
+            	if(window.location.hash == "#business" && window.localStorage.getItem('loginSuccess') == "true"){
+	            // 	$('#portal-table').show({
+	            // 		complete: function () {
+	            // 			//$("div[data-role=header]").outerHeight()  63px
+	            // 			var tableHeight = $(window).height() - 2 - 63 - $('#portal-table thead').height();
+				        	// $('#portal-table tbody').css('height',tableHeight.toString());
+
+	            // 		}
+	            // 	});
+	            	$('#business-table tbody').show({
+	            		duration: 10,
+	            		complete: function () {
+	            			//$("div[data-role=header]").outerHeight()  63px
+
+									if(cordova.platformId == "ios"){
+										//for ios status bar
+										if(typeof (StatusBarLength) != "undefined"){
+											StatusBarLength = 0;
+										}else{
+											StatusBarLength = 20;
+										}
+									}else if(cordova.platformId == "android"){
+										StatusBarLength = 0;
+									}
+										
+	            			var tableHeight = $(window).height() - 56 - 53 - $('#business-table thead').height() - StatusBarLength;
+				        	$('#business-table tbody').css('height',tableHeight.toString());
+
+	            		}
+	            	});
+
+	            	// $('.pinned #RealtimeInfo_Today_Test-table').show();
+
+
+
+
+            	}
+
+             	$.mobile.loading('hide');
+            }
+        });
+    },
+});
 
 
 ava.collections.Connects = Backbone.Collection.extend({
