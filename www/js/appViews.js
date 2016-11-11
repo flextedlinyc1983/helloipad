@@ -975,6 +975,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
       "vclick div[data-role=footer] ul .connection a": "connectionClick",
       "vclick div[data-role=footer] ul .attendance a": "attendanceClick",
       "vclick div[data-role=footer] ul .stock a": "stockClick",
+      "vclick div[data-role=footer] ul .business a": "businessClick",
       "click div[data-role=footer] ul .backPage a": "backPageClick",
       "swiperight div[data-role=footer] ul" : "swipeRightFooter",
       "swiperight div[data-role=header] ul" : "swipeRightHeader",
@@ -1072,6 +1073,13 @@ ava.views.PageView = ava.views.UtilityView.extend({
               $.mobile.loading('hide');
             }
         });
+  },
+  businessClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerBusinessClick(e);
+      
   },
   stockClick: function (e) {
       
@@ -1213,7 +1221,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
             }
         }
 
-      }else if($('table').attr('id') == "portal-table" || $('table').attr('id') == "getBrandStatistics-table"){
+      }else if($('table').attr('id') == "portal-table" || $('table').attr('id') == "business-table" || $('table').attr('id') == "getBrandStatistics-table"){
           swipeForNotRealtimeInfo_Today_Test = true;
           setHeaderAreaBySwipeRightForNotRealtimeInfo_Today_Test(this);  
       }

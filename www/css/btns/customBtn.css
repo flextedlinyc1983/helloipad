@@ -461,6 +461,29 @@ label[name="labelConnectDefaultSelector"] {
     background-color:#f6f6f6;
 }
 
+.footerArea ul .business a.selected {
+    background-color: #f6f6f6;
+    text-shadow: none;
+    background-image: url(../images/footer_icon01.png);
+    color: cornflowerblue;
+}
+
+.footerArea ul .business a {
+    background-image: url(../images/footer_icon01_on.png);    
+    background-repeat: no-repeat;
+    background-position: center 2px;
+    background-size: auto 30px;
+    
+    
+}
+
+.footerArea ul .business a:hover {
+    background-color:#f6f6f6;
+}
+
+.footerArea ul .business a:active {
+    background-color:#f6f6f6;
+}
 
 .footerArea ul li a {
     border-width: 0px;

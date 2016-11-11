@@ -523,8 +523,13 @@ ava.views.headerAreaItem = ava.views.navMenuItem.extend({
                       HeaderAreaClickChangePage(e, hash, 0);   
                     }else{
                       var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
-                      currentPageData.group = 1;                
-                      Backbone.history.navigate('', true);  
+                      currentPageData.group = 1;  
+                      if($('[data-role=footer] ul li a.selected').parent().attr('class').trim().split(' ')[0] == "index"){
+                        Backbone.history.navigate('', true);    
+                      }else{
+                        Backbone.history.navigate('business', true);    
+                      }
+                      
                     }                  
                     break;
                 case "本日&amp;本月累積業績":

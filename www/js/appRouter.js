@@ -20,6 +20,7 @@ ava.router = Backbone.Router.extend({
         "connectOperation/detailConnectInfo/:connectName": "detailConnectInfo",
         "attendance": "attendance",
         "stock": "stock",
+        "business": "business",
 	},
 
     before: function () {
@@ -46,7 +47,7 @@ ava.router = Backbone.Router.extend({
 
             // $.mobile.activePage.find('div[data-role=header]').remove();
             // var url = "http://203.67.131.72:8888/flaps/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1";
-            var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Attendance/attendance.jsp';
+            var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Stock/stock.jsp';
             var width = $(window).width();
             var divHeight = $(window).height() - 53 + 5 + 5;
             var frameHeight = $(window).height() - 53 ;
@@ -1235,7 +1236,106 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         }catch(err) {
             // console.log(err);
         }
-    }
+    },
+
+    business:function () {        
+        //check now connection is added or not
+        var connects = new ava.collections.Connects();
+        connects.fetch({reset:true});
+        var isUpdateNowConnection = window.localStorage.getItem('isUpdateNowConnection') || "false";
+        if (isUpdateNowConnection == "false" && window.localStorage.getItem('registerSuccess') == "true") {            
+            var connectIpAdress = window.localStorage.getItem('ipAdress') || '';
+            var connectAppName = window.localStorage.getItem('AppName') || '';
+            connectIpAdress = connectIpAdress.substring(7);
+            connectAppName = connectAppName.substring(1);
+            var isHasRepeatConnect = connects.checkRepeatByipAdressAndAppName(connectIpAdress, connectAppName);
+            if( isHasRepeatConnect == false){
+                var connectItem = {connectName: connectAppName,
+                  connectId: connects.getMaxId() + 1,
+                  connectIpAdress: connectIpAdress,
+                  connectAppName: connectAppName,
+                  connectCode: window.localStorage.getItem('code') || '',
+                  connectPwd: window.localStorage.getItem('pwd') || '',
+                  connectsLang: window.localStorage.getItem('sLang') || '',
+                  checked: true};
+                connects.create(connectItem);
+            }
+            window.localStorage.setItem('isUpdateNowConnection', true);
+        }
+        connects.updateCodePwdsLang();
+        window.localStorage.setItem('enterModalFromPortal',"true");
+        
+        //for modal back to portal localstorage to the same with default
+        this.updateLocalStorageFromDefault();
+        
+
+
+
+
+        // console.log('#portal');
+        // var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
+        var page = new ava.views.PageView({className: "isSum1", attributes : {"id" : "business"}});
+        this.changePageForMobile(page);
+        
+        
+
+
+
+
+
+        if(window.localStorage.getItem('loginSuccess') == "true") {
+            footerClickItem = "app業績";
+            //local language
+
+            //local Language for css setting
+            document.documentElement.lang = window.localStorage.getItem('sLang');
+
+
+            // var columns = new ava.views.Column_New_Collection([
+            //     {'column':'name'},
+            //     {'column':'value'},
+            // ]);
+            var columns = new ava.views.Column_New_Collection([
+                {'column':$.i18n.prop('msg_portal_item')},
+                {'column':$.i18n.prop('msg_portal_total')},
+            ]);
+
+            var self = this;
+            var test = new ava.views.Table_portal_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
+                urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
+
+
+            var tableView = new ava.views.Table_portal_View({collection: test, columns: columns, className: "table RealtimeInfo",
+            attributes : {"id":"business-table"}});
+            this.putElementOnPageContent(tableView.render().$el, "portal", true);
+
+
+            test.getResults();
+
+            this.pageCollection = test;
+
+        }else{
+            
+            if(window.localStorage.getItem('registerSuccess') == "true"){
+                var companyInfoView = new ava.views.CompanyInfoView({className: "CompanyInfo"});
+                this.putElementOnPageContent(companyInfoView.render().$el, "portal", true);
+                this.setCompanyInfoScreen();    
+            }            
+
+            this.pageCollection = null;
+
+
+            if(window.localStorage.getItem('registerSuccess') == "true"){
+                if(autoRediectToModal == "true"){                                     
+                    setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
+                }else{
+                    autoRediectToModal = "true";
+                }    
+            }
+                        
+        }
+
+    },
 
 });
 

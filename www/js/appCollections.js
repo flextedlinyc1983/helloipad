@@ -1061,7 +1061,7 @@ ava.views.Table_portal_Collection = ava.views.Table_New_Collection.extend({
                 $.mobile.loading('show');
             },
             success: function (collection, response, options) {
-            	if(window.location.hash == "" && window.localStorage.getItem('loginSuccess') == "true"){
+            	if((window.location.hash == "" || window.location.hash == "#business") && window.localStorage.getItem('loginSuccess') == "true"){
 	                // you can pass additional options to the event you trigger here as well
 
 	             //    if($('#getBrandStatistics-table thead th').length == 0){

@@ -130,6 +130,15 @@ var app = {
                 $('#inappiframeattendance').height(attendframeHeight);
                 customIframeAttendanceCSS();
             }
+
+            if(window.location.hash == "#stock"){
+                var stockWidth = $(window).width();
+                var stockdivHeight = $(window).height() - 53 + 5 + 5;
+                var stockframeHeight = $(window).height() - 53 ;
+                $('#Divinappiframestock').height(stockdivHeight);
+                $('#Divinappiframestock').width(stockWidth);
+                $('#inappiframestock').height(stockframeHeight);                
+            }
             
         }catch(err) {
             // console.log(err);

@@ -602,6 +602,12 @@ function getRightTableDisplayPath(view, urlHash) {
       }else{
         return false;      
       }
+    }else if(tableId == "business"){
+      if(urlHash == "business"){
+        return true;      
+      }else{
+        return false;      
+      }
     }else if( tableId == "getBrandStatistics"){
       if(urlHash == "getBrandStatistics"){
         return true;      
@@ -945,6 +951,9 @@ function footerNavItem(page, hash) {
     case "庫存":        
         $(page.el).find("div[data-role=footer] ul .stock a").addClass('selected');
         break;  
+    case "app業績":        
+        $(page.el).find("div[data-role=footer] ul .business a").addClass('selected');
+        break;  
     default:
         // alert('no match');
   }
@@ -985,7 +994,15 @@ function headerNavItem(page, hash) {
         var currentPageData = pagesData['portal'] ||  (pagesData['portal'] = {});
         currentPageData.group = 1;
         Backbone.history.navigate('RealtimeInfo_Today_Test', true);
-        break;    
+        break;
+    case "#business":
+        if(window.localStorage.getItem('loginSuccess') != "true"){
+            // $(page.el).find("div[data-role=header]").css({"display": "none"});
+            // $(page.el).css({"padding-top": "0px"});
+            $(page.el).find("div[data-role=header]").remove();
+        }       
+        $(page.el).find("div[data-role=header] ul .classIndex1 a").addClass('selected');                   
+        break;
     default:
         // alert('no match');
   }
@@ -1010,6 +1027,7 @@ function getHeaderAreaItems(hash) {
     case "":
     case "#RealtimeInfo_Today_Test":    
     case "#getBrandStatistics":    
+    case "#business":    
         items = new ava.collections.Menu([
         {title: "即時業績", className:"classIndex1"},
         {title: "本日&本月累積業績", className:"classIndex2"},
@@ -1162,8 +1180,12 @@ function setHeaderItemBySwipeForNotRealtimeInfo_Today_Test(name) {
     try {
        switch (name) {
             case "即時業績":
+                if($('[data-role=footer] ul li a.selected').parent().attr('class').trim().split(' ')[0] == "index"){
                   Backbone.history.navigate('', true);                 
-                break;
+                }else{
+                  Backbone.history.navigate('business', true);
+                }
+                break;                
             case "本日&amp;本月累積業績":                   
                   Backbone.history.navigate('getBrandStatistics', true);                 
                 break;     
@@ -1225,6 +1247,27 @@ function footerIndexClick(e) {
     } 
 
 
+}
+
+function footerBusinessClick(e) {
+  footerClickItem = "app業績";
+    // if( $(e.target).hasClass('selected') == true ){
+    //   // Backbone.history.loadUrl(Backbone.history.fragment);
+    //   // HeaderAreaClickChangePage(e, hash, 0);   
+    // }else{
+    //   if(!$(e.target).hasClass('footerItemDisabled')){
+    //     Backbone.history.navigate('attendance', true); 
+    //   }
+    // } 
+    // alert('stock');
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      // HeaderAreaClickChangePage(e, hash, 0);   
+    }else{
+      if(!$(e.target).hasClass('footerItemDisabled')){
+        Backbone.history.navigate('business', true); 
+      }
+    } 
 }
 
 function footerStockClick(e) {
