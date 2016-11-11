@@ -1087,7 +1087,7 @@ function getHeaderAreaScrollLeft(page) {
   if (nowPage == newPage) {
     if($.mobile.activePage.attr("id") == "getPosInfo"){
       scrollLeftValue = page.getHeaderScrollleftForgetPosInfo();
-    }else if($.mobile.activePage.attr("id") == "portal"){
+    }else if($.mobile.activePage.attr("id") == "portal" || "business"){
         
         if(page.getClickValueItemFromPortal()){
           scrollLeftValue = getHeaderItemCenterByClickValueItemFromPortal(page);
@@ -1263,6 +1263,10 @@ function footerBusinessClick(e) {
     if( $(e.target).hasClass('selected') == true ){
       // Backbone.history.loadUrl(Backbone.history.fragment);
       // HeaderAreaClickChangePage(e, hash, 0);   
+      appRouter.clearTimeout();
+      if(appRouter.getPageCollection() != null){
+          appRouter.getPageCollection().getResults();
+      }  
     }else{
       if(!$(e.target).hasClass('footerItemDisabled')){
         Backbone.history.navigate('business', true); 
