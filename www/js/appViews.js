@@ -1305,8 +1305,14 @@ ava.views.PageView = ava.views.UtilityView.extend({
     
 
     if(window.location.hash.indexOf("#stock") && window.location.hash.indexOf("#attendance") && window.location.hash.indexOf("#connectOperation") && window.location.hash != "#navMenu" && window.location.hash.indexOf("#RealtimeInfo_Today_Test/getPosInfo")){
-      var items = getHeaderAreaItems(window.location.hash);
-      setHeaderArea(items, this.$el);  
+      
+      if(window.location.hash != ""){
+        var items = getHeaderAreaItems(window.location.hash);
+        setHeaderArea(items, this.$el);
+      }else{
+        this.$el.find("[data-role=header]").remove();
+      }
+
     }else{
       if(window.location.hash.split("/")[1] || "" != ""){
           this.$el.find("[data-role=header] .headerArea").append('<a id="hrefBackBtn"></a>');

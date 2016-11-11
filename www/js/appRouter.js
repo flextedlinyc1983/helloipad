@@ -616,34 +616,33 @@ ava.router = Backbone.Router.extend({
 
         if(window.localStorage.getItem('loginSuccess') == "true") {
             footerClickItem = "業績";
-            //local language
-
-            //local Language for css setting
             document.documentElement.lang = window.localStorage.getItem('sLang');
 
+            this.pageCollection = null;
+        
+            try{
+                $.mobile.loading('show');
+                // openBrowser();
 
-            // var columns = new ava.views.Column_New_Collection([
-            //     {'column':'name'},
-            //     {'column':'value'},
-            // ]);
-            var columns = new ava.views.Column_New_Collection([
-                {'column':$.i18n.prop('msg_portal_item')},
-                {'column':$.i18n.prop('msg_portal_total')},
-            ]);
-
-            var self = this;
-            var test = new ava.views.Table_portal_Collection([],{domainName: window.localStorage.getItem('ipAdress'),
-                urlPath: window.localStorage.getItem('AppName') + "/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1",columns:columns});
-
-
-            var tableView = new ava.views.Table_portal_View({collection: test, columns: columns, className: "table RealtimeInfo",
-            attributes : {"id":"portal-table"}});
-            this.putElementOnPageContent(tableView.render().$el, "portal", true);
+                // $.mobile.activePage.find('div[data-role=header]').remove();
+                // var url = "http://203.67.131.72:8888/flaps/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1";
+                var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Stock/stock.jsp';
+                var width = $(window).width();
+                var divHeight = $(window).height() - 53 + 5 + 5;
+                var frameHeight = $(window).height() - 53 ;
+                //var str = "<div style='overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + height + "px'><iframe id='inappiframeattendance' src='" + url + "' style='display:none; width:100%;height:100%;border: 0px;'/></iframe></div>"
+                var str = "<div id= 'Divinappiframerealtimeinfo' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframerealtimeinfo' id='inappiframerealtimeinfo' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
+                $.mobile.activePage.find('div[data-role=content]').append(str)
+                var inappiFrameRealtimeinfo = document.getElementById("inappiframerealtimeinfo");
+                inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;
+                RealtimeinfoLoadFinish = false;
+                // lock click
 
 
-            test.getResults();
+            }catch(err) {
+                // console.log("swipeIt" + err);
+            }
 
-            this.pageCollection = test;
 
         }else{
             

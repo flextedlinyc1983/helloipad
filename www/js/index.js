@@ -139,6 +139,15 @@ var app = {
                 $('#Divinappiframestock').width(stockWidth);
                 $('#inappiframestock').height(stockframeHeight);                
             }
+
+            if(window.location.hash == ""){
+                var stockWidth = $(window).width();
+                var stockdivHeight = $(window).height() - 53 + 5 + 5;
+                var stockframeHeight = $(window).height() - 53 ;
+                $('#Divinappiframerealtimeinfo').height(stockdivHeight);
+                $('#Divinappiframerealtimeinfo').width(stockWidth);
+                $('#inappiframerealtimeinfo').height(stockframeHeight);                
+            }
             
         }catch(err) {
             // console.log(err);
