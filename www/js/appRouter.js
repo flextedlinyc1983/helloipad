@@ -626,7 +626,7 @@ ava.router = Backbone.Router.extend({
 
                 // $.mobile.activePage.find('div[data-role=header]').remove();
                 // var url = "http://203.67.131.72:8888/flaps/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1";
-                var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Stock/stock.jsp';
+                var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Realtimeinfo/realtimeinfo.jsp';
                 var width = $(window).width();
                 var divHeight = $(window).height() - 53 + 5 + 5;
                 var frameHeight = $(window).height() - 53 ;
