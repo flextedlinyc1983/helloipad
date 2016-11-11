@@ -1087,7 +1087,7 @@ function getHeaderAreaScrollLeft(page) {
   if (nowPage == newPage) {
     if($.mobile.activePage.attr("id") == "getPosInfo"){
       scrollLeftValue = page.getHeaderScrollleftForgetPosInfo();
-    }else if($.mobile.activePage.attr("id") == "portal" || "business"){
+    }else if( ($.mobile.activePage.attr("id") == "portal") || ($.mobile.activePage.attr("id") == "business") ){
         
         if(page.getClickValueItemFromPortal()){
           scrollLeftValue = getHeaderItemCenterByClickValueItemFromPortal(page);

@@ -682,3 +682,13 @@ body .ui-page {
     color: #c5c5c5;
 }
 
+.footerArea ul .business a.footerItemDisabled {
+
+    background-image: url(../images/footer_icon01_disabled.png);
+    background-repeat: no-repeat;
+    background-position: center 2px;
+    background-size: auto 30px;
+    /* background-color: darkgoldenrod; */
+    color: #c5c5c5;
+}
+
