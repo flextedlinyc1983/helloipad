@@ -146,7 +146,8 @@ var app = {
                 var stockframeHeight = $(window).height() - 53 ;
                 $('#Divinappiframerealtimeinfo').height(stockdivHeight);
                 $('#Divinappiframerealtimeinfo').width(stockWidth);
-                $('#inappiframerealtimeinfo').height(stockframeHeight);                
+                $('#inappiframerealtimeinfo').height(stockframeHeight);  
+                customIframeRealtimeinfoCSS();              
             }
             
         }catch(err) {

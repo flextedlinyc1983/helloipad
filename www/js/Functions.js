@@ -1468,22 +1468,23 @@ function customIframeRealtimeinfoCSS(){
 
 
       var iframeDocument = document.getElementById('inappiframerealtimeinfo').contentWindow.document;
-      $(iframeDocument).find('[data-role=page]#page1 [data-role=footer]').remove();
+      $(iframeDocument).find('[data-role=page]#pageRealtimeinfo  [data-role=footer]').remove();
 
       var screenHeight = $(window).height() || 0;
       var screenWidth = $(window).width() || 0;
       screenWidth = screenWidth -5;
       // var tabsHeaderHeight = $(iframeDocument).find('[data-role=page]#page1 [data-role=header]').outerHeight() || 0;
-      var tabsHeaderHeight = 81;
+      var headerHeight = 55;
       var baseFooterHeight = $.mobile.activePage.find('[data-role=footer]').outerHeight() || 0;
-      var tabsHeight = screenHeight - tabsHeaderHeight - baseFooterHeight -5;
-      $(iframeDocument).find('[data-role=page]#page1 #tabs').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","height": tabsHeight + "px", "width": screenWidth + "px"});
-      $(iframeDocument).find('[data-role=page]#page1').css({"height":"100%"});
+      var theadHeight = $(iframeDocument).find('[data-role=page]#pageRealtimeinfo .table thead').outerHeight();
+      var tbodyHeight = screenHeight - headerHeight - theadHeight - baseFooterHeight;
+      $(iframeDocument).find('[data-role=page]#pageRealtimeinfo .table tbody').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"auto","height": tbodyHeight + "px"});
+      // $(iframeDocument).find('[data-role=page]#page1').css({"height":"100%"});
 
       // var set_PageHeaderHeight = $(iframeDocument).find('[data-role=page]#set_Page [data-role=header]').outerHeight() || 0;
-      var set_PageHeaderHeight = 90;
-      var set_PageHeight = screenHeight - set_PageHeaderHeight - baseFooterHeight;
-      $(iframeDocument).find('[data-role=page]#set_Page [data-role=content]').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","width": screenWidth + "px","height": set_PageHeight + "px"});
+      // var set_PageHeaderHeight = 90;
+      // var set_PageHeight = screenHeight - set_PageHeaderHeight - baseFooterHeight;
+      // $(iframeDocument).find('[data-role=page]#set_Page [data-role=content]').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","width": screenWidth + "px","height": set_PageHeight + "px"});
 
 
 
