@@ -27,6 +27,10 @@
         },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.flaps.helloipad"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "CAMERA_USAGE_DESCRIPTION": "To scan qrcodes and barcodes",
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
         }
     },
     "dependent_plugins": {}
