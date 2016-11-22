@@ -7,24 +7,31 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.flaps.helloipad"
-        },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.flaps.helloipad"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.flaps.helloipad"
-        },
-        "cordova-plugin-globalization": {
-            "PACKAGE_NAME": "com.flaps.helloipad"
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
         },
         "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.flaps.helloipad"
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.flaps.helloipad"
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        }
+    }
 }

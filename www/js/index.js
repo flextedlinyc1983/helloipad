@@ -33,6 +33,15 @@ var app = {
         // console.log(document);
         document.addEventListener('deviceready', this.onDeviceReady, false);
         window.addEventListener('orientationchange', this.orientationChange);
+
+        window.addEventListener("message", function(event) {
+            // alert("Hello from " + event.data);
+            if( event.data.frameName == "stockFrameWebCodeCamBtn"){
+                callQRcode(event.data.paras.selectQRBarCode);    
+                document.getElementById('inappiframestock').contentWindow.callChildiFrameFun("456");
+            }
+            
+        });
     },
     // deviceready Event Handler
     //

@@ -1695,3 +1695,8 @@ function getHeaderItemCenterBySwipeForNotRealtimeInfo_Today_Test(page){
     var value = getHeaderItemCenterByClickValueItemFromPortal(page);
     return value;
 }
+
+
+function  callQRcode(proCode) {
+    alert('test ' + proCode);
+}
