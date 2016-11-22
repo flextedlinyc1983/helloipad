@@ -37,8 +37,9 @@ var app = {
         window.addEventListener("message", function(event) {
             // alert("Hello from " + event.data);
             if( event.data.frameName == "stockFrameWebCodeCamBtn"){
-                callQRcode(event.data.paras.selectQRBarCode);    
-                document.getElementById('inappiframestock').contentWindow.callChildiFrameFun("456");
+                // callQRBarcode(event.data.paras.selectQRBarCode);   
+                callQRBarcode();    
+                // document.getElementById('inappiframestock').contentWindow.callChildiFrameFun("456");
             }
             
         });
@@ -88,7 +89,9 @@ var app = {
     onBackKeyDown: function () {
         try{
             if(window.location.hash != ""){
-                window.history.back()            
+                if(usingQrbarScanner){
+                    window.history.back();
+                }                
             }else{
                 navigator.app.exitApp();
             }
@@ -100,6 +103,11 @@ var app = {
     },
 
     orientationChange:function (e) {
+
+        if(usingQrbarScanner){
+            qrBarcodeHasRotate = true;     
+        }
+
         // var currentOrientation = "";
 
         // if (window.orientation == 0) {

@@ -1697,6 +1697,118 @@ function getHeaderItemCenterBySwipeForNotRealtimeInfo_Today_Test(page){
 }
 
 
-function  callQRcode(proCode) {
-    alert('test ' + proCode);
+var usingQrbarScanner = false;
+var qrBarcodeHasRotate = false;
+function  callQRBarcode() {
+    goQrBarCodePage();
+    // alert('test ' + proCode);
+
+    // cordova.plugins.barcodeScanner.scan(
+    //     function (result) {
+    //         alert("We got a barcode\n" +
+    //               "Result: " + result.text + "\n" +
+    //               "Format: " + result.format + "\n" +
+    //               "Cancelled: " + result.cancelled);
+    //     },
+    //     function (error) {
+    //         alert("Scanning failed: " + error);
+    //     },
+    //     {
+    //         // "preferFrontCamera" : true, // iOS and Android
+    //         "showFlipCameraButton" : true, // iOS and Android
+    //         "prompt" : "Place a barcode inside the scan area", // supported on Android only
+    //         "formats" : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+    //         // "orientation" : "landscape" // Android only (portrait|landscape), default unset so it rotates with the device
+    //     }
+    // );
+
+    usingQrbarScanner = true;
+    cordova.plugins.barcodeScanner.scan(
+        function (result) {
+            usingQrbarScanner = false;
+            
+            // goQrBarCodePage();
+            // resizeWindowByqrbarcode();
+
+            setTimeout(function(){ 
+
+                if(!result.cancelled)
+                {
+                    if(result.format == "QR_CODE")
+                    {                    
+                        // alert("qr " + result.text);
+                    }else{
+                        // alert("bar " + result.text);
+                    }
+                    goStockQuery(qrBarcodeHasRotate, result.text.trim());
+                    qrBarcodeHasRotate = false; 
+                }else{
+                    goStockPage(qrBarcodeHasRotate, false); 
+                    qrBarcodeHasRotate = false;   
+                    // reloadFromQrBarRotation();  
+                }
+            
+            }, 0);  
+            // if(!result.cancelled)
+            // {
+            //     if(result.format == "QR_CODE")
+            //     {
+            //         // navigator.notification.prompt("Please enter name of data",  function(input){
+            //         //     var name = input.input1;
+            //         //     var value = result.text;
+
+            //         //     var data = localStorage.getItem("LocalData");
+            //         //     console.log(data);
+            //         //     data = JSON.parse(data);
+            //         //     data[data.length] = [name, value];
+
+            //         //     localStorage.setItem("LocalData", JSON.stringify(data));
+
+            //         //     alert("Done");
+            //         // });
+            //         alert("qr " + result.text);
+            //     }else{
+            //         alert("bar " + result.text);
+            //     }
+            // }
+        },
+        function (error) {
+            alert("Scanning failed: " + error);
+            qrBarcodeHasRotate = false;
+            goStockPage(qrBarcodeHasRotate, true); 
+            usingQrbarScanner = false;
+            
+        },
+       {
+            // "preferFrontCamera" : true, // iOS and Android
+            "showFlipCameraButton" : false, // iOS and Android
+            "prompt" : "Place a barcode inside the scan area", // supported on Android only
+            "formats" : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+            "orientation" : "portrait" // Android only (portrait|landscape), default unset so it rotates with the device
+        }
+   );
+}
+
+function  goStockQuery(qrBarcodeHasRotate, value) {
+    document.getElementById('inappiframestock').contentWindow.goStockQuery(qrBarcodeHasRotate, value);
+}
+
+function  goStockPage(qrBarcodeHasRotate, isError) {
+    document.getElementById('inappiframestock').contentWindow.goStockPage(qrBarcodeHasRotate, isError);
+}
+
+function  goQrBarCodePage() {
+    document.getElementById('inappiframestock').contentWindow.goQrBarCodePage();
+}
+
+function  resizeWindowByqrbarcode() {
+    document.getElementById('inappiframestock').contentWindow.resizeWindowByqrbarcode();
+}
+
+function reloadFromQrBarRotation(){
+    Backbone.history.loadUrl(Backbone.history.fragment);
+    
+    setTimeout(function(){ 
+        window.dispatchEvent(new Event('resize'));
+    }, 500);  
 }
