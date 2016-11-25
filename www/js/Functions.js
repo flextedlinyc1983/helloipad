@@ -1701,6 +1701,10 @@ var usingQrbarScanner = false;
 var qrBarcodeHasRotate = false;
 function  callQRBarcode() {
     goQrBarCodePage();
+    
+    setTimeout(function(){
+      runQrBarcode()
+    }, 100);
     // alert('test ' + proCode);
 
     // cordova.plugins.barcodeScanner.scan(
@@ -1723,9 +1727,20 @@ function  callQRBarcode() {
     // );
 
     usingQrbarScanner = true;
+    
+}
+
+function runQrBarcode() {
     cordova.plugins.barcodeScanner.scan(
         function (result) {
+
             usingQrbarScanner = false;
+
+            if(cordova.platformId == "ios"){              
+              setTimeout(function(){ 
+                screen.unlockOrientation();
+              }, 500);  
+            }
             
             // goQrBarCodePage();
             // resizeWindowByqrbarcode();
@@ -1777,6 +1792,11 @@ function  callQRBarcode() {
             qrBarcodeHasRotate = false;
             goStockPage(qrBarcodeHasRotate, true); 
             usingQrbarScanner = false;
+            if(cordova.platformId == "ios"){            
+              setTimeout(function(){ 
+                screen.unlockOrientation();
+              }, 1500);  
+            }
             
         },
        {
@@ -1786,7 +1806,7 @@ function  callQRBarcode() {
             "formats" : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
             "orientation" : "portrait" // Android only (portrait|landscape), default unset so it rotates with the device
         }
-   );
+    );
 }
 
 function  goStockQuery(qrBarcodeHasRotate, value) {
@@ -1798,6 +1818,28 @@ function  goStockPage(qrBarcodeHasRotate, isError) {
 }
 
 function  goQrBarCodePage() {
+  if(cordova.platformId == "ios"){
+    var orientation = '';
+    if(window.orientation == 0 || window.orientation == 180){
+        orientation = 'portrait';
+    }else{
+        orientation = 'landscape';
+    }
+    screen.lockOrientation(orientation);
+    setTimeout(function(){ 
+      screen.lockOrientation(orientation);
+    }, 250);
+    setTimeout(function(){ 
+      screen.lockOrientation(orientation);
+    }, 500);
+    setTimeout(function(){ 
+      screen.lockOrientation(orientation);
+    }, 1000);
+    setTimeout(function(){ 
+      screen.lockOrientation(orientation);
+    }, 1500); 
+
+  }
     document.getElementById('inappiframestock').contentWindow.goQrBarCodePage();
 }
 
