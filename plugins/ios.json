@@ -31,6 +31,9 @@
         "phonegap-plugin-barcodescanner": {
             "CAMERA_USAGE_DESCRIPTION": "To scan qrcodes and barcodes",
             "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
         }
     },
     "dependent_plugins": {}

@@ -64,5 +64,13 @@
         "variables": {
             "CAMERA_USAGE_DESCRIPTION": "To scan qrcodes and barcodes"
         }
+    },
+    "cordova-plugin-screen-orientation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-screen-orientation"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
