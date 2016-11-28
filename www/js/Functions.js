@@ -1736,11 +1736,11 @@ function runQrBarcode() {
 
             usingQrbarScanner = false;
 
-            if(cordova.platformId == "ios"){              
-              setTimeout(function(){ 
-                screen.unlockOrientation();
-              }, 500);  
-            }
+            // if(cordova.platformId == "ios"){              
+            //   setTimeout(function(){ 
+            //     screen.unlockOrientation();
+            //   }, 500);  
+            // }
             
             // goQrBarCodePage();
             // resizeWindowByqrbarcode();
@@ -1792,11 +1792,11 @@ function runQrBarcode() {
             qrBarcodeHasRotate = false;
             goStockPage(qrBarcodeHasRotate, true); 
             usingQrbarScanner = false;
-            if(cordova.platformId == "ios"){            
-              setTimeout(function(){ 
-                screen.unlockOrientation();
-              }, 1500);  
-            }
+            // if(cordova.platformId == "ios"){            
+            //   setTimeout(function(){ 
+            //     screen.unlockOrientation();
+            //   }, 1500);  
+            // }
             
         },
        {
@@ -1818,28 +1818,28 @@ function  goStockPage(qrBarcodeHasRotate, isError) {
 }
 
 function  goQrBarCodePage() {
-  if(cordova.platformId == "ios"){
-    var orientation = '';
-    if(window.orientation == 0 || window.orientation == 180){
-        orientation = 'portrait';
-    }else{
-        orientation = 'landscape';
-    }
-    screen.lockOrientation(orientation);
-    setTimeout(function(){ 
-      screen.lockOrientation(orientation);
-    }, 250);
-    setTimeout(function(){ 
-      screen.lockOrientation(orientation);
-    }, 500);
-    setTimeout(function(){ 
-      screen.lockOrientation(orientation);
-    }, 1000);
-    setTimeout(function(){ 
-      screen.lockOrientation(orientation);
-    }, 1500); 
+  // if(cordova.platformId == "ios"){
+  //   var orientation = '';
+  //   if(window.orientation == 0 || window.orientation == 180){
+  //       orientation = 'portrait';
+  //   }else{
+  //       orientation = 'landscape';
+  //   }
+  //   screen.lockOrientation(orientation);
+  //   setTimeout(function(){ 
+  //     screen.lockOrientation(orientation);
+  //   }, 250);
+  //   setTimeout(function(){ 
+  //     screen.lockOrientation(orientation);
+  //   }, 500);
+  //   setTimeout(function(){ 
+  //     screen.lockOrientation(orientation);
+  //   }, 1000);
+  //   setTimeout(function(){ 
+  //     screen.lockOrientation(orientation);
+  //   }, 1500); 
 
-  }
+  // }
     document.getElementById('inappiframestock').contentWindow.goQrBarCodePage();
 }
 
