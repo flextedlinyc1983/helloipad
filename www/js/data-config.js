@@ -61,3 +61,4 @@ scrollLeftValueForNotRealtimeInfo_Today_Test = 0;
 iframeLoadFinish = false;
 
 
+stopReloadiframe = false;

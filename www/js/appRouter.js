@@ -28,6 +28,8 @@ ava.router = Backbone.Router.extend({
             // console.log('before');          
             setFooterItemByLoginStatus();
             clearRealtimeBusinessPagesData();
+
+            stopReloadiframe = false;
         }catch(e){
            console.log(e);
         }

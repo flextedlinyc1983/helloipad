@@ -1432,6 +1432,17 @@ function  inappiFrameAttendanceonLoad(){
   }
 }
 
+function isReloadRealtimeinfoIframe(){
+  var boolean = false;
+
+  var iframeDocument = document.getElementById('inappiframerealtimeinfo').contentWindow.document;
+  if($(iframeDocument).find('title').attr('iframetag') != "portal" && !stopReloadiframe){
+    boolean = true;
+    stopReloadiframe = true;
+  }
+  return boolean;
+}
+
 function  inappiFrameRealtimeinfoLoad(){
   try{
     $.mobile.loading('hide');
@@ -1439,7 +1450,14 @@ function  inappiFrameRealtimeinfoLoad(){
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
     // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
 
-
+    //尚未有權限替代方法
+    if(isReloadRealtimeinfoIframe()){
+      // alert('test')
+      var iframe = document.getElementById('inappiframerealtimeinfo');
+      var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Realtimeinfo/realtimeinfo.jsp';
+      iframe.src = url;
+      return false;
+    }
 
     // var loadStatus = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]').length > 0 ? true : false;
     // if(loadStatus){
