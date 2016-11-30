@@ -55,8 +55,8 @@ ava.router = Backbone.Router.extend({
             var str = "<div id= 'Divinappiframestock' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframestock' id='inappiframestock' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
             $.mobile.activePage.find('div[data-role=content]').append(str)
             var inappiFrameStock = document.getElementById("inappiframestock");
-            inappiFrameStock.onload = inappiFrameStockLoad;
-            StockLoadFinish = false;
+            inappiFrameStock.onload = inappiFrameStockLoad;            
+            iframeLoadFinish = false;
             // lock click
 
 
@@ -95,7 +95,7 @@ ava.router = Backbone.Router.extend({
             $.mobile.activePage.find('div[data-role=content]').append(str)
             var inappiFrameAttendance = document.getElementById("inappiframeattendance");
             inappiFrameAttendance.onload = inappiFrameAttendanceonLoad;
-            AttendanceonLoadFinish = false;
+            iframeLoadFinish = false;
             // lock click
 
 
@@ -634,8 +634,8 @@ ava.router = Backbone.Router.extend({
                 var str = "<div id= 'Divinappiframerealtimeinfo' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframerealtimeinfo' id='inappiframerealtimeinfo' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
                 $.mobile.activePage.find('div[data-role=content]').append(str)
                 var inappiFrameRealtimeinfo = document.getElementById("inappiframerealtimeinfo");
-                inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;
-                RealtimeinfoLoadFinish = false;
+                inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;                
+                iframeLoadFinish = false;
                 // lock click
 
 

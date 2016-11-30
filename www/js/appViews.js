@@ -1085,6 +1085,11 @@ ava.views.PageView = ava.views.UtilityView.extend({
       
       e.preventDefault();      
       $.mobile.activePage.focus();
+
+      if( $.mobile.activePage.attr('id') != "stock" && iframeLoadFinish == false){
+        return false;
+      }
+
       footerStockClick(e);
       
   },
@@ -1092,6 +1097,11 @@ ava.views.PageView = ava.views.UtilityView.extend({
       
       e.preventDefault();      
       $.mobile.activePage.focus();
+
+      if( $.mobile.activePage.attr('id') != "attendance" && iframeLoadFinish == false){
+        return false;
+      }
+
       footerAttendanceClick(e);
       
   },
@@ -1160,7 +1170,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
     // e.stopImmediatePropagation();
     $.mobile.activePage.focus();
 
-    if( $.mobile.activePage.attr('id') == "attendance" && AttendanceonLoadFinish == false){
+    if( $.mobile.activePage.attr('id') != "portal" && iframeLoadFinish == false){
       return false;
     }
 
@@ -1171,7 +1181,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
     e.preventDefault();      
     $.mobile.activePage.focus();
 
-    if( $.mobile.activePage.attr('id') == "attendance" && AttendanceonLoadFinish == false){
+    if( $.mobile.activePage.attr('id') != "connectOperation" && iframeLoadFinish == false){
       return false;
     }
     

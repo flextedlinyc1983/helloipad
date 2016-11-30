@@ -1425,7 +1425,7 @@ function  inappiFrameAttendanceonLoad(){
         }             
     }
 
-    AttendanceonLoadFinish = true;
+    iframeLoadFinish = true;
     
   }catch(e){
       console.log(e);
@@ -1456,7 +1456,7 @@ function  inappiFrameRealtimeinfoLoad(){
         }             
     }
 
-    RealtimeinfoLoadFinish = true;
+    iframeLoadFinish = true;
     
   }catch(e){
       console.log(e);
@@ -1519,7 +1519,7 @@ function  inappiFrameStockLoad(){
         }             
     }
 
-    StockLoadFinish = true;
+    iframeLoadFinish = true;
     
   }catch(e){
       console.log(e);
