@@ -175,11 +175,22 @@ var app = {
     onPause: function () {
         appRouter.clearTimeoutForPause();
         // alert("pause");
+
+        if($.mobile.activePage.attr('id') == "portal"){
+            clearTimeoutForRealtimeinfoIframe();    
+        }
+        
     },
 
     onResume: function () {
 
         try{
+
+
+            if($.mobile.activePage.attr('id') == "portal"){
+                resumeTimeoutForRealtimeinfoIframe();    
+            }
+
             // location.reload();
             if(appRouter.getPageCollection() != null){
                 appRouter.getPageCollection().getResults();

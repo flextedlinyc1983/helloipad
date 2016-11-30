@@ -1526,6 +1526,15 @@ function  inappiFrameStockLoad(){
   }
 }
 
+function clearTimeoutForRealtimeinfoIframe(){
+    document.getElementById('inappiframerealtimeinfo').contentWindow.clearTimeoutForPause();
+}
+
+function resumeTimeoutForRealtimeinfoIframe(){
+    document.getElementById('inappiframerealtimeinfo').contentWindow.resumeTimeoutForPause();
+
+}
+
 function customIframeStockCSS(){
   try{
 
