@@ -11,9 +11,11 @@
 	} else if(_sId.equals("230")) {
 %>{'ip':'192.168.0.230','APN':'flaps'}<%
 	} else if(_sId.equals("0827203")) {
-%>{'ip':'203.67.131.76:18080','APN':'flaps'}<%
+%>{'ip':'203.67.131.76:18080','APN':'flapsTW'}<%
 	} else if(_sId.equals("79979")) {
 %>{'ip':'203.67.131.72:8888','APN':'flaps'}<%
+	} else if(_sId.equals("872717")) {
+%>{'ip':'203.67.131.76:18080','APN':'flaps'}<%
 	} else {
 response.setContentType(CommonSymbols.str_DefaultContentType);
 response.setCharacterEncoding(CommonSymbols.str_Charset_UTF8);
