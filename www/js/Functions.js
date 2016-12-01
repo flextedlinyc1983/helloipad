@@ -1474,7 +1474,8 @@ function  inappiFrameRealtimeinfoLoad(){
         }             
     }
 
-    iframeLoadFinish = true;
+    //prevent crash
+    setTimeout(function(){ iframeLoadFinish = true; }, 1000);
     
   }catch(e){
       console.log(e);
