@@ -1408,7 +1408,10 @@ function  inappiFrameAttendanceonLoad(){
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
     // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
 
-
+    if(checkNetworkandData("inappiframeattendance")){
+      iframeLoadFinish = true;
+      return false;
+    }
 
     // var loadStatus = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]').length > 0 ? true : false;
     // if(loadStatus){
@@ -1443,12 +1446,31 @@ function isReloadRealtimeinfoIframe(){
   return boolean;
 }
 
+function checkNetworkandData(iframId){
+    var boolean = false;
+
+    var iframeDocument = document.getElementById(iframId).contentWindow.document;
+    if($(iframeDocument).find('title').html() == "您所查詢的網頁不存在或已移除"){
+        boolean = true;
+        navigator.notification.alert($.i18n.prop('msg_checkNetworkandData'), 
+          function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
+    }
+
+    return boolean;
+}
+
 function  inappiFrameRealtimeinfoLoad(){
   try{
     $.mobile.loading('hide');
     // alert('myframe is loaded');  
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
     // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
+
+
+    if(checkNetworkandData('inappiframerealtimeinfo')){
+      iframeLoadFinish = true;
+      return false;
+    }
 
     //尚未有權限替代方法
     if(isReloadRealtimeinfoIframe()){
@@ -1531,6 +1553,11 @@ function  inappiFrameStockLoad(){
     // alert('myframe is loaded');  
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
     // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
+
+    if(checkNetworkandData('inappiframestock')){
+      iframeLoadFinish = true;
+      return false;
+    }
 
     //尚未有權限替代方法
     if(isReloadStockIframe()){
