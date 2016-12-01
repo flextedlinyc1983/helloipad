@@ -159,9 +159,9 @@ ava.router = Backbone.Router.extend({
         var btnNew = "<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button>" ;
         var loginLogoutText = "";
         if( window.localStorage.getItem('loginSuccess') == "true" ){
-            loginLogoutText = "登出";
+            loginLogoutText =  $.i18n.prop('msg_portal_logout');
         }else{
-            loginLogoutText = "登入";
+            loginLogoutText = $.i18n.prop('msg_portal_login');
         }
         
         var btnLoginLogout = "<button id='loginlogout-connect' class='loginlogout-connect' >" + loginLogoutText + "</button>" ;

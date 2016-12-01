@@ -363,6 +363,10 @@ ava.views.DetailConnectView = Backbone.View.extend({
           $.i18n.prop('msg_DetailConnectView_Login_Message'),
           function (results) {
             if(results == 1){// confirm
+
+                //clean session and put before localstorage
+                logoutFromApp();
+
                 window.localStorage.setItem('loginSuccess', "");
                 window.localStorage.setItem('storeName', "");
 

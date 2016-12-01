@@ -1310,7 +1310,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
 
     // $(this.el).html(this.template(this.loginStatus));
-    this.$el.html(this.template({back_text: $.i18n.prop('msg_back_text'), flaps_name: $.i18n.prop('msg_flaps_name'), registerText:$.i18n.prop('msg_PortalView_registerText')}));
+    this.$el.html(this.template({setting_text: $.i18n.prop('msg_setting_text'), performance_text: $.i18n.prop('msg_performance_text'), attendance_text: $.i18n.prop('msg_attendance_text'), stock_text: $.i18n.prop('msg_stock_text'), back_text: $.i18n.prop('msg_back_text'), flaps_name: $.i18n.prop('msg_flaps_name'), registerText:$.i18n.prop('msg_PortalView_registerText')}));
     
     
 

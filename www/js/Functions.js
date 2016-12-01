@@ -1899,3 +1899,24 @@ function reloadFromQrBarRotation(){
         window.dispatchEvent(new Event('resize'));
     }, 500);  
 }
+
+
+
+
+function logoutFromApp() {
+    var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/logoutFromApp.jsp';
+    $.ajax({
+        context: this,
+        timeout: 10000,
+        url:url,
+        type:'GET',        
+        beforeSend: function (){
+        },
+        success:function (data, textStatus, jqXHR) {                       
+        },
+        error: function(xhr, textStatus, errorThrown){              
+        },
+        complete: function ( jqXHR, textStatus) {          
+        }
+    });       
+}

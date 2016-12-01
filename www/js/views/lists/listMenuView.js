@@ -109,21 +109,27 @@ ava.views.ConnectOpeView = Backbone.View.extend({
             try{
                 var self = this;
                 navigator.notification.confirm(
-                // $.i18n.prop('msg_ConnectView_connectPromptMsg'),                  // message
-                "確定登出??",
+                $.i18n.prop('msg_LogoutPromptMsg'),                  // message
+                // "確定登出??",
                 function (results) {
                   if(results == 1){// confirm
+
+                    //clean session and put before localstorage
+                    logoutFromApp();
+
                     window.localStorage.setItem('loginSuccess', "");
                     window.localStorage.setItem('storeName', "");
                     autoRediectToModal = "true";
                     Backbone.history.navigate('', true); 
                     // navigator.notification.alert($.i18n.prop('msg_DetailConnectView_DeleteSuccess'), function(){}, $.i18n.prop('msg_sysInfo'), $.i18n.prop('msg_btnConfirm'));
                     // self.updateLocalStorageFromDefault();    
+
+
                   }else{
                   }
                 },
-                // $.i18n.prop('msg_ConnectView_connectPromptTitle'),                   // title
-                "登出作業",
+                $.i18n.prop('msg_LogoutPromptTitle'),                   // title
+                // "登出作業",
                 [$.i18n.prop('msg_ConnectView_connectPromptConfirm'),$.i18n.prop('msg_ConnectView_connectPromptCancel')],          // buttonName
                 '' 
               );
