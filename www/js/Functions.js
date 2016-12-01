@@ -1513,6 +1513,17 @@ function customIframeRealtimeinfoCSS(){
 
 }
 
+function isReloadStockIframe(){
+  var boolean = false;
+
+  var iframeDocument = document.getElementById('inappiframestock').contentWindow.document;
+  if($(iframeDocument).find('title').attr('iframetag') != "stock" && !stopReloadiframe){
+    boolean = true;
+    stopReloadiframe = true;
+  }
+  return boolean;
+}
+
 function  inappiFrameStockLoad(){
   try{
     $.mobile.loading('hide');
@@ -1520,7 +1531,14 @@ function  inappiFrameStockLoad(){
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
     // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
 
-
+    //尚未有權限替代方法
+    if(isReloadStockIframe()){
+      // alert('test')
+      var iframe = document.getElementById('inappiframestock');      
+      var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/Stock/stock.jsp';
+      iframe.src = url;
+      return false;
+    }
 
     // var loadStatus = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]').length > 0 ? true : false;
     // if(loadStatus){
