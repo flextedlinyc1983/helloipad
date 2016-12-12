@@ -88,13 +88,13 @@ var app = {
     },
     onBackKeyDown: function () {
         try{
-            if(window.location.hash != ""){
-                if(usingQrbarScanner){
-                    window.history.back();
-                }                
-            }else{
-                navigator.app.exitApp();
-            }
+            // if(window.location.hash != ""){
+            //     if(usingQrbarScanner){
+            //         window.history.back();
+            //     }                
+            // }else{
+            //     navigator.app.exitApp();
+            // }
         
         }catch(err){
             
