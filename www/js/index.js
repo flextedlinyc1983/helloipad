@@ -95,6 +95,27 @@ var app = {
             // }else{
             //     navigator.app.exitApp();
             // }
+
+            if(cordova.platformId == "android"){
+                //庫存
+                if(window.location.hash == "#stock"){
+                    document.getElementById('inappiframestock').contentWindow.backBtnFromAndroid();
+                }
+                //業績
+                if(window.location.hash == ""){
+                    document.getElementById('inappiframerealtimeinfo').contentWindow.backBtnFromAndroid();
+                }
+                //設定
+                if($.mobile.activePage.attr("id") == "detailConnectInfo"){
+                    $("#hrefBackBtn").trigger( "vclick" );
+                }
+                //登入
+                if(window.location.hash == "#myModal"){
+                    $("a.back").trigger( "vclick" );
+                }
+            }
+                
+                
         
         }catch(err){
             
@@ -154,7 +175,18 @@ var app = {
                 var stockframeHeight = $(window).height() - 53 ;
                 $('#Divinappiframestock').height(stockdivHeight);
                 $('#Divinappiframestock').width(stockWidth);
-                $('#inappiframestock').height(stockframeHeight);                
+                $('#inappiframestock').height(stockframeHeight); 
+
+                if(cordova.platformId == "android"){
+                    setTimeout(function(){
+                        var stockdivHeight = $(window).height() - 53 + 5 + 5;
+                        var stockframeHeight = $(window).height() - 53 ;
+                        $('#Divinappiframestock').height(stockdivHeight);                
+                        $('#inappiframestock').height(stockframeHeight);                         
+                    }, 1500);
+                }else{
+
+                }                          
             }
 
             if(window.location.hash == ""){
