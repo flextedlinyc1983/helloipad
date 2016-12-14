@@ -25,7 +25,7 @@ ava.router = Backbone.Router.extend({
 
     before: function () {
         try{
-            // console.log('before');          
+            // console.log('before');
             setFooterItemByLoginStatus();
             clearRealtimeBusinessPagesData();
 
@@ -40,9 +40,9 @@ ava.router = Backbone.Router.extend({
     stock: function () {
         var page = new ava.views.PageView({attributes : {"id" : "stock"}});
         this.changePageForMobile(page);
-    
+
         this.pageCollection = null;
-        
+
         try{
             $.mobile.loading('show');
             // openBrowser();
@@ -57,7 +57,7 @@ ava.router = Backbone.Router.extend({
             var str = "<div id= 'Divinappiframestock' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframestock' id='inappiframestock' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
             $.mobile.activePage.find('div[data-role=content]').append(str)
             var inappiFrameStock = document.getElementById("inappiframestock");
-            inappiFrameStock.onload = inappiFrameStockLoad;            
+            inappiFrameStock.onload = inappiFrameStockLoad;
             iframeLoadFinish = false;
             // lock click
 
@@ -70,7 +70,7 @@ ava.router = Backbone.Router.extend({
         var page = new ava.views.PageView({attributes : {"id" : "attendance"}});
         this.changePageForMobile(page);
 
-        
+
 
         // this.putElementOnPageContent("<button id='new-connect' class='new-connect ui-btn ui-corner-all' >New Connection</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
         // this.putElementOnPageContent("<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
@@ -79,9 +79,9 @@ ava.router = Backbone.Router.extend({
         // this.setulHeightForconnectOperation(ulHeight);
 
         // var ConnectOpeView = new ava.views.ConnectOpeView({collection: new ava.collections.Connects()});
-        
+
         this.pageCollection = null;
-        
+
         try{
             $.mobile.loading('show');
             // openBrowser();
@@ -117,8 +117,8 @@ ava.router = Backbone.Router.extend({
 
         // check login connection
         var strDetailConnectLogin = '';
-        if(window.localStorage.getItem('loginSuccess') == "true"){            
-            
+        if(window.localStorage.getItem('loginSuccess') == "true"){
+
             var loginAppName = window.localStorage.getItem('AppName') || '' ;
             loginAppName = loginAppName.substring(1);
             var loginipAdress = window.localStorage.getItem('ipAdress') || '' ;
@@ -130,13 +130,13 @@ ava.router = Backbone.Router.extend({
             }
         }else{
                 strDetailConnectLogin = "<button id='detailConnectLogin'>" + $.i18n.prop('msg_ConnectView_loginName') + "</button>";
-        }                
+        }
 
 
         $('#detailConnectInfo [data-role=content]').append("<div><button id='modiyConnectName' class='modify'>" + $.i18n.prop('label_ConnectView_modify') + "</button></div>"
             + strDetailConnectLogin +"</div>");
         this.putElementOnPageContent(detailConnect.render().$el, "detailConnectInfo", true);
-        
+
         //add click event
         $( "#modiyConnectName" ).on( "click", function() {
             detailConnect.modifyOnClick();
@@ -144,7 +144,7 @@ ava.router = Backbone.Router.extend({
         $( "#detailConnectLogin" ).on( "click", function() {
             detailConnect.detailConnectLoginOnClick();
         });
-        
+
         this.pageCollection = null;
 
     },
@@ -153,7 +153,7 @@ ava.router = Backbone.Router.extend({
         var page = new ava.views.PageView({attributes : {"id" : "connectOperation"}});
         this.changePageForMobile(page);
 
-        
+
 
         // this.putElementOnPageContent("<button id='new-connect' class='new-connect ui-btn ui-corner-all' >New Connection</button><ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
         var btnNew = "<button id='new-connect' class='new-connect' >" + $.i18n.prop('New_Connection') + "</button>" ;
@@ -163,7 +163,7 @@ ava.router = Backbone.Router.extend({
         }else{
             loginLogoutText = $.i18n.prop('msg_portal_login');
         }
-        
+
         var btnLoginLogout = "<button id='loginlogout-connect' class='loginlogout-connect' >" + loginLogoutText + "</button>" ;
         this.putElementOnPageContent( btnNew + btnLoginLogout + "<ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
 
@@ -171,7 +171,7 @@ ava.router = Backbone.Router.extend({
         this.setulHeightForconnectOperation(ulHeight);
 
         var ConnectOpeView = new ava.views.ConnectOpeView({collection: new ava.collections.Connects()});
-        
+
         this.pageCollection = null;
     },
     setulHeightForconnectOperation: function (height) {
@@ -317,11 +317,11 @@ ava.router = Backbone.Router.extend({
         this.basicPageView = page;
         // delete
         if(typeof(pagesData['portal']) != "undefined"){
-            page.setNowpage(pagesData['portal'].group);           
-            page.setClickValueItemFromPortal(pagesData['portal'].clickValueItemFromPortal || false);            
+            page.setNowpage(pagesData['portal'].group);
+            page.setClickValueItemFromPortal(pagesData['portal'].clickValueItemFromPortal || false);
             delete pagesData['portal'];
         }
-       if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined" ){            
+       if(typeof(pagesData['#RealtimeInfo_Today_Test']) != "undefined" ){
             if( typeof(pagesData['#RealtimeInfo_Today_Test'].headerScrollleftForgetPosInfo) != "undefined" ){
                 page.setHeaderScrollleftForgetPosInfo(pagesData['#RealtimeInfo_Today_Test'].headerScrollleftForgetPosInfo);
             }
@@ -331,7 +331,7 @@ ava.router = Backbone.Router.extend({
         }
 
         this.changePageForMobile(page);
-        
+
 
 
 
@@ -559,24 +559,24 @@ ava.router = Backbone.Router.extend({
               connectIpAdress = "http://" + connectIpAdress;
               connectAppName = "/" + connectAppName;
 
-              window.localStorage.setItem('ipAdress', connectIpAdress); 
+              window.localStorage.setItem('ipAdress', connectIpAdress);
               window.localStorage.setItem('AppName', connectAppName);
               window.localStorage.setItem('sLang', connectsLang);
               window.localStorage.setItem('code', connectCode);
-              window.localStorage.setItem('pwd', connectPwd);  
+              window.localStorage.setItem('pwd', connectPwd);
 
               loadBundles(connectsLang);
-              
+
             }
-            
+
         }
     },
-    portal:function () {        
+    portal:function () {
         //check now connection is added or not
         var connects = new ava.collections.Connects();
         connects.fetch({reset:true});
         var isUpdateNowConnection = window.localStorage.getItem('isUpdateNowConnection') || "false";
-        if (isUpdateNowConnection == "false" && window.localStorage.getItem('registerSuccess') == "true") {            
+        if (isUpdateNowConnection == "false" && window.localStorage.getItem('registerSuccess') == "true") {
             var connectIpAdress = window.localStorage.getItem('ipAdress') || '';
             var connectAppName = window.localStorage.getItem('AppName') || '';
             connectIpAdress = connectIpAdress.substring(7);
@@ -597,10 +597,10 @@ ava.router = Backbone.Router.extend({
         }
         connects.updateCodePwdsLang();
         window.localStorage.setItem('enterModalFromPortal',"true");
-        
+
         //for modal back to portal localstorage to the same with default
         this.updateLocalStorageFromDefault();
-        
+
 
 
 
@@ -609,8 +609,8 @@ ava.router = Backbone.Router.extend({
         // var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
         var page = new ava.views.PageView({className: "isSum1", attributes : {"id" : "portal"}});
         this.changePageForMobile(page);
-        
-        
+
+
 
 
 
@@ -621,7 +621,7 @@ ava.router = Backbone.Router.extend({
             document.documentElement.lang = window.localStorage.getItem('sLang');
 
             this.pageCollection = null;
-        
+
             try{
                 $.mobile.loading('show');
                 // openBrowser();
@@ -632,11 +632,27 @@ ava.router = Backbone.Router.extend({
                 var width = $(window).width();
                 var divHeight = $(window).height() - 53 + 5 + 5;
                 var frameHeight = $(window).height() - 53 ;
+								if(cordova.platformId == "ios" && typeof(StatusBar) == "undefined"){
+								  divHeight = divHeight - 20;
+								  frameHeight = frameHeight - 20;
+								}
                 //var str = "<div style='overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + height + "px'><iframe id='inappiframeattendance' src='" + url + "' style='display:none; width:100%;height:100%;border: 0px;'/></iframe></div>"
                 var str = "<div id= 'Divinappiframerealtimeinfo' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframerealtimeinfo' id='inappiframerealtimeinfo' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
-                $.mobile.activePage.find('div[data-role=content]').append(str)
-                var inappiFrameRealtimeinfo = document.getElementById("inappiframerealtimeinfo");
-                inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;                
+								if(cordova.platformId == "ios" && typeof(StatusBar) == "undefined"){
+									setTimeout(function () {
+									  $.mobile.activePage.find('div[data-role=content]').append(str)
+									  var inappiFrameRealtimeinfo = document.getElementById("inappiframerealtimeinfo");
+									  inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;
+										$("div#portal").css({"min-height": frameHeight +"px"});
+										if(window.orientation == 90 || window.orientation == -90){
+											$("div#portal").css({"height": frameHeight +"px"});
+										}
+									},250);
+								}else{
+									$.mobile.activePage.find('div[data-role=content]').append(str)
+									var inappiFrameRealtimeinfo = document.getElementById("inappiframerealtimeinfo");
+									inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;
+								}
                 iframeLoadFinish = false;
                 // lock click
 
@@ -647,24 +663,24 @@ ava.router = Backbone.Router.extend({
 
 
         }else{
-            
+
             if(window.localStorage.getItem('registerSuccess') == "true"){
                 var companyInfoView = new ava.views.CompanyInfoView({className: "CompanyInfo"});
                 this.putElementOnPageContent(companyInfoView.render().$el, "portal", true);
-                this.setCompanyInfoScreen();    
-            }            
+                this.setCompanyInfoScreen();
+            }
 
             this.pageCollection = null;
 
 
             if(window.localStorage.getItem('registerSuccess') == "true"){
-                if(autoRediectToModal == "true"){                                     
-                    setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
+                if(autoRediectToModal == "true"){
+                    setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200);
                 }else{
                     autoRediectToModal = "true";
-                }    
+                }
             }
-                        
+
         }
 
     },
@@ -1239,12 +1255,12 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         }
     },
 
-    business:function () {        
+    business:function () {
         //check now connection is added or not
         var connects = new ava.collections.Connects();
         connects.fetch({reset:true});
         var isUpdateNowConnection = window.localStorage.getItem('isUpdateNowConnection') || "false";
-        if (isUpdateNowConnection == "false" && window.localStorage.getItem('registerSuccess') == "true") {            
+        if (isUpdateNowConnection == "false" && window.localStorage.getItem('registerSuccess') == "true") {
             var connectIpAdress = window.localStorage.getItem('ipAdress') || '';
             var connectAppName = window.localStorage.getItem('AppName') || '';
             connectIpAdress = connectIpAdress.substring(7);
@@ -1265,10 +1281,10 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         }
         connects.updateCodePwdsLang();
         window.localStorage.setItem('enterModalFromPortal',"true");
-        
+
         //for modal back to portal localstorage to the same with default
         this.updateLocalStorageFromDefault();
-        
+
 
 
 
@@ -1277,8 +1293,8 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
         // var page = new ava.views.PortalView({className: "isSum1", attributes : {"id" : "portal"}});
         var page = new ava.views.PageView({className: "isSum1", attributes : {"id" : "business"}});
         this.changePageForMobile(page);
-        
-        
+
+
 
 
 
@@ -1316,24 +1332,24 @@ this.putElement(new ava.views.LayoutView({model: {template:"#form-combox-templat
             this.pageCollection = test;
 
         }else{
-            
+
             if(window.localStorage.getItem('registerSuccess') == "true"){
                 var companyInfoView = new ava.views.CompanyInfoView({className: "CompanyInfo"});
                 this.putElementOnPageContent(companyInfoView.render().$el, "portal", true);
-                this.setCompanyInfoScreen();    
-            }            
+                this.setCompanyInfoScreen();
+            }
 
             this.pageCollection = null;
 
 
             if(window.localStorage.getItem('registerSuccess') == "true"){
-                if(autoRediectToModal == "true"){                                     
-                    setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200); 
+                if(autoRediectToModal == "true"){
+                    setTimeout(function(){ Backbone.history.navigate('myModal', true); }, 200);
                 }else{
                     autoRediectToModal = "true";
-                }    
+                }
             }
-                        
+
         }
 
     },
@@ -1377,8 +1393,8 @@ $(document).ready(function () {
         //     portal_Timeout.clear();
         // }else {
 
-        // }        
-        
+        // }
+
     });
 
     tabOperation.init();
