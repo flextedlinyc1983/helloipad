@@ -97,6 +97,34 @@ var app = {
             // }
 
             if(cordova.platformId == "android"){
+
+                //放置最前面
+                //離開應用程式
+                if(window.location.hash == "#connectOperation" && $.mobile.activePage.attr("id") == "connectOperation"){
+                    quitAppForAnroid();
+                }else if (window.location.hash == "" && $.mobile.activePage.attr("id") == "portal"){
+                    var activePage = document.getElementById('inappiframerealtimeinfo').contentWindow.getActivePageId();                    
+                    if (activePage == "pageRealtimeinfo"){
+                        quitAppForAnroid();
+                    }
+                }else if (window.location.hash == "#attendance" && $.mobile.activePage.attr("id") == "attendance"){
+                    var activePage = document.getElementById('inappiframeattendance').contentWindow.getActivePageId();                    
+                    if (activePage == "page1"){
+                        quitAppForAnroid();
+                    }
+                }else if (window.location.hash == "#stock" && $.mobile.activePage.attr("id") == "stock"){
+                    var activePage = document.getElementById('inappiframestock').contentWindow.getActivePageId();                    
+                    if (activePage == "pageStock"){
+                        quitAppForAnroid();
+                    }
+                }
+
+                
+                //出勤
+                if(window.location.hash == "#attendance"){
+                    document.getElementById('inappiframeattendance').contentWindow.backBtnFromAndroid();
+                }
+
                 //庫存
                 if(window.location.hash == "#stock"){
                     document.getElementById('inappiframestock').contentWindow.backBtnFromAndroid();
@@ -113,6 +141,9 @@ var app = {
                 if(window.location.hash == "#myModal"){
                     $("a.back").trigger( "vclick" );
                 }
+
+
+
             }
                 
                 

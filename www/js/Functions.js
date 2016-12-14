@@ -1948,3 +1948,20 @@ function logoutFromApp() {
         }
     });       
 }
+
+
+function quitAppForAnroid() {
+    navigator.notification.confirm(              
+        $.i18n.prop('msg_quitApp_Message'),
+        function (results) {
+          if(results == 1){// confirm
+              navigator.app.exitApp();
+          }else{
+
+          }
+        },
+        $.i18n.prop('msg_quitApp_Title'),
+        [$.i18n.prop('msg_ConnectOpeView_connectPromptConfirm'),$.i18n.prop('msg_ConnectOpeView_connectPromptCancel')],          // buttonName
+        '' 
+    );
+}
