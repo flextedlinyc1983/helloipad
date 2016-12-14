@@ -1876,7 +1876,7 @@ function runQrBarcode() {
             // "preferFrontCamera" : true, // iOS and Android
             "showFlipCameraButton" : false, // iOS and Android
             "prompt" : "Place a barcode inside the scan area", // supported on Android only
-            "formats" : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+            "formats" : "QR_CODE,PDF_417,DATA_MATRIX,UPC_E,UPC_A,EAN_8,EAN_13,CODE_128,CODE_39,CODE_93,CODABAR,ITF,RSS14,RSS_EXPANDED,AZTEC", // default: all but PDF_417 and RSS_EXPANDED
             "orientation" : "portrait" // Android only (portrait|landscape), default unset so it rotates with the device
         }
     );
