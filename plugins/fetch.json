@@ -26,7 +26,7 @@
     "cordova-plugin-statusbar": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-statusbar"
+            "id": "cordova-plugin-statusbar@2.2.1"
         },
         "is_top_level": true,
         "variables": {}
@@ -47,14 +47,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-splashscreen": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-splashscreen@2.0.0"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "phonegap-plugin-barcodescanner": {
         "source": {
             "type": "registry",
@@ -69,6 +61,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-screen-orientation"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen@2.0.0"
         },
         "is_top_level": true,
         "variables": {}

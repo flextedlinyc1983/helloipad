@@ -25,6 +25,12 @@
         "phonegap-plugin-barcodescanner": {
             "PACKAGE_NAME": "com.flaps.realtimeinfo"
         },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "cordova-plugin-screen-orientation": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.flaps.realtimeinfo"
         }
