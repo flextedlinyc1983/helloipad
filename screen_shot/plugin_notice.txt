@@ -1,2 +1,15 @@
 android
 use cordova-plugin-splashscreen@2.0.0
+-----------
+cordova-plugin-compat 1.1.0 "Compat"
+cordova-plugin-device 1.1.2 "Device"
+cordova-plugin-dialogs 1.2.1 "Notification"
+cordova-plugin-globalization 1.0.3 "Globalization"
+cordova-plugin-network-information 1.2.1 "Network Information"
+cordova-plugin-screen-orientation 1.4.2 "Screen Orientation"
+cordova-plugin-splashscreen 2.0.0 "Splashscreen"
+cordova-plugin-statusbar 2.2.1 "StatusBar"
+cordova-plugin-whitelist 1.2.2 "Whitelist"
+phonegap-plugin-barcodescanner 6.0.3 "BarcodeScanner"
+
+-----------------------------------------------------------------------------
