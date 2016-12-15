@@ -19,13 +19,13 @@
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.flaps.realtimeinfo"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.flaps.realtimeinfo"
-        },
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.flaps.realtimeinfo"
         },
         "phonegap-plugin-barcodescanner": {
+            "PACKAGE_NAME": "com.flaps.realtimeinfo"
+        },
+        "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.flaps.realtimeinfo"
         }
     },
