@@ -32,7 +32,21 @@ var app = {
         // alert("test bindEvents");
         // console.log(document);
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        window.addEventListener('orientationchange', this.orientationChange);
+
+
+        if(cordova.platformId == "android"){
+            var agentID = navigator.userAgent.match(/Android\s+([\d\.]+)/)[1];
+            var androidversion = parseFloat(agentID);
+            if( androidversion >= 5.0){
+                window.addEventListener('orientationchange', this.orientationChange);        
+                window.addEventListener('resize', this.orientationChange, false);        
+            }else{
+                window.addEventListener('orientationchange', this.orientationChange);        
+            }
+        }else{
+            window.addEventListener('orientationchange', this.orientationChange);    
+        }
+        
 
         window.addEventListener("message", function(event) {
             // alert("Hello from " + event.data);
