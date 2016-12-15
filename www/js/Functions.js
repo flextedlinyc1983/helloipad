@@ -1591,7 +1591,11 @@ function  inappiFrameStockLoad(){
 }
 
 function clearTimeoutForRealtimeinfoIframe(){
-    document.getElementById('inappiframerealtimeinfo').contentWindow.clearTimeoutForPause();
+  try{
+      document.getElementById('inappiframerealtimeinfo').contentWindow.clearTimeoutForPause();  
+  }catch(e){
+      console.log(e);
+  }
 }
 
 function resumeTimeoutForRealtimeinfoIframe(){

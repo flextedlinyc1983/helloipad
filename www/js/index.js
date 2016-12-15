@@ -98,7 +98,11 @@ var app = {
 
             if(cordova.platformId == "android"){
 
-                //放置最前面
+                if(window.localStorage.getItem('registerSuccess') != "true"){
+                    quitAppForAnroid();
+                }
+
+                //放置最前面除了未註冊
                 //離開應用程式
                 if(window.location.hash == "#connectOperation" && $.mobile.activePage.attr("id") == "connectOperation"){
                     quitAppForAnroid();
