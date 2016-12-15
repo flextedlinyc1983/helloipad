@@ -1,0 +1,2 @@
+android
+use cordova-plugin-splashscreen@2.0.0
