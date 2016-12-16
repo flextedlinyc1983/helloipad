@@ -1580,6 +1580,7 @@ function  inappiFrameStockLoad(){
           customIframeStockCSS();
           $('#inappiframestock').show({duration:0});
           // customIframeAttendanceSet_PageBackBtn();
+          setDevicePlatform('inappiframestock');
         }             
     }
 
@@ -1601,6 +1602,10 @@ function clearTimeoutForRealtimeinfoIframe(){
 function resumeTimeoutForRealtimeinfoIframe(){
     document.getElementById('inappiframerealtimeinfo').contentWindow.resumeTimeoutForPause();
 
+}
+
+function setDevicePlatform(iframeName){
+    document.getElementById(iframeName).contentWindow.setDevicePlatform(cordova.platformId);
 }
 
 function customIframeStockCSS(){
