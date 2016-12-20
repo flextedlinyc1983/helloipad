@@ -33,7 +33,12 @@ $.event.special.swipe.verticalDistanceThreshold = (screen.availHeight) / 13;
 
 
 	$(document).on('pagehide', ":jqmData(role='page')", function (event, ui) {
-        $(event.currentTarget).remove();
+        // $(event.currentTarget).remove();
+        // prevent ios crash
+        var currentPage = $(event.currentTarget);
+        setTimeout(function () {
+            currentPage.remove();
+        },100);
     });
 
     $(document).on('pagebeforeshow', ":jqmData(role='page')", function (event, ui) {

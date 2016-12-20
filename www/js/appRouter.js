@@ -58,7 +58,8 @@ ava.router = Backbone.Router.extend({
             $.mobile.activePage.find('div[data-role=content]').append(str)
             var inappiFrameStock = document.getElementById("inappiframestock");
             inappiFrameStock.onload = inappiFrameStockLoad;
-            iframeLoadFinish = false;
+            // iframeLoadFinish = false;
+            iframeLoadFinish = true;
             // lock click
 
 
@@ -97,7 +98,8 @@ ava.router = Backbone.Router.extend({
             $.mobile.activePage.find('div[data-role=content]').append(str)
             var inappiFrameAttendance = document.getElementById("inappiframeattendance");
             inappiFrameAttendance.onload = inappiFrameAttendanceonLoad;
-            iframeLoadFinish = false;
+            // iframeLoadFinish = false;
+            iframeLoadFinish = true;
             // lock click
 
 
@@ -653,7 +655,8 @@ ava.router = Backbone.Router.extend({
 									var inappiFrameRealtimeinfo = document.getElementById("inappiframerealtimeinfo");
 									inappiFrameRealtimeinfo.onload = inappiFrameRealtimeinfoLoad;
 								}
-                iframeLoadFinish = false;
+                // iframeLoadFinish = false;
+                iframeLoadFinish = true;
                 // lock click
 
 

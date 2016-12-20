@@ -58,7 +58,8 @@ swipeForNotRealtimeInfo_Today_Test = false;
 scrollLeftValueForNotRealtimeInfo_Today_Test = 0;
 
 
-iframeLoadFinish = false;
+// iframeLoadFinish = false;
+iframeLoadFinish = true;
 
 
 stopReloadiframe = false;
