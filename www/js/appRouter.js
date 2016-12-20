@@ -169,7 +169,9 @@ ava.router = Backbone.Router.extend({
         var btnLoginLogout = "<button id='loginlogout-connect' class='loginlogout-connect' >" + loginLogoutText + "</button>" ;
         this.putElementOnPageContent( btnNew + btnLoginLogout + "<ul class='connects-list' style='overflow-y: scroll; width: 100%; overflow: auto; margin: 0em;'></ul>", "connectOperation", true);
 
-        var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
+        // var ulHeight = $(window).height() - $("div[data-role=footer]").outerHeight() - 75;
+        var ulHeight = $(window).height() - $.mobile.activePage.find("div[data-role=footer]").outerHeight() - 75;
+        
         this.setulHeightForconnectOperation(ulHeight);
 
         var ConnectOpeView = new ava.views.ConnectOpeView({collection: new ava.collections.Connects()});
