@@ -1403,6 +1403,7 @@ function openBrowser() {
 
 function  inappiFrameAttendanceonLoad(){
   try{
+    setActivePagePaddingBottom();
     $.mobile.loading('hide');
     // alert('myframe is loaded');  
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
@@ -1461,6 +1462,7 @@ function checkNetworkandData(iframId){
 
 function  inappiFrameRealtimeinfoLoad(){
   try{
+    setActivePagePaddingBottom();
     $.mobile.loading('hide');
     // alert('myframe is loaded');  
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
@@ -1547,8 +1549,13 @@ function isReloadStockIframe(){
   return boolean;
 }
 
+function setActivePagePaddingBottom() {
+  $.mobile.activePage.css("padding-bottom","52px");
+}
+
 function  inappiFrameStockLoad(){
   try{
+    setActivePagePaddingBottom();
     $.mobile.loading('hide');
     // alert('myframe is loaded');  
     // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
