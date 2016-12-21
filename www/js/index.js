@@ -99,6 +99,8 @@ var app = {
             //     // console.log(err);
             //     // alert('index' + err)
             // }
+
+        preload(footerClickImages);
     },
     onBackKeyDown: function () {
         try{

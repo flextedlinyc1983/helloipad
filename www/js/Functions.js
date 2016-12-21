@@ -1981,3 +1981,10 @@ function quitAppForAnroid() {
         '' 
     );
 }
+
+var footerClickImages = ['css/images/footer_icon01.png','css/images/footer_icon02.png','css/images/footer_icon03.png','css/images/footer_icon04.png'];
+function preload(arrayOfImages) {
+    $(arrayOfImages).each(function () {
+        $('<img />').attr('src',this).appendTo('body').css('display','none');
+    });
+}
