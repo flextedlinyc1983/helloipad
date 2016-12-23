@@ -1,5 +1,6 @@
 android
 use cordova-plugin-splashscreen@2.0.0
+use phonegap-plugin-barcodescanner 6.0.5
 -----------
 cordova-plugin-compat 1.1.0 "Compat"
 cordova-plugin-device 1.1.2 "Device"
@@ -10,7 +11,7 @@ cordova-plugin-screen-orientation 1.4.2 "Screen Orientation"
 cordova-plugin-splashscreen 2.0.0 "Splashscreen"
 cordova-plugin-statusbar 2.2.1 "StatusBar"
 cordova-plugin-whitelist 1.2.2 "Whitelist"
-phonegap-plugin-barcodescanner 6.0.3 "BarcodeScanner"
+phonegap-plugin-barcodescanner 6.0.5 "BarcodeScanner"
 
 -----------------------------------------------------------------------------
 
