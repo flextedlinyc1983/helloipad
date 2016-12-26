@@ -132,6 +132,11 @@ ava.router = Backbone.Router.extend({
             }
         }else{
                 strDetailConnectLogin = "<button id='detailConnectLogin'>" + $.i18n.prop('msg_ConnectView_loginName') + "</button>";
+
+
+                setTimeout(function () {
+                    $.mobile.activePage.css({'padding-top':'53px'});
+                },100);
         }
 
 
@@ -140,10 +145,10 @@ ava.router = Backbone.Router.extend({
         this.putElementOnPageContent(detailConnect.render().$el, "detailConnectInfo", true);
 
         //add click event
-        $( "#modiyConnectName" ).on( "click", function() {
+        $.mobile.activePage.find( "#modiyConnectName" ).on( "click", function() {
             detailConnect.modifyOnClick();
         });
-        $( "#detailConnectLogin" ).on( "click", function() {
+        $.mobile.activePage.find( "#detailConnectLogin" ).on( "click", function() {
             detailConnect.detailConnectLoginOnClick();
         });
 
