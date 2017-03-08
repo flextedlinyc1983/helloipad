@@ -20,6 +20,7 @@ ava.router = Backbone.Router.extend({
         "connectOperation/detailConnectInfo/:connectName": "detailConnectInfo",
         "attendance": "attendance",
         "stock": "stock",
+        "compBrand": "compBrand",
         "business": "business",
 	},
 
@@ -36,6 +37,36 @@ ava.router = Backbone.Router.extend({
     },
     after: function () {
         // console.log('after');
+    },
+    compBrand: function () {
+        var page = new ava.views.PageView({attributes : {"id" : "compBrand"}});
+        this.changePageForMobile(page);
+
+        this.pageCollection = null;
+
+        try{
+            $.mobile.loading('show');
+            // openBrowser();
+
+            // $.mobile.activePage.find('div[data-role=header]').remove();
+            // var url = "http://203.67.131.72:8888/flaps/PDA/PISConsole/getRealtimeInfo.jsp?isSum=1";
+            var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/CompeteBrandSales/competeBrandSales.jsp';
+            var width = $(window).width();
+            var divHeight = $(window).height() - 53 + 5 + 5;
+            var frameHeight = $(window).height() - 53 ;
+            //var str = "<div style='overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + height + "px'><iframe id='inappiframeattendance' src='" + url + "' style='display:none; width:100%;height:100%;border: 0px;'/></iframe></div>"
+            var str = "<div id= 'DivinappiframecompBrand' style='border:none;position: absolute; top: 0px; left: 0px;right: 0px; bottom: 0px;overflow: auto!important; -webkit-overflow-scrolling: touch!important;" + " width: " + width + "px; height:" + divHeight + "px'><iframe name='inappiframecompBrand' id='inappiframecompBrand' scrolling='no' src='" + url + "' style=' border:none;display:none; width:100%;height:" + frameHeight +"px;border: 0px;'/></iframe></div>"
+            $.mobile.activePage.find('div[data-role=content]').append(str)
+            var inappiFrameCompBrand = document.getElementById("inappiframecompBrand");
+            inappiFrameCompBrand.onload = inappiFrameCompBrandLoad;
+            // iframeLoadFinish = false;
+            iframeLoadFinish = true;
+            // lock click
+
+
+        }catch(err) {
+            // console.log("swipeIt" + err);
+        }
     },
     stock: function () {
         var page = new ava.views.PageView({attributes : {"id" : "stock"}});

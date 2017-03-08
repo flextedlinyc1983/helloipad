@@ -950,6 +950,9 @@ function footerNavItem(page, hash) {
         break;  
     case "庫存":        
         $(page.el).find("div[data-role=footer] ul .stock a").addClass('selected');
+        break; 
+    case "競品":        
+        $(page.el).find("div[data-role=footer] ul .compBrand a").addClass('selected');
         break;  
     case "app業績":        
         $(page.el).find("div[data-role=footer] ul .business a").addClass('selected');
@@ -1274,6 +1277,27 @@ function footerBusinessClick(e) {
     } 
 }
 
+function footerCompBrandClick(e) {
+  footerClickItem = "競品";
+    // if( $(e.target).hasClass('selected') == true ){
+    //   // Backbone.history.loadUrl(Backbone.history.fragment);
+    //   // HeaderAreaClickChangePage(e, hash, 0);   
+    // }else{
+    //   if(!$(e.target).hasClass('footerItemDisabled')){
+    //     Backbone.history.navigate('attendance', true); 
+    //   }
+    // } 
+    // alert('stock');
+    if( $(e.target).hasClass('selected') == true ){
+      // Backbone.history.loadUrl(Backbone.history.fragment);
+      // HeaderAreaClickChangePage(e, hash, 0);   
+    }else{
+      if(!$(e.target).hasClass('footerItemDisabled')){
+        Backbone.history.navigate('compBrand', true); 
+      }
+    } 
+}
+
 function footerStockClick(e) {
   footerClickItem = "庫存";
     // if( $(e.target).hasClass('selected') == true ){
@@ -1538,6 +1562,19 @@ function customIframeRealtimeinfoCSS(){
 
 }
 
+
+function isReloadCompBrandIframe(){
+  var boolean = false;
+
+  var iframeDocument = document.getElementById('inappiframecompBrand').contentWindow.document;
+  if($(iframeDocument).find('title').attr('iframetag') != "compBrand" && !stopReloadiframe){
+    boolean = true;
+    stopReloadiframe = true;
+  }
+  return boolean;
+}
+
+
 function isReloadStockIframe(){
   var boolean = false;
 
@@ -1552,6 +1589,54 @@ function isReloadStockIframe(){
 function setActivePagePaddingBottom() {
   $.mobile.activePage.css("padding-bottom","52px");
 }
+
+
+function  inappiFrameCompBrandLoad(){
+  try{
+    setActivePagePaddingBottom();
+    $.mobile.loading('hide');
+    // alert('myframe is loaded');  
+    // var contents = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]');
+    // var contents=document.getElementById('inappiframeattendance').contentWindow.document;
+
+    if(checkNetworkandData('inappiframecompBrand')){
+      iframeLoadFinish = true;
+      return false;
+    }
+
+    //尚未有權限替代方法
+    if(isReloadCompBrandIframe()){
+      // alert('test')
+      var iframe = document.getElementById('inappiframecompBrand');      
+      var url = window.localStorage.getItem('ipAdress') + window.localStorage.getItem('AppName') + '/PDA/CompeteBrandSales/competeBrandSales.jsp';
+      iframe.src = url;
+      return false;
+    }
+
+    // var loadStatus = $(document.getElementById("inappiframeattendance").contentDocument).find('[data-role=page]').length > 0 ? true : false;
+    // if(loadStatus){
+    //   $('#inappiframeattendance').show({duration:0});
+    // }else{
+    //   alert('error');
+    // }
+    
+    if( $.mobile.activePage.attr('id') == "compBrand"){ 
+        if($('#inappiframecompBrand').length > 0){
+          customIframeCompBrandCSS();
+          $('#inappiframecompBrand').show({duration:0});
+          // customIframeAttendanceSet_PageBackBtn();
+          // setDevicePlatform('inappiframestock');
+        }             
+    }
+
+    iframeLoadFinish = true;
+    
+  }catch(e){
+      console.log(e);
+  }
+}
+
+
 
 function  inappiFrameStockLoad(){
   try{
@@ -1613,6 +1698,37 @@ function resumeTimeoutForRealtimeinfoIframe(){
 
 function setDevicePlatform(iframeName){
     document.getElementById(iframeName).contentWindow.setDevicePlatform(cordova.platformId);
+}
+
+function customIframeCompBrandCSS(){
+  try{
+
+
+      var iframeDocument = document.getElementById('inappiframecompBrand').contentWindow.document;
+      $(iframeDocument).find('[data-role=page]#page_1 [data-role=footer]').remove();
+
+      var screenHeight = $(window).height() || 0;
+      var screenWidth = $(window).width() || 0;
+      screenWidth = screenWidth -5;
+      // var tabsHeaderHeight = $(iframeDocument).find('[data-role=page]#page1 [data-role=header]').outerHeight() || 0;
+      var tabsHeaderHeight = 0    ;
+      var baseFooterHeight = $.mobile.activePage.find('[data-role=footer]').outerHeight() || 0;
+      var tabsHeight = screenHeight - tabsHeaderHeight - baseFooterHeight -5;
+      $(iframeDocument).find('[data-role=page]#page1 #tabs').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","height": tabsHeight + "px", "width": screenWidth + "px"});
+      $(iframeDocument).find('[data-role=page]#page1').css({"height":"100%"});
+
+      // var set_PageHeaderHeight = $(iframeDocument).find('[data-role=page]#set_Page [data-role=header]').outerHeight() || 0;
+      var set_PageHeaderHeight = 90;
+      var set_PageHeight = screenHeight - set_PageHeaderHeight - baseFooterHeight;
+      $(iframeDocument).find('[data-role=page]#set_Page [data-role=content]').css({"position":"absolute","-webkit-overflow-scrolling":"touch","overflow-y":"scroll","width": screenWidth + "px","height": set_PageHeight + "px"});
+
+
+
+
+  }catch(e){
+      console.log(e);
+  }
+
 }
 
 function customIframeStockCSS(){
@@ -1983,7 +2099,7 @@ function quitAppForAnroid() {
     );
 }
 
-var footerClickImages = ['css/images/footer_icon01.png','css/images/footer_icon02.png','css/images/footer_icon03.png','css/images/footer_icon04.png'];
+var footerClickImages = ['css/images/footer_icon01.png','css/images/footer_icon02.png','css/images/footer_icon03.png','css/images/footer_icon04.png','css/images/footer_icon06.png'];
 function preload(arrayOfImages) {
     $(arrayOfImages).each(function () {
         $('<img />').attr('src',this).appendTo('body').css('display','none');

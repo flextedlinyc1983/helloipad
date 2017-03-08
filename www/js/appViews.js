@@ -975,6 +975,7 @@ ava.views.PageView = ava.views.UtilityView.extend({
       "vclick div[data-role=footer] ul .connection a": "connectionClick",
       "vclick div[data-role=footer] ul .attendance a": "attendanceClick",
       "vclick div[data-role=footer] ul .stock a": "stockClick",
+      "vclick div[data-role=footer] ul .compBrand a": "compBrandClick",
       "vclick div[data-role=footer] ul .business a": "businessClick",
       "click div[data-role=footer] ul .backPage a": "backPageClick",
       "swiperight div[data-role=footer] ul" : "swipeRightFooter",
@@ -1079,6 +1080,18 @@ ava.views.PageView = ava.views.UtilityView.extend({
       e.preventDefault();      
       $.mobile.activePage.focus();
       footerBusinessClick(e);
+      
+  },  
+  compBrandClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+
+      if( $.mobile.activePage.attr('id') != "compBrand" && iframeLoadFinish == false){
+        return false;
+      }
+
+      footerCompBrandClick(e);
       
   },
   stockClick: function (e) {
@@ -1310,11 +1323,11 @@ ava.views.PageView = ava.views.UtilityView.extend({
 
 
     // $(this.el).html(this.template(this.loginStatus));
-    this.$el.html(this.template({setting_text: $.i18n.prop('msg_setting_text'), performance_text: $.i18n.prop('msg_performance_text'), attendance_text: $.i18n.prop('msg_attendance_text'), stock_text: $.i18n.prop('msg_stock_text'), back_text: $.i18n.prop('msg_back_text'), flaps_name: $.i18n.prop('msg_flaps_name'), registerText:$.i18n.prop('msg_PortalView_registerText')}));
+    this.$el.html(this.template({setting_text: $.i18n.prop('msg_setting_text'), performance_text: $.i18n.prop('msg_performance_text'), attendance_text: $.i18n.prop('msg_attendance_text'), stock_text: $.i18n.prop('msg_stock_text'), compBrand_text: $.i18n.prop('msg_compBrand_text'),back_text: $.i18n.prop('msg_back_text'), flaps_name: $.i18n.prop('msg_flaps_name'), registerText:$.i18n.prop('msg_PortalView_registerText')}));
     
     
 
-    if(window.location.hash.indexOf("#stock") && window.location.hash.indexOf("#attendance") && window.location.hash.indexOf("#connectOperation") && window.location.hash != "#navMenu" && window.location.hash.indexOf("#RealtimeInfo_Today_Test/getPosInfo")){
+    if(window.location.hash.indexOf("#compBrand") && window.location.hash.indexOf("#stock") && window.location.hash.indexOf("#attendance") && window.location.hash.indexOf("#connectOperation") && window.location.hash != "#navMenu" && window.location.hash.indexOf("#RealtimeInfo_Today_Test/getPosInfo")){
       
       if(window.location.hash != ""){
         var items = getHeaderAreaItems(window.location.hash);
@@ -1422,12 +1435,21 @@ ava.views.PortalView = ava.views.UtilityView.extend({
      "vclick div[data-role=footer] ul .connection a": "connectionClick",
      "vclick div[data-role=footer] ul .attendance a": "attendanceClick",
      "vclick div[data-role=footer] ul .stock a": "stockClick",
+     "vclick div[data-role=footer] ul .compBrand a": "compBrandClick",
      "swiperight" : "swipeRightPortal",
      "swipeleft" : "swipeLeftPortal",
      "swiperight div[data-role=footer] ul" : "swipeRightFooterPortal",
      "swiperight div[data-role=header] ul" : "swipeRightHeaderPortal",
      "swipeleft div[data-role=footer] ul" : "swipeLeftFooterPortal",
      "swipeleft div[data-role=header] ul" : "swipeLeftHeaderPortal"
+  },
+
+  compBrandClick: function (e) {
+      
+      e.preventDefault();      
+      $.mobile.activePage.focus();
+      footerCompBrandClick(e);
+      
   },
 
   stockClick: function (e) {

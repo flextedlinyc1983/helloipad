@@ -137,6 +137,11 @@ var app = {
                     if (activePage == "pageStock"){
                         quitAppForAnroid();
                     }
+                }else if (window.location.hash == "#compBrand" && $.mobile.activePage.attr("id") == "compBrand"){
+                    var activePage = document.getElementById('inappiframecompBrand').contentWindow.getActivePageId();                    
+                    if (activePage == "page_1"){
+                        quitAppForAnroid();
+                    }
                 }
 
                 
@@ -149,6 +154,18 @@ var app = {
                 if(window.location.hash == "#stock"){
                     document.getElementById('inappiframestock').contentWindow.backBtnFromAndroid();
                 }
+
+                //競品
+                if(window.location.hash == "#compBrand"){
+                    document.getElementById('inappiframecompBrand').contentWindow.backBtnFromAndroid();
+
+                    // var activePage = document.getElementById('inappiframecompBrand').contentWindow.getActivePageId(); 
+                    // if (activePage != "page_1"){
+                    //     document.getElementById('inappiframecompBrand').contentWindow.history.back(); 
+                    // }
+                    
+                }
+
                 //業績
                 if(window.location.hash == ""){
                     document.getElementById('inappiframerealtimeinfo').contentWindow.backBtnFromAndroid();
@@ -218,6 +235,16 @@ var app = {
                 $('#Divinappiframeattendance').width(attendWidth);
                 $('#inappiframeattendance').height(attendframeHeight);
                 customIframeAttendanceCSS();
+            }
+
+            if(window.location.hash == "#compBrand"){
+                var compBrandWidth = $(window).width();
+                var compBranddivHeight = $(window).height() - 53 + 5 + 5;
+                var compBrandframeHeight = $(window).height() - 53 ;
+                $('#DivinappiframecompBrand').height(compBranddivHeight);
+                $('#DivinappiframecompBrand').width(compBrandWidth);
+                $('#inappiframecompBrand').height(compBrandframeHeight);
+                customIframeCompBrandCSS();
             }
 
             if(window.location.hash == "#stock"){

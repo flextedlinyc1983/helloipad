@@ -428,6 +428,41 @@ label[name="labelConnectDefaultSelector"] {
     
 }
 
+.footerArea ul .compBrand a.selected {
+    background-color: #f6f6f6;
+    text-shadow: none;
+    background-image: url(../images/footer_icon06.png);
+    color: cornflowerblue;
+}
+
+.footerArea ul .compBrand a {
+    background-image: url(../images/footer_icon06_on.png);    
+    background-repeat: no-repeat;
+    background-position: center 2px;
+    background-size: auto 30px;
+    
+    
+}
+
+.footerArea ul .compBrand a.footerItemDisabled {
+
+    background-image: url(../images/footer_icon06_disabled.png);
+    background-repeat: no-repeat;
+    background-position: center 2px;
+    background-size: auto 30px;
+    /* background-color: darkgoldenrod; */
+    color: #c5c5c5;
+}
+
+
+.footerArea ul .compBrand a:hover {
+    background-color:#f6f6f6;
+}
+
+.footerArea ul .compBrand a:active {
+    background-color:#f6f6f6;
+}
+
 .footerArea ul .stock a:hover {
     background-color:#f6f6f6;
 }
